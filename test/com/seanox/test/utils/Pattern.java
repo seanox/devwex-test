@@ -31,4 +31,16 @@ public class Pattern {
     
     /** spaces without line break */
     public static final String LINE_SPACE = "[^\\S\\r\\n]";
+    
+    /** 
+     *  Pattern for netweork connection.<br>
+     *  Format: {@code host:port}<br>
+     *  Grouping:
+     *  <dir>
+     *    0: match<br>
+     *    1: host<br>
+     *    2: port<br>
+     *  </ul> 
+     */
+    public static final String NETWORK_CONNECTION = "^(?i:([a-z_\\-\\d\\.:]+):(\\d{1,5}))$";
 }
