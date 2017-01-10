@@ -3,8 +3,8 @@
  *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt. Diese
  *  Software unterliegt der Version 2 der GNU General Public License.
  *
- *  Seanox Commons, Advanced Programming Interface
- *  Copyright (C) 2016 Seanox Software Solutions
+ *  Devwex, Advanced Server Development
+ *  Copyright (C) 2017 Seanox Software Solutions
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as published
@@ -21,13 +21,8 @@
  */
 package com.seanox.devwex;
 
-import java.io.PrintWriter;
-import java.net.Socket;
-
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.seanox.test.utils.StreamUtils;
 
 /**
  *  TestCases for {@link com.seanox.devwex.Remote}.
@@ -43,13 +38,10 @@ public class RemoteTest_Timeout extends AbstractTest {
      */    
     @Test(timeout=11000)
     public void testTimeout_1() throws Exception {
-
-        String result = null;
-        try (Socket socket = new Socket("127.0.0.1", 25001)) {
-            result = new String(StreamUtils.read(socket.getInputStream()));
-        }
         
-        Assert.assertTrue(result.isEmpty());
+        String response = new String(TestUtils.sendRequest("127.0.0.1:25001"));
+        
+        Assert.assertTrue(response.isEmpty());
     }    
     
     /** 
@@ -61,15 +53,9 @@ public class RemoteTest_Timeout extends AbstractTest {
      */   
     @Test(timeout=11000)
     public void testTimeout_2() throws Exception {
-
-        String result = null;
-        try (Socket socket = new Socket("127.0.0.1", 25001)) {
-            PrintWriter writer = new PrintWriter(socket.getOutputStream());
-            writer.print("sTatuS");
-            writer.flush();            
-            result = new String(StreamUtils.read(socket.getInputStream()));
-        }
         
-        Assert.assertTrue(result.isEmpty());
+        String response = new String(TestUtils.sendRequest("127.0.0.1:25001", "sTatuS"));
+        
+        Assert.assertTrue(response.isEmpty());
     }     
 }

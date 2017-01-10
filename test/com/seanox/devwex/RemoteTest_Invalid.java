@@ -3,8 +3,8 @@
  *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt. Diese
  *  Software unterliegt der Version 2 der GNU General Public License.
  *
- *  Seanox Commons, Advanced Programming Interface
- *  Copyright (C) 2016 Seanox Software Solutions
+ *  Devwex, Advanced Server Development
+ *  Copyright (C) 2017 Seanox Software Solutions
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as published
@@ -21,13 +21,8 @@
  */
 package com.seanox.devwex;
 
-import java.io.PrintWriter;
-import java.net.Socket;
-
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.seanox.test.utils.StreamUtils;
 
 /**
  *  TestCases for {@link com.seanox.devwex.Remote}.
@@ -43,19 +38,12 @@ public class RemoteTest_Invalid extends AbstractTest {
     @Test
     public void testUnknownCommand_1() throws Exception {
 
-        String command = "X";
+        String command = "";
         while (command.length() < 65536)
             command += "XXXXXXXXX";
-
-        String result = null;
-        try (Socket socket = new Socket("127.0.0.1", 25001)) {
-            PrintWriter writer = new PrintWriter(socket.getOutputStream());
-            writer.println(command);
-            writer.flush();
-            result = new String(StreamUtils.read(socket.getInputStream()));            
-        }
+        String response = new String(TestUtils.sendRequest("127.0.0.1:25001", command + "\r\n"));
         
-        Assert.assertEquals("INFO: UNKNOWN COMMAND\r\n", result);
+        Assert.assertEquals("INFO: UNKNOWN COMMAND\r\n", response);
     }
     
     /** 
@@ -66,15 +54,9 @@ public class RemoteTest_Invalid extends AbstractTest {
      */
     @Test
     public void testUnknownCommand_2() throws Exception {
-
-        String result = null;
-        try (Socket socket = new Socket("127.0.0.1", 25001)) {
-            PrintWriter writer = new PrintWriter(socket.getOutputStream());
-            writer.print("restar\r\n123");
-            writer.flush();
-            result = new String(StreamUtils.read(socket.getInputStream()));   
-        }
         
-        Assert.assertEquals("INFO: UNKNOWN COMMAND\r\n", result);
+        String response = new String(TestUtils.sendRequest("127.0.0.1:25001", "restar\r\n123"));
+        
+        Assert.assertEquals("INFO: UNKNOWN COMMAND\r\n", response);
     }
 }
