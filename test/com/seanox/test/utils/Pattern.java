@@ -43,4 +43,15 @@ public class Pattern {
      *  </ul> 
      */
     public static final String NETWORK_CONNECTION = "^(?i:([a-z_\\-\\d\\.:]+):(\\d{1,5}))$";
+
+    /** 
+     *  Pattern for a HTTP response.<br>
+     *  Grouping:
+     *  <dir>
+     *    0: match<br>
+     *    1: header<br>
+     *    2: body<br>
+     *  </ul> 
+     */
+    public static final String HTTP_RESPONSE = "(?s)^(.*?)(?:(?:\r\n){2})(.*)$";
 }

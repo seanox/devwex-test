@@ -45,13 +45,22 @@ public class ListenerTest_AccessLog extends AbstractTest {
         File accessLogFile = new File(TestUtils.getRootStage(), accessLog);
         accessLogFile.delete();
         
-        String requst = "GET / HTTP/1.0\r\n"
+        String request = "GET / HTTP/1.0\r\n"
                 + "Host: eXaMpLe.sErVeR.k"; 
-        String response = new String(TestUtils.sendRequest("127.0.0.1:80", requst + "\r\n\r\n"));
+        String response = new String(TestUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         
         Thread.sleep(250);
         Assert.assertTrue(accessLogFile.exists());
     }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  TODO:
+     *  @throws Exception
+     */
+    @Test
+    public void testAceptance_2() throws Exception {
+    }    
 }

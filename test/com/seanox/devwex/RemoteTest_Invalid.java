@@ -32,7 +32,7 @@ public class RemoteTest_Invalid extends AbstractTest {
     /** 
      *  TestCase for an unknown command and overlength.
      *  The length of the request is limited to 65535 bytes and must be
-     *  answered with {@code INFO: UNKNOWN COMMAND}.
+     *  responded with {@code INFO: UNKNOWN COMMAND}.
      *  @throws Exception
      */
     @Test
@@ -49,7 +49,7 @@ public class RemoteTest_Invalid extends AbstractTest {
     /** 
      *  TestCase for an unknown command.
      *  The command {@code Restar[\r\n]123} is invalid and must be
-     *  answered with {@code INFO: UNKNOWN COMMAND}.
+     *  responded with {@code INFO: UNKNOWN COMMAND}.
      *  @throws Exception
      */
     @Test

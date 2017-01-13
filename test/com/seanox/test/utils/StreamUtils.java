@@ -40,7 +40,7 @@ public class StreamUtils {
      */
     public static byte[] read(InputStream input)
             throws IOException {
-        return StreamUtils.read(input, true);
+        return StreamUtils.read(input, false);
     }
     
     /**

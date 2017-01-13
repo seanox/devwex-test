@@ -282,7 +282,7 @@ public class ListenerTest_Request extends AbstractTest {
     /** 
      *  TestCase for aceptance.
      *  Aborted requests should not be blocked. The value of MAXACCESS must not
-     *  be reached. All 150 queries must be answered with status 200, even if
+     *  be reached. All 150 queries must be responded with status 200, even if
      *  the MAXACCESS is set to 100.
      *  @throws Exception
      */
