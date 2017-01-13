@@ -38,6 +38,7 @@ import com.seanox.test.utils.Accession;
 @Suite.SuiteClasses({
     InitializeTest_Parse.class,
     InitializeTest_Set.class,
+    InitializeTest_Contains.class,
     InitializeTest_ToString.class
 })
 public class InitializeTest {
