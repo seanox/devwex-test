@@ -33,7 +33,8 @@ import org.junit.runners.Suite;
     ListenerTest_MimeType.class,
     ListenerTest_AccessLog.class,
     ListenerTest_Delete.class,
-    ListenerTest_VirtualHost.class
+    ListenerTest_VirtualHost.class,
+    ListenerTest_Performance.class
 })
 public class ListenerTest extends AbstractSuite {
 }
