@@ -32,7 +32,11 @@ import org.junit.runners.Suite;
     ListenerTest_Request.class,
     ListenerTest_MimeType.class,
     ListenerTest_AccessLog.class,
+    ListenerTest_Get.class,
+    ListenerTest_Head.class,
+    ListenerTest_Put.class,
     ListenerTest_Delete.class,
+    ListenerTest_Status.class,
     ListenerTest_VirtualHost.class,
     ListenerTest_Performance.class
 })

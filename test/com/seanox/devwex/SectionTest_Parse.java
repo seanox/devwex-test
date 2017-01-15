@@ -88,6 +88,14 @@ public class SectionTest_Parse {
         assertEquals(ResourceUtils.getContextContent("testAceptance_7_1"), SectionTest.toString(section));
     }
     
+    /** TestCase for aceptance. */
+    @Test
+    public void testAceptance_8() {
+        
+        Section section = Section.parse(ResourceUtils.getContextContent());
+        assertEquals(ResourceUtils.getContextContent("testAceptance_8_1"), SectionTest.toString(section));
+    }    
+    
     /** TestCase for override keys. */
     @Test
     public void testOverride_1() {
