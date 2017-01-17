@@ -21,27 +21,8 @@
  */
 package com.seanox.devwex;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-
 /**
- *  TestSuite for #{@link com.seanox.devwex.Listener}.
+ *  TestCases for {@link com.seanox.devwex.Listener}.
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    ListenerTest_Request.class,
-    ListenerTest_Url.class,
-    ListenerTest_Authentication.class,
-    ListenerTest_MimeType.class,
-    ListenerTest_AccessLog.class,
-    ListenerTest_Filter.class,
-    ListenerTest_Get.class,
-    ListenerTest_Head.class,
-    ListenerTest_Put.class,
-    ListenerTest_Delete.class,
-    ListenerTest_Status.class,
-    ListenerTest_VirtualHost.class,
-    ListenerTest_Performance.class
-})
-public class ListenerTest extends AbstractSuite {
+public class ListenerTest_AuthenticationDigest extends AbstractTest {
 }

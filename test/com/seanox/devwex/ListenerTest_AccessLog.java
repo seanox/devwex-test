@@ -46,7 +46,7 @@ public class ListenerTest_AccessLog extends AbstractTest {
         accessLogFile.delete();
         
         String request = "GET / HTTP/1.0\r\n"
-                + "Host: eXaMpLe.sErVeR.k"; 
+                + "Host: vHk"; 
         String response = new String(TestUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
