@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<project name="devwex-test" default="compile" basedir="..">
+  
+  <property name="workspace" value="."/>
+  <property name="workspace.resources" value="${workspace}/resources"/>  
+  <property name="workspace.resources.libraries" value="${workspace.resources}/libraries"/>
+  
+  <target name="compile">
+    <delete file="${workspace.resources.libraries}/ConnectorA.class"/>
+    <delete file="${workspace.resources.libraries}/ConnectorA.jar"/>
+    <javac srcdir="${workspace.resources.libraries}" destdir="${workspace.resources.libraries}"
+      includeantruntime="false"/>
+    <jar destfile="${workspace.resources.libraries}/ConnectorA.jar"
+       basedir="${workspace.resources.libraries}"
+       includes="ConnectorA.class"/>
+    <delete file="${workspace.resources.libraries}/ConnectorA.class"/>
+  </target>
+</project>
