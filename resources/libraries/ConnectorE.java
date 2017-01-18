@@ -19,33 +19,20 @@
  *  with this program; if not, write to the Free Software Foundation, Inc.,
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 /** Very elementary module, only for internal use. */
-public class ConnectorA {
+public class ConnectorE {
     
-    /** referenced listener */
-    private Object listener;
-    
-    /** listener environment */
+    /** copy of listener environment */
     private Object environment;
     
     /** internal map of listener environment */
     private Map<String, String> environmentMap;    
-
-    /** listener output stream */
-    private OutputStream output;
-
-    /** listener connection control */
-    private boolean control;
-
-    /** listener response status */
-    private int status;
-
-    /** modul type */
-    private int type;
     
     /**
      *  Synchronizes the fields of two objects.
@@ -90,41 +77,23 @@ public class ConnectorA {
         export.setAccessible(true);
         return export.get(source);
     }
-    
-    public void bind(Object listener, int type)
-            throws Exception {
-        
-        this.listener = listener;
-        this.type = type;
-        ConnectorA.synchronizeFields(listener, this);
+
+    public void bind(Object listener, int type) throws Throwable {
+
+        ConnectorE.synchronizeFields(listener, this);
         if (this.environment != null)
-            this.environmentMap = (Map<String, String>)ConnectorA.getField(this.environment, "entries");
+            this.environmentMap = (Map<String, String>)ConnectorE.getField(this.environment, "entries");
         this.service();
     }
     
-    private void service()
-            throws Exception {
+    public void service() throws Exception {
         
-        String string;
-
-        try {
-          
-            this.status = 1;
-
-            //the header is built and written out
-            string = ("HTTP/1.0 ").concat("001 Test ok").concat("\r\n");
-            string = string.concat("Server: ").concat(this.environmentMap.get("SERVER_SOFTWARE")).concat("\r\n");
-            if (this.environmentMap.get("MODULE_OPTS").length() > 0)
-                string = string.concat("Opts: ").concat(this.environmentMap.get("MODULE_OPTS")).concat("\r\n");
-            string = string.concat("Modul: ").concat(this.getClass().getName()).concat("\r\n");
-            string = string.concat("Modultype: ").concat(String.valueOf(this.type)).concat("\r\n\r\n");
-
-            //the connection is marked as closed
-            this.control = false;
-            this.output.write(string.getBytes());
-
-        } finally {
-            ConnectorA.synchronizeFields(this, this.listener);
-        }
+        String docRoot = this.environmentMap.get("DOCUMENT_ROOT");
+        
+        int value = 1;
+        Path testFile = Paths.get(docRoot, "test.txt");
+        if (Files.exists(testFile))
+            value = Integer.valueOf(new String(Files.readAllBytes(testFile))).intValue() +1;
+        Files.write(testFile, String.valueOf(value).getBytes());
     }
 }

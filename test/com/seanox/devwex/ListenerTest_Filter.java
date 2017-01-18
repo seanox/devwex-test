@@ -21,6 +21,10 @@
  */
 package com.seanox.devwex;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -463,4 +467,78 @@ public class ListenerTest_Filter extends AbstractTest {
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));  
         Assert.assertTrue(response.contains("filter_a.html"));
     } 
+    
+    /** 
+     *  TestCase for aceptance.
+     *  If the request contains {@code Felda: t5}, then a module should be
+     *  used. But the module definition is incorrect, the option {@code [M]} is
+     *  missing here. So the request is responded with status 403.
+     *  filter expression: {@code GET IS CONTAINS FELDA T5  > ConnectorA}
+     *  @throws Exception
+     */
+    @Test
+    public void testAceptance_19() throws Exception {
+        
+        String request = "GET / HTTP/1.0\r\n"
+                + "Felda: t5\r\n"
+                + "Feld-C: 123";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));  
+        Assert.assertFalse(response.matches("(?si)^.*\\sLocation:.*$"));
+    }  
+    
+    /** 
+     *  TestCase for aceptance.
+     *  If the request contains {@code Felda: t3}, then a module should be
+     *  used. So the request is responded with status 001.
+     *  filter expression: {@code GET IS CONTAINS FELDA T3  > ConnectorA [pA=3] [m]}
+     *  @throws Exception
+     */
+    @Test
+    public void testAceptance_20() throws Exception {
+        
+        String request = "GET / HTTP/1.0\r\n"
+                + "Felda: t3\r\n"
+                + "Feld-C: 123";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 001 Test ok\\s+\\w+.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ConnectorA\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nModultype: 1\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: ConnectorA \\[pA=3\\] \\[m\\]\r\n.*$"));
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s1\\s\\d+\\s-\\s-$"));        
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  VHP has three ALWAYS filters.
+     *  All filters are executed because no filter changes the server status.
+     *  The request is answered with status 200 and a test file is created in
+     *  DocRoot. Each filter increases the value in the file. Finally, the file
+     *  must contain the value "3".
+     *  filter expression: {@code ALL ALWAYS > ConnectorE [M]}
+     *  @throws Exception
+     */
+    @Test
+    public void testAceptance_21() throws Exception {
+        
+        String docRoot = TestUtils.getRootStage().toString() + "/documents_vh_P";
+        Path testFile = Paths.get(docRoot, "test.txt");
+        if (Files.exists(testFile))
+            Files.delete(testFile);
+        Assert.assertFalse(Files.exists(testFile));
+        
+        String request = "GET / HTTP/1.0\r\n"
+                + "Host: vHp";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));  
+        Assert.assertTrue(Files.exists(testFile));
+        String fileContent = new String(Files.readAllBytes(testFile));
+        Assert.assertEquals("3", fileContent);
+    }    
 }
