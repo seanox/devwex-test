@@ -24,6 +24,8 @@ package com.seanox.devwex;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.seanox.test.utils.Pattern;
+
 /**
  *  TestCases for {@link com.seanox.devwex.Listener}.
  */
@@ -103,6 +105,39 @@ public class ListenerTest_Gateway extends AbstractTest {
     
     /** 
      *  TestCase for aceptance.
+     *  Content-Length is 25 but be sent 28 bytes but only 25 bytes must be
+     *  sent to the CGI. The request is responded with status 200 and an echo
+     *  of the request.
+     *  @throws Exception
+     */    
+    @Test
+    public void testAceptance_04() throws Exception {
+        
+        String request = "POST /cgi_echo.bsh HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "Content-Type: application/x-www-form-urlencoded\r\n"
+                + "Content-Length: 25\r\n"
+                + "\r\n"
+                + "parameter=xxx&xxx=1234567890";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:80", request));   
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        
+        String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
+        Assert.assertTrue(header.trim().length() > 0);
+        String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
+        Assert.assertTrue(body.length() == 25);
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s25\\s-\\s-$"));      
+    }
+    
+    /** 
+     *  TestCase for aceptance.
      *  The CGI script responds the request with {@code HTTP/1.1 123 Test ...}.
      *  So must also the response header contain {@code HTTP/1.0 123 Test ...}
      *  and be logged with status 123.
@@ -111,7 +146,7 @@ public class ListenerTest_Gateway extends AbstractTest {
     @Test
     public void testAceptance_05() throws Exception {
         
-        String request = "GET /cgi_header_status1.bsh HTTP/1.0\r\n"
+        String request = "GET /cgi_header_status_1.bsh HTTP/1.0\r\n"
                 + "Host: vHa";
         String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
         
@@ -128,6 +163,80 @@ public class ListenerTest_Gateway extends AbstractTest {
     
     /** 
      *  TestCase for aceptance.
+     *  The environment variable {@code DOCUMENT_ROOT} must contain the value
+     *  of {@code DOCROOT} and refer to the current work directory.
+     *  @throws Exception
+     */     
+    @Test
+    public void testAceptance_08() throws Exception {
+        
+        String request = "GET \\cgi_environment.bsh HTTP/1.0\r\n"
+                + "Host: vHa";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        
+        String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
+        Assert.assertTrue(header.trim().length() > 0);
+        String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
+        Assert.assertTrue(body.matches("(?si)^.*\r\nDOCUMENT_ROOT=[^\r\n]+/stage/documents_vh_A\r\n.*$"));
+    } 
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Only for modules will set the environment variable {@code MODULE_OPTS}.
+     *  @throws Exception
+     */     
+    @Test
+    public void testAceptance_09() throws Exception {
+        
+        String request = "GET \\cgi_environment.bsh HTTP/1.0\r\n"
+                + "Host: vHa";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        
+        String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
+        Assert.assertTrue(header.trim().length() > 0);
+        String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
+        Assert.assertFalse(body.matches("(?si)^.*\\sMODULE_OPTS=.*$"));
+    } 
+
+    /** 
+     *  TestCase for aceptance.
+     *  The CGI script responds the request with {@code HTTP/1.1 401 Test ...}.
+     *  The first line with the HTTP status must be built by the server.
+     *  The custom HTTP status must not be included in the response.
+     *  There are no duplicates of the HTTP status allowed.
+     *  @throws Exception
+     */    
+    @Test
+    public void testAceptance_98() throws Exception {
+        
+        String request = "GET /cgi_header_status_C.bsh HTTP/1.0\r\n"
+                + "Host: vHa";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401 Authorization Required\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?s)^.*\r\nHTTP/1\\.0 401.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches("(?si)^.*\r\nServer: Seanox-Devwex.*$"));
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s401\\s\\d+\\s-\\s-$"));      
+    }  
+    
+    /** 
+     *  TestCase for aceptance.
      *  The CGI script responds the request with {@code HTTP/1.1 401 Test ...}.
      *  The status text is individual but is respondedd with the server
      *  standard {@code HTTP/1.0 401 Authorization Required}.
@@ -135,8 +244,8 @@ public class ListenerTest_Gateway extends AbstractTest {
      */    
     @Test
     public void testAceptance_99() throws Exception {
-        
-        String request = "GET /cgi_header_statusc.bsh HTTP/1.0\r\n"
+
+        String request = "GET /cgi_header_status_C.bsh HTTP/1.0\r\n"
                 + "Host: vHa";
         String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
         
@@ -149,5 +258,5 @@ public class ListenerTest_Gateway extends AbstractTest {
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
         Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s401\\s\\d+\\s-\\s-$"));      
-    }    
+    } 
 }
