@@ -21,19 +21,20 @@
  */
 package com.seanox.devwex;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.Test;
 
 /**
  *  TestSuite for com.seanox.devwex.
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    GeneratorTest.class,
-    InitializeTest.class,
-    SectionTest.class,
-    RemoteTest.class,
-    ListenerTest.class
-})
-public class Test extends AbstractSuite {
+public class TestRun extends AbstractTest {
+    
+    /** 
+     *  Starts the test environment permanently.
+     *  @throws Exception
+     */
+    @Test
+    public void run() throws Exception {
+        while (true)
+            Thread.sleep(250);
+    }
 }

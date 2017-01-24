@@ -29,7 +29,7 @@ import com.seanox.test.utils.Pattern;
 /**
  *  TestCases for {@link com.seanox.devwex.Listener}.
  */
-public class ListenerTest_URL extends AbstractTest {
+public class ListenerTest_Locale extends AbstractTest {
     
     /** 
      *  TestCase for aceptance.

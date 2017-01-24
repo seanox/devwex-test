@@ -30,7 +30,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     ListenerTest_Request.class,
-    ListenerTest_URL.class,
+    ListenerTest_Locale.class,
     ListenerTest_Authentication.class,
     ListenerTest_MimeType.class,
     ListenerTest_AccessLog.class,
@@ -40,7 +40,7 @@ import org.junit.runners.Suite;
     ListenerTest_Put.class,
     ListenerTest_Delete.class,
     ListenerTest_Status.class,
-    ListenerTest_CGI.class,
+    ListenerTest_Gateway.class,
     ListenerTest_VirtualHost.class,
     ListenerTest_Performance.class
 })

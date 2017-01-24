@@ -238,6 +238,305 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
         Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s401\\s\\d+\\s-\\s-$"));
+    }  
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Test for Basic Authentication:
+     *  {@code /authentication/a/b/d/e/e [acc:usr-e:pwd-e:Section-E]}
+     *  The authentication is missing and the request is responded with status
+     *  401.
+     *  @throws Exception
+     */    
+    @Test
+    public void testAceptance_10() throws Exception {
+        
+        String request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
+                + "Host: vHa";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
+        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-E\"\r\n"));
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s401\\s\\d+\\s-\\s-$"));
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Test for Basic Authentication:
+     *  {@code /authentication/a/b/d/e/e [acc:usr-e:pwd-e:Section-E]}
+     *  With {@code acc:usr-e:pwd-e} the authentication is correct and the request
+     *  is responded with status 200.
+     *  @throws Exception
+     */    
+    @Test
+    public void testAceptance_11() throws Exception {
+        
+        String request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
+               + "Host: vHa\r\n"
+               + "Authorization: Basic dXNyLWU6cHdkLWU=";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-e\" \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Test for Basic Authentication:
+     *  {@code /authentication/a/b/d/e/e [acc:usr-e:pwd-e:Section-E]}
+     *  With {@code acc:usr-e:pwd-e} the authentication is correct and the
+     *  request is responded with status 302, because requested is a directory.
+     *  @throws Exception
+     */
+    @Test
+    public void testAceptance_12() throws Exception {
+        
+        String request;
+        String response;
+        String accessLog;
+        
+        request = "GET /authentication/a/b/d/e/e HTTP/1.0\r\n"
+               + "Host: vHa\r\n"
+               + "Authorization: Basic " + TestUtils.encodeBase64("usr-e:pwd-e");
+        response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 302\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches("(?s).*\r\nLocation: http://vHa:8080/authentication/a/b/d/e/e/\r\n.*$"));
+
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-e\" \\[[^]]+\\]\\s\"[^\"]+\"\\s302\\s\\d+\\s-\\s-$"));
+        
+        request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
+                + "Host: vHa";
+        response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+    
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
+        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-E\"\r\n"));
+        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Length: \\d+\r\n.*$"));
+        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: text/html\r\n.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s401\\s\\d+\\s-\\s-$"));
+         
+        request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "Authorization: Basic " + TestUtils.encodeBase64("usr-e:pwd-e");
+        response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));
+        
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-e\" \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
+    }
+    
+    private static void assertAceptance_13(String path, String status, int auth) throws Exception {
+        
+        String request = "GET " + path + " HTTP/1.0\r\n"
+                + "Host: vHa\r\n";
+        if (auth == 1)
+            request += "Authorization: Basic " + TestUtils.encodeBase64("usr-e:pwd-e");
+        if (auth == 2)
+            request += "Authorization: Basic " + TestUtils.encodeBase64("usr-a:pwd-a");
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+      
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 " + status + "\\s+\\w+.*$"));
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Test for Basic Authentication:
+     *  The access to @{code /authentication/a/b/d/e/*} is defined in
+     *  combination with option @{code [C]}. ACC has the higher priority and
+     *  must take precedence over the option @{code [C]}.
+     *  All request with ACC are responded with status 401.
+     *  @throws Exception
+     */    
+    @Test
+    public void testAceptance_13() throws Exception {
+        
+        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/f", "401", 0);
+        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/g", "401", 0);
+        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/h", "401", 0);
+        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/i", "401", 0);
+
+        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/f", "403", 1);
+        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/g", "403", 1);
+        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/h", "403", 1);
+        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/i", "403", 1);
+
+        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/f", "401", 2);
+        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/g", "401", 2);
+        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/h", "401", 2);
+        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/i", "401", 2);
+    }
+    
+    private static void assertAceptance_14(String path, String realm, int auth) throws Exception {
+        
+        String request = "GET " + path + " HTTP/1.0\r\n"
+                + "Host: vHa\r\n";
+        if (auth == 1)
+            request += "Authorization: Basic " + TestUtils.encodeBase64("usr-e:pwd-e");
+        if (auth == 2)
+            request += "Authorization: Basic " + TestUtils.encodeBase64("usr-a:pwd-a");
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
+        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"" + realm + "\"\r\n"));        
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Test for Basic Authentication:
+     *  The realm can be specified differently. Spaces at the beginning and
+     *  end, as well the quotation mark are to be suppressed in the HTTP
+     *  header. Without a realm, a clean HTTP header with realm must be sent.
+     *  @throws Exception
+     */   
+    @Test
+    public void testAceptance_14() throws Exception {
+        
+        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/a/", "", 0);
+        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/b/", "", 0);
+        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/c/", "", 0);
+        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/d/", "", 0);
+        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/e/", "", 0);
+        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/f/", "x", 0);
+        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/g/", "x", 0);
+        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/h/", "x", 0);
+        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/i/", "x", 0);
+        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/j/", "x", 0);
+        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/k/", "", 0);        
+    }
+    
+    private static void assertAceptance_15(String path, String realm, String auth) throws Exception {
+        
+        String request = "GET " + path + " HTTP/1.0\r\n"
+                + "Host: vHa\r\n";
+        if (auth != null && !auth.trim().isEmpty())
+            request += "Authorization: Basic " + TestUtils.encodeBase64(auth);
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        
+        if (realm != null)
+            Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"" + realm + "\"\r\n"));      
+        else
+            Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Test for Basic Authentication:
+     *  Users and Realm are separated by the colon when encrypting. Below are
+     *  tested different combinations in the definition.   
+     *  @throws Exception
+     */    
+    @Test
+    public void testAceptance_15() throws Exception {
+        
+        ListenerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/a/", "", null);
+        ListenerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/a/", "", null);
+        ListenerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/b/", "sb", null);
+        ListenerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/b/", "sb", null);
+
+        ListenerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/a/", "", "usrSa1:");
+        ListenerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/a/", null, "usrSa2:");
+        ListenerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/b/", "sb", "usrSb1:");
+        ListenerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/b/", null, "usrSb2:");        
+    } 
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Test for Basic Authentication:
+     *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
+     *  With {@code acc:usr-a:pwd-a} the authentication is correct and the
+     *  request is responded with status 404, because the request does not
+     *  exit. In the access-log, the user is also logged because authorization
+     *  was given. 
+     *  @throws Exception
+     */    
+    @Test
+    public void testAceptance_16() throws Exception {
+        
+        String request = "GET /authentication/a/xxx HTTP/1.0\r\n"
+               + "Host: vHa\r\n"
+               + "Authorization: Basic dXNyLWE6cHdkLWE=";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 404\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-a\" \\[[^]]+\\]\\s\"[^\"]+\"\\s404\\s\\d+\\s-\\s-$"));
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Test for Basic Authentication:
+     *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
+     *  The authentication is missing and the request is responded with status
+     *  401. Even if the file or directory does not exist.
+     *  @throws Exception
+     */      
+    @Test
+    public void testAceptance_17() throws Exception {
+        
+        String request = "GET /authentication/a/xxx HTTP/1.0\r\n"
+                + "Host: vHa";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
+        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-A\"\r\n"));  
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s401\\s\\d+\\s-\\s-$"));
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Test for Basic Authentication:
+     *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
+     *  The authentication is missing and the request is responded with status
+     *  401.
+     *  @throws Exception
+     */       
+    @Test
+    public void testAceptance_18() throws Exception {
+        
+        String request;
+        String response;
+        String accessLog;
+        
+        request = "GET /authentication/a/ HTTP/1.0\r\n"
+                + "Host: vHa";
+        response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
+        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-A\"\r\n"));  
+        
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s401\\s\\d+\\s-\\s-$"));
+        
+        request = "GET /authentication/a/ HTTP/1.0\r\n"
+                + "Host: vHa";
+        response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
     }    
     
     /** 

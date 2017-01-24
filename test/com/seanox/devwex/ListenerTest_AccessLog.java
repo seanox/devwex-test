@@ -24,6 +24,7 @@ package com.seanox.devwex;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -57,10 +58,17 @@ public class ListenerTest_AccessLog extends AbstractTest {
     
     /** 
      *  TestCase for aceptance.
-     *  TODO:
+     *  The time zone must be set correctly in the access log.
      *  @throws Exception
      */
     @Test
     public void testAceptance_2() throws Exception {
+        
+        TestUtils.sendRequest("127.0.0.1:80", "GET / HTTP/1.0\r\n\r\n");
+        
+        String pattern = new SimpleDateFormat("Z", Locale.US).format(new Date());
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^.*?\\[\\d{2}/\\w{3}/\\d{4}(:\\d{2}){3} \\" + pattern + "\\]\\s.*$"));
     }    
 }
