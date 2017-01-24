@@ -1,0 +1,6 @@
+System.out.print("HTTP/1.0 200\r\n\r\n");
+var digit;
+while ((digit = System.in.read()) >= 0) {
+    System.out.write(digit);
+    System.out.flush();
+}
