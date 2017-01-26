@@ -1,5 +1,5 @@
 System.out.print("HTTP/1.0 200\r\n\r\n");
-java.util.Iterator keyIterator = System.getenv().keySet().iterator();
+java.util.Iterator keyIterator = new java.util.TreeSet(System.getenv().keySet()).iterator();
 while (keyIterator.hasNext()) {
     String key = (String)keyIterator.next();
     System.out.print(key + "=" + System.getenv().get(key) + "\r\n");
