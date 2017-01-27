@@ -42,8 +42,7 @@ public class Scripting {
             System.setProperty("user.dir", pathTranslated.getParent().toRealPath().toString());
             ScriptEngineManager factory = new ScriptEngineManager();
             ScriptEngine engine = factory.getEngineByName("JavaScript");
-            String script = new String(Files.readAllBytes(pathTranslated));
-            engine.eval(script);            
+            engine.eval(Files.newBufferedReader(pathTranslated));            
         } catch (Exception exception) {
             System.out.print("\r\n\r\n");
             exception.printStackTrace(System.out);
