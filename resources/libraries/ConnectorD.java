@@ -3,8 +3,8 @@
  *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
  *  Diese Software unterliegt der Version 2 der GNU General Public License.
  *
- *  Devwex, Developing Webserver Extended
- *  Copyright (C) 2010 Seanox Software Solutions
+ *  Devwex, Advanced Server Development
+ *  Copyright (C) 2017 Seanox Software Solutions
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as published
