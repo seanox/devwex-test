@@ -1,3 +1,6 @@
+var System = Java.type("java.lang.System");
+var Thread = Java.type("java.lang.Thread");
+
 System.out.print("HTTP/1.0 200\r\n\r\n");
 System.out.flush();
 for (var loop = 0; loop < 100; loop++) {
