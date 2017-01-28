@@ -41,6 +41,7 @@ import org.junit.runners.Suite;
     ListenerTest_Delete.class,
     ListenerTest_Status.class,
     ListenerTest_Gateway.class,
+    ListenerTest_Configuration.class,
     ListenerTest_VirtualHost.class,
     ListenerTest_Performance.class
 })

@@ -22,6 +22,8 @@
 package com.seanox.devwex;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.SocketException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -507,7 +509,11 @@ public class ListenerTest_Gateway extends AbstractTest {
                 + "Content-Length: " + content.length() + "\r\n"
                 + "\r\n"
                 + content;
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request));
+        
+        String response = "HTTP/1.0 502 xxx\r\n\r\n";
+        try {response = new String(TestUtils.sendRequest("127.0.0.1:8080", request));
+        } catch (IOException exception) {
+        }
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 502\\s+\\w+.*$"));
         
