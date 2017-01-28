@@ -491,6 +491,33 @@ public class ListenerTest_Gateway extends AbstractTest {
     
     /** 
      *  TestCase for aceptance.
+     *  The CGI reads the data very slowly.
+     *  The request is canceled with status 502.
+     *  @throws Exception
+     */     
+    @Test
+    public void testAceptance_16() throws Exception {
+        
+        String content = "x";
+        while (content.length() < 1024 *1024)
+            content += content;
+        
+        String request = "POST /cgi_read_slow.jsx HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "Content-Length: " + content.length() + "\r\n"
+                + "\r\n"
+                + content;
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 502\\s+\\w+.*$"));
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s502\\s\\d+\\s-\\s-$"));      
+    }
+    
+    /** 
+     *  TestCase for aceptance.
      *  An invalid {@code DOCROOT} has been configured for VHC.
      *  The server uses an alternative working directory as {@code DOCROOT}.
      *  @throws Exception
@@ -701,14 +728,27 @@ public class ListenerTest_Gateway extends AbstractTest {
     @Test
     public void testAceptance_21() throws Exception {
 
-        String request = "GET /cgi_header_flood.jsx HTTP/1.0\r\n\r\n";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:80", request));
+        String request;
+        String response;
+        String accessLog;
+        
+        request = "GET /cgi_header_flood_1.jsx HTTP/1.0\r\n\r\n";
+        response = new String(TestUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 502\\s+\\w+.*$"));
         
         Thread.sleep(250);
-        String accessLog = TestUtils.getAccessLogTail();
+        accessLog = TestUtils.getAccessLogTail();
         Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s502\\s\\d+\\s-\\s-$"));   
+        
+        request = "GET /cgi_header_flood_2.jsx HTTP/1.0\r\n\r\n";
+        response = new String(TestUtils.sendRequest("127.0.0.1:80", request));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 502\\s+\\w+.*$"));
+        
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s502\\s\\d+\\s-\\s-$"));  
     } 
     
     /**
