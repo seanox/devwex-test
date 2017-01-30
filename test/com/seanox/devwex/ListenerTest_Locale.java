@@ -42,7 +42,7 @@ public class ListenerTest_Locale extends AbstractTest {
         
         String request = "GET /url_ma%c3%9f%FF_1.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("-3-"));
@@ -59,7 +59,7 @@ public class ListenerTest_Locale extends AbstractTest {
         
         String request = "GET /url_ma%df%c3%bf_1.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("-3-"));
@@ -77,7 +77,7 @@ public class ListenerTest_Locale extends AbstractTest {
         
         String request = "GET /url_ma%DF%FF_2.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 404\\s+\\w+.*$"));
     }    
@@ -95,7 +95,7 @@ public class ListenerTest_Locale extends AbstractTest {
         String response;
         
         request = "GET / HTTP/1.0\r\n\r\n";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8081", request));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8081", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         String header1 = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header1.trim().length() > 0);
@@ -103,7 +103,7 @@ public class ListenerTest_Locale extends AbstractTest {
         Assert.assertTrue(body1.length() > 0);  
         
         request = "GET /..%c0%af..%c0%af..%c0%af..%c0%af..%c0%af.. HTTP/1.0\r\n\r\n";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8081", request));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8081", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));  
         String header2 = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header2.trim().length() > 0);
@@ -127,7 +127,7 @@ public class ListenerTest_Locale extends AbstractTest {
         String response;
         
         request = "GET / HTTP/1.0\r\n\r\n";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8081", request));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8081", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         String header1 = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header1.trim().length() > 0);
@@ -135,7 +135,7 @@ public class ListenerTest_Locale extends AbstractTest {
         Assert.assertTrue(body1.length() > 0);  
         
         request = "GET /commons/%2e%2e/%2e%2e%5c%2e%2e%c0%af%2f%2f%2e%2e%2f HTTP/1.0\r\n\r\n";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8081", request));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8081", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));  
         String header2 = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header2.trim().length() > 0);
@@ -159,7 +159,7 @@ public class ListenerTest_Locale extends AbstractTest {
         String response;
         
         request = "GET / HTTP/1.0\r\n\r\n";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8081", request));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8081", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         String header1 = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header1.trim().length() > 0);
@@ -167,7 +167,7 @@ public class ListenerTest_Locale extends AbstractTest {
         Assert.assertTrue(body1.length() > 0);  
         
         request = "GET /xxx/%2e%2e/%2e%2e%5c%2e%2e%c0%af%2f%2f%2e%2e%2f HTTP/1.0\r\n\r\n";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8081", request));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8081", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));  
         String header2 = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header2.trim().length() > 0);
@@ -191,7 +191,7 @@ public class ListenerTest_Locale extends AbstractTest {
         String response;
         
         request = "GET / HTTP/1.0\r\n\r\n";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8081", request));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8081", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         String header1 = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header1.trim().length() > 0);
@@ -199,7 +199,7 @@ public class ListenerTest_Locale extends AbstractTest {
         Assert.assertTrue(body1.length() > 0);  
         
         request = "GET /xxx/%2e%2e/%2e%2e%5c%2e%2e%%c0%af%2f%2f%2e%2e%2f HTTP/1.0\r\n\r\n";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8081", request));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8081", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));  
         String header2 = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header2.trim().length() > 0);
@@ -229,7 +229,7 @@ public class ListenerTest_Locale extends AbstractTest {
                 request += "%20/";
 
             request = "GET " + request + " HTTP/1.0\r\n\r\n";
-            response = new String(TestUtils.sendRequest("127.0.0.1:8080", request));
+            response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
             Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 404\\s+\\w+.*$"));
         }        
     }      

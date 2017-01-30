@@ -46,13 +46,13 @@ public class ListenerTest_Filter extends AbstractTest {
         String response;
         
         request = "GET / HTTP/1.0";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
         
         request = "GET / HTTP/1.0\r\n"
                 + "Feld-C: 123";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
     }    
@@ -73,37 +73,37 @@ public class ListenerTest_Filter extends AbstractTest {
         request = "GET /xxxAbCxxx HTTP/1.0\r\n"
                 + "FELD-C: xxx\r\n"
                 + "FELD-A: xxx";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
         
         request = "GET /xxxAbxxx HTTP/1.0\r\n"
                 + "FELD-C: xxx\r\n"
                 + "FELD-A: xxx";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 404\\s+\\w+.*$"));
         
         request = "HEAD /xxxAbCxxx HTTP/1.0\r\n"
                 + "FELD-C: xxx\r\n"
                 + "FELD-A: xxx";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
         
         request = "HEAD /xxxAbxxx HTTP/1.0\r\n"
                 + "FELD-C: xxx\r\n"
                 + "FELD-A: xxx";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 404\\s+\\w+.*$"));        
         
         request = "INVALID_METHOD /xxxAbCxxx HTTP/1.0\r\n"
                 + "FELD-C: xxx\r\n"
                 + "FELD-A: xxx";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));  
         
         request = "INVALID_METHOD /xxxAbxxx HTTP/1.0\r\n"
                 + "FELD-C: xxx\r\n"
                 + "FELD-A: xxx";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 405\\s+\\w+.*$"));  
     }  
     
@@ -123,14 +123,14 @@ public class ListenerTest_Filter extends AbstractTest {
         request = "HEAD / HTTP/1.0\r\n"
                 + "Felda: BA12\r\n"
                 + "Feld-C: 123";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
         
         request = "GET / HTTP/1.0\r\n"
                 + "Felda: BA12\r\n"
                 + "Feld-C: 123";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));        
     } 
@@ -151,14 +151,14 @@ public class ListenerTest_Filter extends AbstractTest {
         request = "HEAD / HTTP/1.0\r\n"
                 + "Felda: BA21\r\n"
                 + "Feld-C: 123";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         
         request = "HEAD / HTTP/1.0\r\n"
                 + "Felda: 1BA2\r\n"
                 + "Feld-C: 123";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));   
     }
@@ -174,7 +174,7 @@ public class ListenerTest_Filter extends AbstractTest {
     public void testAceptance_05() throws Exception {
         
         String request = "GET /xxx-%df%c3%9f- HTTP/1.0\r\n\r\n";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));  
     } 
@@ -196,14 +196,14 @@ public class ListenerTest_Filter extends AbstractTest {
         request = "HEAD / HTTP/1.0\r\n"
                 + "Felda: BA3\r\n"
                 + "Feld-C: 123";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         
         request = "HEAD / HTTP/1.0\r\n"
                 + "Felda: A3B\r\n"
                 + "Feld-C: 123";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));   
     }  
@@ -219,7 +219,7 @@ public class ListenerTest_Filter extends AbstractTest {
     public void testAceptance_07() throws Exception {
         
         String request = "GET /xxx-%c3%9f- HTTP/1.0\r\n\r\n";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));  
     }
@@ -240,14 +240,14 @@ public class ListenerTest_Filter extends AbstractTest {
         request = "HEAD / HTTP/1.0\r\n"
                 + "Felda: BA4\r\n"
                 + "Feld-C: 123";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         
         request = "HEAD / HTTP/1.0\r\n"
                 + "Felda: a4\r\n"
                 + "Feld-C: 123";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));   
     }  
@@ -263,7 +263,7 @@ public class ListenerTest_Filter extends AbstractTest {
     public void testAceptance_09() throws Exception {
         
         String request = "GET /xxx-%c3%9f%df- HTTP/1.0\r\n\r\n";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));  
     }
@@ -284,14 +284,14 @@ public class ListenerTest_Filter extends AbstractTest {
         request = "GET / HTTP/1.0\r\n"
                 + "Felda: B1\r\n"
                 + "Feld-C: 123";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));        
 
         request = "GET / HTTP/1.0\r\n"
                 + "Feldb: B2\r\n"
                 + "Feld-C: 123";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         
@@ -299,7 +299,7 @@ public class ListenerTest_Filter extends AbstractTest {
                 + "Feldb: B2\r\n"
                 + "Felda: B1\r\n"
                 + "Feld-C: 123";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));   
     } 
@@ -315,7 +315,7 @@ public class ListenerTest_Filter extends AbstractTest {
     public void testAceptance_11() throws Exception {
         
         String request = "GET /xxx-%DF- HTTP/1.0\r\n\r\n";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));  
     }
@@ -331,7 +331,7 @@ public class ListenerTest_Filter extends AbstractTest {
     public void testAceptance_12() throws Exception {
         
         String request = "GET /xxx-ß- HTTP/1.0\r\n\r\n";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));  
     } 
@@ -350,7 +350,7 @@ public class ListenerTest_Filter extends AbstractTest {
         String request = "GET / HTTP/1.0\r\n"
                 + "Felda: t1\r\n"
                 + "Feld-C: 123";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));  
         Assert.assertTrue(response.contains("filter_a.html"));
@@ -370,7 +370,7 @@ public class ListenerTest_Filter extends AbstractTest {
         String request = "GET / HTTP/1.0\r\n"
                 + "Felda2: t1\r\n"
                 + "Feld-C: 123";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));  
     }   
@@ -388,7 +388,7 @@ public class ListenerTest_Filter extends AbstractTest {
         String request = "GET / HTTP/1.0\r\n"
                 + "Felda: t2\r\n"
                 + "Feld-C: 123";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 302\\s+\\w+.*$"));  
         
@@ -418,12 +418,12 @@ public class ListenerTest_Filter extends AbstractTest {
         
         request = "GET / HTTP/1.0\r\n"
                 + "Felda: 3B1BB2";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8087", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8087", request + "\r\n\r\n"));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));  
 
         request = "GET / HTTP/1.0\r\n"
                 + "Felda: 3BBB2";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8087", request + "\r\n\r\n"));
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8087", request + "\r\n\r\n"));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));  
     }  
     
@@ -441,7 +441,7 @@ public class ListenerTest_Filter extends AbstractTest {
         String request = "GET / HTTP/1.0\r\n"
                 + "Felda: t4\r\n"
                 + "Feld-C: 123";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));  
         Assert.assertFalse(response.matches("(?si)^.*\\sLocation:.*$"));
@@ -462,7 +462,7 @@ public class ListenerTest_Filter extends AbstractTest {
                 + "Felda: t6\r\n"
                 + "Feldb: t7\r\n"
                 + "Feld-C: 123";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));  
         Assert.assertTrue(response.contains("filter_a.html"));
@@ -482,7 +482,7 @@ public class ListenerTest_Filter extends AbstractTest {
         String request = "GET / HTTP/1.0\r\n"
                 + "Felda: t5\r\n"
                 + "Feld-C: 123";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));  
         Assert.assertFalse(response.matches("(?si)^.*\\sLocation:.*$"));
@@ -501,7 +501,7 @@ public class ListenerTest_Filter extends AbstractTest {
         String request = "GET / HTTP/1.0\r\n"
                 + "Felda: t3\r\n"
                 + "Feld-C: 123";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 001 Test ok\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ConnectorA\r\n.*$"));
@@ -534,7 +534,7 @@ public class ListenerTest_Filter extends AbstractTest {
         
         String request = "GET / HTTP/1.0\r\n"
                 + "Host: vHp";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));  
         Assert.assertTrue(Files.exists(testFile));

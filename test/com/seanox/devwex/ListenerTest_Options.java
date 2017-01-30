@@ -45,7 +45,7 @@ public class ListenerTest_Options extends AbstractTest {
 
         String request = "OPTIONS / HTTP/1.0\r\n"
                 + "Host: vHa";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -71,7 +71,7 @@ public class ListenerTest_Options extends AbstractTest {
 
         String request = "OPTIONS /test_a HTTP/1.0\r\n"
                 + "Host: vHa";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -97,7 +97,7 @@ public class ListenerTest_Options extends AbstractTest {
 
         String request = "OPTIONS /test_ax HTTP/1.0\r\n"
                 + "Host: vHa";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -123,7 +123,7 @@ public class ListenerTest_Options extends AbstractTest {
 
         String request = "OPTIONS /method_file.txt HTTP/1.0\r\n"
                 + "Host: vHa";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -149,7 +149,7 @@ public class ListenerTest_Options extends AbstractTest {
 
         String request = "OPTIONS /method_file.txt/ HTTP/1.0\r\n"
                 + "Host: vHa";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -178,13 +178,13 @@ public class ListenerTest_Options extends AbstractTest {
         
         request = "HEAD /method_file.txt HTTP/1.0\r\n"
                 + "Host: vHa";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));       
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));       
         String lastModified = TestHttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
         
         request = "OPTIONS /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: " + lastModified + "\r\n"
                 + "Host: vHa";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -211,7 +211,7 @@ public class ListenerTest_Options extends AbstractTest {
         String request = "OPTIONS /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: Sat, 01 Jan 2000 00:00:00 GMT\r\n"
                 + "Host: vHa";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -240,14 +240,14 @@ public class ListenerTest_Options extends AbstractTest {
         
         request = "HEAD /method_file.txt HTTP/1.0\r\n"
                 + "Host: vHa";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));       
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));       
         String lastModified = TestHttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
         String contentLength = TestHttpUtils.getResponseHeaderValue(response, HeaderField.CONTENT_LENGTH);
         
         request = "OPTIONS /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: " + lastModified + "; xxx; length=" + contentLength + "\r\n"
                 + "Host: vHa";
-        response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -274,7 +274,7 @@ public class ListenerTest_Options extends AbstractTest {
         String request = "OPTIONS /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: Sat, 01 Jan 2000 00:00:00 GMT; xxx; length=123\r\n"
                 + "Host: vHa";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -303,7 +303,7 @@ public class ListenerTest_Options extends AbstractTest {
         
         String request = "OPTIONS /test_a/ HTTP/1.0\r\n"
                 + "Host: vHa";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -332,7 +332,7 @@ public class ListenerTest_Options extends AbstractTest {
         String request = "OPTIONS /test_d/ HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -357,7 +357,7 @@ public class ListenerTest_Options extends AbstractTest {
         String request = "OPTIONS /forbidden HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -384,7 +384,7 @@ public class ListenerTest_Options extends AbstractTest {
         String request = "OPTIONS /absolute HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -411,7 +411,7 @@ public class ListenerTest_Options extends AbstractTest {
         String request = "OPTIONS /absolutexxx HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -437,7 +437,7 @@ public class ListenerTest_Options extends AbstractTest {
         String request = "OPTIONS /test.method.php HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -462,7 +462,7 @@ public class ListenerTest_Options extends AbstractTest {
         
         String request = "oPTIONS /method.jsx HTTP/1.0\r\n"
                 + "Host: vHb";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -492,7 +492,7 @@ public class ListenerTest_Options extends AbstractTest {
         
         String request = "oPTIONS /method.jsx HTTP/1.0\r\n"
                 + "Host: vHe";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -505,12 +505,12 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"oPTIONS [^\"]+\"\\s403\\s\\d+\\s-\\s-$"));    
     }
     
-    private static void assertAceptance_19(int count, String path, String start, String end) throws Exception {
+    private static void assertAceptance_19(int count, String uri, String start, String end) throws Exception {
         
         boolean case0 = start == null && end == null;
         boolean case1 = start == null || end == null;
         
-        String request = "Options " + path + " HTTP/1.0\r\n"
+        String request = "Options " + uri + " HTTP/1.0\r\n"
                 + "Host: vHa\r\n";
         if (!case0) {
             request += "Range: bYteS = " + (start != null ? start : "");
@@ -520,7 +520,7 @@ public class ListenerTest_Options extends AbstractTest {
             request += "\r\n";
         }
         
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -546,130 +546,130 @@ public class ListenerTest_Options extends AbstractTest {
     @Test
     public void testAceptance_19() throws Exception {
         
-        for (String path : new String[] {"/partial_content.txt", "/partial_content-nix.txt", "/"}) {
+        for (String uri : new String[] {"/partial_content.txt", "/partial_content-nix.txt", "/"}) {
 
             int count = 0;
         
-            ListenerTest_Options.assertAceptance_19(count++, path, "0",      "0");
-            ListenerTest_Options.assertAceptance_19(count++, path, "0",      "1");    
-            ListenerTest_Options.assertAceptance_19(count++, path, "0",      "127");
-            ListenerTest_Options.assertAceptance_19(count++, path, "0",      "65535");
-            ListenerTest_Options.assertAceptance_19(count++, path, "1",      "0");
-            ListenerTest_Options.assertAceptance_19(count++, path, "1",      "1");
-            ListenerTest_Options.assertAceptance_19(count++, path, "1",      "127");    
-            ListenerTest_Options.assertAceptance_19(count++, path, "1",      "65535");
-            ListenerTest_Options.assertAceptance_19(count++, path, "127",    "256");
-            ListenerTest_Options.assertAceptance_19(count++, path, "256",    "127");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      "0");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      "1");    
+            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      "127");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      "65535");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      "0");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      "1");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      "127");    
+            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      "65535");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "127",    "256");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "256",    "127");
     
-            ListenerTest_Options.assertAceptance_19(count++, path, "127",    "0");
-            ListenerTest_Options.assertAceptance_19(count++, path, "127",    "1");
-            ListenerTest_Options.assertAceptance_19(count++, path, "65535",  "0");
-            ListenerTest_Options.assertAceptance_19(count++, path, "65535",  "1");
-            ListenerTest_Options.assertAceptance_19(count++, path, "256",    "65535");
-            ListenerTest_Options.assertAceptance_19(count++, path, "65535",  "256");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-256",   "127");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-127",   "256");
-            ListenerTest_Options.assertAceptance_19(count++, path, "256",    "-127");
-            ListenerTest_Options.assertAceptance_19(count++, path, "127",    "-256");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "127",    "0");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "127",    "1");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "65535",  "0");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "65535",  "1");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "256",    "65535");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "65535",  "256");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-256",   "127");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-127",   "256");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "256",    "-127");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "127",    "-256");
     
-            ListenerTest_Options.assertAceptance_19(count++, path, "0",      "A");
-            ListenerTest_Options.assertAceptance_19(count++, path, "1",      "A");
-            ListenerTest_Options.assertAceptance_19(count++, path, "256",    "B");
-            ListenerTest_Options.assertAceptance_19(count++, path, "65535",  "C");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-0",     "A");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-1",     "A");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-256",   "B");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-65535", "C");
-            ListenerTest_Options.assertAceptance_19(count++, path, "A",      "0");
-            ListenerTest_Options.assertAceptance_19(count++, path, "A",      "1");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      "A");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      "A");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "256",    "B");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "65535",  "C");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-0",     "A");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-1",     "A");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-256",   "B");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-65535", "C");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "A",      "0");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "A",      "1");
     
-            ListenerTest_Options.assertAceptance_19(count++, path, "B",      "256");
-            ListenerTest_Options.assertAceptance_19(count++, path, "C",      "65535");
-            ListenerTest_Options.assertAceptance_19(count++, path, "A",      "-0");
-            ListenerTest_Options.assertAceptance_19(count++, path, "A",      "-1");
-            ListenerTest_Options.assertAceptance_19(count++, path, "B",      "-256");
-            ListenerTest_Options.assertAceptance_19(count++, path, "C",      "-65535");
-            ListenerTest_Options.assertAceptance_19(count++, path, "0",      "");
-            ListenerTest_Options.assertAceptance_19(count++, path, "256",    "");
-            ListenerTest_Options.assertAceptance_19(count++, path, "65535",  "");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-0",     "");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "B",      "256");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "C",      "65535");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "A",      "-0");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "A",      "-1");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "B",      "-256");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "C",      "-65535");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      "");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "256",    "");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "65535",  "");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-0",     "");
     
-            ListenerTest_Options.assertAceptance_19(count++, path, "-1",     "");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-256",   "");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-65535", "");
-            ListenerTest_Options.assertAceptance_19(count++, path, null,     "0");
-            ListenerTest_Options.assertAceptance_19(count++, path, null,     "256");
-            ListenerTest_Options.assertAceptance_19(count++, path, null,     "65535");
-            ListenerTest_Options.assertAceptance_19(count++, path, null,     "A");
-            ListenerTest_Options.assertAceptance_19(count++, path, null,      null);
-            ListenerTest_Options.assertAceptance_19(count++, path, "",       "0");
-            ListenerTest_Options.assertAceptance_19(count++, path, "",       "256");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-1",     "");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-256",   "");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-65535", "");
+            ListenerTest_Options.assertAceptance_19(count++, uri, null,     "0");
+            ListenerTest_Options.assertAceptance_19(count++, uri, null,     "256");
+            ListenerTest_Options.assertAceptance_19(count++, uri, null,     "65535");
+            ListenerTest_Options.assertAceptance_19(count++, uri, null,     "A");
+            ListenerTest_Options.assertAceptance_19(count++, uri, null,      null);
+            ListenerTest_Options.assertAceptance_19(count++, uri, "",       "0");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "",       "256");
            
-            ListenerTest_Options.assertAceptance_19(count++, path, "",       "65535");
-            ListenerTest_Options.assertAceptance_19(count++, path, "",       "-0");
-            ListenerTest_Options.assertAceptance_19(count++, path, "",       "-1");
-            ListenerTest_Options.assertAceptance_19(count++, path, "",       "-256");
-            ListenerTest_Options.assertAceptance_19(count++, path, "",       "-65535");
-            ListenerTest_Options.assertAceptance_19(count++, path, "0",      " ");
-            ListenerTest_Options.assertAceptance_19(count++, path, "1",      " ");
-            ListenerTest_Options.assertAceptance_19(count++, path, "256",    " ");
-            ListenerTest_Options.assertAceptance_19(count++, path, "65535",  " ");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-0",     " ");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "",       "65535");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "",       "-0");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "",       "-1");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "",       "-256");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "",       "-65535");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      " ");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      " ");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "256",    " ");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "65535",  " ");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-0",     " ");
             
-            ListenerTest_Options.assertAceptance_19(count++, path, "-1",     " ");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-256",   " ");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-65535", " ");
-            ListenerTest_Options.assertAceptance_19(count++, path, " ",      "0");
-            ListenerTest_Options.assertAceptance_19(count++, path, " ",      "1");
-            ListenerTest_Options.assertAceptance_19(count++, path, " ",      "256");
-            ListenerTest_Options.assertAceptance_19(count++, path, " ",      "65535");
-            ListenerTest_Options.assertAceptance_19(count++, path, " ",      "-0");
-            ListenerTest_Options.assertAceptance_19(count++, path, " ",      "-1");
-            ListenerTest_Options.assertAceptance_19(count++, path, " ",      "-256");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-1",     " ");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-256",   " ");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-65535", " ");
+            ListenerTest_Options.assertAceptance_19(count++, uri, " ",      "0");
+            ListenerTest_Options.assertAceptance_19(count++, uri, " ",      "1");
+            ListenerTest_Options.assertAceptance_19(count++, uri, " ",      "256");
+            ListenerTest_Options.assertAceptance_19(count++, uri, " ",      "65535");
+            ListenerTest_Options.assertAceptance_19(count++, uri, " ",      "-0");
+            ListenerTest_Options.assertAceptance_19(count++, uri, " ",      "-1");
+            ListenerTest_Options.assertAceptance_19(count++, uri, " ",      "-256");
             
-            ListenerTest_Options.assertAceptance_19(count++, path, " ",      "-65535");
-            ListenerTest_Options.assertAceptance_19(count++, path, "0",      "-");
-            ListenerTest_Options.assertAceptance_19(count++, path, "1",      "-");
-            ListenerTest_Options.assertAceptance_19(count++, path, "256",    "-");
-            ListenerTest_Options.assertAceptance_19(count++, path, "65535",  "-");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-0",     "-");    
-            ListenerTest_Options.assertAceptance_19(count++, path, "-1",     "-");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-256",   "-");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-65535", "-");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-",      "0");
+            ListenerTest_Options.assertAceptance_19(count++, uri, " ",      "-65535");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      "-");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      "-");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "256",    "-");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "65535",  "-");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-0",     "-");    
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-1",     "-");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-256",   "-");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-65535", "-");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-",      "0");
     
-            ListenerTest_Options.assertAceptance_19(count++, path, "-",      "256");    
-            ListenerTest_Options.assertAceptance_19(count++, path, "-",      "65535");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-",      "-0");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-",      "-1");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-",      "-256");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-",      "-65535");
-            ListenerTest_Options.assertAceptance_19(count++, path, "0",      ";");
-            ListenerTest_Options.assertAceptance_19(count++, path, "1",      ";");    
-            ListenerTest_Options.assertAceptance_19(count++, path, "256",    ";");
-            ListenerTest_Options.assertAceptance_19(count++, path, "65535",  ";");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-",      "256");    
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-",      "65535");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-",      "-0");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-",      "-1");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-",      "-256");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-",      "-65535");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      ";");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      ";");    
+            ListenerTest_Options.assertAceptance_19(count++, uri, "256",    ";");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "65535",  ";");
     
-            ListenerTest_Options.assertAceptance_19(count++, path, "-0",     ";");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-1",     ";");
-            ListenerTest_Options.assertAceptance_19(count++, path, "-256",   ";");    
-            ListenerTest_Options.assertAceptance_19(count++, path, "-65535", ";");
-            ListenerTest_Options.assertAceptance_19(count++, path, ";",      "0");
-            ListenerTest_Options.assertAceptance_19(count++, path, ";",      "1");
-            ListenerTest_Options.assertAceptance_19(count++, path, ";",      "256");
-            ListenerTest_Options.assertAceptance_19(count++, path, ";",      "65535");    
-            ListenerTest_Options.assertAceptance_19(count++, path, ";",      "-0");
-            ListenerTest_Options.assertAceptance_19(count++, path, ";",      "-1");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-0",     ";");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-1",     ";");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-256",   ";");    
+            ListenerTest_Options.assertAceptance_19(count++, uri, "-65535", ";");
+            ListenerTest_Options.assertAceptance_19(count++, uri, ";",      "0");
+            ListenerTest_Options.assertAceptance_19(count++, uri, ";",      "1");
+            ListenerTest_Options.assertAceptance_19(count++, uri, ";",      "256");
+            ListenerTest_Options.assertAceptance_19(count++, uri, ";",      "65535");    
+            ListenerTest_Options.assertAceptance_19(count++, uri, ";",      "-0");
+            ListenerTest_Options.assertAceptance_19(count++, uri, ";",      "-1");
             
-            ListenerTest_Options.assertAceptance_19(count++, path, ";",      "-256");
-            ListenerTest_Options.assertAceptance_19(count++, path, ";",      "-65535");
-            ListenerTest_Options.assertAceptance_19(count++, path, "1",      "");
-            ListenerTest_Options.assertAceptance_19(count++, path, "",       "1");
+            ListenerTest_Options.assertAceptance_19(count++, uri, ";",      "-256");
+            ListenerTest_Options.assertAceptance_19(count++, uri, ";",      "-65535");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      "");
+            ListenerTest_Options.assertAceptance_19(count++, uri, "",       "1");
         }
     }
     
     private static void assertAceptance_22(String request) throws Exception {
     
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -698,117 +698,117 @@ public class ListenerTest_Options extends AbstractTest {
         String request;
         String response;
         
-        String[] paths = new String[] {"/partial_content.txt", "/partial_content_empty.txt", "/"};
-        for (String path : paths) {
+        String[] uris = new String[] {"/partial_content.txt", "/partial_content_empty.txt", "/"};
+        for (String uri : uris) {
 
             String range = "";
-            if (path.equals(paths[0]))
+            if (uri.equals(uris[0]))
                 range = "Range: bytes=2-10\r\n";
-            if (path.equals(paths[1]))
+            if (uri.equals(uris[1]))
                 range = "Range: bytes=0-0\r\n";    
         
-            request = "HEAD " + path + " HTTP/1.0\r\n"
+            request = "HEAD " + uri + " HTTP/1.0\r\n"
                     + "Host: vHa";
-            response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));       
+            response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));       
             String lastModified = TestHttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
     
-            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+            request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                    + "Host: vHa\r\n"
                    + range
                    + "If-Modified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
-            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+            request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                    + "Host: vHa\r\n"
                    + range
                    + "If-Modified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
-            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+            request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                    + "Host: vHa\r\n"
                    + range
                    + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
-            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+            request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                    + "Host: vHa\r\n"
                    + range
                    + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
-            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+            request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                    + "Host: vHa\r\n"
                    + range
                    + "If-UnModified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
-            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+            request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                    + "Host: vHa\r\n"
                    + range
                    + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
                    + "If-Modified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
-            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+            request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                    + "Host: vHa\r\n"
                    + range
                    + "If-UnModified-Since: " + lastModified + "\r\n"
                    + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
-            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+            request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                    + "Host: vHa\r\n"
                    + range
                    + "If-UnModified-Since: " + lastModified + "\r\n"
                    + "If-Modified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
-            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+            request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                    + "Host: vHa\r\n"
                    + range
                    + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
                    + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
-            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+            request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                    + "Host: vHa\r\n"
                    + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
-            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+            request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                    + "Host: vHa\r\n"
                    + "If-Modified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
-            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+            request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                    + "Host: vHa\r\n"
                    + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
-            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+            request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                    + "Host: vHa\r\n"
                    + "If-UnModified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
-            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+            request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                    + "Host: vHa\r\n"
                    + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
                    + "If-Modified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
-            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+            request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                    + "Host: vHa\r\n"
                    + "If-UnModified-Since: " + lastModified + "\r\n"
                    + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
-            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+            request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                    + "Host: vHa\r\n"
                    + "If-UnModified-Since: " + lastModified + "\r\n"
                    + "If-Modified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
-            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+            request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                    + "Host: vHa\r\n"
                    + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
                    + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";

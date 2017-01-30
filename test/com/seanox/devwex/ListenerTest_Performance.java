@@ -317,7 +317,7 @@ public class ListenerTest_Performance extends AbstractTest {
                     
                     Response response = new Response();
                     response.duration = System.currentTimeMillis();
-                    try {response.data = TestUtils.sendRequest(host, request);
+                    try {response.data = TestHttpUtils.sendRequest(host, request);
                     } catch (IOException exception) {
                         return Response.create(exception);
                     }

@@ -48,7 +48,7 @@ public class ListenerTest_Request extends AbstractTest {
     @Test(timeout=16000)
     public void testTimeout_1() throws Exception {
        
-        String response = new String(TestUtils.sendRequest("127.0.0.1:80"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 400\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
@@ -119,7 +119,7 @@ public class ListenerTest_Request extends AbstractTest {
     @Test
     public void testAceptance_1() throws Exception {
         
-        String response = new String(TestUtils.sendRequest("127.0.0.1:80", "GET\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", "GET\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 400\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
@@ -140,7 +140,7 @@ public class ListenerTest_Request extends AbstractTest {
     @Test
     public void testAceptance_2() throws Exception {
         
-        String response = new String(TestUtils.sendRequest("127.0.0.1:80", "GET XXX\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", "GET XXX\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 400\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
@@ -161,7 +161,7 @@ public class ListenerTest_Request extends AbstractTest {
     @Test
     public void testAceptance_3() throws Exception {
         
-        String response = new String(TestUtils.sendRequest("127.0.0.1:80", "GET \\\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", "GET \\\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: text/html\r\n.*$"));
@@ -186,7 +186,7 @@ public class ListenerTest_Request extends AbstractTest {
         while (request.length() < 40000)
             request += "x";
         
-        String response = new String(TestUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 413\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
@@ -216,7 +216,7 @@ public class ListenerTest_Request extends AbstractTest {
         while (request.length() <= 65535)
             request += String.format("line-%02d: %s%n", Integer.valueOf(++loop), requestLine);
         
-        String response = new String(TestUtils.sendRequest("127.0.0.1:80", request + "\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 413\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
@@ -246,7 +246,7 @@ public class ListenerTest_Request extends AbstractTest {
         while (request.length() <= 64535)
             request += "x-x" + ((++loop < 10) ? "0" : "") + loop + "x: " + requestLine + "\r\n";
         
-        String response = new String(TestUtils.sendRequest("127.0.0.1:80", request + "\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: text/html\r\n.*$"));
@@ -267,7 +267,7 @@ public class ListenerTest_Request extends AbstractTest {
     @Test
     public void testAceptance_8() throws Exception {
         
-        String response = new String(TestUtils.sendRequest("127.0.0.1:80", "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 400\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));

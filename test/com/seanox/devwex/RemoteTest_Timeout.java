@@ -39,7 +39,7 @@ public class RemoteTest_Timeout extends AbstractTest {
     @Test(timeout=11000)
     public void testTimeout_1() throws Exception {
         
-        String response = new String(TestUtils.sendRequest("127.0.0.1:25001"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:25001"));
         
         Assert.assertTrue(response.isEmpty());
     }    
@@ -54,7 +54,7 @@ public class RemoteTest_Timeout extends AbstractTest {
     @Test(timeout=11000)
     public void testTimeout_2() throws Exception {
         
-        String response = new String(TestUtils.sendRequest("127.0.0.1:25001", "sTatuS"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:25001", "sTatuS"));
         
         Assert.assertTrue(response.isEmpty());
     }     

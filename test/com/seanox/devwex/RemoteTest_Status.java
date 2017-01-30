@@ -38,7 +38,7 @@ public class RemoteTest_Status extends AbstractTest {
     @Test
     public void testStatus_1() throws Exception {
 
-        String response = new String(TestUtils.sendRequest("127.0.0.1:25001", "sTatuS\r"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:25001", "sTatuS\r"));
         
         Assert.assertNotNull(response);
         Assert.assertTrue(response.contains("\r\nSAPI: "));
@@ -55,7 +55,7 @@ public class RemoteTest_Status extends AbstractTest {
     @Test
     public void testStatus_2() throws Exception {
         
-        String response = new String(TestUtils.sendRequest("127.0.0.1:25001", "sTatuS\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:25001", "sTatuS\n"));
 
         Assert.assertNotNull(response);
         Assert.assertTrue(response.contains("\r\nSAPI: "));
@@ -72,7 +72,7 @@ public class RemoteTest_Status extends AbstractTest {
     @Test
     public void testStatus_3() throws Exception {
         
-        String response = new String(TestUtils.sendRequest("127.0.0.1:25001", "sTatuS\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:25001", "sTatuS\r\n"));
         
         Assert.assertNotNull(response);
         Assert.assertTrue(response.contains("\r\nSAPI: "));

@@ -41,7 +41,7 @@ public class ListenerTest_Status extends AbstractTest {
         
         String request = "Get /forbidden.html HTTP/1.0\r\n"
                 + "Host: vHo";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8085", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request + "\r\n\r\n"));
 
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("Template: status-4xx.html"));
@@ -59,7 +59,7 @@ public class ListenerTest_Status extends AbstractTest {
         
         String request = "Get /error.cgi HTTP/1.0\r\n"
                 + "Host: vHo";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8085", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 502\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("Template: status.html"));
@@ -77,7 +77,7 @@ public class ListenerTest_Status extends AbstractTest {
         
         String request = "Get /not_found.html HTTP/1.0\r\n"
                 + "Host: vHo";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8085", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 404\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("Template: status-404.html"));

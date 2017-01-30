@@ -45,8 +45,8 @@ public class ListenerTest_AuthenticationDigest extends AbstractTest {
     public void testAceptance_98() throws Exception {
         
         String request = "GET /authentication/a/b/e/ HTTP/1.0\r\n"
-               + "Host: vHad";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+               + "Host: vHf";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));
@@ -68,8 +68,8 @@ public class ListenerTest_AuthenticationDigest extends AbstractTest {
     public void testAceptance_99() throws Exception {
         
         String request = "GET /authentication/a/b/e/c/ HTTP/1.0\r\n"
-               + "Host: vHad";
-        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+               + "Host: vHf";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Digest realm=\"Section-BEC\""));
