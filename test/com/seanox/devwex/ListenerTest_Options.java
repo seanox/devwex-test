@@ -25,6 +25,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.seanox.devwex.TestHttpUtils.HeaderField;
+import com.seanox.test.utils.Pattern;
 
 /**
  *  TestCases for {@link com.seanox.devwex.Listener}.
@@ -54,7 +55,7 @@ public class ListenerTest_Options extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s\\d+\\s-\\s-$"));      
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));      
     } 
     
     /** 
@@ -80,7 +81,7 @@ public class ListenerTest_Options extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s\\d+\\s-\\s-$"));      
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));      
     } 
     
     /** 
@@ -106,7 +107,7 @@ public class ListenerTest_Options extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s\\d+\\s-\\s-$"));      
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));      
     } 
 
     /** 
@@ -132,7 +133,7 @@ public class ListenerTest_Options extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s\\d+\\s-\\s-$"));      
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));      
     }
     
     /** 
@@ -158,7 +159,7 @@ public class ListenerTest_Options extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s\\d+\\s-\\s-$"));      
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));      
     } 
     
     /** 
@@ -193,7 +194,7 @@ public class ListenerTest_Options extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s\\d+\\s-\\s-$"));    
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));    
     } 
     
     /** 
@@ -220,7 +221,7 @@ public class ListenerTest_Options extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s\\d+\\s-\\s-$"));     
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));     
     } 
     
     /** 
@@ -243,7 +244,6 @@ public class ListenerTest_Options extends AbstractTest {
         String lastModified = TestHttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
         String contentLength = TestHttpUtils.getResponseHeaderValue(response, HeaderField.CONTENT_LENGTH);
         
-        
         request = "OPTIONS /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: " + lastModified + "; xxx; length=" + contentLength + "\r\n"
                 + "Host: vHa";
@@ -257,7 +257,7 @@ public class ListenerTest_Options extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s\\d+\\s-\\s-$"));    
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));    
     } 
     
     /** 
@@ -284,6 +284,535 @@ public class ListenerTest_Options extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s\\d+\\s-\\s-$"));     
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));     
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  For method {@code OPTIONS}, the target (also directories and
+     *  independent of default) is not checked. Whether exits or not, the
+     *  request is responded with status 200, {@code Allow} and without content
+     *  details. {@code OPTIONS} is only a request about the supported HTTP
+     *  methods. Header fields: {@code Range}, {@code If-Modified-Since} and
+     *  {@code If-UnModified-Since}
+     *  are ignored. 
+     *  @throws Exception
+     */     
+    @Test
+    public void testAceptance_11() throws Exception {
+        
+        String request = "OPTIONS /test_a/ HTTP/1.0\r\n"
+                + "Host: vHa";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));     
     } 
+    
+    /** 
+     *  TestCase for aceptance.
+     *  For method {@code OPTIONS}, the target (also directories) is not
+     *  checked. Whether exits or not, the request is responded with status
+     *  200, {@code Allow} and without content details. {@code OPTIONS} is only
+     *  a request about the supported HTTP methods. Header fields:
+     *  {@code Range}, {@code If-Modified-Since} and {@code If-UnModified-Since}
+     *  are ignored. 
+     *  @throws Exception
+     */    
+    @Test
+    public void testAceptance_12() throws Exception {
+        
+        String request = "OPTIONS /test_d/ HTTP/1.0\r\n"
+                + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
+                + "Host: vHa";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));     
+    } 
+    
+    /** 
+     *  TestCase for aceptance.
+     *  For method {@code OPTIONS}, the request for a forbidden target is
+     *  responded with status 403. 
+     *  @throws Exception
+     */     
+    @Test
+    public void testAceptance_13() throws Exception {
+        
+        String request = "OPTIONS /forbidden HTTP/1.0\r\n"
+                + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
+                + "Host: vHa";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s403\\s\\d+\\s-\\s-$"));     
+    } 
+    
+    /** 
+     *  TestCase for aceptance.
+     *  For method {@code OPTIONS}, the target (also with an absolute paths) is
+     *  not checked. Whether exits or not, the request is responded with status
+     *  200, {@code Allow} and without content details. {@code OPTIONS} is only
+     *  a request about the supported HTTP methods. 
+     *  @throws Exception
+     */ 
+    @Test
+    public void testAceptance_14() throws Exception {
+        
+        String request = "OPTIONS /absolute HTTP/1.0\r\n"
+                + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
+                + "Host: vHa";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));      
+    } 
+    
+    /** 
+     *  TestCase for aceptance.
+     *  For method {@code OPTIONS}, the target (also with an absolute paths) is
+     *  not checked. Whether exits or not, the request is responded with status
+     *  200, {@code Allow} and without content details. {@code OPTIONS} is only
+     *  a request about the supported HTTP methods. 
+     *  @throws Exception
+     */    
+    @Test
+    public void testAceptance_15() throws Exception {
+        
+        String request = "OPTIONS /absolutexxx HTTP/1.0\r\n"
+                + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
+                + "Host: vHa";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));      
+    } 
+    
+    /**
+     *  TestCase for aceptance.
+     *  For the CGI, the method {@code OPTIONS} are responded by the CGI.
+     *  In the test case, {@code OPTIONS} is for the CGI not allowed and the
+     *  request is responded with status 403, also if the CGI not exists.
+     *  @throws Exception
+     */
+    @Test
+    public void testAceptance_16() throws Exception {
+        
+        String request = "OPTIONS /test.method.php HTTP/1.0\r\n"
+                + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
+                + "Host: vHa";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s403\\s\\d+\\s-\\s-$"));     
+    } 
+    
+    /**
+     *  TestCase for aceptance.
+     *  For the CGI, the method {@code OPTIONS} are responded by the CGI.
+     *  In the test case, {@code OPTIONS} is for the CGI allowed and the
+     *  request is responded with status 200.
+     *  @throws Exception
+     */
+    @Test
+    public void testAceptance_17() throws Exception {
+        
+        String request = "oPTIONS /method.jsx HTTP/1.0\r\n"
+                + "Host: vHb";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sAllow:.*$"));
+        
+        String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
+        Assert.assertTrue(header.trim().length() > 0);
+        String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
+        Assert.assertTrue(body.matches("(?si)^.*hallo.*$"));
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"oPTIONS [^\"]+\"\\s200\\s\\d+\\s-\\s-$"));     
+    }
+    
+    /**
+     *  TestCase for aceptance.
+     *  For the CGI, the method {@code OPTIONS} are responded by the CGI.
+     *  In the test case, {@code OPTIONS} is for the CGI not allowed and the
+     *  request is responded with status 403.
+     *  @throws Exception
+     */
+    @Test
+    public void testAceptance_18() throws Exception {
+        
+        String request = "oPTIONS /method.jsx HTTP/1.0\r\n"
+                + "Host: vHe";
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"oPTIONS [^\"]+\"\\s403\\s\\d+\\s-\\s-$"));    
+    }
+    
+    private static void assertAceptance_19(int count, String path, String start, String end) throws Exception {
+        
+        boolean case0 = start == null && end == null;
+        boolean case1 = start == null || end == null;
+        
+        String request = "Options " + path + " HTTP/1.0\r\n"
+                + "Host: vHa\r\n";
+        if (!case0) {
+            request += "Range: bYteS = " + (start != null ? start : "");
+            if (!case1)
+                request += count % 2 == 0 ? "-" : " - ";
+            request += end != null ? end : "";
+            request += "\r\n";
+        }
+        
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n"));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Range:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"Options [^\"]+\"\\s200\\s0\\s-\\s-$"));  
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  For method {@code OPTIONS}, the target is not checked. Whether exits or
+     *  not, the request is responded with status 200, {@code Allow} and
+     *  without content details. {@code OPTIONS} is only a request about the
+     *  supported HTTP methods. Header fields: {@code Range},
+     *  {@code If-Modified-Since} and {@code If-UnModified-Since} are ignored. 
+     *  @throws Exception
+     */
+    @Test
+    public void testAceptance_19() throws Exception {
+        
+        for (String path : new String[] {"/partial_content.txt", "/partial_content-nix.txt", "/"}) {
+
+            int count = 0;
+        
+            ListenerTest_Options.assertAceptance_19(count++, path, "0",      "0");
+            ListenerTest_Options.assertAceptance_19(count++, path, "0",      "1");    
+            ListenerTest_Options.assertAceptance_19(count++, path, "0",      "127");
+            ListenerTest_Options.assertAceptance_19(count++, path, "0",      "65535");
+            ListenerTest_Options.assertAceptance_19(count++, path, "1",      "0");
+            ListenerTest_Options.assertAceptance_19(count++, path, "1",      "1");
+            ListenerTest_Options.assertAceptance_19(count++, path, "1",      "127");    
+            ListenerTest_Options.assertAceptance_19(count++, path, "1",      "65535");
+            ListenerTest_Options.assertAceptance_19(count++, path, "127",    "256");
+            ListenerTest_Options.assertAceptance_19(count++, path, "256",    "127");
+    
+            ListenerTest_Options.assertAceptance_19(count++, path, "127",    "0");
+            ListenerTest_Options.assertAceptance_19(count++, path, "127",    "1");
+            ListenerTest_Options.assertAceptance_19(count++, path, "65535",  "0");
+            ListenerTest_Options.assertAceptance_19(count++, path, "65535",  "1");
+            ListenerTest_Options.assertAceptance_19(count++, path, "256",    "65535");
+            ListenerTest_Options.assertAceptance_19(count++, path, "65535",  "256");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-256",   "127");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-127",   "256");
+            ListenerTest_Options.assertAceptance_19(count++, path, "256",    "-127");
+            ListenerTest_Options.assertAceptance_19(count++, path, "127",    "-256");
+    
+            ListenerTest_Options.assertAceptance_19(count++, path, "0",      "A");
+            ListenerTest_Options.assertAceptance_19(count++, path, "1",      "A");
+            ListenerTest_Options.assertAceptance_19(count++, path, "256",    "B");
+            ListenerTest_Options.assertAceptance_19(count++, path, "65535",  "C");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-0",     "A");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-1",     "A");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-256",   "B");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-65535", "C");
+            ListenerTest_Options.assertAceptance_19(count++, path, "A",      "0");
+            ListenerTest_Options.assertAceptance_19(count++, path, "A",      "1");
+    
+            ListenerTest_Options.assertAceptance_19(count++, path, "B",      "256");
+            ListenerTest_Options.assertAceptance_19(count++, path, "C",      "65535");
+            ListenerTest_Options.assertAceptance_19(count++, path, "A",      "-0");
+            ListenerTest_Options.assertAceptance_19(count++, path, "A",      "-1");
+            ListenerTest_Options.assertAceptance_19(count++, path, "B",      "-256");
+            ListenerTest_Options.assertAceptance_19(count++, path, "C",      "-65535");
+            ListenerTest_Options.assertAceptance_19(count++, path, "0",      "");
+            ListenerTest_Options.assertAceptance_19(count++, path, "256",    "");
+            ListenerTest_Options.assertAceptance_19(count++, path, "65535",  "");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-0",     "");
+    
+            ListenerTest_Options.assertAceptance_19(count++, path, "-1",     "");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-256",   "");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-65535", "");
+            ListenerTest_Options.assertAceptance_19(count++, path, null,     "0");
+            ListenerTest_Options.assertAceptance_19(count++, path, null,     "256");
+            ListenerTest_Options.assertAceptance_19(count++, path, null,     "65535");
+            ListenerTest_Options.assertAceptance_19(count++, path, null,     "A");
+            ListenerTest_Options.assertAceptance_19(count++, path, null,      null);
+            ListenerTest_Options.assertAceptance_19(count++, path, "",       "0");
+            ListenerTest_Options.assertAceptance_19(count++, path, "",       "256");
+           
+            ListenerTest_Options.assertAceptance_19(count++, path, "",       "65535");
+            ListenerTest_Options.assertAceptance_19(count++, path, "",       "-0");
+            ListenerTest_Options.assertAceptance_19(count++, path, "",       "-1");
+            ListenerTest_Options.assertAceptance_19(count++, path, "",       "-256");
+            ListenerTest_Options.assertAceptance_19(count++, path, "",       "-65535");
+            ListenerTest_Options.assertAceptance_19(count++, path, "0",      " ");
+            ListenerTest_Options.assertAceptance_19(count++, path, "1",      " ");
+            ListenerTest_Options.assertAceptance_19(count++, path, "256",    " ");
+            ListenerTest_Options.assertAceptance_19(count++, path, "65535",  " ");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-0",     " ");
+            
+            ListenerTest_Options.assertAceptance_19(count++, path, "-1",     " ");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-256",   " ");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-65535", " ");
+            ListenerTest_Options.assertAceptance_19(count++, path, " ",      "0");
+            ListenerTest_Options.assertAceptance_19(count++, path, " ",      "1");
+            ListenerTest_Options.assertAceptance_19(count++, path, " ",      "256");
+            ListenerTest_Options.assertAceptance_19(count++, path, " ",      "65535");
+            ListenerTest_Options.assertAceptance_19(count++, path, " ",      "-0");
+            ListenerTest_Options.assertAceptance_19(count++, path, " ",      "-1");
+            ListenerTest_Options.assertAceptance_19(count++, path, " ",      "-256");
+            
+            ListenerTest_Options.assertAceptance_19(count++, path, " ",      "-65535");
+            ListenerTest_Options.assertAceptance_19(count++, path, "0",      "-");
+            ListenerTest_Options.assertAceptance_19(count++, path, "1",      "-");
+            ListenerTest_Options.assertAceptance_19(count++, path, "256",    "-");
+            ListenerTest_Options.assertAceptance_19(count++, path, "65535",  "-");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-0",     "-");    
+            ListenerTest_Options.assertAceptance_19(count++, path, "-1",     "-");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-256",   "-");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-65535", "-");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-",      "0");
+    
+            ListenerTest_Options.assertAceptance_19(count++, path, "-",      "256");    
+            ListenerTest_Options.assertAceptance_19(count++, path, "-",      "65535");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-",      "-0");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-",      "-1");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-",      "-256");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-",      "-65535");
+            ListenerTest_Options.assertAceptance_19(count++, path, "0",      ";");
+            ListenerTest_Options.assertAceptance_19(count++, path, "1",      ";");    
+            ListenerTest_Options.assertAceptance_19(count++, path, "256",    ";");
+            ListenerTest_Options.assertAceptance_19(count++, path, "65535",  ";");
+    
+            ListenerTest_Options.assertAceptance_19(count++, path, "-0",     ";");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-1",     ";");
+            ListenerTest_Options.assertAceptance_19(count++, path, "-256",   ";");    
+            ListenerTest_Options.assertAceptance_19(count++, path, "-65535", ";");
+            ListenerTest_Options.assertAceptance_19(count++, path, ";",      "0");
+            ListenerTest_Options.assertAceptance_19(count++, path, ";",      "1");
+            ListenerTest_Options.assertAceptance_19(count++, path, ";",      "256");
+            ListenerTest_Options.assertAceptance_19(count++, path, ";",      "65535");    
+            ListenerTest_Options.assertAceptance_19(count++, path, ";",      "-0");
+            ListenerTest_Options.assertAceptance_19(count++, path, ";",      "-1");
+            
+            ListenerTest_Options.assertAceptance_19(count++, path, ";",      "-256");
+            ListenerTest_Options.assertAceptance_19(count++, path, ";",      "-65535");
+            ListenerTest_Options.assertAceptance_19(count++, path, "1",      "");
+            ListenerTest_Options.assertAceptance_19(count++, path, "",       "1");
+        }
+    }
+    
+    private static void assertAceptance_22(String request) throws Exception {
+    
+        String response = new String(TestUtils.sendRequest("127.0.0.1:8080", request));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Range:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("(?i)^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));  
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  For method {@code OPTIONS}, the target is not checked. Whether exits or
+     *  not, the request is responded with status 200, {@code Allow} and
+     *  without content details. {@code OPTIONS} is only a request about the
+     *  supported HTTP methods. Header fields: {@code Range},
+     *  {@code If-Modified-Since} and {@code If-UnModified-Since} are ignored. 
+     *  @throws Exception
+     */     
+    @Test
+    public void testAceptance_22() throws Exception {
+        
+        String request;
+        String response;
+        
+        String[] paths = new String[] {"/partial_content.txt", "/partial_content_empty.txt", "/"};
+        for (String path : paths) {
+
+            String range = "";
+            if (path.equals(paths[0]))
+                range = "Range: bytes=2-10\r\n";
+            if (path.equals(paths[1]))
+                range = "Range: bytes=0-0\r\n";    
+        
+            request = "HEAD " + path + " HTTP/1.0\r\n"
+                    + "Host: vHa";
+            response = new String(TestUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));       
+            String lastModified = TestHttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
+    
+            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+                   + "Host: vHa\r\n"
+                   + range
+                   + "If-Modified-Since: " + lastModified + "\r\n\r\n";
+            ListenerTest_Options.assertAceptance_22(request);
+    
+            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+                   + "Host: vHa\r\n"
+                   + range
+                   + "If-Modified-Since: " + lastModified + "\r\n\r\n";
+            ListenerTest_Options.assertAceptance_22(request);
+    
+            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+                   + "Host: vHa\r\n"
+                   + range
+                   + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
+            ListenerTest_Options.assertAceptance_22(request);
+    
+            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+                   + "Host: vHa\r\n"
+                   + range
+                   + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
+            ListenerTest_Options.assertAceptance_22(request);
+    
+            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+                   + "Host: vHa\r\n"
+                   + range
+                   + "If-UnModified-Since: " + lastModified + "\r\n\r\n";
+            ListenerTest_Options.assertAceptance_22(request);
+    
+            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+                   + "Host: vHa\r\n"
+                   + range
+                   + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
+                   + "If-Modified-Since: " + lastModified + "\r\n\r\n";
+            ListenerTest_Options.assertAceptance_22(request);
+    
+            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+                   + "Host: vHa\r\n"
+                   + range
+                   + "If-UnModified-Since: " + lastModified + "\r\n"
+                   + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
+            ListenerTest_Options.assertAceptance_22(request);
+    
+            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+                   + "Host: vHa\r\n"
+                   + range
+                   + "If-UnModified-Since: " + lastModified + "\r\n"
+                   + "If-Modified-Since: " + lastModified + "\r\n\r\n";
+            ListenerTest_Options.assertAceptance_22(request);
+    
+            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+                   + "Host: vHa\r\n"
+                   + range
+                   + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
+                   + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
+            ListenerTest_Options.assertAceptance_22(request);
+    
+            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+                   + "Host: vHa\r\n"
+                   + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
+            ListenerTest_Options.assertAceptance_22(request);
+    
+            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+                   + "Host: vHa\r\n"
+                   + "If-Modified-Since: " + lastModified + "\r\n\r\n";
+            ListenerTest_Options.assertAceptance_22(request);
+    
+            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+                   + "Host: vHa\r\n"
+                   + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
+            ListenerTest_Options.assertAceptance_22(request);
+    
+            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+                   + "Host: vHa\r\n"
+                   + "If-UnModified-Since: " + lastModified + "\r\n\r\n";
+            ListenerTest_Options.assertAceptance_22(request);
+    
+            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+                   + "Host: vHa\r\n"
+                   + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
+                   + "If-Modified-Since: " + lastModified + "\r\n\r\n";
+            ListenerTest_Options.assertAceptance_22(request);
+    
+            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+                   + "Host: vHa\r\n"
+                   + "If-UnModified-Since: " + lastModified + "\r\n"
+                   + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
+            ListenerTest_Options.assertAceptance_22(request);
+    
+            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+                   + "Host: vHa\r\n"
+                   + "If-UnModified-Since: " + lastModified + "\r\n"
+                   + "If-Modified-Since: " + lastModified + "\r\n\r\n";
+            ListenerTest_Options.assertAceptance_22(request);
+    
+            request = "OPTIONS " + path + " HTTP/1.0\r\n"
+                   + "Host: vHa\r\n"
+                   + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
+                   + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
+            ListenerTest_Options.assertAceptance_22(request);
+        }
+    }
 }
