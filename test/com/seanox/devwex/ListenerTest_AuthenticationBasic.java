@@ -557,7 +557,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.contains("\r\nWWW-Authenticate:"));  
+        Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));  
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
@@ -594,7 +594,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         response = new String(TestHttpUtils.sendRequestDigestAuthorisation("127.0.0.1:8080", request, "usr-a", "pwd-a"));    
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.contains("\r\nWWW-Authenticate:"));  
+        Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));  
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
@@ -605,7 +605,140 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
      *  TestCase for aceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a/b/d/e/e/lock [C]}
-     *  The URI requires a authorization and has been forbidden. The requests
+     *  The URI requires an authorization and has been redirected, because a
+     *  directory with no slash at the end was requested. The requests must be
+     *  responded with status 401 and 302.
+     *  @throws Exception
+     */       
+    @Test
+    public void testAceptance_19() throws Exception {
+        
+        String request;
+        String response;
+        String accessLog;
+        
+        request = "GET /authentication/a/b/d/e/e HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
+        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic "));  
+        
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s401\\s\\d+\\s-\\s-$"));  
+        
+        request = "GET /authentication/a/b/d/e/e HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 302\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));  
+        
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-e\" \\[[^]]+\\]\\s\"[^\"]+\"\\s302\\s\\d+\\s-\\s-$"));
+        
+        request = "HEAD /authentication/a/b/d/e/e HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
+        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic "));  
+        
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s401\\s\\d+\\s-\\s-$"));  
+        
+        request = "HEAD /authentication/a/b/d/e/e HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 302\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));  
+        
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-e\" \\[[^]]+\\]\\s\"[^\"]+\"\\s302\\s\\d+\\s-\\s-$"));
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Test for Basic Authentication:
+     *  {@code /authentication/a/b/d/e/e/lock [C]}
+     *  The URI requires an authorization and the target does not exits. The
+     *  requests must be responded with status 401 and 404.
+     *  @throws Exception
+     */      
+    @Test
+    public void testAceptance_20() throws Exception {
+        
+        String request;
+        String response;
+        String accessLog;
+        
+        request = "GET /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
+        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic "));  
+        
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s401\\s\\d+\\s-\\s-$"));
+        
+        request = "GET /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 404\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));  
+        
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-e\" \\[[^]]+\\]\\s\"[^\"]+\"\\s404\\s\\d+\\s-\\s-$"));
+        
+        request = "HEAD /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
+        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic "));  
+        
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s401\\s\\d+\\s-\\s-$"));
+        
+        request = "HEAD /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 404\\s+\\w+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));  
+        
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-e\" \\[[^]]+\\]\\s\"[^\"]+\"\\s404\\s\\d+\\s-\\s-$"));
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Test for Basic Authentication:
+     *  {@code /authentication/a/b/d/e/e/lock [C]}
+     *  The URI requires an authorization and has been forbidden. The requests
      *  must be responded with status 401 and 403.
      *  @throws Exception
      */     
@@ -635,7 +768,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
-        Assert.assertFalse(response.contains("\r\nWWW-Authenticate:"));  
+        Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));  
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
@@ -660,7 +793,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
-        Assert.assertFalse(response.contains("\r\nWWW-Authenticate:"));  
+        Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));  
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
@@ -839,7 +972,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
      *  TestCase for aceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/bvc [Acc:group:c] [realm:sb] [C]}
-     *  The URI requires a authorization and has been forbidden. The requests
+     *  The URI requires an authorization and has been forbidden. The requests
      *  must be responded with status 401 and 403.
      *  @throws Exception
      */      
@@ -857,7 +990,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
-        Assert.assertFalse(response.contains("\r\nWWW-Authenticate:"));  
+        Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));  
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
@@ -881,7 +1014,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
      *  TestCase for aceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/bvr > http://www.heise.de [Acc:group:c] [R]}
-     *  The URI requires a authorization and has been redirected. The requests
+     *  The URI requires an authorization and has been redirected. The requests
      *  must be responded with status 401 and 302.
      *  @throws Exception
      */      
@@ -899,7 +1032,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 302\\s+\\w+.*$"));
-        Assert.assertFalse(response.contains("\r\nWWW-Authenticate:"));  
+        Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));  
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
@@ -923,7 +1056,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
      *  TestCase for aceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/bvv > ./stage/documents_vh_A/test_a [Acc:group:c]}
-     *  The URI requires a authorization and referenced a existing virtual
+     *  The URI requires an authorization and referenced a existing virtual
      *  path. The requests must be responded with status 401 and 200.
      *  @throws Exception
      */  
@@ -941,7 +1074,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.contains("\r\nWWW-Authenticate:"));  
+        Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));  
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
@@ -978,7 +1111,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
      *  TestCase for aceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/bvm > ConnectorA [v:xx=123] [m] [Acc:group:c]}
-     *  The URI requires a authorization and referenced a modul. The requests 
+     *  The URI requires an authorization and referenced a modul. The requests 
      *  must be responded with status 401 and 001.
      *  @throws Exception
      */  
@@ -996,7 +1129,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 001\\s+\\w+.*$"));
-        Assert.assertFalse(response.contains("\r\nWWW-Authenticate:"));  
+        Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));  
         Assert.assertTrue(response.matches("(?s)^.*\\[v\\:xx=123\\] \\[m\\].*$"));
         
         Thread.sleep(250);

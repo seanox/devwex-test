@@ -21,6 +21,7 @@
  */
 import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.net.Socket;
 import java.util.Map;
 
 /** Very elementary module, only for internal use. */
@@ -29,14 +30,17 @@ public class ConnectorA {
     /** referenced listener */
     private Object listener;
     
+    /** socket of listener */
+    private Socket socket;   
+    
+    /** listener output stream */
+    private OutputStream output;
+    
     /** listener environment */
     private Object environment;
     
     /** internal map of listener environment */
     private Map<String, String> environmentMap;    
-
-    /** listener output stream */
-    private OutputStream output;
 
     /** listener connection control */
     private boolean control;
@@ -82,28 +86,24 @@ public class ConnectorA {
     private static Object getField(Object source, String field)
             throws Exception {
         
-        Field export;
-        try {export = source.getClass().getDeclaredField(field);
-        } catch (NoSuchFieldException exception) {
-            return null;
-        }
+        Field export = source.getClass().getDeclaredField(field);
         export.setAccessible(true);
         return export.get(source);
     }
     
-    public void bind(Object listener, int type)
-            throws Exception {
-        
+    public void bind(Object listener, int type) throws Exception {
+
         this.listener = listener;
         this.type = type;
         ConnectorA.synchronizeFields(listener, this);
         if (this.environment != null)
             this.environmentMap = (Map<String, String>)ConnectorA.getField(this.environment, "entries");
+        if (this.output == null)
+            this.output = this.socket.getOutputStream();        
         this.service();
     }
     
-    private void service()
-            throws Exception {
+    private void service() throws Exception {
         
         String string;
 
