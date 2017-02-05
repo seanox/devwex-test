@@ -28,7 +28,7 @@ import org.junit.Test;
 /**
  *  TestCases for {@link com.seanox.devwex.Section#contains(String, String)}.
  */
-public class SectionTest_Contains {
+public class SectionTest_Contains extends AbstractTest {
     
     /** TestCase for a invalid key. */
     @Test(expected=Exception.class)

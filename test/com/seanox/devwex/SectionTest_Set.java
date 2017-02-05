@@ -28,7 +28,7 @@ import org.junit.Test;
 /**
  *  TestCases for {@link com.seanox.devwex.Section#set(String, String)}.
  */
-public class SectionTest_Set {
+public class SectionTest_Set extends AbstractTest {
     
     /** TestCase for a invalid key. */
     @Test(expected=Exception.class)

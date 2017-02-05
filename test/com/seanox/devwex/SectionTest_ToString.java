@@ -30,7 +30,7 @@ import com.seanox.test.utils.ResourceUtils;
 /**
  *  TestCases for {@link com.seanox.devwex.Section}.
  */
-public class SectionTest_ToString {
+public class SectionTest_ToString extends AbstractTest {
     
     /** TestCase for key encoding. */
     @Test

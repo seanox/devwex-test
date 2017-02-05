@@ -289,6 +289,8 @@ public class ListenerTest_Request extends AbstractTest {
     @Test
     public void testAceptance_9() throws Exception {
         
+        int threadCount = Thread.activeCount();
+        
         List<Socket> sockets = new ArrayList<>();
         try {
             for (int loop = 1; loop <= 150; loop++) {
@@ -317,6 +319,9 @@ public class ListenerTest_Request extends AbstractTest {
             }
             Assert.assertTrue(socketOpened > 100);
             Assert.assertTrue(socketClosed > 20);
+            
+            while (Thread.activeCount() > threadCount)
+                Thread.sleep(250);
         }
     }     
 }

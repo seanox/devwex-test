@@ -30,7 +30,7 @@ import com.seanox.test.utils.ResourceUtils;
 /**
  *  TestCases for {@link com.seanox.devwex.Initialize}.
  */
-public class InitializeTest_ToString {
+public class InitializeTest_ToString extends AbstractTest {
     
     /** TestCase for aceptance. */
     @Test

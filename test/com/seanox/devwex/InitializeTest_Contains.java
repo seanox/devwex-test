@@ -28,7 +28,7 @@ import org.junit.Test;
 /**
  *  TestCases for {@link com.seanox.devwex.Initialize#contains(String)}.
  */
-public class InitializeTest_Contains {
+public class InitializeTest_Contains extends AbstractTest {
     
     /** TestCase for a invalid key. */
     @Test(expected=Exception.class)
