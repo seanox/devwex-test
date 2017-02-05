@@ -33,7 +33,7 @@ import com.seanox.test.utils.ResourceUtils;
 /**
  *  TestCases for {@link com.seanox.devwex.Generator}.
  */
-public class GeneratorTest {
+public class GeneratorTest extends AbstractTest {
     
     /** TestCase for aceptance. */
     @Test
