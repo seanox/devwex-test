@@ -290,35 +290,78 @@ public class ListenerTest_Delete extends AbstractTest {
     
     /** 
      *  TestCase for aceptance.
-     *  TODO:
+     *  DELETE is executed by a CGI.
+     *  The request is responded with Status 200.
      *  @throws Exception
      */
     @Test
     public void testAceptance_09() throws Exception {
+        
+        String request = "Delete /method.jsx HTTP/1.0\r\n"
+                + "Host: vHe\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
+        String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
+        Assert.assertTrue(body.matches("(?si)^\\s*hallo\\s*$"));
+
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
     }
 
     /** 
      *  TestCase for aceptance.
-     *  TODO:
+     *  DELETE is executed by a CGI, but the CGI does not exists.
+     *  The request is responded with Status 403.
      *  @throws Exception
      */
     @Test
     public void testAceptance_10() throws Exception {
+        
+        String request = "Delete /method.php HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
+
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s403\\s\\d+\\s-\\s-$"));
     }
     
     /** 
      *  TestCase for aceptance.
-     *  TODO:
+     *  DELETE is executed by a moduls.
+     *  The path of the uri is for a module is absolute and so the module with
+     *  the path {@code /test.modul} will also responses an uri with the path
+     *  {@code /test.modul123}. 
      *  @throws Exception
      */
     @Test
     public void testAceptance_11() throws Exception {
+        
+        String request = "Delete /test.modul123 HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request + "\r\n\r\n"));
+        
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 001 Test ok\\s+\\w+.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ConnectorA\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nModultype: 7\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: ConnectorA \\[v:xx=123\\] \\[m\\]\r\n.*$"));
+        
+        Thread.sleep(250);
+        String accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s1\\s\\d+\\s-\\s-$"));
     }
     
     /** 
      *  TestCase for aceptance.
      *  Delete is executed for an absolute reference (URL). Thus, the request
-     *  is answered with Status 200. The path is absolute, so
+     *  is responded with Status 200. The path is absolute, so
      *  {@code /test.xxx123} is also covered by {@code /test.xxx}.
      *  @throws Exception
      */
@@ -399,7 +442,7 @@ public class ListenerTest_Delete extends AbstractTest {
     /** 
      *  TestCase for aceptance.
      *  Delete is executed for an absolute reference (URL).
-     *  Thus, the request is answered with Status 200.
+     *  Thus, the request is responded with Status 200.
      *  @throws Exception
      */
     @Test

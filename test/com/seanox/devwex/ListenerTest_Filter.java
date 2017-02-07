@@ -517,7 +517,7 @@ public class ListenerTest_Filter extends AbstractTest {
      *  TestCase for aceptance.
      *  VHP has three ALWAYS filters.
      *  All filters are executed because no filter changes the server status.
-     *  The request is answered with status 200 and a test file is created in
+     *  The request is responded with status 200 and a test file is created in
      *  DocRoot. Each filter increases the value in the file. Finally, the file
      *  must contain the value "3".
      *  filter expression: {@code ALL ALWAYS > ConnectorE [M]}
