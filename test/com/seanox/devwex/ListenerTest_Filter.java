@@ -391,7 +391,6 @@ public class ListenerTest_Filter extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request + "\r\n\r\n"));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 302\\s+\\w+.*$"));  
-        
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
@@ -540,5 +539,119 @@ public class ListenerTest_Filter extends AbstractTest {
         Assert.assertTrue(Files.exists(testFile));
         String fileContent = new String(Files.readAllBytes(testFile));
         Assert.assertEquals("3", fileContent);
-    }    
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Configuration:
+     *      {@code FLT: GET IS CONTAINS QUERY -404- > ConnectorF [M]}
+     *      {@code REF: /env.test > ConnectorC [M]}
+     *  The request is responded with status 404 even the path is defined as
+     *  module.
+     *  @throws Exception
+     */
+    @Test
+    public void testAceptance_22() throws Exception {
+        
+        String request;
+        String response;
+        String accessLog;
+        
+        request = "GET /env.test?a-404- HTTP/1.0\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 404\\s+\\w+.*$"));  
+        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
+        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Length: \\d+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s404\\s\\d+\\s-\\s-$"));  
+        
+        request = "GET /env.test?a-4x04- HTTP/1.0\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 003\\s+\\w+.*$"));  
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s3\\s\\d+\\s-\\s-$"));  
+    }
+
+    /** 
+     *  TestCase for aceptance.
+     *  Configuration:
+     *      {@code FLT: PUT IS CONTAINS QUERY -404- > ConnectorF [M]}
+     *      {@code REF: /env.test > ConnectorC [M]}
+     *  The request is responded with status 201 because the status 404 + PUT
+     *  is equals to a ressource that does not exist. This is the normal
+     *  situation to create a new ressource.
+     *  @throws Exception
+     */    
+    @Test
+    public void testAceptance_23() throws Exception {
+        
+        String request;
+        String response;
+        String accessLog;
+        
+        String docRoot = TestUtils.getRootStage().toString() + "/documents";
+        Path testFile = Paths.get(docRoot, "xxxxx");
+        if (Files.exists(testFile))
+            Files.delete(testFile);
+        Assert.assertFalse(Files.exists(testFile));
+        
+        request = "PUT /xxxxx?a-404- HTTP/1.0\r\n"
+                + "Content-Length: 10\r\n"
+                + "\r\n"
+                + "1234567890";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 201\\s+\\w+.*$"));  
+        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
+        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Length: \\d+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertEquals(10, Files.size(testFile));
+
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s201\\s\\d+\\s-\\s-$"));  
+        
+        request = "PUT /xxxxx?a-4x04- HTTP/1.0\r\n"
+                + "Content-Length: 10\r\n"
+                + "\r\n"
+                + "1234567890";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 201\\s+\\w+.*$"));  
+        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
+        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Length: \\d+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertEquals(10, Files.size(testFile));
+
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s201\\s\\d+\\s-\\s-$"));   
+        
+        request = "PUT /xxxxx?a-4x04- HTTP/1.0\r\n"
+                + "Content-Length: 8\r\n"
+                + "\r\n"
+                + "12345678";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 201\\s+\\w+.*$"));  
+        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
+        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Length: \\d+.*$"));
+        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertEquals(8, Files.size(testFile));
+
+        Thread.sleep(250);
+        accessLog = TestUtils.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s201\\s\\d+\\s-\\s-$"));   
+        
+        if (Files.exists(testFile))
+            Files.delete(testFile);
+        Assert.assertFalse(Files.exists(testFile));
+    }
 }
