@@ -44,8 +44,9 @@ public class ListenerTest_Options extends AbstractTest {
     public void testAceptance_01() throws Exception {
 
         String request = "OPTIONS / HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -70,8 +71,9 @@ public class ListenerTest_Options extends AbstractTest {
     public void testAceptance_02() throws Exception {
 
         String request = "OPTIONS /test_a HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -96,8 +98,9 @@ public class ListenerTest_Options extends AbstractTest {
     public void testAceptance_03() throws Exception {
 
         String request = "OPTIONS /test_ax HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -122,8 +125,9 @@ public class ListenerTest_Options extends AbstractTest {
     public void testAceptance_04() throws Exception {
 
         String request = "OPTIONS /method_file.txt HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -148,8 +152,9 @@ public class ListenerTest_Options extends AbstractTest {
     public void testAceptance_05() throws Exception {
 
         String request = "OPTIONS /method_file.txt/ HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -177,14 +182,16 @@ public class ListenerTest_Options extends AbstractTest {
         String response;
         
         request = "HEAD /method_file.txt HTTP/1.0\r\n"
-                + "Host: vHa";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));       
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));       
         String lastModified = TestHttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
         
         request = "OPTIONS /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: " + lastModified + "\r\n"
-                + "Host: vHa";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -210,8 +217,9 @@ public class ListenerTest_Options extends AbstractTest {
         
         String request = "OPTIONS /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: Sat, 01 Jan 2000 00:00:00 GMT\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -239,15 +247,17 @@ public class ListenerTest_Options extends AbstractTest {
         String response;
         
         request = "HEAD /method_file.txt HTTP/1.0\r\n"
-                + "Host: vHa";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));       
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));       
         String lastModified = TestHttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
         String contentLength = TestHttpUtils.getResponseHeaderValue(response, HeaderField.CONTENT_LENGTH);
         
         request = "OPTIONS /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: " + lastModified + "; xxx; length=" + contentLength + "\r\n"
-                + "Host: vHa";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -273,8 +283,9 @@ public class ListenerTest_Options extends AbstractTest {
         
         String request = "OPTIONS /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: Sat, 01 Jan 2000 00:00:00 GMT; xxx; length=123\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -302,8 +313,9 @@ public class ListenerTest_Options extends AbstractTest {
     public void testAceptance_11() throws Exception {
         
         String request = "OPTIONS /test_a/ HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -331,8 +343,9 @@ public class ListenerTest_Options extends AbstractTest {
         
         String request = "OPTIONS /test_d/ HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -356,8 +369,9 @@ public class ListenerTest_Options extends AbstractTest {
         
         String request = "OPTIONS /forbidden HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -383,8 +397,9 @@ public class ListenerTest_Options extends AbstractTest {
         
         String request = "OPTIONS /absolute HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -410,8 +425,9 @@ public class ListenerTest_Options extends AbstractTest {
         
         String request = "OPTIONS /absolutexxx HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -436,8 +452,9 @@ public class ListenerTest_Options extends AbstractTest {
         
         String request = "OPTIONS /test.method.php HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -461,8 +478,9 @@ public class ListenerTest_Options extends AbstractTest {
     public void testAceptance_17() throws Exception {
         
         String request = "oPTIONS /method.jsx HTTP/1.0\r\n"
-                + "Host: vHb";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+                + "Host: vHb\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -491,8 +509,9 @@ public class ListenerTest_Options extends AbstractTest {
     public void testAceptance_18() throws Exception {
         
         String request = "oPTIONS /method.jsx HTTP/1.0\r\n"
-                + "Host: vHe";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));   
+                + "Host: vHe\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -708,110 +727,111 @@ public class ListenerTest_Options extends AbstractTest {
                 range = "Range: bytes=0-0\r\n";    
         
             request = "HEAD " + uri + " HTTP/1.0\r\n"
-                    + "Host: vHa";
-            response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));       
+                    + "Host: vHa\r\n"
+                    + "\r\n";
+            response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));       
             String lastModified = TestHttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
-                   + "Host: vHa\r\n"
-                   + range
-                   + "If-Modified-Since: " + lastModified + "\r\n\r\n";
+                    + "Host: vHa\r\n"
+                    + range
+                    + "If-Modified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
-                   + "Host: vHa\r\n"
-                   + range
-                   + "If-Modified-Since: " + lastModified + "\r\n\r\n";
+                    + "Host: vHa\r\n"
+                    + range
+                    + "If-Modified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
-                   + "Host: vHa\r\n"
-                   + range
-                   + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
+                    + "Host: vHa\r\n"
+                    + range
+                    + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
-                   + "Host: vHa\r\n"
-                   + range
-                   + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
+                    + "Host: vHa\r\n"
+                    + range
+                    + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
-                   + "Host: vHa\r\n"
-                   + range
-                   + "If-UnModified-Since: " + lastModified + "\r\n\r\n";
+                    + "Host: vHa\r\n"
+                    + range
+                    + "If-UnModified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
-                   + "Host: vHa\r\n"
-                   + range
-                   + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
-                   + "If-Modified-Since: " + lastModified + "\r\n\r\n";
+                    + "Host: vHa\r\n"
+                    + range
+                    + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
+                    + "If-Modified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
-                   + "Host: vHa\r\n"
-                   + range
-                   + "If-UnModified-Since: " + lastModified + "\r\n"
-                   + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
+                    + "Host: vHa\r\n"
+                    + range
+                    + "If-UnModified-Since: " + lastModified + "\r\n"
+                    + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
-                   + "Host: vHa\r\n"
-                   + range
-                   + "If-UnModified-Since: " + lastModified + "\r\n"
-                   + "If-Modified-Since: " + lastModified + "\r\n\r\n";
+                    + "Host: vHa\r\n"
+                    + range
+                    + "If-UnModified-Since: " + lastModified + "\r\n"
+                    + "If-Modified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
-                   + "Host: vHa\r\n"
-                   + range
-                   + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
-                   + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
+                    + "Host: vHa\r\n"
+                    + range
+                    + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
+                    + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
-                   + "Host: vHa\r\n"
-                   + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
+                    + "Host: vHa\r\n"
+                    + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
-                   + "Host: vHa\r\n"
-                   + "If-Modified-Since: " + lastModified + "\r\n\r\n";
+                    + "Host: vHa\r\n"
+                    + "If-Modified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
-                   + "Host: vHa\r\n"
-                   + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
+                    + "Host: vHa\r\n"
+                    + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
-                   + "Host: vHa\r\n"
-                   + "If-UnModified-Since: " + lastModified + "\r\n\r\n";
+                    + "Host: vHa\r\n"
+                    + "If-UnModified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
-                   + "Host: vHa\r\n"
-                   + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
-                   + "If-Modified-Since: " + lastModified + "\r\n\r\n";
+                    + "Host: vHa\r\n"
+                    + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
+                    + "If-Modified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
-                   + "Host: vHa\r\n"
-                   + "If-UnModified-Since: " + lastModified + "\r\n"
-                   + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
+                    + "Host: vHa\r\n"
+                    + "If-UnModified-Since: " + lastModified + "\r\n"
+                    + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
-                   + "Host: vHa\r\n"
-                   + "If-UnModified-Since: " + lastModified + "\r\n"
-                   + "If-Modified-Since: " + lastModified + "\r\n\r\n";
+                    + "Host: vHa\r\n"
+                    + "If-UnModified-Since: " + lastModified + "\r\n"
+                    + "If-Modified-Since: " + lastModified + "\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
-                   + "Host: vHa\r\n"
-                   + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
-                   + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
+                    + "Host: vHa\r\n"
+                    + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
+                    + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n";
             ListenerTest_Options.assertAceptance_22(request);
         }
     }

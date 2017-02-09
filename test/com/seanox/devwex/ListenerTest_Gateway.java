@@ -48,8 +48,9 @@ public class ListenerTest_Gateway extends AbstractTest {
     public void testAceptance_01() throws Exception {
         
         String request = "HEAD /cgi_module.con HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -72,8 +73,9 @@ public class ListenerTest_Gateway extends AbstractTest {
     public void testAceptance_02() throws Exception {
         
         String request = "GET /cgi_module.con HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 001 Test ok\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ConnectorA\r\n.*$"));
@@ -96,8 +98,9 @@ public class ListenerTest_Gateway extends AbstractTest {
     public void testAceptance_03() throws Exception {
         
         String request = "GET /cgi_module.con/1 HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 404\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
@@ -153,8 +156,9 @@ public class ListenerTest_Gateway extends AbstractTest {
     public void testAceptance_05() throws Exception {
         
         String request = "GET /cgi_header_status_1.jsx HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 123 Test\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -178,8 +182,9 @@ public class ListenerTest_Gateway extends AbstractTest {
     public void testAceptance_06() throws Exception {
         
         String request = "GET /cgi_header_status_1.jsx HTTP/1.0\r\n"
-                + "Host: vHd";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHd\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 502\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -240,8 +245,9 @@ public class ListenerTest_Gateway extends AbstractTest {
         Assert.assertTrue(body.matches("(?si)^.*\r\n\\QREMOTE_ADDR=127.0.0.1\\E\r\n.*$"));
         
         request = "GET \\cgi_environment.jsx?parameter=DOCUMENT_ROOT,SERVER_SOFTWARE,REMOTE_PORT,UNIQUE_ID HTTP/1.0\r\n"
-                + "Host: vHa";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
 
         header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.trim().length() > 0);
@@ -263,8 +269,9 @@ public class ListenerTest_Gateway extends AbstractTest {
     public void testAceptance_08() throws Exception {
         
         String request = "GET \\cgi_environment.jsx HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -286,8 +293,9 @@ public class ListenerTest_Gateway extends AbstractTest {
     public void testAceptance_09() throws Exception {
         
         String request = "GET \\cgi_environment.jsx HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -313,8 +321,9 @@ public class ListenerTest_Gateway extends AbstractTest {
     public void testAceptance_10() throws Exception {
         
         String request = "GET \\cgi_environment.jsx?parameter=SCRIPT_FILENAME,PATH_TRANSLATED,REQUEST_URI HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -355,8 +364,9 @@ public class ListenerTest_Gateway extends AbstractTest {
     public void testAceptance_11() throws Exception {
         
         String request = "GET /cgi_header_status_C.jsx HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401 Authorization Required\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?s)^.*\r\nHTTP/1\\.0 401.*$"));
@@ -381,8 +391,9 @@ public class ListenerTest_Gateway extends AbstractTest {
     public void testAceptance_12() throws Exception {
 
         String request = "GET /cgi_header_status_C.jsx HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401 Authorization Required\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -410,9 +421,10 @@ public class ListenerTest_Gateway extends AbstractTest {
         String body;        
         
         request = "GET \\cgi_environment.jsx?parameter=HTTP_TEST_123 HTTP/1.0\r\n"
-               + "Host: vHa\r\n"
-               + "Test-123: erfolgReich";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "Test-123: erfolgReich\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -429,8 +441,9 @@ public class ListenerTest_Gateway extends AbstractTest {
         request = "GET \\cgi_environment.jsx?parameter=HTTP_TEST_123 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "Test-123: erfolgReich_1\r\n"
-                + "Test-123: erfolgReich_2";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Test-123: erfolgReich_2\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
 
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -461,8 +474,9 @@ public class ListenerTest_Gateway extends AbstractTest {
         String body;
         
         request = "GET \\cgi_environment.jsx?parameter=HTTP_HOST HTTP/1.0\r\n"
-                + "Host: vHa";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
 
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -475,8 +489,9 @@ public class ListenerTest_Gateway extends AbstractTest {
         Assert.assertTrue(body.matches("(?si)^.*\r\nHTTP_HOST=vHa\r\n.*$"));
         Assert.assertFalse(body.matches("(?si)^.*\r\nHTTP_HOST=127\\.0\\.0\\.1\r\n.*$"));
 
-        request = "GET \\cgi_environment.jsx?parameter=HTTP_HOST HTTP/1.0";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
+        request = "GET \\cgi_environment.jsx?parameter=HTTP_HOST HTTP/1.0\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
 
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -531,8 +546,9 @@ public class ListenerTest_Gateway extends AbstractTest {
     public void testAceptance_17() throws Exception {
         
         String request = "GET \\stage\\documents\\cgi_environment.jsx HTTP/1.0\r\n"
-                + "Host: vHc";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
+                + "Host: vHc\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
@@ -562,8 +578,9 @@ public class ListenerTest_Gateway extends AbstractTest {
         String accessLog;
         
         request = "GET /cgi_header_status_2.jsx HTTP/1.0\r\n"
-                + "Host: vHa";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 123 UND NUN\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
@@ -574,8 +591,9 @@ public class ListenerTest_Gateway extends AbstractTest {
         Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s123\\s\\d+\\s-\\s-$"));
         
         request = "GET /cgi_header_status_3.jsx HTTP/1.0\r\n"
-                + "Host: vHa";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
@@ -586,8 +604,9 @@ public class ListenerTest_Gateway extends AbstractTest {
         Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$")); 
         
         request = "GET /cgi_header_status_4.jsx HTTP/1.0\r\n"
-                + "Host: vHa";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
@@ -598,8 +617,9 @@ public class ListenerTest_Gateway extends AbstractTest {
         Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
         
         request = "GET /cgi_header_status_5.jsx HTTP/1.0\r\n"
-                + "Host: vHa";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
@@ -610,8 +630,9 @@ public class ListenerTest_Gateway extends AbstractTest {
         Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
         
         request = "GET /cgi_header_status_6.jsx HTTP/1.0\r\n"
-                + "Host: vHa";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
@@ -622,8 +643,9 @@ public class ListenerTest_Gateway extends AbstractTest {
         Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));   
         
         request = "GET /cgi_header_status_7.jsx HTTP/1.0\r\n"
-                + "Host: vHa";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
@@ -634,8 +656,9 @@ public class ListenerTest_Gateway extends AbstractTest {
         Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));   
         
         request = "GET /cgi_header_status_8.jsx HTTP/1.0\r\n"
-                + "Host: vHa";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
@@ -646,8 +669,9 @@ public class ListenerTest_Gateway extends AbstractTest {
         Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));  
         
         request = "GET /cgi_header_status_9.jsx HTTP/1.0\r\n"
-                + "Host: vHa";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200 Success\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
@@ -658,8 +682,9 @@ public class ListenerTest_Gateway extends AbstractTest {
         Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));   
         
         request = "GET /cgi_header_status_A.jsx HTTP/1.0\r\n"
-                + "Host: vHa";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200 Success\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
@@ -670,8 +695,9 @@ public class ListenerTest_Gateway extends AbstractTest {
         Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
         
         request = "GET /cgi_header_status_B.jsx HTTP/1.0\r\n"
-                + "Host: vHa";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 444 AAA BBB\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
@@ -693,8 +719,9 @@ public class ListenerTest_Gateway extends AbstractTest {
     public void testAceptance_19() throws Exception {
         
         String request = "GET /cgi_timeout_status_200.jsx HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         
@@ -714,8 +741,9 @@ public class ListenerTest_Gateway extends AbstractTest {
     public void testAceptance_20() throws Exception {
         
         String request = "GET /cgi_timeout_status_504.jsx HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 504\\s+\\w+.*$"));
         
@@ -807,7 +835,7 @@ public class ListenerTest_Gateway extends AbstractTest {
                 + "AAC: A2\r\n"
                 + "\r\n"
                 + "1234567890";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         

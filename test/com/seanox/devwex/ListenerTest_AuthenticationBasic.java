@@ -43,8 +43,9 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     public void testAceptance_01() throws Exception {
         
         String request = "GET /authentication/a/ HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-A\"\r\n"));
@@ -66,8 +67,9 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     public void testAceptance_02() throws Exception {
         
         String request = "GET /authentication/a/b/d/ HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));
@@ -90,8 +92,9 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         String request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
-                + "Authorization: Basic dXNyLWE6cHdkLWE=";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Authorization: Basic dXNyLWE6cHdkLWE=\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));
@@ -113,9 +116,10 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     public void testAceptance_04() throws Exception {
         
         String request = "GET /authentication/a/b/ HTTP/1.0\r\n"
-               + "Host: vHa\r\n"
-               + "Authorization: Basic dXNyLWE6cHdkLWE=";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "Authorization: Basic dXNyLWE6cHdkLWE=\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-B\"\r\n"));
@@ -137,9 +141,10 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     public void testAceptance_05() throws Exception {
         
         String request = "GET /authentication/a/b/ HTTP/1.0\r\n"
-               + "Host: vHa\r\n"
-               + "Authorization: Basic dXNyLWI6cHdkLWI=";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "Authorization: Basic dXNyLWI6cHdkLWI=\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));
@@ -161,9 +166,10 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     public void testAceptance_06() throws Exception {
         
         String request = "GET /authentication/a/ HTTP/1.0\r\n"
-               + "Host: vHa\r\n"
-               + "Authorization: Basic dXNyLWI6cHdkLWI=";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "Authorization: Basic dXNyLWI6cHdkLWI=\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-A\"\r\n"));
@@ -185,9 +191,10 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     public void testAceptance_07() throws Exception {
         
         String request = "GET /authentication/a/b/c/ HTTP/1.0\r\n"
-               + "Host: vHa\r\n"
-               + "Authorization: Basic dXNyLWE6cHdkLWE=";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "Authorization: Basic dXNyLWE6cHdkLWE=\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));
@@ -209,8 +216,9 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     public void testAceptance_08() throws Exception {
         
         String request = "GET /authentication/a/b/c/ HTTP/1.0\r\n"
-               + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-A2\"\r\n"));
@@ -232,8 +240,9 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     public void testAceptance_09() throws Exception {
         
         String request = "GET /authentication/a/b/d/e/ HTTP/1.0\r\n"
-               + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-E\"\r\n"));
@@ -255,8 +264,9 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     public void testAceptance_10() throws Exception {
         
         String request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-E\"\r\n"));
@@ -278,9 +288,10 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     public void testAceptance_11() throws Exception {
         
         String request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
-               + "Host: vHa\r\n"
-               + "Authorization: Basic dXNyLWU6cHdkLWU=";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "Authorization: Basic dXNyLWU6cHdkLWU=\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));
@@ -306,9 +317,10 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String accessLog;
         
         request = "GET /authentication/a/b/d/e/e HTTP/1.0\r\n"
-               + "Host: vHa\r\n"
-               + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e");
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 302\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));
@@ -322,8 +334,9 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-e\" \\[[^]]+\\]\\s\"[^\"]+\"\\s302\\s\\d+\\s-\\s-$"));
         
         request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
-                + "Host: vHa";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
     
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-E\"\r\n"));
@@ -337,8 +350,9 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
          
         request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
-                + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e");
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
 
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));
@@ -353,10 +367,11 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET " + uri + " HTTP/1.0\r\n"
                 + "Host: vHa\r\n";
         if (auth == 1)
-            request += "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e");
+            request += "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n";
         if (auth == 2)
-            request += "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a");
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+            request += "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n";
+        request += "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
       
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 " + status + "\\s+\\w+.*$"));
     }
@@ -394,10 +409,11 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET " + uri + " HTTP/1.0\r\n"
                 + "Host: vHa\r\n";
         if (auth == 1)
-            request += "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e");
+            request += "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n";
         if (auth == 2)
-            request += "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a");
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+            request += "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n";
+        request += "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"" + realm + "\"\r\n"));        
@@ -432,8 +448,9 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET " + uri + " HTTP/1.0\r\n"
                 + "Host: vHa\r\n";
         if (auth != null && !auth.trim().isEmpty())
-            request += "Authorization: Basic " + Codec.encodeBase64(auth);
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+            request += "Authorization: Basic " + Codec.encodeBase64(auth) + "\r\n";
+        request += "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         if (realm != null)
             Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"" + realm + "\"\r\n"));      
@@ -476,9 +493,10 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     public void testAceptance_16() throws Exception {
         
         String request = "GET /authentication/a/xxx HTTP/1.0\r\n"
-               + "Host: vHa\r\n"
-               + "Authorization: Basic dXNyLWE6cHdkLWE=";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "Authorization: Basic dXNyLWE6cHdkLWE=\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 404\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));
@@ -500,8 +518,9 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     public void testAceptance_17() throws Exception {
         
         String request = "GET /authentication/a/xxx HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-A\"\r\n"));  
@@ -933,8 +952,9 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         String request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
-                + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-b");
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-b") + "\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-A\"\r\n"));  
@@ -957,8 +977,9 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         String request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
-                + "Authorization: Basic " + Codec.encodeBase64("usr-b:pwd-a");
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Authorization: Basic " + Codec.encodeBase64("usr-b:pwd-a") + "\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-A\"\r\n"));  
@@ -1285,8 +1306,9 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     public void testAceptance_98() throws Exception {
         
         String request = "GET /authentication/a/b/e/ HTTP/1.0\r\n"
-               + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));
@@ -1308,8 +1330,9 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     public void testAceptance_99() throws Exception {
         
         String request = "GET /authentication/a/b/e/c/ HTTP/1.0\r\n"
-               + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
         Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-BEC\"\r\n"));

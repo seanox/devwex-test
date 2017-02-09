@@ -43,6 +43,7 @@ import org.junit.runners.Suite;
     ListenerTest_Status.class,
     ListenerTest_Gateway.class,
     ListenerTest_Service.class,
+    ListenerTest_FileIndex.class,
     ListenerTest_Configuration.class,
     ListenerTest_VirtualHost.class,
     ListenerTest_Performance.class

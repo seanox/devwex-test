@@ -39,8 +39,9 @@ public class ListenerTest_MimeType extends AbstractTest {
     public void testAceptance_1() throws Exception {
         
         String request = "GET /mimetype_test.xxx HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: application/octet-stream\r\n.*$"));
@@ -56,8 +57,9 @@ public class ListenerTest_MimeType extends AbstractTest {
     public void testAceptance_2() throws Exception {
         
         String request = "GET /mimetype_test.xls HTTP/1.0\r\n"
-                + "Host: vHa";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: application/vnd.ms-excel\r\n.*$"));
@@ -75,8 +77,9 @@ public class ListenerTest_MimeType extends AbstractTest {
         
         String request = "GET /mimetype_test.xls HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
-                + "Accept: */*";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
+                + "Accept: */*\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: application/vnd.ms-excel\r\n.*$"));
@@ -94,8 +97,9 @@ public class ListenerTest_MimeType extends AbstractTest {
         
         String request = "GET /mimetype_test.xls HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
-                + "Accept: application/*";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
+                + "Accept: application/*\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: application/vnd.ms-excel\r\n.*$"));
@@ -113,8 +117,9 @@ public class ListenerTest_MimeType extends AbstractTest {
         
         String request = "GET /mimetype_test.xls HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
-                + "Accept: */vnd.ms-excel";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
+                + "Accept: */vnd.ms-excel\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: application/vnd.ms-excel\r\n.*$"));
@@ -131,8 +136,9 @@ public class ListenerTest_MimeType extends AbstractTest {
         
         String request = "GET /mimetype_test.xxx HTTP/1.0\r\n"
                 + "Host: vHi\r\n"
-                + "Accept: */*";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
+                + "Accept: */*\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: application/octet-stream\r\n.*$"));
@@ -149,8 +155,9 @@ public class ListenerTest_MimeType extends AbstractTest {
         
         String request = "GET /mimetype_test.xxx HTTP/1.0\r\n"
                 + "Host: vHi\r\n"
-                + "Accept: no/*";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
+                + "Accept: no/*\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 406\\s+\\w+.*$"));
     }
@@ -166,8 +173,9 @@ public class ListenerTest_MimeType extends AbstractTest {
         
         String request = "GET /mimetype_test.xxx HTTP/1.0\r\n"
                 + "Host: vHi\r\n"
-                + "Accept: */no";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
+                + "Accept: */no\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 406\\s+\\w+.*$"));
     }  
@@ -184,8 +192,9 @@ public class ListenerTest_MimeType extends AbstractTest {
         
         String request = "GET /mimetype_test.xxx HTTP/1.0\r\n"
                 + "Host: vHi\r\n"
-                + "Accept:     ";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
+                + "Accept:     \r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: application/octet-stream\r\n.*$"));

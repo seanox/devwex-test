@@ -185,8 +185,8 @@ public class ListenerTest_Request extends AbstractTest {
         String request = "GET /";
         while (request.length() < 40000)
             request += "x";
-        
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
+        request += "\r\n\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 413\\s+\\w+.*$"));
         Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));

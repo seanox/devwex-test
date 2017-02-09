@@ -40,8 +40,9 @@ public class ListenerTest_VirtualHost extends AbstractTest {
     public void testAceptance_1() throws Exception {
         
         String request = "GET \\cgi_environment.jsx HTTP/1.0\r\n"
-                + "Host: vhA";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n\r\n"));
+                + "Host: vhA\r\n"
+                + "\r\n";
+        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
         Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
