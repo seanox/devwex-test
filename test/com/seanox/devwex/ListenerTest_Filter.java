@@ -112,7 +112,7 @@ public class ListenerTest_Filter extends AbstractTest {
                 + "FELD-A: xxx\r\n"
                 + "\r\n";
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request));
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 405\\s+\\w+.*$"));  
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_405));  
     }  
     
     /** 

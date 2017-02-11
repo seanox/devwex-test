@@ -135,7 +135,8 @@ public class ConnectorC {
             
             if (("exist").equals(param))
                 string = string.concat(this.environmentMap.containsKey(value) ? "true" : "false");
-            if (("value").equals(param))
+            if (("value").equals(param)
+                    && this.environmentMap.containsKey(value))
                 string = string.concat(this.environmentMap.get(value));            
 
             //the connection is marked as closed
