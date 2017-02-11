@@ -83,10 +83,10 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "\r\n";
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 302\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.contains("\r\nLocation: http://vHa:8085/delete_test_2/x1/file_test.2\r\n"));
         
         Thread.sleep(250);
@@ -108,10 +108,10 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 302\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.contains("\r\nLocation: http://vHa:8085/delete_test_2/x1/\r\n"));
         
         Thread.sleep(250);
@@ -132,11 +132,11 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLocation:.*$"));        
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LOCATION_DIFFUSE));        
         
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.trim().length() > 0);
@@ -161,14 +161,14 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 404\\s+\\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Length: \\d+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s404\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }
     
     /** 
@@ -185,11 +185,11 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLocation:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LOCATION_DIFFUSE));
         
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.trim().length() > 0);
@@ -214,14 +214,14 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 404\\s+\\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Length: \\d+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s404\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }
     
     /** 
@@ -243,11 +243,11 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLocation:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LOCATION_DIFFUSE));
         
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.trim().length() > 0);
@@ -258,7 +258,7 @@ public class ListenerTest_Delete extends AbstractTest {
 
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
     /** 
@@ -280,11 +280,11 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLocation:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LOCATION_DIFFUSE));
         
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.trim().length() > 0);
@@ -295,7 +295,7 @@ public class ListenerTest_Delete extends AbstractTest {
 
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }    
     
     /** 
@@ -312,13 +312,13 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertTrue(body.matches("(?si)^\\s*hallo\\s*$"));
 
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
 
     /** 
@@ -335,11 +335,11 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
 
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s403\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));
     }
     
     /** 
@@ -394,10 +394,10 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "\r\n";
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 201\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.contains("\r\nLocation: http://vHa:8085/file.xxx\r\n"));        
         
         Assert.assertTrue(target.exists());  
@@ -407,11 +407,11 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "\r\n";
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLocation:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LOCATION_DIFFUSE));
         
         header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.trim().length() > 0);
@@ -422,35 +422,35 @@ public class ListenerTest_Delete extends AbstractTest {
 
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
         
         request = "Delete /test.xxx123 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 404\\s+\\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Length: \\d+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));      
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));      
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s404\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
         
         request = "Delete /test.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 404\\s+\\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Length: \\d+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));      
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));      
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s404\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }
     
     /** 
@@ -478,10 +478,10 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "\r\n";
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 201\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.contains("\r\nLocation: http://vHa:8085/file.xxx\r\n"));        
         
         Assert.assertTrue(target.exists());  
@@ -491,11 +491,11 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "\r\n";
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLocation:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LOCATION_DIFFUSE));
         
         header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.trim().length() > 0);
@@ -506,21 +506,21 @@ public class ListenerTest_Delete extends AbstractTest {
 
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
         
         request = "Delete /test.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 404\\s+\\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Length: \\d+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));      
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));      
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s404\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }  
     
     /** 
@@ -537,10 +537,10 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 302\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.contains("\r\nLocation: http://www.xXx.zzz/?a=2/a/b/c\r\n")); 
         
         Thread.sleep(250);
@@ -562,14 +562,14 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Length: \\d+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s403\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));
     }
     
     /** 
@@ -586,14 +586,14 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Length: \\d+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s401\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
@@ -628,11 +628,11 @@ public class ListenerTest_Delete extends AbstractTest {
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));        
         Assert.assertFalse(target.exists()); 
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLocation:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LOCATION_DIFFUSE));
         
         request = "Delete /authentication/a/file.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -642,6 +642,6 @@ public class ListenerTest_Delete extends AbstractTest {
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));        
         Assert.assertFalse(target.exists()); 
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 404\\s+\\w+.*$"));        
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));        
     }
 }

@@ -24,6 +24,8 @@ package com.seanox.devwex;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.seanox.test.utils.Pattern;
+
 /**
  *  TestCases for {@link com.seanox.devwex.Listener}.
  */
@@ -49,12 +51,12 @@ public class ListenerTest_AuthenticationDigest extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sWWW-Authenticate:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
     /** 
@@ -73,11 +75,11 @@ public class ListenerTest_AuthenticationDigest extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 401\\s+\\w+.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Digest realm=\"Section-BEC\""));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s401\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     } 
 }

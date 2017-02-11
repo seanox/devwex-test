@@ -44,10 +44,10 @@ public class ListenerTest_FileIndex extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8081", request));
 
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
-        Assert.assertTrue(header.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertTrue(header.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
-        Assert.assertTrue(header.matches("(?si)^.*\r\nContent-Length: \\d+.*$"));
-        Assert.assertFalse(header.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
+        Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+        Assert.assertFalse(header.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         String body = "\r\n" + response.replaceAll(Pattern.HTTP_RESPONSE, "$2") + "\r\n";
         Assert.assertTrue(body.contains("\r\nindex of: \r\n"));
@@ -56,7 +56,7 @@ public class ListenerTest_FileIndex extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));  
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
     }
     
     /** 
@@ -72,10 +72,10 @@ public class ListenerTest_FileIndex extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8081", request));
 
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
-        Assert.assertTrue(header.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertTrue(header.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
-        Assert.assertTrue(header.matches("(?si)^.*\r\nContent-Length: \\d+.*$"));
-        Assert.assertFalse(header.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
+        Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+        Assert.assertFalse(header.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         String body = "\r\n" + response.replaceAll(Pattern.HTTP_RESPONSE, "$2") + "\r\n";
         Assert.assertTrue(body.contains("\r\nindex of: \r\n"));
@@ -84,7 +84,7 @@ public class ListenerTest_FileIndex extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));  
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
     }
     
     /** 
@@ -101,10 +101,10 @@ public class ListenerTest_FileIndex extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8081", request));
 
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
-        Assert.assertTrue(header.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertTrue(header.matches("(?si)^.*\r\nContent-Type: \\w+.*$"));
-        Assert.assertTrue(header.matches("(?si)^.*\r\nContent-Length: \\d+.*$"));
-        Assert.assertFalse(header.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
+        Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+        Assert.assertFalse(header.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         String body = "\r\n" + response.replaceAll(Pattern.HTTP_RESPONSE, "$2") + "\r\n";
         Assert.assertTrue(body.contains("\r\nindex of: /test_a/test\r\n"));
@@ -113,6 +113,6 @@ public class ListenerTest_FileIndex extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));  
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
     }
 }

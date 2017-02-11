@@ -48,10 +48,10 @@ public class ListenerTest_Options extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
@@ -75,10 +75,10 @@ public class ListenerTest_Options extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
@@ -102,10 +102,10 @@ public class ListenerTest_Options extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
@@ -129,10 +129,10 @@ public class ListenerTest_Options extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
@@ -156,10 +156,10 @@ public class ListenerTest_Options extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
@@ -193,10 +193,10 @@ public class ListenerTest_Options extends AbstractTest {
                 + "\r\n";
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
@@ -221,10 +221,10 @@ public class ListenerTest_Options extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
@@ -259,10 +259,10 @@ public class ListenerTest_Options extends AbstractTest {
                 + "\r\n";
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
@@ -287,10 +287,10 @@ public class ListenerTest_Options extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
@@ -317,10 +317,10 @@ public class ListenerTest_Options extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
@@ -347,10 +347,10 @@ public class ListenerTest_Options extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
@@ -373,10 +373,10 @@ public class ListenerTest_Options extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
@@ -401,10 +401,10 @@ public class ListenerTest_Options extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
@@ -429,10 +429,10 @@ public class ListenerTest_Options extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
@@ -456,10 +456,10 @@ public class ListenerTest_Options extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
@@ -482,10 +482,10 @@ public class ListenerTest_Options extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertFalse(response.matches("(?si)^.*\\sAllow:.*$"));
         
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
@@ -513,10 +513,10 @@ public class ListenerTest_Options extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 403\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
@@ -541,11 +541,11 @@ public class ListenerTest_Options extends AbstractTest {
         
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n"));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Range:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
@@ -690,11 +690,11 @@ public class ListenerTest_Options extends AbstractTest {
     
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Type:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Range:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sContent-Length:.*$"));
-        Assert.assertFalse(response.matches("(?si)^.*\\sLast-Modified:.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
         
         Thread.sleep(250);
