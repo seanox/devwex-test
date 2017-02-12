@@ -14,7 +14,7 @@ PARAm-F        = ccc
 #### testAceptance_1_1
 PARAM-A              = ValuE-1
 PARAM-B          [+] = ValuE-2; ValuE-3 ValuE-4; ValuE-5 ValuE-6
-PARAM-C          [+] = ValuE-6; ValuE-7
+PARAM-C              = p_c
 PARAM-D
 PARAM-E              = aaa
 PARAM-E        + BBB

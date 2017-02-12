@@ -32,6 +32,11 @@ import com.seanox.test.utils.ResourceUtils;
  */
 public class SectionTest_Parse extends AbstractTest {
     
+    private void onBeforeTestAceptance_1() {
+
+        System.setProperty("param-c", "p_c");
+    }
+    
     /** TestCase for aceptance. */
     @Test
     public void testAceptance_1() {

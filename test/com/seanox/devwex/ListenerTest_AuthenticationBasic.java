@@ -49,7 +49,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
-        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-A\"\r\n"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
@@ -102,7 +102,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-a\" \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
     } 
     
     /** 
@@ -123,7 +123,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
-        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-B\"\r\n"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-B")));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
@@ -152,7 +152,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-b\" \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-b")));
     }
     
     /** 
@@ -173,7 +173,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
-        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-A\"\r\n"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
@@ -202,7 +202,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-a\" \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
     }   
     
     /** 
@@ -222,7 +222,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
-        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-A2\"\r\n"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A2")));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
@@ -246,7 +246,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
-        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-E\"\r\n"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-E")));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
@@ -270,7 +270,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
-        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-E\"\r\n"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-E")));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
@@ -299,7 +299,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-e\" \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-e")));
     }
     
     /** 
@@ -328,11 +328,11 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?s).*\r\nLocation: http://vHa:8080/authentication/a/b/d/e/e/\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8080/authentication/a/b/d/e/e/")));
 
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-e\" \\[[^]]+\\]\\s\"[^\"]+\"\\s302\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
         
         request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -340,7 +340,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
     
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
-        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-E\"\r\n"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-E")));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_TEXT_HTML));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
@@ -360,7 +360,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-e\" \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-e")));
     }
     
     private static void assertAceptance_13(String uri, String status, int auth) throws Exception {
@@ -374,7 +374,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         request += "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
       
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 " + status + "\\s+\\w+.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS(status)));
     }
     
     /** 
@@ -417,7 +417,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
-        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"" + realm + "\"\r\n"));        
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC(realm)));
     }
     
     /** 
@@ -454,7 +454,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         if (realm != null)
-            Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"" + realm + "\"\r\n"));      
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC(realm)));      
         else
             Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
     }
@@ -504,7 +504,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-a\" \\[[^]]+\\]\\s\"[^\"]+\"\\s404\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-a")));
     }
     
     /** 
@@ -524,7 +524,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
-        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-A\"\r\n"));  
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));  
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
@@ -581,7 +581,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-a\" \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
         
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -618,7 +618,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-a\" \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
     }
     
     /** 
@@ -660,7 +660,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-e\" \\[[^]]+\\]\\s\"[^\"]+\"\\s302\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
         
         request = "HEAD /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -685,7 +685,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-e\" \\[[^]]+\\]\\s\"[^\"]+\"\\s302\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
     }
     
     /** 
@@ -726,7 +726,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-e\" \\[[^]]+\\]\\s\"[^\"]+\"\\s404\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-e")));
         
         request = "HEAD /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -751,7 +751,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-e\" \\[[^]]+\\]\\s\"[^\"]+\"\\s404\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-e")));
     }
     
     /** 
@@ -792,7 +792,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-e\" \\[[^]]+\\]\\s\"[^\"]+\"\\s403\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-e")));
         
         request = "HEAD /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -817,7 +817,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-e\" \\[[^]]+\\]\\s\"[^\"]+\"\\s403\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-e")));
     }
 
     private static void assertAceptance_22_1(String... args) throws Exception {
@@ -849,7 +849,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         if (authorisation != null)
             Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         else
-            Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s302\\s\\d+\\s-\\s-$"));
+            Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
     }
 
     private static void assertAceptance_22_2(String... args) throws Exception {
@@ -870,6 +870,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String request;
         String response;
         
+        request  = null;
         response = null;
         if (method == null || method.trim().isEmpty()) {
             request = "GET " + uri + " HTTP/1.0\r\n"
@@ -894,13 +895,9 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
 
-        if (user == null || user.trim().isEmpty())
-            user = "-";
-        else user = "\"" + user + "\""; 
-
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\\Q" + user + "\\E \\[[^]]+\\]\\s\"[^\"]+\"\\s302\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, user)));
     }
     
     /** 
@@ -958,7 +955,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
-        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-A\"\r\n"));  
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));  
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
@@ -983,7 +980,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
-        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-A\"\r\n"));  
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));  
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
@@ -1016,7 +1013,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-a\" \\[[^]]+\\]\\s\"[^\"]+\"\\s403\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-a")));
         
         request = "GET /authentication/bvc HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -1058,7 +1055,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-a\" \\[[^]]+\\]\\s\"[^\"]+\"\\s302\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-a")));
         
         request = "GET /authentication/bvr HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -1100,7 +1097,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-a\" \\[[^]]+\\]\\s\"[^\"]+\"\\s200\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
         
         request = "GET /authentication/bvv/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -1150,13 +1147,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
                 + "\r\n";
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 001\\s+\\w+.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001")));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         Assert.assertTrue(response.matches("(?s)^.*\\[v\\:xx=123\\] \\[m\\].*$"));
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s\"usr-a\" \\[[^]]+\\]\\s\"[^\"]+\"\\s1\\s\\d+\\s-\\s-$"));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("1", request, "usr-a")));
         
         request = "GET /authentication/bvm HTTP/1.0\r\n"
            + "Host: vHa\r\n"
@@ -1190,7 +1187,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
          if (authorisation)
              Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
          else
-             Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s.*? \\[[^]]+\\]\\s\"[^\"]+\"\\s404\\s\\d+\\s-\\s-$"));
+             Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }
     
     /** 
@@ -1273,7 +1270,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
          
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
-        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: " + method + " "));  
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE(method)));  
          
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
@@ -1336,7 +1333,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
-        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Basic realm=\"Section-BEC\"\r\n"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-BEC")));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();

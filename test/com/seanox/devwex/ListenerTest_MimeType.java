@@ -24,6 +24,8 @@ package com.seanox.devwex;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.seanox.test.utils.Pattern;
+
 /**
  *  TestCases for {@link com.seanox.devwex.Listener}.
  */
@@ -43,8 +45,8 @@ public class ListenerTest_MimeType extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: application/octet-stream\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_OCTET_STREAM));
     }
     
     /** 
@@ -61,8 +63,8 @@ public class ListenerTest_MimeType extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: application/vnd.ms-excel\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_VND_MS_EXCEL));
     }    
     
     /** 
@@ -81,8 +83,8 @@ public class ListenerTest_MimeType extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: application/vnd.ms-excel\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_VND_MS_EXCEL));
     }  
     
     /** 
@@ -101,8 +103,8 @@ public class ListenerTest_MimeType extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: application/vnd.ms-excel\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_VND_MS_EXCEL));
     }
     
     /** 
@@ -121,8 +123,8 @@ public class ListenerTest_MimeType extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: application/vnd.ms-excel\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_VND_MS_EXCEL));
     } 
     
     /** 
@@ -140,8 +142,8 @@ public class ListenerTest_MimeType extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: application/octet-stream\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_OCTET_STREAM));
     }  
     
     /** 
@@ -159,7 +161,7 @@ public class ListenerTest_MimeType extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 406\\s+\\w+.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_406));
     }
     
     /** 
@@ -177,7 +179,7 @@ public class ListenerTest_MimeType extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 406\\s+\\w+.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_406));
     }  
     
     /** 
@@ -196,7 +198,7 @@ public class ListenerTest_MimeType extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nContent-Type: application/octet-stream\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_OCTET_STREAM));
     } 
 }

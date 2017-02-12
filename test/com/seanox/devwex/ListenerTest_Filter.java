@@ -175,7 +175,7 @@ public class ListenerTest_Filter extends AbstractTest {
      *  TestCase for aceptance.
      *  The filter must also work with encoded special characters (MIME/UFT8).
      *  The request is responded with status 403.
-     *  filter expression: {@code GET IS CONTAINS PATH  -ß-}
+     *  filter expression: {@code GET IS CONTAINS PATH -ß-}
      *  @throws Exception
      */
     @Test
@@ -220,7 +220,7 @@ public class ListenerTest_Filter extends AbstractTest {
      *  TestCase for aceptance.
      *  The filter must also work with encoded special characters (MIME/UFT8).
      *  The request is responded with status 403.
-     *  filter expression: {@code GET IS CONTAINS PATH  -ß-}
+     *  filter expression: {@code GET IS CONTAINS PATH -ß-}
      *  @throws Exception
      */
     @Test
@@ -264,7 +264,7 @@ public class ListenerTest_Filter extends AbstractTest {
      *  TestCase for aceptance.
      *  The filter must also work with encoded special characters (MIME/UFT8).
      *  The request is responded with status 403.
-     *  filter expression: {@code GET IS CONTAINS PATH  -ß-}
+     *  filter expression: {@code GET IS CONTAINS PATH -ß-}
      *  @throws Exception
      */
     @Test
@@ -316,7 +316,7 @@ public class ListenerTest_Filter extends AbstractTest {
      *  TestCase for aceptance.
      *  The filter must also work with encoded special characters (MIME/UFT8).
      *  The request is responded with status 403.
-     *  filter expression: {@code GET IS CONTAINS PATH  -ß-}
+     *  filter expression: {@code GET IS CONTAINS PATH -ß-}
      *  @throws Exception
      */
     @Test
@@ -332,7 +332,7 @@ public class ListenerTest_Filter extends AbstractTest {
      *  TestCase for aceptance.
      *  The filter must also work with encoded special characters (MIME/UFT8).
      *  The request is responded with status 403.
-     *  filter expression: {@code GET IS CONTAINS PATH  -ß-}
+     *  filter expression: {@code GET IS CONTAINS PATH -ß-}
      *  @throws Exception
      */
     @Test
@@ -349,7 +349,7 @@ public class ListenerTest_Filter extends AbstractTest {
      *  If the request contains {@code Felda: t1} and {@code Felda: field-C},
      *  the request is responded with status 200 and the content of
      *  {@code ../documents/filter_a.html}.
-     *  filter expression: {@code GET IS CONTAINS FELDA T1  > ./stage/documents/filter_a.html}
+     *  filter expression: {@code GET IS CONTAINS FELDA T1 > ./stage/documents/filter_a.html}
      *  @throws Exception
      */
     @Test
@@ -389,7 +389,7 @@ public class ListenerTest_Filter extends AbstractTest {
      *  TestCase for aceptance.
      *  If the request contains {@code Felda: t2} the request is responded with
      *  status 302 and a redirect/location to {@code http://www.xxx.zz/a=1}.
-     *  filter expression: {@code GET IS CONTAINS FELDA T2  > http://www.xxx.zz/a=1 [r]}
+     *  filter expression: {@code GET IS CONTAINS FELDA T2 > http://www.xxx.zz/a=1 [r]}
      *  @throws Exception
      */
     @Test
@@ -405,7 +405,7 @@ public class ListenerTest_Filter extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.contains("\r\nLocation: http://www.xxx.zz/a=1\r\n"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://www.xxx.zz/a=1")));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
@@ -444,7 +444,7 @@ public class ListenerTest_Filter extends AbstractTest {
      *  If the request contains {@code Felda: t4} the request is responded with
      *  status 403 because for the redirect is the option {@code [R]} is
      *  missing.
-     *  filter expression: {@code GET IS CONTAINS FELDA T4  > http://www.xxx.zz/a=1}
+     *  filter expression: {@code GET IS CONTAINS FELDA T4 > http://www.xxx.zz/a=1}
      *  @throws Exception
      */
     @Test
@@ -487,7 +487,7 @@ public class ListenerTest_Filter extends AbstractTest {
      *  If the request contains {@code Felda: t5}, then a module should be
      *  used. But the module definition is incorrect, the option {@code [M]} is
      *  missing here. So the request is responded with status 403.
-     *  filter expression: {@code GET IS CONTAINS FELDA T5  > ConnectorA}
+     *  filter expression: {@code GET IS CONTAINS FELDA T5 > ConnectorA}
      *  @throws Exception
      */
     @Test
@@ -507,7 +507,7 @@ public class ListenerTest_Filter extends AbstractTest {
      *  TestCase for aceptance.
      *  If the request contains {@code Felda: t3}, then a module should be
      *  used. So the request is responded with status 001.
-     *  filter expression: {@code GET IS CONTAINS FELDA T3  > ConnectorA [pA=3] [m]}
+     *  filter expression: {@code GET IS CONTAINS FELDA T3 > ConnectorA [pA=3] [m]}
      *  @throws Exception
      */
     @Test
@@ -519,14 +519,14 @@ public class ListenerTest_Filter extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8086", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 001 Test ok\\s+\\w+.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
         Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ConnectorA\r\n.*$"));
         Assert.assertTrue(response.matches("(?s)^.*\r\nModultype: 1\r\n.*$"));
         Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: ConnectorA \\[pA=3\\] \\[m\\]\r\n.*$"));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s1\\s\\d+\\s-\\s-$"));        
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("1")));        
     }
     
     /** 
@@ -590,14 +590,14 @@ public class ListenerTest_Filter extends AbstractTest {
         request = "GET /env.test?a-4x04- HTTP/1.0\r\n"
                 + "\r\n";
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 003\\s+\\w+.*$"));  
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));  
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(250);
         accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"[^\"]+\"\\s3\\s\\d+\\s-\\s-$"));  
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("3")));  
     }
 
     /** 

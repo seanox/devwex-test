@@ -76,7 +76,7 @@ public class ListenerTest_AuthenticationDigest extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
-        Assert.assertTrue(response.contains("\r\nWWW-Authenticate: Digest realm=\"Section-BEC\""));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST("Section-BEC")));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();

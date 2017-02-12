@@ -52,11 +52,12 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));      
+        
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
     
     /** 
@@ -79,11 +80,11 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));      
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
     
     /** 
@@ -106,11 +107,11 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));      
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
 
     /** 
@@ -133,11 +134,11 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));      
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     }
     
     /** 
@@ -160,11 +161,11 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));      
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
     
     /** 
@@ -197,11 +198,11 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));    
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));    
     } 
     
     /** 
@@ -225,11 +226,11 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));     
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));     
     } 
     
     /** 
@@ -263,11 +264,11 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));    
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));    
     } 
     
     /** 
@@ -291,11 +292,11 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));     
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));     
     }
     
     /** 
@@ -321,11 +322,11 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));     
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));     
     } 
     
     /** 
@@ -351,11 +352,11 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));     
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));     
     } 
     
     /** 
@@ -377,11 +378,11 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s403\\s\\d+\\s-\\s-$"));     
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));     
     } 
     
     /** 
@@ -405,11 +406,11 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));      
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
     
     /** 
@@ -433,11 +434,11 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));      
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
     
     /**
@@ -460,11 +461,11 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s403\\s\\d+\\s-\\s-$"));     
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));     
     } 
     
     /**
@@ -486,7 +487,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertFalse(response.matches("(?si)^.*\\sAllow:.*$"));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_ALLOW_DIFFUSE));
         
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.trim().length() > 0);
@@ -495,7 +496,7 @@ public class ListenerTest_Options extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"oPTIONS [^\"]+\"\\s200\\s\\d+\\s-\\s-$"));     
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));     
     }
     
     /**
@@ -517,11 +518,11 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"oPTIONS [^\"]+\"\\s403\\s\\d+\\s-\\s-$"));    
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));    
     }
     
     private static void assertAceptance_19(int count, String uri, String start, String end) throws Exception {
@@ -546,11 +547,11 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"Options [^\"]+\"\\s200\\s0\\s-\\s-$"));  
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));  
     }
     
     /** 
@@ -695,11 +696,11 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches("(?si)^.*\r\nAllow: AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS\r\n.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("(?i)^\\d+(\\.\\d+){3}\\s-\\s- \\[[^]]+\\]\\s\"OPTIONS [^\"]+\"\\s200\\s0\\s-\\s-$"));  
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));  
     }
     
     /** 

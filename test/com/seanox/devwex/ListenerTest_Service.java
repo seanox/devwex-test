@@ -24,6 +24,8 @@ package com.seanox.devwex;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.seanox.test.utils.Pattern;
+
 /**
  *  TestCases for {@link com.seanox.devwex.Listener}.
  */
@@ -48,7 +50,7 @@ public class ListenerTest_Service extends AbstractTest {
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8089", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 002 Test ok.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("002 Test ok")));
         Assert.assertTrue(response.contains("\r\nModul: ConnectorB\r\n"));
         Assert.assertTrue(response.contains("\r\nModultype: 0\r\n"));
         

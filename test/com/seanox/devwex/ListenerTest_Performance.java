@@ -30,6 +30,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.seanox.devwex.ListenerTest_Performance.Group.Worker.Response;
+import com.seanox.test.utils.Pattern;
 
 /**
  *  TestCases for {@link com.seanox.devwex.Listener}.
@@ -60,10 +61,10 @@ public class ListenerTest_Performance extends AbstractTest {
                 Assert.assertNull(response.exception);
                 Assert.assertNotNull(response.data);
                 String responseSring = new String(response.data);
-                Assert.assertTrue(responseSring.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-                Assert.assertTrue(responseSring.matches("(?si)^.*\r\nContent-Type: image/jpeg\r\n.*$"));
-                Assert.assertTrue(responseSring.matches("(?si)^.*\r\nContent-Length: \\d+\r\n.*$"));
-                Assert.assertTrue(responseSring.matches("(?si)^.*\r\nLast-Modified: [^\r\n]+\r\n.*$"));                    
+                Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+                Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_IMAGE_JPEG));
+                Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+                Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));                    
             }
         }
     }
@@ -99,10 +100,10 @@ public class ListenerTest_Performance extends AbstractTest {
                 Assert.assertNull(response.exception);
                 Assert.assertNotNull(response.data);
                 String responseSring = new String(response.data);
-                Assert.assertTrue(responseSring.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-                Assert.assertTrue(responseSring.matches("(?si)^.*\r\nContent-Type: image/jpeg\r\n.*$"));
-                Assert.assertTrue(responseSring.matches("(?si)^.*\r\nContent-Length: \\d+\r\n.*$"));
-                Assert.assertTrue(responseSring.matches("(?si)^.*\r\nLast-Modified: [^\r\n]+\r\n.*$"));                    
+                Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+                Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_IMAGE_JPEG));
+                Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+                Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));                    
             }
         }
         
@@ -112,10 +113,10 @@ public class ListenerTest_Performance extends AbstractTest {
                 Assert.assertNull(response.exception);
                 Assert.assertNotNull(response.data);
                 String responseSring = new String(response.data);
-                Assert.assertTrue(responseSring.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-                Assert.assertTrue(responseSring.matches("(?si)^.*\r\nContent-Type: image/jpeg\r\n.*$"));
-                Assert.assertTrue(responseSring.matches("(?si)^.*\r\nContent-Length: \\d+\r\n.*$"));
-                Assert.assertTrue(responseSring.matches("(?si)^.*\r\nLast-Modified: [^\r\n]+\r\n.*$"));                    
+                Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+                Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_IMAGE_JPEG));
+                Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+                Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));                    
             }
         }
     } 
@@ -150,10 +151,10 @@ public class ListenerTest_Performance extends AbstractTest {
                 Assert.assertNull(response.exception);
                 Assert.assertNotNull(response.data);
                 String responseSring = new String(response.data);
-                Assert.assertTrue(responseSring.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
-                Assert.assertTrue(responseSring.matches("(?si)^.*\r\nContent-Type: image/jpeg\r\n.*$"));
-                Assert.assertTrue(responseSring.matches("(?si)^.*\r\nContent-Length: \\d+\r\n.*$"));
-                Assert.assertTrue(responseSring.matches("(?si)^.*\r\nLast-Modified: [^\r\n]+\r\n.*$"));                    
+                Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+                Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_IMAGE_JPEG));
+                Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+                Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));                    
             }
         }
         
