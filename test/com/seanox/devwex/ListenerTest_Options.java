@@ -282,11 +282,21 @@ public class ListenerTest_Options extends AbstractTest {
     @Test
     public void testAceptance_09() throws Exception {
         
-        String request = "OPTIONS /method_file.txt HTTP/1.0\r\n"
-                + "If-Modified-Since: Sat, 01 Jan 2000 00:00:00 GMT; xxx; length=123\r\n"
+        String request;
+        String response;
+        
+        request = "HEAD /method_file.txt HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));       
+        String lastModified = TestHttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
+        String contentLength = TestHttpUtils.getResponseHeaderValue(response, HeaderField.CONTENT_LENGTH);
+        
+        request = "OPTIONS /method_file.txt HTTP/1.0\r\n"
+                + "If-Modified-Since: " + lastModified + "; xxx; length=1" + contentLength + "\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
