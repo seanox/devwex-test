@@ -219,12 +219,13 @@ public class ListenerTest_Configuration extends AbstractTest {
      *  TestCase for aceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] DEFAULT = ' '}
      *  Without correct default, the directory is shown.
+     *  Without ACCESSLOG, the StdIO is used for logging.
      *  @throws Exception
      */      
     @Test
     public void testAceptance_08() throws Exception {
         
-        String request = "GET / HTTP/1.0\r\n"
+        String request = "GET /?test=1234567 HTTP/1.0\r\n"
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8094", request));
         
@@ -237,7 +238,10 @@ public class ListenerTest_Configuration extends AbstractTest {
         
         Thread.sleep(250);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
+        Assert.assertFalse(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
+        String outputLog = TestUtils.getOutputLogTail();
+        outputLog = outputLog.replaceAll("(?i)^.*?\\s(\\d+(?:\\.\\d+){3}.*$)", "$1");
+        Assert.assertTrue(outputLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
     }
 
     /** 
