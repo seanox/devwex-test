@@ -155,11 +155,15 @@ public class Pattern {
     
     public static final String HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE = "(?si)^.*\\sContent-Length:.*$";
     
-    public static String HTTP_RESPONSE_CONTENT_LENGTH(int length) {
+    public static String HTTP_RESPONSE_CONTENT_LENGTH(long length) {
         return "(?si)^.*\r\nContent-Length: " + length + "(\r\n.*)*$";
     }
 
     public static final String HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE = "(?si)^.*\\sContent-Range:.*$";
+    
+    public static String HTTP_RESPONSE_CONTENT_RANGE(long start, long end , long size) {
+        return "(?si)^.*\r\nContent-Range: bytes " + start + "-" + end + "/" + size + "(\r\n.*)*$";
+    }
     
     public static final String HTTP_RESPONSE_CONTENT_TYPE = "(?si)^.*\r\nContent-Type: [a-z/]+(\r\n.*)*$";
     

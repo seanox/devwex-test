@@ -537,6 +537,11 @@ public class ListenerTest_Options extends AbstractTest {
     
     private static void assertAceptance_19(int count, String uri, String start, String end) throws Exception {
         
+        if (start != null && start.isEmpty())
+            start = null;
+        if (end != null && end.isEmpty())
+            end = null;
+        
         boolean case0 = start == null && end == null;
         boolean case1 = start == null || end == null;
         
