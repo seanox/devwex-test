@@ -535,25 +535,29 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));    
     }
     
-    private static void assertAceptance_19(int count, String uri, String start, String end) throws Exception {
+    private static void assertAceptance_19(int count, String path, String start, String end) throws Exception {
         
-        if (start != null && start.isEmpty())
-            start = null;
-        if (end != null && end.isEmpty())
-            end = null;
-        
-        boolean case0 = start == null && end == null;
-        boolean case1 = start == null || end == null;
-        
-        String request = "Options " + uri + " HTTP/1.0\r\n"
+        if (start != null
+                && start.contains("-")
+                && end == null)
+            end = "";
+        if (end != null
+                && end.contains("-")
+                && start == null)
+            start = "";
+
+        String request = "Options " + path + " HTTP/1.0\r\n"
                 + "Host: vHa\r\n";
-        if (!case0) {
+        if (start != null || end != null) {
             request += "Range: bYteS = " + (start != null ? start : "");
-            if (!case1)
+            if (start != null && end != null)
                 request += count % 2 == 0 ? "-" : " - ";
             request += end != null ? end : "";
             request += "\r\n";
         }
+        
+        if (start != null && start.contains(";"))
+            end = null;
         
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n"));
         
@@ -563,10 +567,10 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
-        
-        Thread.sleep(250);
+       
+        Thread.sleep(50);
         String accessLog = TestUtils.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));  
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));
     }
     
     /** 
@@ -580,125 +584,143 @@ public class ListenerTest_Options extends AbstractTest {
      */
     @Test
     public void testAceptance_19() throws Exception {
-        
-        for (String uri : new String[] {"/partial_content.txt", "/partial_content-nix.txt", "/"}) {
+
+        for (String path : new String[] {"/partial_content.txt", "/partial_content_empty.txt",
+                "/partial_content-nix.txt", "/"}) {
 
             int count = 0;
         
-            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      "0");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      "1");    
-            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      "127");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      "65535");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      "0");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      "1");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      "127");    
-            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      "65535");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "127",    "256");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "256",    "127");
+            ListenerTest_Options.assertAceptance_19(++count, path, "0",      "0");
+            ListenerTest_Options.assertAceptance_19(++count, path, "0",      "1");    
+            ListenerTest_Options.assertAceptance_19(++count, path, "0",      "127");
+            ListenerTest_Options.assertAceptance_19(++count, path, "0",      "65535");
+            ListenerTest_Options.assertAceptance_19(++count, path, "1",      "0");
+            ListenerTest_Options.assertAceptance_19(++count, path, "1",      "1");
+            ListenerTest_Options.assertAceptance_19(++count, path, "1",      "127");    
+            ListenerTest_Options.assertAceptance_19(++count, path, "1",      "65535");
+            ListenerTest_Options.assertAceptance_19(++count, path, "127",    "256");
+            ListenerTest_Options.assertAceptance_19(++count, path, "256",    "127");
     
-            ListenerTest_Options.assertAceptance_19(count++, uri, "127",    "0");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "127",    "1");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "65535",  "0");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "65535",  "1");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "256",    "65535");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "65535",  "256");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-256",   "127");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-127",   "256");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "256",    "-127");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "127",    "-256");
+            ListenerTest_Options.assertAceptance_19(++count, path, "127",    "0");
+            ListenerTest_Options.assertAceptance_19(++count, path, "127",    "1");
+            ListenerTest_Options.assertAceptance_19(++count, path, "65535",  "0");
+            ListenerTest_Options.assertAceptance_19(++count, path, "65535",  "1");
+            ListenerTest_Options.assertAceptance_19(++count, path, "256",    "65535");
+            ListenerTest_Options.assertAceptance_19(++count, path, "65535",  "256");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-256",   "127");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-127",   "256");
+            ListenerTest_Options.assertAceptance_19(++count, path, "256",    "-127");
+            ListenerTest_Options.assertAceptance_19(++count, path, "127",    "-256");
     
-            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      "A");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      "A");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "256",    "B");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "65535",  "C");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-0",     "A");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-1",     "A");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-256",   "B");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-65535", "C");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "A",      "0");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "A",      "1");
+            ListenerTest_Options.assertAceptance_19(++count, path, "0",      "A");
+            ListenerTest_Options.assertAceptance_19(++count, path, "1",      "A");
+            ListenerTest_Options.assertAceptance_19(++count, path, "256",    "B");
+            ListenerTest_Options.assertAceptance_19(++count, path, "65535",  "C");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-0",     "A");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-1",     "A");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-256",   "B");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-65535", "C");
+            ListenerTest_Options.assertAceptance_19(++count, path, "A",      "0");
+            ListenerTest_Options.assertAceptance_19(++count, path, "A",      "1");
     
-            ListenerTest_Options.assertAceptance_19(count++, uri, "B",      "256");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "C",      "65535");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "A",      "-0");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "A",      "-1");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "B",      "-256");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "C",      "-65535");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      "");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "256",    "");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "65535",  "");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-0",     "");
+            ListenerTest_Options.assertAceptance_19(++count, path, "B",      "256");
+            ListenerTest_Options.assertAceptance_19(++count, path, "C",      "65535");
+            ListenerTest_Options.assertAceptance_19(++count, path, "A",      "-0");
+            ListenerTest_Options.assertAceptance_19(++count, path, "A",      "-1");
+            ListenerTest_Options.assertAceptance_19(++count, path, "B",      "-256");
+            ListenerTest_Options.assertAceptance_19(++count, path, "C",      "-65535");
+            ListenerTest_Options.assertAceptance_19(++count, path, "0",      "");
+            ListenerTest_Options.assertAceptance_19(++count, path, "256",    "");
+            ListenerTest_Options.assertAceptance_19(++count, path, "65535",  "");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-0",     "");
     
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-1",     "");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-256",   "");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-65535", "");
-            ListenerTest_Options.assertAceptance_19(count++, uri, null,     "0");
-            ListenerTest_Options.assertAceptance_19(count++, uri, null,     "256");
-            ListenerTest_Options.assertAceptance_19(count++, uri, null,     "65535");
-            ListenerTest_Options.assertAceptance_19(count++, uri, null,     "A");
-            ListenerTest_Options.assertAceptance_19(count++, uri, null,      null);
-            ListenerTest_Options.assertAceptance_19(count++, uri, "",       "0");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "",       "256");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-1",     "");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-256",   "");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-65535", "");
+            ListenerTest_Options.assertAceptance_19(++count, path, null,     "0");
+            ListenerTest_Options.assertAceptance_19(++count, path, null,     "256");
+            ListenerTest_Options.assertAceptance_19(++count, path, null,     "65535");
+            ListenerTest_Options.assertAceptance_19(++count, path, null,     "A");
+            ListenerTest_Options.assertAceptance_19(++count, path, null,      null);
+            ListenerTest_Options.assertAceptance_19(++count, path, "",       "0");
+            ListenerTest_Options.assertAceptance_19(++count, path, "",       "256");
            
-            ListenerTest_Options.assertAceptance_19(count++, uri, "",       "65535");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "",       "-0");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "",       "-1");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "",       "-256");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "",       "-65535");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      " ");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      " ");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "256",    " ");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "65535",  " ");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-0",     " ");
+            ListenerTest_Options.assertAceptance_19(++count, path, "",       "65535");
+            ListenerTest_Options.assertAceptance_19(++count, path, "",       "-0");
+            ListenerTest_Options.assertAceptance_19(++count, path, "",       "-1");
+            ListenerTest_Options.assertAceptance_19(++count, path, "",       "-256");
+            ListenerTest_Options.assertAceptance_19(++count, path, "",       "-65535");
+            ListenerTest_Options.assertAceptance_19(++count, path, "0",      " ");
+            ListenerTest_Options.assertAceptance_19(++count, path, "1",      " ");
+            ListenerTest_Options.assertAceptance_19(++count, path, "256",    " ");
+            ListenerTest_Options.assertAceptance_19(++count, path, "65535",  " ");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-0",     " ");
             
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-1",     " ");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-256",   " ");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-65535", " ");
-            ListenerTest_Options.assertAceptance_19(count++, uri, " ",      "0");
-            ListenerTest_Options.assertAceptance_19(count++, uri, " ",      "1");
-            ListenerTest_Options.assertAceptance_19(count++, uri, " ",      "256");
-            ListenerTest_Options.assertAceptance_19(count++, uri, " ",      "65535");
-            ListenerTest_Options.assertAceptance_19(count++, uri, " ",      "-0");
-            ListenerTest_Options.assertAceptance_19(count++, uri, " ",      "-1");
-            ListenerTest_Options.assertAceptance_19(count++, uri, " ",      "-256");
+            ListenerTest_Options.assertAceptance_19(++count, path, null,       "-0");
+            ListenerTest_Options.assertAceptance_19(++count, path, null,       "-1");
+            ListenerTest_Options.assertAceptance_19(++count, path, null,       "-256");
+            ListenerTest_Options.assertAceptance_19(++count, path, null,       "-65535");
+            ListenerTest_Options.assertAceptance_19(++count, path, "0",      null);
+            ListenerTest_Options.assertAceptance_19(++count, path, "1",      null);
+            ListenerTest_Options.assertAceptance_19(++count, path, "256",    null);
+            ListenerTest_Options.assertAceptance_19(++count, path, "65535",  null);
+            ListenerTest_Options.assertAceptance_19(++count, path, "-0",     null);  
+            ListenerTest_Options.assertAceptance_19(++count, path, null,    "65535");
+            ListenerTest_Options.assertAceptance_19(++count, path, null,  "256");
+            ListenerTest_Options.assertAceptance_19(++count, path, null,   "127");            
             
-            ListenerTest_Options.assertAceptance_19(count++, uri, " ",      "-65535");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      "-");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      "-");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "256",    "-");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "65535",  "-");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-0",     "-");    
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-1",     "-");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-256",   "-");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-65535", "-");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-",      "0");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-1",     " ");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-256",   " ");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-65535", " ");
+            ListenerTest_Options.assertAceptance_19(++count, path, " ",      "0");
+            ListenerTest_Options.assertAceptance_19(++count, path, " ",      "1");
+            ListenerTest_Options.assertAceptance_19(++count, path, " ",      "256");
+            ListenerTest_Options.assertAceptance_19(++count, path, " ",      "65535");
+            ListenerTest_Options.assertAceptance_19(++count, path, " ",      "-0");
+            ListenerTest_Options.assertAceptance_19(++count, path, " ",      "-1");
+            ListenerTest_Options.assertAceptance_19(++count, path, " ",      "-256");
+            
+            ListenerTest_Options.assertAceptance_19(++count, path, " ",      "-65535");
+            ListenerTest_Options.assertAceptance_19(++count, path, "0",      "-");
+            ListenerTest_Options.assertAceptance_19(++count, path, "1",      "-");
+            ListenerTest_Options.assertAceptance_19(++count, path, "256",    "-");
+            ListenerTest_Options.assertAceptance_19(++count, path, "65535",  "-");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-0",     "-");    
+            ListenerTest_Options.assertAceptance_19(++count, path, "-1",     "-");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-256",   "-");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-65535", "-");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-",      "0");
     
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-",      "256");    
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-",      "65535");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-",      "-0");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-",      "-1");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-",      "-256");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-",      "-65535");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "0",      ";");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      ";");    
-            ListenerTest_Options.assertAceptance_19(count++, uri, "256",    ";");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "65535",  ";");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-",      "256");    
+            ListenerTest_Options.assertAceptance_19(++count, path, "-",      "65535");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-",      "-0");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-",      "-1");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-",      "-256");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-",      "-65535");
+            ListenerTest_Options.assertAceptance_19(++count, path, "0",      ";");
+            ListenerTest_Options.assertAceptance_19(++count, path, "1",      ";");    
+            ListenerTest_Options.assertAceptance_19(++count, path, "256",    ";");
+            ListenerTest_Options.assertAceptance_19(++count, path, "65535",  ";");
+            ListenerTest_Options.assertAceptance_19(++count, path, "0;",      null);
+            ListenerTest_Options.assertAceptance_19(++count, path, "1;",      null);    
+            ListenerTest_Options.assertAceptance_19(++count, path, "256;",    null);
+            ListenerTest_Options.assertAceptance_19(++count, path, "65535;",  null);            
     
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-0",     ";");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-1",     ";");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-256",   ";");    
-            ListenerTest_Options.assertAceptance_19(count++, uri, "-65535", ";");
-            ListenerTest_Options.assertAceptance_19(count++, uri, ";",      "0");
-            ListenerTest_Options.assertAceptance_19(count++, uri, ";",      "1");
-            ListenerTest_Options.assertAceptance_19(count++, uri, ";",      "256");
-            ListenerTest_Options.assertAceptance_19(count++, uri, ";",      "65535");    
-            ListenerTest_Options.assertAceptance_19(count++, uri, ";",      "-0");
-            ListenerTest_Options.assertAceptance_19(count++, uri, ";",      "-1");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-0",     ";");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-1",     ";");
+            ListenerTest_Options.assertAceptance_19(++count, path, "-256",   ";");    
+            ListenerTest_Options.assertAceptance_19(++count, path, "-65535", ";");
+            ListenerTest_Options.assertAceptance_19(++count, path, ";",      "0");
+            ListenerTest_Options.assertAceptance_19(++count, path, ";",      "1");
+            ListenerTest_Options.assertAceptance_19(++count, path, ";",      "256");
+            ListenerTest_Options.assertAceptance_19(++count, path, ";",      "65535");    
+            ListenerTest_Options.assertAceptance_19(++count, path, ";",      "-0");
+            ListenerTest_Options.assertAceptance_19(++count, path, ";",      "-1");
             
-            ListenerTest_Options.assertAceptance_19(count++, uri, ";",      "-256");
-            ListenerTest_Options.assertAceptance_19(count++, uri, ";",      "-65535");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "1",      "");
-            ListenerTest_Options.assertAceptance_19(count++, uri, "",       "1");
+            ListenerTest_Options.assertAceptance_19(++count, path, ";",      "-256");
+            ListenerTest_Options.assertAceptance_19(++count, path, ";",      "-65535");
+            ListenerTest_Options.assertAceptance_19(++count, path, "1",      "");
+            ListenerTest_Options.assertAceptance_19(++count, path, "",       "1");
         }
     }
     

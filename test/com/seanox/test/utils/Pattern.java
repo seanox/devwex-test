@@ -201,6 +201,9 @@ public class Pattern {
 
     /** Pattern for a http response header with status 201 */
     public static final String HTTP_RESPONSE_STATUS_201 = HTTP_RESPONSE_STATUS("201");
+    
+    /** Pattern for a http response header with status 206ssss */
+    public static final String HTTP_RESPONSE_STATUS_206 = HTTP_RESPONSE_STATUS("206");
 
     /** Pattern for a http response header with status 302 */
     public static final String HTTP_RESPONSE_STATUS_302 = HTTP_RESPONSE_STATUS("302");
@@ -229,6 +232,9 @@ public class Pattern {
     /** Pattern for a http response header with status 413 */
     public static final String HTTP_RESPONSE_STATUS_413 = HTTP_RESPONSE_STATUS("413");
     
+    /** Pattern for a http response header with status 416 */
+    public static final String HTTP_RESPONSE_STATUS_416 = HTTP_RESPONSE_STATUS("416");
+    
     /** Pattern for a http response header with status 501 */
     public static final String HTTP_RESPONSE_STATUS_501 = HTTP_RESPONSE_STATUS("501");
 
@@ -241,6 +247,7 @@ public class Pattern {
     /** 
      *  Pattern for a custom http response header
      *  @param  code
+     *  @return pattern for the custom http response header
      */
     public static final String HTTP_RESPONSE_STATUS(String code) {
 

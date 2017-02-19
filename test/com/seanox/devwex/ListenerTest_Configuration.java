@@ -230,8 +230,8 @@ public class ListenerTest_Configuration extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8094", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(0)));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_TEXT_HTML));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));     
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("", body);
