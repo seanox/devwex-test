@@ -130,7 +130,11 @@ public class Pattern {
      *  </ul> 
      */
     public static final String HTTP_RESPONSE = "(?s)^(.*?)(?:(?:\r\n){2})(.*)$";
+    
+    /** Pattern for a valid HTTP response (diffuse) */
+    public static final String HTTP_RESPONSE_DIFFUSE = "(?si)HTTP/.*(\r\n){2}.*$";    
 
+    /** Pattern for the HTTP response header Allow (diffuse) */
     public static final String HTTP_RESPONSE_ALLOW_DIFFUSE = "(?si)^.*\\sAllow:.*$";
     
     public static final String HTTP_RESPONSE_ALLOW(String... methods) {
@@ -151,38 +155,51 @@ public class Pattern {
         return "(?si)^.*\r\nAllow: \\Q" + methodFilter + "\\E\r\n.*$";
     }
     
+    /** Pattern for the HTTP response header Content-Length */
     public static final String HTTP_RESPONSE_CONTENT_LENGTH = "(?si)^.*\r\nContent-Length: \\d+(\r\n.*)*$";
     
+    /** Pattern for the HTTP response header Content-Length (diffuse) */
     public static final String HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE = "(?si)^.*\\sContent-Length:.*$";
     
     public static String HTTP_RESPONSE_CONTENT_LENGTH(long length) {
         return "(?si)^.*\r\nContent-Length: " + length + "(\r\n.*)*$";
     }
 
+    /** Pattern for the HTTP response header Content-Range (diffuse) */
     public static final String HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE = "(?si)^.*\\sContent-Range:.*$";
     
     public static String HTTP_RESPONSE_CONTENT_RANGE(long start, long end , long size) {
         return "(?si)^.*\r\nContent-Range: bytes " + start + "-" + end + "/" + size + "(\r\n.*)*$";
     }
     
+    /** Pattern for the HTTP response header Content-Type */
     public static final String HTTP_RESPONSE_CONTENT_TYPE = "(?si)^.*\r\nContent-Type: [a-z/]+(\r\n.*)*$";
     
+    /** Pattern for the HTTP response header Content-Type (diffuse) */
     public static final String HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE = "(?si)^.*\\sContent-Type:.*$";
     
+    /** Pattern for the HTTP response header Content-Type image/jpeg */
     public static final String HTTP_RESPONSE_CONTENT_TYPE_IMAGE_JPEG = "(?si)^.*\r\nContent-Type: image/jpeg\r\n.*$";
 
+    /** Pattern for the HTTP response header Content-Type  octet/stream */
     public static final String HTTP_RESPONSE_CONTENT_TYPE_OCTET_STREAM = "(?si)^.*\r\nContent-Type: application/octet-stream\r\n.*$";
     
+    /** Pattern for the HTTP response header Content-Type test/html */
     public static final String HTTP_RESPONSE_CONTENT_TYPE_TEXT_HTML = "(?si)^.*\r\nContent-Type: text/html\r\n.*$";
 
-    public static final String HTTP_RESPONSE_CONTENT_TYPE_VND_MS_EXCEL = "(?si)^.*\r\nContent-Type: application/vnd.ms-excel\r\n.*$";
+    /** Pattern for the HTTP response header Content-Type application/vnd.ms-excel */
+    public static final String HTTP_RESPONSE_CONTENT_TYPE_APPLICATION_VND_MS_EXCEL = "(?si)^.*\r\nContent-Type: application/vnd.ms-excel\r\n.*$";
 
+    /** Pattern for the HTTP response header Date */
     public static final String HTTP_RESPONSE_DATE = "(?si)^.*\r\nDate: [a-z]+, \\d+ [a-z]+ \\d+ \\d+:\\d+:\\d+ [a-z]+(\r\n.*)*$";
 
+    /** Pattern for the HTTP response header LastModified */
     public static final String HTTP_RESPONSE_LAST_MODIFIED = "(?si)^.*\r\nLast-Modified: [a-z]+, \\d+ [a-z]+ \\d+ \\d+:\\d+:\\d+ [a-z]+(\r\n.*)*$";
 
+    /** Pattern for the HTTP response header LastModified (diffuse) */
     public static final String HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE = "(?si)^.*\\sLast-Modified:.*$";
 
+    /** Pattern for the HTTP response header Location (diffuse) */
     public static final String HTTP_RESPONSE_LOCATION_DIFFUSE = "(?si)^.*\\sLocation:.*$";
     
     public static final String HTTP_RESPONSE_LOCATION(String url) {
@@ -192,8 +209,10 @@ public class Pattern {
         return "(?s)^.*\r\nLocation: \\Q" + url.trim() + "\\E\r\n.*$";
     }
 
+    /** Pattern for the HTTP response header Server */
     public static final String HTTP_RESPONSE_SERVER = "(?si)^.*\r\nServer: Seanox-Devwex\\b.*$";
 
+    /** Pattern for the HTTP response header Server (diffuse) */
     public static final String HTTP_RESPONSE_SERVER_DIFFUSE = "(?si)^.*\\sServer:.*$";
 
     /** Pattern for a http response header with status 200 */
@@ -256,20 +275,24 @@ public class Pattern {
         return "(?s)^HTTP/1\\.0 " + code + "\\s+\\w+.*$";
     } 
     
+    /** Pattern for the HTTP response header Authenticate */
     public static final String HTTP_RESPONSE_WWW_AUTHENTICATE = "(?si)^.*\r\nWWW-Authenticate: (Basic|Digest)\\s.*$";
 
+    /** Pattern for the HTTP response header Authenticate (diffuse) */
     public static final String HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE = "(?si)^.*\\sWWW-Authenticate:.*$";
 
     public static String HTTP_RESPONSE_WWW_AUTHENTICATE(String method) {
         return "(?si)^.*\r\nWWW-Authenticate: \\Q" + method + "\\E\\s.*$";
     }
 
+    /** Pattern for the HTTP response header Authenticate Basic */
     public static final String HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC = HTTP_RESPONSE_WWW_AUTHENTICATE("Basic");
 
     public static final String HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC(String realm) {
         return "(?si)^.*\r\nWWW-Authenticate: Basic realm=\"\\Q" + realm + "\\E\"\r\n.*$";
     }
     
+    /** Pattern for the HTTP response header Authenticate Digest */
     public static final String HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST = HTTP_RESPONSE_WWW_AUTHENTICATE("Digest");
 
     public static String HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST(String realm) {

@@ -26,6 +26,7 @@ import java.io.File;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.seanox.test.utils.Codec;
 import com.seanox.test.utils.Pattern;
 
 /**
@@ -614,7 +615,7 @@ public class ListenerTest_Delete extends AbstractTest {
         
         request = "Put /authentication/a/file.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
-                + "Authorization: Basic dXNyLWE6cHdkLWE=\r\n"
+                + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";        
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));        
@@ -622,7 +623,7 @@ public class ListenerTest_Delete extends AbstractTest {
         
         request = "Delete /authentication/a/file.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
-                + "Authorization: Basic dXNyLWE6cHdkLWE=\r\n"
+                + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";        
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));        
@@ -636,7 +637,7 @@ public class ListenerTest_Delete extends AbstractTest {
         
         request = "Delete /authentication/a/file.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
-                + "Authorization: Basic dXNyLWE6cHdkLWE=\r\n"
+                + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";        
         response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));        

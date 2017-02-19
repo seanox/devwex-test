@@ -64,7 +64,7 @@ public class ListenerTest_MimeType extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_VND_MS_EXCEL));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_APPLICATION_VND_MS_EXCEL));
     }    
     
     /** 
@@ -84,7 +84,7 @@ public class ListenerTest_MimeType extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_VND_MS_EXCEL));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_APPLICATION_VND_MS_EXCEL));
     }  
     
     /** 
@@ -104,7 +104,7 @@ public class ListenerTest_MimeType extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_VND_MS_EXCEL));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_APPLICATION_VND_MS_EXCEL));
     }
     
     /** 
@@ -124,7 +124,7 @@ public class ListenerTest_MimeType extends AbstractTest {
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_VND_MS_EXCEL));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_APPLICATION_VND_MS_EXCEL));
     } 
     
     /** 

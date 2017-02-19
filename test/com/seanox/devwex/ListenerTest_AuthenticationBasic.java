@@ -25,6 +25,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.seanox.devwex.TestHttpUtils.HeaderField;
+import com.seanox.devwex.TestHttpUtils.Authentication.Digest;
 import com.seanox.test.utils.Codec;
 import com.seanox.test.utils.Pattern;
 
@@ -93,7 +94,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         String request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
-                + "Authorization: Basic dXNyLWE6cHdkLWE=\r\n"
+                + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
@@ -118,7 +119,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         String request = "GET /authentication/a/b/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
-                + "Authorization: Basic dXNyLWE6cHdkLWE=\r\n"
+                + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
@@ -143,7 +144,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         String request = "GET /authentication/a/b/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
-                + "Authorization: Basic dXNyLWI6cHdkLWI=\r\n"
+                + "Authorization: Basic " + Codec.encodeBase64("usr-b:pwd-b") + "\r\n"
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
@@ -168,7 +169,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         String request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
-                + "Authorization: Basic dXNyLWI6cHdkLWI=\r\n"
+                + "Authorization: Basic " + Codec.encodeBase64("usr-b:pwd-b") + "\r\n"
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
@@ -193,7 +194,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         String request = "GET /authentication/a/b/c/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
-                + "Authorization: Basic dXNyLWE6cHdkLWE=\r\n"
+                + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
@@ -290,7 +291,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         String request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
-                + "Authorization: Basic dXNyLWU6cHdkLWU=\r\n"
+                + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
@@ -495,7 +496,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         
         String request = "GET /authentication/a/xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
-                + "Authorization: Basic dXNyLWE6cHdkLWE=\r\n"
+                + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
         String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
         
@@ -561,7 +562,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequestDigestAuthorisation("127.0.0.1:8080", request, "usr-a", "pwd-a"));    
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request, new Digest("usr-a", "pwd-a")));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
@@ -611,7 +612,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequestDigestAuthorisation("127.0.0.1:8080", request, "usr-a", "pwd-a"));    
+        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request, new Digest("usr-a", "pwd-a")));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
@@ -887,7 +888,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
             request = "GET " + uri + " HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "\r\n";
-            response = new String(TestHttpUtils.sendRequestDigestAuthorisation("127.0.0.1:8080", request, user, password));
+            response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request, new Digest(user, password)));
         } else Assert.fail("Unsupported authentication method: '" + method + "'");
         
         Assert.assertNotNull(response);

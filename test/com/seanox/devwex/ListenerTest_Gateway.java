@@ -30,6 +30,7 @@ import java.nio.file.Paths;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.seanox.devwex.TestHttpUtils.RequestEvent;
 import com.seanox.test.utils.Pattern;
 
 /**
@@ -795,7 +796,7 @@ public class ListenerTest_Gateway extends AbstractTest {
     public void testAceptance_22() throws Exception {
         
         String request = "GET /cgi_count.jsx HTTP/1.0\r\n\r\n";
-        TestHttpUtils.sendRequest("127.0.0.1:80", request, null);
+        TestHttpUtils.sendRequest("127.0.0.1:80", request, (RequestEvent)null);
         
         Thread.sleep(2500);
         
