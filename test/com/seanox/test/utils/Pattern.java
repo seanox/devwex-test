@@ -52,6 +52,9 @@ public class Pattern {
 
     /** Pattern for an access log entry with status 405 */
     public static final String ACCESS_LOG_STATUS_405 = ACCESS_LOG_STATUS("405");
+    
+    /** Pattern for an access log entry with status 424 */
+    public static final String ACCESS_LOG_STATUS_424 = ACCESS_LOG_STATUS("424");
 
     /** Pattern for an access log entry with status 501 */
     public static final String ACCESS_LOG_STATUS_501 = ACCESS_LOG_STATUS("501");
@@ -137,6 +140,11 @@ public class Pattern {
     /** Pattern for the HTTP response header Allow (diffuse) */
     public static final String HTTP_RESPONSE_ALLOW_DIFFUSE = "(?si)^.*\\sAllow:.*$";
     
+    /** 
+     *  Pattern for a custom http response Allow header 
+     *  @param  methods
+     *  @return pattern for the custom http response Allow header
+     */
     public static final String HTTP_RESPONSE_ALLOW(String... methods) {
         
         if (methods == null)
@@ -161,6 +169,11 @@ public class Pattern {
     /** Pattern for the HTTP response header Content-Length (diffuse) */
     public static final String HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE = "(?si)^.*\\sContent-Length:.*$";
     
+    /** 
+     *  Pattern for a custom http response Content-Lenght header 
+     *  @param  length
+     *  @return pattern for the custom http response Content-Length header
+     */
     public static String HTTP_RESPONSE_CONTENT_LENGTH(long length) {
         return "(?si)^.*\r\nContent-Length: " + length + "(\r\n.*)*$";
     }
@@ -168,6 +181,13 @@ public class Pattern {
     /** Pattern for the HTTP response header Content-Range (diffuse) */
     public static final String HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE = "(?si)^.*\\sContent-Range:.*$";
     
+    /** 
+     *  Pattern for a custom http response Range header 
+     *  @param  start
+     *  @param  end
+     *  @param  size
+     *  @return pattern for the custom http response Range header
+     */
     public static String HTTP_RESPONSE_CONTENT_RANGE(long start, long end , long size) {
         return "(?si)^.*\r\nContent-Range: bytes " + start + "-" + end + "/" + size + "(\r\n.*)*$";
     }
@@ -202,6 +222,11 @@ public class Pattern {
     /** Pattern for the HTTP response header Location (diffuse) */
     public static final String HTTP_RESPONSE_LOCATION_DIFFUSE = "(?si)^.*\\sLocation:.*$";
     
+    /** 
+     *  Pattern for a custom http response Location header 
+     *  @param  url
+     *  @return pattern for the custom http response Location header
+     */
     public static final String HTTP_RESPONSE_LOCATION(String url) {
         
         if (url == null)
@@ -248,11 +273,17 @@ public class Pattern {
     /** Pattern for a http response header with status 406 */
     public static final String HTTP_RESPONSE_STATUS_406 = HTTP_RESPONSE_STATUS("406");
     
+    /** Pattern for a http response header with status 411 */    
+    public static final String HTTP_RESPONSE_STATUS_411 = HTTP_RESPONSE_STATUS("411");
+    
     /** Pattern for a http response header with status 413 */
     public static final String HTTP_RESPONSE_STATUS_413 = HTTP_RESPONSE_STATUS("413");
     
     /** Pattern for a http response header with status 416 */
     public static final String HTTP_RESPONSE_STATUS_416 = HTTP_RESPONSE_STATUS("416");
+    
+    /** Pattern for a http response header with status 424 */
+    public static final String HTTP_RESPONSE_STATUS_424 = HTTP_RESPONSE_STATUS("424");
     
     /** Pattern for a http response header with status 501 */
     public static final String HTTP_RESPONSE_STATUS_501 = HTTP_RESPONSE_STATUS("501");
@@ -281,6 +312,11 @@ public class Pattern {
     /** Pattern for the HTTP response header Authenticate (diffuse) */
     public static final String HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE = "(?si)^.*\\sWWW-Authenticate:.*$";
 
+    /** 
+     *  Pattern for a custom http response WWW-Authenticate header 
+     *  @param  method
+     *  @return pattern for the custom http response WWW-Authenticate header
+     */
     public static String HTTP_RESPONSE_WWW_AUTHENTICATE(String method) {
         return "(?si)^.*\r\nWWW-Authenticate: \\Q" + method + "\\E\\s.*$";
     }
@@ -288,6 +324,11 @@ public class Pattern {
     /** Pattern for the HTTP response header Authenticate Basic */
     public static final String HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC = HTTP_RESPONSE_WWW_AUTHENTICATE("Basic");
 
+    /** 
+     *  Pattern for a custom http response WWW-Authenticate Basic header 
+     *  @param  realm
+     *  @return pattern for the custom http response WWW-Authenticate Basic header
+     */    
     public static final String HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC(String realm) {
         return "(?si)^.*\r\nWWW-Authenticate: Basic realm=\"\\Q" + realm + "\\E\"\r\n.*$";
     }
@@ -295,6 +336,11 @@ public class Pattern {
     /** Pattern for the HTTP response header Authenticate Digest */
     public static final String HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST = HTTP_RESPONSE_WWW_AUTHENTICATE("Digest");
 
+    /** 
+     *  Pattern for a custom http response WWW-Authenticate Digest header 
+     *  @param  realm
+     *  @return pattern for the custom http response WWW-Authenticate Digest header
+     */    
     public static String HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST(String realm) {
         return "(?si)^.*\r\nWWW-Authenticate: Digest realm=\"\\Q" + realm + "\\E\",.*$";
     }
