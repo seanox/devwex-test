@@ -43,7 +43,7 @@ public class ListenerTest_Service extends AbstractTest {
     @Test
     public void testAceptance_01() throws Exception {
         
-        Thread.sleep(250);
+        Thread.sleep(50);
         String accessLog = TestUtils.getAccessLogTail();
         
         String request = "GET / HTTP/1.0\r\n"
@@ -54,7 +54,7 @@ public class ListenerTest_Service extends AbstractTest {
         Assert.assertTrue(response.contains("\r\nModul: ConnectorB\r\n"));
         Assert.assertTrue(response.contains("\r\nModultype: 0\r\n"));
         
-        Thread.sleep(250);
+        Thread.sleep(50);
         Assert.assertEquals(accessLog, TestUtils.getAccessLogTail());
     }
     
@@ -75,7 +75,7 @@ public class ListenerTest_Service extends AbstractTest {
         
         Assert.assertTrue(response.isEmpty());
         
-        Thread.sleep(250);
+        Thread.sleep(50);
         String outputLog = TestUtils.getOutputLogTail();
         Assert.assertTrue(outputLog.contains("java.lang.ClassNotFoundException: ConnectorBxxx"));
     }    

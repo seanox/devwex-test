@@ -23,6 +23,7 @@ package com.seanox.devwex;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -319,7 +320,7 @@ public class ListenerTest_Performance extends AbstractTest {
                     Response response = new Response();
                     response.duration = System.currentTimeMillis();
                     try {response.data = TestHttpUtils.sendRequest(host, request);
-                    } catch (IOException exception) {
+                    } catch (IOException | GeneralSecurityException exception) {
                         return Response.create(exception);
                     }
                     response.duration = System.currentTimeMillis() -response.duration;

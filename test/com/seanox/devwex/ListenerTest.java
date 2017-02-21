@@ -29,24 +29,24 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    ListenerTest_Request.class,
-    ListenerTest_Locate.class,
-    ListenerTest_Authentication.class,
-    ListenerTest_MimeType.class,
     ListenerTest_AccessLog.class,
-    ListenerTest_Filter.class,
-    ListenerTest_Options.class,
-    ListenerTest_Head.class,
-    ListenerTest_Get.class,
-    ListenerTest_Put.class,
-    ListenerTest_Delete.class,
-    ListenerTest_Status.class,
-    ListenerTest_Gateway.class,
-    ListenerTest_Service.class,
-    ListenerTest_FileIndex.class,
+    ListenerTest_Authentication.class,
     ListenerTest_Configuration.class,
-    ListenerTest_VirtualHost.class,
-    ListenerTest_Performance.class
+    ListenerTest_Delete.class,
+    ListenerTest_FileIndex.class,
+    ListenerTest_Filter.class,
+    ListenerTest_Gateway.class,
+    ListenerTest_Get.class,
+    ListenerTest_Head.class,
+    ListenerTest_Locate.class,
+    ListenerTest_MimeType.class,
+    ListenerTest_Options.class,
+    ListenerTest_Performance.class,
+    ListenerTest_Put.class,
+    ListenerTest_Request.class,
+    ListenerTest_Status.class,
+    ListenerTest_Service.class,
+    ListenerTest_VirtualHost.class
 })
 public class ListenerTest extends AbstractSuite {
 }

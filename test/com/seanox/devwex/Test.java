@@ -31,10 +31,10 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
     GeneratorTest.class,
     InitializeTest.class,
-    SectionTest.class,
+    ListenerTest.class,
     RemoteTest.class,
-    ServerTest.class,
-    ListenerTest.class
+    SectionTest.class,
+    ServerTest.class
 })
 public class Test extends AbstractSuite {
 }

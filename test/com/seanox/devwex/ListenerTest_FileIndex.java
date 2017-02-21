@@ -54,7 +54,7 @@ public class ListenerTest_FileIndex extends AbstractTest {
         Assert.assertTrue(body.contains("\r\norder by: na\r\n"));
         Assert.assertFalse(body.contains("?"));
         
-        Thread.sleep(250);
+        Thread.sleep(50);
         String accessLog = TestUtils.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
     }
@@ -82,7 +82,7 @@ public class ListenerTest_FileIndex extends AbstractTest {
         Assert.assertTrue(body.contains("\r\norder by: da\r\n"));
         Assert.assertFalse(body.contains("?"));
         
-        Thread.sleep(250);
+        Thread.sleep(50);
         String accessLog = TestUtils.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
     }
@@ -111,7 +111,7 @@ public class ListenerTest_FileIndex extends AbstractTest {
         Assert.assertTrue(body.contains("\r\norder by: na\r\n"));
         Assert.assertFalse(body.contains("?"));
         
-        Thread.sleep(250);
+        Thread.sleep(50);
         String accessLog = TestUtils.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
     }

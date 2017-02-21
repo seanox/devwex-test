@@ -54,7 +54,7 @@ public class ListenerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
-        Thread.sleep(250);
+        Thread.sleep(50);
         String accessLog = TestUtils.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
@@ -78,7 +78,7 @@ public class ListenerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST("Section-BEC")));
         
-        Thread.sleep(250);
+        Thread.sleep(50);
         String accessLog = TestUtils.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     } 
