@@ -32,6 +32,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 import com.seanox.test.utils.StreamUtils;
 
@@ -49,7 +50,7 @@ public class ListenerTest_Request extends AbstractTest {
     @Test(timeout=16000)
     public void testTimeout_1() throws Exception {
        
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80"));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80"));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_400));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -57,7 +58,7 @@ public class ListenerTest_Request extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_400));
     }
     
@@ -107,7 +108,7 @@ public class ListenerTest_Request extends AbstractTest {
             Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
             
             Thread.sleep(50);
-            String accessLog = TestUtils.getAccessLogTail();
+            String accessLog = AbstractSuite.getAccessLogTail();
             Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("400", "GET / HTTP/1.0")));
         }
     }    
@@ -121,7 +122,7 @@ public class ListenerTest_Request extends AbstractTest {
     public void testAceptance_1() throws Exception {
         
         String request = "GET\r\n\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_400));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -129,7 +130,7 @@ public class ListenerTest_Request extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("400", request)));
     }
     
@@ -143,7 +144,7 @@ public class ListenerTest_Request extends AbstractTest {
     public void testAceptance_2() throws Exception {
         
         String request = "GET XXX\r\n\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_400));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -151,7 +152,7 @@ public class ListenerTest_Request extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("400", request)));
     }
     
@@ -165,7 +166,7 @@ public class ListenerTest_Request extends AbstractTest {
     public void testAceptance_3() throws Exception {
         
         String request = "GET \\\r\n\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_TEXT_HTML));
@@ -173,7 +174,7 @@ public class ListenerTest_Request extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
     }
     
@@ -190,7 +191,7 @@ public class ListenerTest_Request extends AbstractTest {
         while (request.length() < 40000)
             request += "x";
         request += "\r\n\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_413));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -198,7 +199,7 @@ public class ListenerTest_Request extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("413", request)));
     }    
     
@@ -220,7 +221,7 @@ public class ListenerTest_Request extends AbstractTest {
         while (request.length() <= 65535)
             request += String.format("line-%02d: %s%n", Integer.valueOf(++loop), requestLine);
         
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n"));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request + "\r\n"));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_413));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -228,7 +229,7 @@ public class ListenerTest_Request extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("413", request)));
     }    
     
@@ -250,7 +251,7 @@ public class ListenerTest_Request extends AbstractTest {
         while (request.length() <= 64535)
             request += "x-x" + ((++loop < 10) ? "0" : "") + loop + "x: " + requestLine + "\r\n";
         
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", request + "\r\n"));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request + "\r\n"));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_TEXT_HTML));
@@ -258,7 +259,7 @@ public class ListenerTest_Request extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
     }
     
@@ -271,7 +272,7 @@ public class ListenerTest_Request extends AbstractTest {
     @Test
     public void testAceptance_8() throws Exception {
         
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:80", "\r\n\r\n"));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", "\r\n\r\n"));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_400));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -279,7 +280,7 @@ public class ListenerTest_Request extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_400));
     } 
     
@@ -327,15 +328,7 @@ public class ListenerTest_Request extends AbstractTest {
             while (Thread.activeCount() > threadCount)
                 Thread.sleep(50);
             
-            String shadow = null;
-            long timeout  = System.currentTimeMillis();
-            while (System.currentTimeMillis() -timeout < 3000) {
-                Thread.sleep(50);
-                String accessLog = TestUtils.getAccessLogTail();
-                if (!accessLog.equals(shadow))
-                    timeout = System.currentTimeMillis();
-                shadow = accessLog;
-            }
+            AbstractSuite.waitOutputReady();
         }
     }     
 }

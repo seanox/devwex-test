@@ -24,6 +24,7 @@ package com.seanox.devwex;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
@@ -42,7 +43,33 @@ public class ListenerTest_VirtualHost extends AbstractTest {
         String request = "GET \\cgi_environment.jsx HTTP/1.0\r\n"
                 + "Host: vhA\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
+        
+        String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
+        Assert.assertTrue(header.trim().length() > 0);
+        String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
+        Assert.assertTrue(body.matches("(?si)^.*\r\nHTTP_HOST=vhA\r\n.*$"));
+        Assert.assertTrue(body.matches("(?si)^.*\r\nVIRTUAL_A=Virtualhost A\r\n.*$"));
+        Assert.assertTrue(body.matches("(?si)^.*\r\nSERVER_A=Server A\r\n.*$"));
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Virtual hosts must be resolved correctly.
+     *  @throws Exception
+     */
+    @Test
+    public void testAceptance_2() throws Exception {
+        
+        String request = "GET \\cgi_environment.jsx HTTP/1.0\r\n"
+                + "Host: vhA\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8081", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -55,7 +82,5 @@ public class ListenerTest_VirtualHost extends AbstractTest {
         Assert.assertTrue(body.matches("(?si)^.*\r\nHTTP_HOST=vhA\r\n.*$"));
         Assert.assertTrue(body.matches("(?si)^.*\r\nVIRTUAL_A=Virtualhost A\r\n.*$"));
         Assert.assertTrue(body.matches("(?si)^.*\r\nSERVER_C=Server C\r\n.*$"));
-        Assert.assertTrue(body.matches("(?si)^.*\r\nSERVER_B=Server B\r\n.*$"));
-        Assert.assertTrue(body.matches("(?si)^.*\r\nSERVER_A=Server A\r\n.*$"));
     }
 }

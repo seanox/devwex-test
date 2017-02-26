@@ -34,63 +34,60 @@ import com.seanox.test.utils.HttpUtils.HeaderField;
 /**
  *  TestCases for {@link com.seanox.devwex.Listener}.
  */
-public class ListenerTest_Head extends AbstractTest {
+public class ListenerTest_Get extends AbstractTest {
     
     /** 
      *  TestCase for aceptance.
      *  Directories are responded with status 200 and without Content-Length.
      *  @throws Exception
-     */     
+     */  
     @Test
     public void testAceptance_01() throws Exception {
         
-        String request = "HEAD / HTTP/1.0\r\n"
+        String request = "Get / HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
-    } 
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+    }
     
     /** 
      *  TestCase for aceptance.
      *  Directories without a slah at the end, are responded with status 302
      *  and a redirect.
      *  @throws Exception
-     */       
+     */    
     @Test
     public void testAceptance_02() throws Exception {
         
-        String request = "HEAD /test_a HTTP/1.0\r\n"
+        String request = "Get /test_a HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-    
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8080/test_a/")));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-    
+
         Thread.sleep(50);
         String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
-    } 
+    }
     
     /** 
      *  TestCase for aceptance.
      *  Directories these not exists, are responded with status 404.
      *  @throws Exception
-     */   
+     */  
     @Test
     public void testAceptance_03() throws Exception {
         
-        String request = "HEAD /test_ax HTTP/1.0\r\n"
+        String request = "Get /test_ax HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-    
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
     }
     
@@ -99,19 +96,18 @@ public class ListenerTest_Head extends AbstractTest {
      *  Files are responded with status 200, Content-Length, Content-Type and
      *  LastModified.
      *  @throws Exception
-     */      
+     */  
     @Test
     public void testAceptance_04() throws Exception {
         
-        String request = "HEAD /method_file.txt HTTP/1.0\r\n"
+        String request = "Get /method_file.txt HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
     }
     
     /** 
@@ -119,18 +115,16 @@ public class ListenerTest_Head extends AbstractTest {
      *  Files with a slah at the end, are responded with status 302 and a
      *  redirect.
      *  @throws Exception
-     */     
+     */   
     @Test
     public void testAceptance_05() throws Exception {
         
-        String request = "HEAD /method_file.txt/ HTTP/1.0\r\n"
+        String request = "Get /method_file.txt/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8080/method_file.txt")));
-
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
@@ -145,21 +139,21 @@ public class ListenerTest_Head extends AbstractTest {
      *  Requests with a correct If-Modified-Since are responded with status
      *  304.
      *  @throws Exception
-     */      
+     */  
     @Test
     public void testAceptance_06() throws Exception {
         
         String request;
-        String response;        
+        String response;  
         
         request = "Get /documents/commons/lastmodified.jsx HTTP/1.0\r\n"
                 + "File: ../../documents_vh_A/method_file.txt\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-        String lastModified = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
-        
-        request = "HEAD /method_file.txt HTTP/1.0\r\n"
+        String lastModified = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");        
+
+        request = "Get /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: " + lastModified + "\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
@@ -180,16 +174,15 @@ public class ListenerTest_Head extends AbstractTest {
      *  Requests with a incorrect If-Modified-Since are responded with status
      *  200.
      *  @throws Exception
-     */      
+     */  
     @Test
     public void testAceptance_07() throws Exception {
         
-        String request = "HEAD /method_file.txt HTTP/1.0\r\n"
+        String request = "Get /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 19 Jan 2004 16:58:55 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));
@@ -201,34 +194,34 @@ public class ListenerTest_Head extends AbstractTest {
      *  Requests with a correct If-Modified-Since (incl. length) are responded
      *  with status 304.
      *  @throws Exception
-     */     
+     */   
     @Test
     public void testAceptance_08() throws Exception {
-
+        
         String request;
-        String response;        
+        String response;  
         
         request = "Get /documents/commons/lastmodified.jsx HTTP/1.0\r\n"
                 + "File: ../../documents_vh_A/method_file.txt\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-        String lastModified = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
+        String lastModified = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");        
 
-        request = "HEAD /method_file.txt HTTP/1.0\r\n"
+
+        request = "Get /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: " + lastModified + "; xxx; length=15\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_304));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LOCATION_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
         Thread.sleep(50);
         String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_304));        
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_304));
     }
     
     /** 
@@ -236,45 +229,33 @@ public class ListenerTest_Head extends AbstractTest {
      *  Requests with a If-Modified-Since (correct date, invalid length) are
      *  responded with status 200.
      *  @throws Exception
-     */   
+     */ 
     @Test
     public void testAceptance_09() throws Exception {
-
-        String request;
-        String response;        
         
-        request = "Get /documents/commons/lastmodified.jsx HTTP/1.0\r\n"
-                + "File: ../../documents_vh_A/method_file.txt\r\n"
+        String request = "Get /method_file.txt HTTP/1.0\r\n"
+                + "If-Modified-Since: Mon, 19 Jan 2004 16:58:56 GMT; xxx; length=21\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-        String lastModified = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
-
-        request = "HEAD /method_file.txt HTTP/1.0\r\n"
-                + "If-Modified-Since: " + lastModified + "; xxx; length=20\r\n"
-                + "Host: vHa\r\n"
-                + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));    
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
     }
     
     /** 
      *  TestCase for aceptance.
      *  Requests with an other If-Modified-Since are responded with status 200.
      *  @throws Exception
-     */      
+     */  
     @Test
     public void testAceptance_10() throws Exception {
-        
-        String request = "HEAD /method_file.txt HTTP/1.0\r\n"
+        String request = "Get /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 19 Jan 2004 16:58:57 GMT; xxx; length=20\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));
@@ -286,15 +267,13 @@ public class ListenerTest_Head extends AbstractTest {
      *  Requested directories with a default page are responded with status 200
      *  and the details of the default page.
      *  @throws Exception
-     */      
+     */        
     @Test
     public void testAceptance_11() throws Exception {
-        
-        String request = "HEAD /test_a/ HTTP/1.0\r\n"
+        String request = "Get /test_a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));
@@ -306,27 +285,16 @@ public class ListenerTest_Head extends AbstractTest {
      *  The If-Modified-Since is ignored for directories.
      *  The request are responded with status 200.
      *  @throws Exception
-     */     
+     */        
     @Test
     public void testAceptance_12() throws Exception {
-        
-        String request;
-        String response;        
-        
-        request = "Get /documents/commons/lastmodified.jsx HTTP/1.0\r\n"
-                + "File: ../../documents_vh_A/test_d\r\n"
+        String request = "Get /test_d/ HTTP/1.0\r\n"
+                + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-        String lastModified = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
-
-        request = "HEAD /test_d/ HTTP/1.0\r\n"
-                + "If-Modified-Since: " + lastModified + "\r\n"
-                + "Host: vHa\r\n"
-                + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_TEXT_HTML));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
     }
@@ -337,18 +305,15 @@ public class ListenerTest_Head extends AbstractTest {
      *  The request are responded with status 403, because the access is
      *  forbidden.
      *  @throws Exception
-     */       
+     */   
     @Test
     public void testAceptance_13() throws Exception {
-        
-        String request = "HEAD /forbidden HTTP/1.0\r\n"
+        String request = "Get /forbidden HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
     }
     
@@ -357,16 +322,14 @@ public class ListenerTest_Head extends AbstractTest {
      *  The If-Modified-Since is ignored for absolutes paths.
      *  The request are responded with status 200.
      *  @throws Exception
-     */      
+     */ 
     @Test
     public void testAceptance_14() throws Exception {
-        
-        String request = "HEAD /absolute HTTP/1.0\r\n"
+        String request = "Get /absolute HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));
@@ -378,16 +341,14 @@ public class ListenerTest_Head extends AbstractTest {
      *  The If-Modified-Since is ignored for absolutes paths.
      *  The request are responded with status 200.
      *  @throws Exception
-     */       
+     */  
     @Test
     public void testAceptance_15() throws Exception {
-        
-        String request = "HEAD /absolutexxx HTTP/1.0\r\n"
+        String request = "Get /absolutexxx HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));
@@ -400,20 +361,18 @@ public class ListenerTest_Head extends AbstractTest {
      *  The request are responded with status 403, because the CGI does not
      *  exists.
      *  @throws Exception
-     */      
+     */    
     @Test
     public void testAceptance_16() throws Exception {
-        
-        String request = "HEAD /method.php HTTP/1.0\r\n"
+        String request = "Get /method.jsx HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
-                + "Host: vHa\r\n"
+                + "Host: vHe\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
     }
     
     /** 
@@ -421,11 +380,10 @@ public class ListenerTest_Head extends AbstractTest {
      *  The request are responded with status 200 by the CGI self, if the HEAD
      *  method allowed.
      *  @throws Exception
-     */      
+     */    
     @Test
     public void testAceptance_17() throws Exception {
-        
-        String request = "hEAD /method.jsx HTTP/1.0\r\n"
+        String request = "Get /method.jsx HTTP/1.0\r\n"
                 + "Host: vHb\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
@@ -434,7 +392,145 @@ public class ListenerTest_Head extends AbstractTest {
         Assert.assertEquals("hallo", body);
     }
     
-    private static void assertAceptance_18(int count, String path, String start, String end) throws Exception {
+    /** 
+     *  TestCase for aceptance.
+     *  The decoding (MIME/UTF8) from the URL must work.
+     *  The request is responded with status 200.
+     *  @throws Exception
+     */ 
+    @Test
+    public void testAceptance_18() throws Exception {
+        String request = "Get /decoding_maß1bc.html HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(3)));
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  The decoding (MIME/UTF8) from the URL must work.
+     *  The request is responded with status 200.
+     *  @throws Exception
+     */ 
+    @Test
+    public void testAceptance_19() throws Exception {
+        String request = "Get /decoding_maß1bc.html HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(3)));
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  The decoding (MIME/UTF8) from the URL must work.
+     *  The request is responded with status 200.
+     *  @throws Exception
+     */ 
+    @Test
+    public void testAceptance_20() throws Exception {
+        String request = "Get /decoding_ma%DF1bc.html HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(3)));
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  The decoding (MIME/UTF8) from the URL must work.
+     *  The request is responded with status 200.
+     *  @throws Exception
+     */ 
+    @Test
+    public void testAceptance_21() throws Exception {
+        String request = "Get /decoding_ma%c3%9f1bc.html HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(3)));
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  The decoding (MIME/UTF8) from the URL must work.
+     *  The request is responded with status 200.
+     *  @throws Exception
+     */ 
+    @Test
+    public void testAceptance_22() throws Exception {
+        String request = "Get /decoding_maß123.html HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(3)));
+        String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
+        Assert.assertEquals("-0-", body);
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  The decoding (MIME/UTF8) from the URL must work.
+     *  The request is responded with status 200 and the correct content.
+     *  @throws Exception
+     */ 
+    @Test
+    public void testAceptance_23() throws Exception {
+        String request = "Get /decoding_ma%DF123.html HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(3)));
+        String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
+        Assert.assertEquals("-0-", body);
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  The decoding (MIME/UTF8) from the URL must work.
+     *  The request is responded with status 200 and the correct content.
+     *  @throws Exception
+     */ 
+    @Test
+    public void testAceptance_24() throws Exception {
+        
+        String request = "Get /decoding_maß%c3%9f%DF123.html HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(3)));
+        String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
+        Assert.assertEquals("-2-", body);
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  The decoding (MIME/UTF8) from the URL must work.
+     *  The request is responded with status 200 and the correct content.
+     *  @throws Exception
+     */     
+    @Test
+    public void testAceptance_25() throws Exception {
+        
+        String request = "Get /decoding_ma%DFß%c3%9f123.html HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(3)));
+        String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
+        Assert.assertEquals("-2-", body);
+    }
+    
+    private static void assertAceptance_26(int count, String path, String start, String end) throws Exception {
         
         if (start != null
                 && start.contains("-")
@@ -445,7 +541,7 @@ public class ListenerTest_Head extends AbstractTest {
                 && start == null)
             start = "";
 
-        String request = "Head " + path + " HTTP/1.0\r\n"
+        String request = "GET " + path + " HTTP/1.0\r\n"
                 + "Host: vHa\r\n";
         if (start != null || end != null) {
             request += "Range: bYteS = " + (start != null ? start : "");
@@ -460,30 +556,32 @@ public class ListenerTest_Head extends AbstractTest {
         
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n"));
         
-        int code = 0;
+        long code = 0;
+        long size = 0;
+        
+        long fileSize     = new File(AbstractSuite.getRootStage(), "documents_vh_A/" + path).length();
+        long responseSize = fileSize;
+        long startPos     = 0;
+        long endPos       = fileSize -1;
+        long fileEnd      = fileSize -1;
         
         if (path.contains("nix")) {
         
             code = 404;
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
-            Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
             Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));  
             
         } else if (path.equals("/")) {
             
             code = 200;
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
-            Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
             Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));             
         
         } else {
             
             code = 206;
-            
-            long fileSize     = new File(AbstractSuite.getRootStage(), "documents_vh_A/" + path).length();
-            long responseSize = fileSize;
-            long startPos     = 0;
-            long endPos       = fileSize -1;     
 
             String range = "";
             if (start != null)
@@ -555,177 +653,219 @@ public class ListenerTest_Head extends AbstractTest {
                 Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_206));
                 Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(responseSize)));
                 Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE(startPos, endPos -1, fileSize)));
+                size = endPos -startPos; 
             } else if (code == 416) {
                 Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_416));
-                Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
                 Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));
+                size = Long.parseLong(HttpUtils.getResponseHeaderValue(response, HttpUtils.HeaderField.CONTENT_LENGTH));
+                Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(size)));
             } else {
                 Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
                 Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(fileSize)));
                 Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));
+                size = fileSize; 
+            }
+            
+            if (code == 200
+                    || code == 206) {
+                
+                if (code == 206) {
+                
+                    String pattern = null;
+                    if (startPos == 0 && endPos -1 == fileEnd) {
+                        pattern = "(?s)^>0001\\].*\\[1024\\] 1234567890 ABCDEFGHIJKLMNOPQRSTUVWXY<$";
+                    } else if (startPos == 0 && endPos -1 == 0) {
+                        pattern = "(?s)^>$";
+                    } else if (startPos == 0 && endPos -1 == 1) {
+                        pattern = "(?s)^>0$";;
+                    } else if (startPos == 0 && endPos -1 == 127) {
+                        pattern = "(?s)^>0001\\].*\\[0003\\] 1234567890 ABCDEFGHIJKLMNOPQR$";
+                    } else if (startPos == 1 && endPos -1 == 1) {
+                        pattern = "(?s)^0$";
+                    } else if (startPos == 1 && endPos -1 == 127) {
+                        pattern = "(?s)^0001\\].*\\[0003\\] 1234567890 ABCDEFGHIJKLMNOPQR$";
+                    } else if (startPos == 1 && endPos -1 == fileEnd) {                        
+                        pattern = "(?s)^0001\\].*\\[1024\\] 1234567890 ABCDEFGHIJKLMNOPQRSTUVWXY<$";
+                    } else if (startPos == 127 && endPos -1 == 256) {
+                        pattern = "(?s)^RSTUVWXYZ[\r\n]+\\[0004\\].*\\[0006\\] 1234567890 ABCDEFGHI$";
+                    } else if (startPos == 256 && endPos -1 == fileEnd) {
+                        pattern = "(?s)^IJKLMNOPQRSTUVWXYZ[\r\n]+\\[0007\\].*\\[1024\\] 1234567890 ABCDEFGHIJKLMNOPQRSTUVWXY<$";
+                    } else if (startPos == fileSize -1 && endPos -1 == fileEnd) {     
+                        pattern = "(?s)^<$";
+                    } else if (startPos == fileSize -256 && endPos -1 == fileEnd) {  
+                        pattern = "(?s)^ABCDEFGHIJKLMNOPQRSTUVWXYZ[\r\n]+\\[1020\\].*\\[1024\\] 1234567890 ABCDEFGHIJKLMNOPQRSTUVWXY<$";
+                    } else Assert.fail("Missing test case");
+                    
+                    String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
+                    Assert.assertTrue(body.matches(pattern));
+                }
+                
+                Thread.sleep(50);
+                String accessLog = AbstractSuite.getAccessLogTail();            
+                Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS(String.valueOf(code), request, (int)size)));  
             }
         }
         
         Thread.sleep(50);
         String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS(String.valueOf(code), request, 0)));  
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS(String.valueOf(code), request)));  
     }
     
     /** 
      *  TestCase for aceptance.
-     *  The correct response for HEAD request with a Range header is checked.
+     *  The correct response for GET request with a Range header is checked.
      *  @throws Exception
-     */      
+     */       
     @Test
-    public void testAceptance_18() throws Exception {
+    public void testAceptance_26() throws Exception {
         
         for (String path : new String[] {"/partial_content.txt", "/partial_content_empty.txt",
                 "/partial_content-nix.txt", "/"}) {
 
             int count = 0;
+            
+            ListenerTest_Get.assertAceptance_26(++count, path, "0",      "0");
+            ListenerTest_Get.assertAceptance_26(++count, path, "0",      "1");    
+            ListenerTest_Get.assertAceptance_26(++count, path, "0",      "127");
+            ListenerTest_Get.assertAceptance_26(++count, path, "0",      "65535");
+            ListenerTest_Get.assertAceptance_26(++count, path, "1",      "0");
+            ListenerTest_Get.assertAceptance_26(++count, path, "1",      "1");
+            ListenerTest_Get.assertAceptance_26(++count, path, "1",      "127");    
+            ListenerTest_Get.assertAceptance_26(++count, path, "1",      "65535");
+            ListenerTest_Get.assertAceptance_26(++count, path, "127",    "256");
+            ListenerTest_Get.assertAceptance_26(++count, path, "256",    "127");
+    
+            ListenerTest_Get.assertAceptance_26(++count, path, "127",    "0");
+            ListenerTest_Get.assertAceptance_26(++count, path, "127",    "1");
+            ListenerTest_Get.assertAceptance_26(++count, path, "65535",  "0");
+            ListenerTest_Get.assertAceptance_26(++count, path, "65535",  "1");
+            ListenerTest_Get.assertAceptance_26(++count, path, "256",    "65535");
+            ListenerTest_Get.assertAceptance_26(++count, path, "65535",  "256");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-256",   "127");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-127",   "256");
+            ListenerTest_Get.assertAceptance_26(++count, path, "256",    "-127");
+            ListenerTest_Get.assertAceptance_26(++count, path, "127",    "-256");
+    
+            ListenerTest_Get.assertAceptance_26(++count, path, "0",      "A");
+            ListenerTest_Get.assertAceptance_26(++count, path, "1",      "A");
+            ListenerTest_Get.assertAceptance_26(++count, path, "256",    "B");
+            ListenerTest_Get.assertAceptance_26(++count, path, "65535",  "C");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-0",     "A");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-1",     "A");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-256",   "B");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-65535", "C");
+            ListenerTest_Get.assertAceptance_26(++count, path, "A",      "0");
+            ListenerTest_Get.assertAceptance_26(++count, path, "A",      "1");
+    
+            ListenerTest_Get.assertAceptance_26(++count, path, "B",      "256");
+            ListenerTest_Get.assertAceptance_26(++count, path, "C",      "65535");
+            ListenerTest_Get.assertAceptance_26(++count, path, "A",      "-0");
+            ListenerTest_Get.assertAceptance_26(++count, path, "A",      "-1");
+            ListenerTest_Get.assertAceptance_26(++count, path, "B",      "-256");
+            ListenerTest_Get.assertAceptance_26(++count, path, "C",      "-65535");
+            ListenerTest_Get.assertAceptance_26(++count, path, "0",      "");
+            ListenerTest_Get.assertAceptance_26(++count, path, "256",    "");
+            ListenerTest_Get.assertAceptance_26(++count, path, "65535",  "");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-0",     "");
+            
+            ListenerTest_Get.assertAceptance_26(++count, path, "-1",     "");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-256",   "");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-65535", "");
+            ListenerTest_Get.assertAceptance_26(++count, path, null,     "0");
+            ListenerTest_Get.assertAceptance_26(++count, path, null,     "256");
+            ListenerTest_Get.assertAceptance_26(++count, path, null,     "65535");
+            ListenerTest_Get.assertAceptance_26(++count, path, null,     "A");
+            ListenerTest_Get.assertAceptance_26(++count, path, null,      null);
+            ListenerTest_Get.assertAceptance_26(++count, path, "",       "0");
+            ListenerTest_Get.assertAceptance_26(++count, path, "",       "256");
+            
+            ListenerTest_Get.assertAceptance_26(++count, path, "",       "65535");
+            ListenerTest_Get.assertAceptance_26(++count, path, "",       "-0");
+            ListenerTest_Get.assertAceptance_26(++count, path, "",       "-1");
+            ListenerTest_Get.assertAceptance_26(++count, path, "",       "-256");
+            ListenerTest_Get.assertAceptance_26(++count, path, "",       "-65535");
+            ListenerTest_Get.assertAceptance_26(++count, path, "0",      " ");
+            ListenerTest_Get.assertAceptance_26(++count, path, "1",      " ");
+            ListenerTest_Get.assertAceptance_26(++count, path, "256",    " ");
+            ListenerTest_Get.assertAceptance_26(++count, path, "65535",  " ");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-0",     " ");
+            
+            ListenerTest_Get.assertAceptance_26(++count, path, null,       "-0");
+            ListenerTest_Get.assertAceptance_26(++count, path, null,       "-1");
+            ListenerTest_Get.assertAceptance_26(++count, path, null,       "-256");
+            ListenerTest_Get.assertAceptance_26(++count, path, null,       "-65535");
+            ListenerTest_Get.assertAceptance_26(++count, path, "0",      null);
+            ListenerTest_Get.assertAceptance_26(++count, path, "1",      null);
+            ListenerTest_Get.assertAceptance_26(++count, path, "256",    null);
+            ListenerTest_Get.assertAceptance_26(++count, path, "65535",  null);
+            ListenerTest_Get.assertAceptance_26(++count, path, "-0",     null);  
+            ListenerTest_Get.assertAceptance_26(++count, path, null,    "65535");
+            
+            ListenerTest_Get.assertAceptance_26(++count, path, null,  "256");
+            ListenerTest_Get.assertAceptance_26(++count, path, null,   "127");            
+            ListenerTest_Get.assertAceptance_26(++count, path, "-1",     " ");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-256",   " ");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-65535", " ");
+            ListenerTest_Get.assertAceptance_26(++count, path, " ",      "0");
+            ListenerTest_Get.assertAceptance_26(++count, path, " ",      "1");
+            ListenerTest_Get.assertAceptance_26(++count, path, " ",      "256");
+            ListenerTest_Get.assertAceptance_26(++count, path, " ",      "65535");
+            ListenerTest_Get.assertAceptance_26(++count, path, " ",      "-0");
+            
+            ListenerTest_Get.assertAceptance_26(++count, path, " ",      "-1");
+            ListenerTest_Get.assertAceptance_26(++count, path, " ",      "-256");
+            ListenerTest_Get.assertAceptance_26(++count, path, " ",      "-65535");
+            ListenerTest_Get.assertAceptance_26(++count, path, "0",      "-");
+            ListenerTest_Get.assertAceptance_26(++count, path, "1",      "-");
+            ListenerTest_Get.assertAceptance_26(++count, path, "256",    "-");
+            ListenerTest_Get.assertAceptance_26(++count, path, "65535",  "-");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-0",     "-");    
+            ListenerTest_Get.assertAceptance_26(++count, path, "-1",     "-");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-256",   "-");
+            
+            ListenerTest_Get.assertAceptance_26(++count, path, "-65535", "-");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-",      "0");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-",      "256");    
+            ListenerTest_Get.assertAceptance_26(++count, path, "-",      "65535");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-",      "-0");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-",      "-1");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-",      "-256");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-",      "-65535");
+            ListenerTest_Get.assertAceptance_26(++count, path, "0",      ";");
+            ListenerTest_Get.assertAceptance_26(++count, path, "1",      ";");    
+            
+            ListenerTest_Get.assertAceptance_26(++count, path, "256",    ";");
+            ListenerTest_Get.assertAceptance_26(++count, path, "65535",  ";");
+            ListenerTest_Get.assertAceptance_26(++count, path, "0;",      null);
+            ListenerTest_Get.assertAceptance_26(++count, path, "1;",      null);    
+            ListenerTest_Get.assertAceptance_26(++count, path, "256;",    null);
+            ListenerTest_Get.assertAceptance_26(++count, path, "65535;",  null);            
+            ListenerTest_Get.assertAceptance_26(++count, path, "-0",     ";");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-1",     ";");
+            ListenerTest_Get.assertAceptance_26(++count, path, "-256",   ";");    
+            ListenerTest_Get.assertAceptance_26(++count, path, "-65535", ";");
 
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      "1");    
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      "127");
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      "1");
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      "127");    
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "127",    "256");
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    "127");
-    
-            ListenerTest_Head.assertAceptance_18(++count, path, "127",    "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "127",    "1");
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  "1");
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  "256");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-256",   "127");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-127",   "256");
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    "-127");
-            ListenerTest_Head.assertAceptance_18(++count, path, "127",    "-256");
-    
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      "A");
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      "A");
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    "B");
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  "C");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-0",     "A");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-1",     "A");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-256",   "B");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-65535", "C");
-            ListenerTest_Head.assertAceptance_18(++count, path, "A",      "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "A",      "1");
-    
-            ListenerTest_Head.assertAceptance_18(++count, path, "B",      "256");
-            ListenerTest_Head.assertAceptance_18(++count, path, "C",      "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "A",      "-0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "A",      "-1");
-            ListenerTest_Head.assertAceptance_18(++count, path, "B",      "-256");
-            ListenerTest_Head.assertAceptance_18(++count, path, "C",      "-65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      "");
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    "");
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  "");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-0",     "");
-    
-            ListenerTest_Head.assertAceptance_18(++count, path, "-1",     "");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-256",   "");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-65535", "");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,     "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,     "256");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,     "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,     "A");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,      null);
-            ListenerTest_Head.assertAceptance_18(++count, path, "",       "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "",       "256");
-           
-            ListenerTest_Head.assertAceptance_18(++count, path, "",       "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "",       "-0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "",       "-1");
-            ListenerTest_Head.assertAceptance_18(++count, path, "",       "-256");
-            ListenerTest_Head.assertAceptance_18(++count, path, "",       "-65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      " ");
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      " ");
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    " ");
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  " ");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-0",     " ");
-            
-            ListenerTest_Head.assertAceptance_18(++count, path, null,       "-0");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,       "-1");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,       "-256");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,       "-65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      null);
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      null);
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    null);
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  null);
-            ListenerTest_Head.assertAceptance_18(++count, path, "-0",     null);  
-            ListenerTest_Head.assertAceptance_18(++count, path, null,    "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,  "256");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,   "127");            
-            
-            ListenerTest_Head.assertAceptance_18(++count, path, "-1",     " ");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-256",   " ");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-65535", " ");
-            ListenerTest_Head.assertAceptance_18(++count, path, " ",      "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, " ",      "1");
-            ListenerTest_Head.assertAceptance_18(++count, path, " ",      "256");
-            ListenerTest_Head.assertAceptance_18(++count, path, " ",      "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, " ",      "-0");
-            ListenerTest_Head.assertAceptance_18(++count, path, " ",      "-1");
-            ListenerTest_Head.assertAceptance_18(++count, path, " ",      "-256");
-            
-            ListenerTest_Head.assertAceptance_18(++count, path, " ",      "-65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      "-");
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      "-");
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    "-");
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  "-");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-0",     "-");    
-            ListenerTest_Head.assertAceptance_18(++count, path, "-1",     "-");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-256",   "-");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-65535", "-");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-",      "0");
-    
-            ListenerTest_Head.assertAceptance_18(++count, path, "-",      "256");    
-            ListenerTest_Head.assertAceptance_18(++count, path, "-",      "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-",      "-0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-",      "-1");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-",      "-256");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-",      "-65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      ";");
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      ";");    
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    ";");
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  ";");
-            ListenerTest_Head.assertAceptance_18(++count, path, "0;",      null);
-            ListenerTest_Head.assertAceptance_18(++count, path, "1;",      null);    
-            ListenerTest_Head.assertAceptance_18(++count, path, "256;",    null);
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535;",  null);            
-    
-            ListenerTest_Head.assertAceptance_18(++count, path, "-0",     ";");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-1",     ";");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-256",   ";");    
-            ListenerTest_Head.assertAceptance_18(++count, path, "-65535", ";");
-            ListenerTest_Head.assertAceptance_18(++count, path, ";",      "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, ";",      "1");
-            ListenerTest_Head.assertAceptance_18(++count, path, ";",      "256");
-            ListenerTest_Head.assertAceptance_18(++count, path, ";",      "65535");    
-            ListenerTest_Head.assertAceptance_18(++count, path, ";",      "-0");
-            ListenerTest_Head.assertAceptance_18(++count, path, ";",      "-1");
-            
-            ListenerTest_Head.assertAceptance_18(++count, path, ";",      "-256");
-            ListenerTest_Head.assertAceptance_18(++count, path, ";",      "-65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      "");
-            ListenerTest_Head.assertAceptance_18(++count, path, "",       "1");
+            ListenerTest_Get.assertAceptance_26(++count, path, ";",      "0");
+            ListenerTest_Get.assertAceptance_26(++count, path, ";",      "1");
+            ListenerTest_Get.assertAceptance_26(++count, path, ";",      "256");
+            ListenerTest_Get.assertAceptance_26(++count, path, ";",      "65535");    
+            ListenerTest_Get.assertAceptance_26(++count, path, ";",      "-0");
+            ListenerTest_Get.assertAceptance_26(++count, path, ";",      "-1");
+            ListenerTest_Get.assertAceptance_26(++count, path, ";",      "-256");
+            ListenerTest_Get.assertAceptance_26(++count, path, ";",      "-65535");
+            ListenerTest_Get.assertAceptance_26(++count, path, "1",      "");
+            ListenerTest_Get.assertAceptance_26(++count, path, "",       "1");            
         }
     }
     
     /** 
      *  TestCase for aceptance.
-     *  The correct response for HEAD request with a Range,
+     *  The correct response for GET request with a Range,
      *  If-Modified-Since and If-UnModified-Since header is checked.
      *  @throws Exception
-     */      
+     */  
     @Test
-    public void testAceptance_21() throws Exception {
+    public void testAceptance_27() throws Exception {
         
         for (String path : new String[] {"/partial_content.txt", "/partial_content_empty.txt",
                 "/partial_content-nix.txt", "/"}) {
@@ -746,87 +886,87 @@ public class ListenerTest_Head extends AbstractTest {
             }
             
             for (String request : new String[] {
-                    "HEAD " + path + "?304 HTTP/1.0\r\n"
+                    "GET " + path + "?304 HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "Range: bytes=2-10\r\n"
                     + "If-Modified-Since: " + lastModified + "\r\n\r\n",
                     
-                    "HEAD " + path + "?304 HTTP/1.0\r\n"
+                    "GET " + path + "?304 HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "Range: bytes=2-10\r\n"
                     + "If-Modified-Since: " + lastModified + "\r\n\r\n",
 
-                    "HEAD " + path + "?206 HTTP/1.0\r\n"
+                    "GET " + path + "?206 HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "Range: bytes=2-10\r\n"
                     + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n",
 
-                    "HEAD " + path + "?412 HTTP/1.0\r\n"
+                    "GET " + path + "?412 HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "Range: bytes=2-10\r\n"
                     + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n",
 
-                    "HEAD " + path + "?206 HTTP/1.0\r\n"
+                    "GET " + path + "?206 HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "Range: bytes=2-10\r\n"
                     + "If-UnModified-Since: " + lastModified + "\r\n\r\n",
 
-                    "HEAD " + path + "?304 HTTP/1.0\r\n"
+                    "GET " + path + "?304 HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "Range: bytes=2-10\r\n"
                     + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
                     + "If-Modified-Since: " + lastModified + "\r\n\r\n",
 
-                    "HEAD " + path + "?206 HTTP/1.0\r\n"
+                    "GET " + path + "?206 HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "Range: bytes=2-10\r\n"
                     + "If-UnModified-Since: " + lastModified + "\r\n"
                     + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n",
 
-                    "HEAD " + path + "?304 HTTP/1.0\r\n"
+                    "GET " + path + "?304 HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "Range: bytes=2-10\r\n"
                     + "If-UnModified-Since: " + lastModified + "\r\n"
                     + "If-Modified-Since: " + lastModified + "\r\n\r\n",
 
-                    "HEAD " + path + "?412 HTTP/1.0\r\n"
+                    "GET " + path + "?412 HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "Range: bytes=2-10\r\n"
                     + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
                     + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n",
 
-                    "HEAD " + path + "?200 HTTP/1.0\r\n"
+                    "GET " + path + "?200 HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n",
 
-                    "HEAD " + path + "?304 HTTP/1.0\r\n"
+                    "GET " + path + "?304 HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "If-Modified-Since: " + lastModified + "\r\n\r\n",
 
-                    "HEAD " + path + "?412 HTTP/1.0\r\n"
+                    "GET " + path + "?412 HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n",
 
-                    "HEAD " + path + "?200 HTTP/1.0\r\n"
+                    "GET " + path + "?200 HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "If-UnModified-Since: " + lastModified + "\r\n\r\n",
 
-                    "HEAD " + path + "?304 HTTP/1.0\r\n"
+                    "GET " + path + "?304 HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
                     + "If-Modified-Since: " + lastModified + "\r\n\r\n",
 
-                    "HEAD " + path + "?200 HTTP/1.0\r\n"
+                    "GET " + path + "?200 HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "If-UnModified-Since: " + lastModified + "\r\n"
                     + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n",
 
-                    "HEAD " + path + "?304 HTTP/1.0\r\n"
+                    "GET " + path + "?304 HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "If-UnModified-Since: " + lastModified + "\r\n"
                     + "If-Modified-Since: " + lastModified + "\r\n\r\n",
 
-                    "HEAD " + path + "?412 HTTP/1.0\r\n"
+                    "GET " + path + "?412 HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "If-UnModified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n"
                     + "If-Modified-Since: Thu, 07 Oct 1980 10:20:30 GMT\r\n\r\n"}) {

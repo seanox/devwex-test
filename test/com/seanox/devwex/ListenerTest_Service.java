@@ -24,6 +24,7 @@ package com.seanox.devwex;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
@@ -44,18 +45,18 @@ public class ListenerTest_Service extends AbstractTest {
     public void testAceptance_01() throws Exception {
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         
         String request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8089", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8089", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("002 Test ok")));
         Assert.assertTrue(response.contains("\r\nModul: ConnectorB\r\n"));
         Assert.assertTrue(response.contains("\r\nModultype: 0\r\n"));
         
         Thread.sleep(50);
-        Assert.assertEquals(accessLog, TestUtils.getAccessLogTail());
+        Assert.assertEquals(accessLog, AbstractSuite.getAccessLogTail());
     }
     
     /** 
@@ -71,12 +72,12 @@ public class ListenerTest_Service extends AbstractTest {
         
         String request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8088", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8088", request));
         
         Assert.assertTrue(response.isEmpty());
         
         Thread.sleep(50);
-        String outputLog = TestUtils.getOutputLogTail();
+        String outputLog = AbstractSuite.getOutputLogTail();
         Assert.assertTrue(outputLog.contains("java.lang.ClassNotFoundException: ConnectorBxxx"));
     }    
 }

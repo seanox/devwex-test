@@ -24,6 +24,8 @@ package com.seanox.devwex;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.seanox.test.utils.HttpUtils;
+
 /**
  *  TestCases for {@link com.seanox.devwex.Remote}.
  */
@@ -39,7 +41,7 @@ public class RemoteTest_Restart extends AbstractTest {
 
         String tail1 = AbstractSuite.getOutTail().replaceAll("(?s).*[\r\n]+([\\d\\- :]+.*?)$", "$1");
         
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:25001", "RESTaRT\r\n"));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:25001", "RESTaRT\r\n"));
 
         Thread.sleep(1000);
         

@@ -24,6 +24,7 @@ package com.seanox.devwex;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
@@ -41,7 +42,7 @@ public class ListenerTest_FileIndex extends AbstractTest {
         
         String request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8081", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8081", request));
 
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
@@ -55,7 +56,7 @@ public class ListenerTest_FileIndex extends AbstractTest {
         Assert.assertFalse(body.contains("?"));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
     }
     
@@ -69,7 +70,7 @@ public class ListenerTest_FileIndex extends AbstractTest {
         
         String request = "GET /?d HTTP/1.0\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8081", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8081", request));
 
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
@@ -83,7 +84,7 @@ public class ListenerTest_FileIndex extends AbstractTest {
         Assert.assertFalse(body.contains("?"));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
     }
     
@@ -98,7 +99,7 @@ public class ListenerTest_FileIndex extends AbstractTest {
         String request = "GET /test_a/test/ HTTP/1.0\r\n"
                 + "Host: vHb\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8081", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8081", request));
 
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
@@ -112,7 +113,7 @@ public class ListenerTest_FileIndex extends AbstractTest {
         Assert.assertFalse(body.contains("?"));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
     }
 }

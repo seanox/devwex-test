@@ -26,6 +26,7 @@ import javax.net.ssl.SSLException;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
@@ -46,10 +47,10 @@ public class ServerTest_Connection extends AbstractTest {
          
         String request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8443", request));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8443", request));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_DIFFUSE));
 
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8443", request, true));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8443", request, AbstractSuite.getRootStageProgramKeystore()));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
     } 
     
@@ -64,7 +65,7 @@ public class ServerTest_Connection extends AbstractTest {
 
         String request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
-        TestHttpUtils.sendRequest("127.0.0.1:80", request, true);
+        HttpUtils.sendRequest("127.0.0.1:80", request, AbstractSuite.getRootStageProgramKeystore());
         Assert.fail();
     } 
     

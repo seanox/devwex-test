@@ -27,6 +27,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.seanox.test.utils.Codec;
+import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
@@ -50,15 +51,15 @@ public class ListenerTest_Delete extends AbstractTest {
         request = "Put /delete_test_1\\ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
-        target = new File(TestUtils.getRootStage(), "documents_vh_A/delete_test_1");
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        target = new File(AbstractSuite.getRootStage(), "documents_vh_A/delete_test_1");
         Assert.assertTrue(target.exists());        
         
         request = "Put /delete_test_2/x1/x2/x3 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
-        target = new File(TestUtils.getRootStage(), "documents_vh_A/delete_test_2/x1/x2/x3");
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        target = new File(AbstractSuite.getRootStage(), "documents_vh_A/delete_test_2/x1/x2/x3");
         Assert.assertTrue(target.exists());        
         
         request = "Put /delete_test_2/x1/file_test.2 HTTP/1.0\r\n"
@@ -66,8 +67,8 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "Content-Length: 10\r\n"
                 + "\r\n"
                 + "1234567890";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
-        target = new File(TestUtils.getRootStage(), "documents_vh_A/delete_test_2/x1/file_test.2");
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        target = new File(AbstractSuite.getRootStage(), "documents_vh_A/delete_test_2/x1/file_test.2");
         Assert.assertTrue(target.exists());        
         
         request = "Put /delete_test_2/x1/file_test.1 HTTP/1.0\r\n"
@@ -75,14 +76,14 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "Content-Length: 10\r\n"
                 + "\r\n"
                 + "1234567890";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));  
-        target = new File(TestUtils.getRootStage(), "documents_vh_A/delete_test_2/x1/file_test.1");
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));  
+        target = new File(AbstractSuite.getRootStage(), "documents_vh_A/delete_test_2/x1/file_test.1");
         Assert.assertTrue(target.exists());        
         
         request = "Delete /delete_test_2/x1/file_test.2/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -91,7 +92,7 @@ public class ListenerTest_Delete extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/delete_test_2/x1/file_test.2")));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request)));
     }
     
@@ -107,7 +108,7 @@ public class ListenerTest_Delete extends AbstractTest {
         String request = "Delete /delete_test_2/x1 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -116,7 +117,7 @@ public class ListenerTest_Delete extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/delete_test_2/x1/")));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request)));
     }
     
@@ -131,7 +132,7 @@ public class ListenerTest_Delete extends AbstractTest {
         String request = "Delete /delete_test_2/x1/file_test.2 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -145,7 +146,7 @@ public class ListenerTest_Delete extends AbstractTest {
         Assert.assertTrue(body.length() <= 0);
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));        
     }
     
@@ -160,7 +161,7 @@ public class ListenerTest_Delete extends AbstractTest {
         String request = "Delete /delete_test_2/x1/file_test.2 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -168,7 +169,7 @@ public class ListenerTest_Delete extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }
     
@@ -184,7 +185,7 @@ public class ListenerTest_Delete extends AbstractTest {
         String request = "Delete /delete_test_2/x1/x2/x3/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -198,7 +199,7 @@ public class ListenerTest_Delete extends AbstractTest {
         Assert.assertTrue(body.length() <= 0);
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
     }
     
@@ -213,7 +214,7 @@ public class ListenerTest_Delete extends AbstractTest {
         String request = "Delete /delete_test_2/x1/x2/x3/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -221,7 +222,7 @@ public class ListenerTest_Delete extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }
     
@@ -235,14 +236,14 @@ public class ListenerTest_Delete extends AbstractTest {
     @Test
     public void testAceptance_07() throws Exception {
         
-        File target = new File(TestUtils.getRootStage(), "documents_vh_A/delete_test_1");
+        File target = new File(AbstractSuite.getRootStage(), "documents_vh_A/delete_test_1");
         
         Assert.assertTrue(target.exists());
         
         String request = "Delete /delete_test_1/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -258,7 +259,7 @@ public class ListenerTest_Delete extends AbstractTest {
         Assert.assertFalse(target.exists());
 
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
@@ -272,14 +273,14 @@ public class ListenerTest_Delete extends AbstractTest {
     @Test
     public void testAceptance_08() throws Exception {
         
-        File target = new File(TestUtils.getRootStage(), "documents_vh_A/delete_test_2");
+        File target = new File(AbstractSuite.getRootStage(), "documents_vh_A/delete_test_2");
         
         Assert.assertTrue(target.exists());
         
         String request = "Delete /delete_test_2/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -295,7 +296,7 @@ public class ListenerTest_Delete extends AbstractTest {
         Assert.assertFalse(target.exists());
 
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }    
     
@@ -311,14 +312,14 @@ public class ListenerTest_Delete extends AbstractTest {
         String request = "Delete /method.jsx HTTP/1.0\r\n"
                 + "Host: vHe\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertTrue(body.matches("(?si)^\\s*hallo\\s*$"));
 
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
 
@@ -334,12 +335,12 @@ public class ListenerTest_Delete extends AbstractTest {
         String request = "Delete /method.php HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
 
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));
     }
     
@@ -357,7 +358,7 @@ public class ListenerTest_Delete extends AbstractTest {
         String request = "Delete /test.modul123 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
         Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ConnectorA\r\n.*$"));
@@ -365,7 +366,7 @@ public class ListenerTest_Delete extends AbstractTest {
         Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: ConnectorA \\[v:xx=123\\] \\[m\\]\r\n.*$"));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("1")));
     }
     
@@ -385,7 +386,7 @@ public class ListenerTest_Delete extends AbstractTest {
         String header;
         String body;
         
-        File target = new File(TestUtils.getRootStage(), "documents_vh_A/file.xxx");
+        File target = new File(AbstractSuite.getRootStage(), "documents_vh_A/file.xxx");
         
         Assert.assertFalse(target.exists());        
         
@@ -393,7 +394,7 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -405,7 +406,7 @@ public class ListenerTest_Delete extends AbstractTest {
         request = "Delete /test.xxx123 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -420,13 +421,13 @@ public class ListenerTest_Delete extends AbstractTest {
         Assert.assertFalse(target.exists());
 
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
         
         request = "Delete /test.xxx123 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -434,13 +435,13 @@ public class ListenerTest_Delete extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));      
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
         
         request = "Delete /test.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -448,7 +449,7 @@ public class ListenerTest_Delete extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));      
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }
     
@@ -467,14 +468,14 @@ public class ListenerTest_Delete extends AbstractTest {
         String header;
         String body;
         
-        File target = new File(TestUtils.getRootStage(), "documents_vh_A/file.xxx");
+        File target = new File(AbstractSuite.getRootStage(), "documents_vh_A/file.xxx");
         Assert.assertFalse(target.exists());        
         
         request = "Put /file.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -486,7 +487,7 @@ public class ListenerTest_Delete extends AbstractTest {
         request = "Delete /test.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -501,13 +502,13 @@ public class ListenerTest_Delete extends AbstractTest {
         Assert.assertFalse(target.exists());
 
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
         
         request = "Delete /test.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -515,7 +516,7 @@ public class ListenerTest_Delete extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));      
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }  
     
@@ -531,7 +532,7 @@ public class ListenerTest_Delete extends AbstractTest {
         String request = "Delete /redirect/a/b/c HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -540,7 +541,7 @@ public class ListenerTest_Delete extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://www.xXx.zzz/?a=2/a/b/c"))); 
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
     }    
 
@@ -556,7 +557,7 @@ public class ListenerTest_Delete extends AbstractTest {
         String request = "Delete /forbidden/absolute.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -564,7 +565,7 @@ public class ListenerTest_Delete extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));
     }
     
@@ -580,7 +581,7 @@ public class ListenerTest_Delete extends AbstractTest {
         String request = "Delete /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -588,7 +589,7 @@ public class ListenerTest_Delete extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -605,7 +606,7 @@ public class ListenerTest_Delete extends AbstractTest {
         String request;
         String response;
         
-        File target = new File(TestUtils.getRootStage(), "documents_vh_A/authentication/a/file.xxx");
+        File target = new File(AbstractSuite.getRootStage(), "documents_vh_A/authentication/a/file.xxx");
         Assert.assertFalse(target.exists());     
         
         request = "Put /authentication/a/file.xxx HTTP/1.0\r\n"
@@ -613,7 +614,7 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";        
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));        
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));        
         Assert.assertTrue(target.exists());
         
         request = "Delete /authentication/a/file.xxx HTTP/1.0\r\n"
@@ -621,7 +622,7 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";        
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));        
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));        
         Assert.assertFalse(target.exists()); 
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
@@ -635,7 +636,7 @@ public class ListenerTest_Delete extends AbstractTest {
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";        
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8085", request));        
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));        
         Assert.assertFalse(target.exists()); 
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));        

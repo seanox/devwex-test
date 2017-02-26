@@ -24,8 +24,9 @@ package com.seanox.devwex;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.seanox.devwex.TestHttpUtils.HeaderField;
+import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
+import com.seanox.test.utils.HttpUtils.HeaderField;
 
 /**
  *  TestCases for {@link com.seanox.devwex.Listener}.
@@ -46,7 +47,7 @@ public class ListenerTest_Options extends AbstractTest {
         String request = "OPTIONS / HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -55,7 +56,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
@@ -74,7 +75,7 @@ public class ListenerTest_Options extends AbstractTest {
         String request = "OPTIONS /test_a HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -83,7 +84,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
     
@@ -101,7 +102,7 @@ public class ListenerTest_Options extends AbstractTest {
         String request = "OPTIONS /test_ax HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -110,7 +111,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
 
@@ -128,7 +129,7 @@ public class ListenerTest_Options extends AbstractTest {
         String request = "OPTIONS /method_file.txt HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -137,7 +138,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     }
     
@@ -155,7 +156,7 @@ public class ListenerTest_Options extends AbstractTest {
         String request = "OPTIONS /method_file.txt/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -164,7 +165,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
     
@@ -185,14 +186,14 @@ public class ListenerTest_Options extends AbstractTest {
         request = "HEAD /method_file.txt HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));       
-        String lastModified = TestHttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));       
+        String lastModified = HttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
         
         request = "OPTIONS /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: " + lastModified + "\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -201,7 +202,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));    
     } 
     
@@ -220,7 +221,7 @@ public class ListenerTest_Options extends AbstractTest {
                 + "If-Modified-Since: Sat, 01 Jan 2000 00:00:00 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -229,7 +230,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));     
     } 
     
@@ -250,15 +251,15 @@ public class ListenerTest_Options extends AbstractTest {
         request = "HEAD /method_file.txt HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));       
-        String lastModified = TestHttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
-        String contentLength = TestHttpUtils.getResponseHeaderValue(response, HeaderField.CONTENT_LENGTH);
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));       
+        String lastModified = HttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
+        String contentLength = HttpUtils.getResponseHeaderValue(response, HeaderField.CONTENT_LENGTH);
         
         request = "OPTIONS /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: " + lastModified + "; xxx; length=" + contentLength + "\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -267,7 +268,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));    
     } 
     
@@ -288,15 +289,15 @@ public class ListenerTest_Options extends AbstractTest {
         request = "HEAD /method_file.txt HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));       
-        String lastModified = TestHttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
-        String contentLength = TestHttpUtils.getResponseHeaderValue(response, HeaderField.CONTENT_LENGTH);
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));       
+        String lastModified = HttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
+        String contentLength = HttpUtils.getResponseHeaderValue(response, HeaderField.CONTENT_LENGTH);
         
         request = "OPTIONS /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: " + lastModified + "; xxx; length=1" + contentLength + "\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -305,7 +306,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));     
     }
     
@@ -326,7 +327,7 @@ public class ListenerTest_Options extends AbstractTest {
         String request = "OPTIONS /test_a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -335,7 +336,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));     
     } 
     
@@ -356,7 +357,7 @@ public class ListenerTest_Options extends AbstractTest {
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -365,7 +366,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));     
     } 
     
@@ -382,7 +383,7 @@ public class ListenerTest_Options extends AbstractTest {
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -391,7 +392,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));     
     } 
     
@@ -410,7 +411,7 @@ public class ListenerTest_Options extends AbstractTest {
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -419,7 +420,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
     
@@ -438,7 +439,7 @@ public class ListenerTest_Options extends AbstractTest {
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -447,7 +448,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
     
@@ -461,11 +462,11 @@ public class ListenerTest_Options extends AbstractTest {
     @Test
     public void testAceptance_16() throws Exception {
         
-        String request = "OPTIONS /test.method.php HTTP/1.0\r\n"
+        String request = "OPTIONS /method.php HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -474,7 +475,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));     
     } 
     
@@ -491,7 +492,7 @@ public class ListenerTest_Options extends AbstractTest {
         String request = "oPTIONS /method.jsx HTTP/1.0\r\n"
                 + "Host: vHb\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -505,7 +506,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(body.matches("(?si)^.*hallo.*$"));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));     
     }
     
@@ -522,7 +523,7 @@ public class ListenerTest_Options extends AbstractTest {
         String request = "oPTIONS /method.jsx HTTP/1.0\r\n"
                 + "Host: vHe\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));   
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));   
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -531,7 +532,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));    
     }
     
@@ -559,7 +560,7 @@ public class ListenerTest_Options extends AbstractTest {
         if (start != null && start.contains(";"))
             end = null;
         
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n"));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n"));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -569,7 +570,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
        
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));
     }
     
@@ -726,7 +727,7 @@ public class ListenerTest_Options extends AbstractTest {
     
     private static void assertAceptance_22(String request) throws Exception {
     
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -736,7 +737,7 @@ public class ListenerTest_Options extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));  
     }
     
@@ -767,8 +768,8 @@ public class ListenerTest_Options extends AbstractTest {
             request = "HEAD " + uri + " HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "\r\n";
-            response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));       
-            String lastModified = TestHttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
+            response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));       
+            String lastModified = HttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                     + "Host: vHa\r\n"

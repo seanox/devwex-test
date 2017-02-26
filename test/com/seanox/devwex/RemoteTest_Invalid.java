@@ -24,6 +24,8 @@ package com.seanox.devwex;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.seanox.test.utils.HttpUtils;
+
 /**
  *  TestCases for {@link com.seanox.devwex.Remote}.
  */
@@ -41,7 +43,7 @@ public class RemoteTest_Invalid extends AbstractTest {
         String command = "";
         while (command.length() < 65536)
             command += "XXXXXXXXX";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:25001", command + "\r\n"));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:25001", command + "\r\n"));
         
         Assert.assertEquals("INFO: UNKNOWN COMMAND\r\n", response);
     }
@@ -55,7 +57,7 @@ public class RemoteTest_Invalid extends AbstractTest {
     @Test
     public void testUnknownCommand_2() throws Exception {
         
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:25001", "restar\r\n123"));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:25001", "restar\r\n123"));
         
         Assert.assertEquals("INFO: UNKNOWN COMMAND\r\n", response);
     }

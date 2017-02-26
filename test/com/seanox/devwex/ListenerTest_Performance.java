@@ -31,6 +31,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.seanox.devwex.ListenerTest_Performance.Group.Worker.Response;
+import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
@@ -68,6 +69,8 @@ public class ListenerTest_Performance extends AbstractTest {
                 Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));                    
             }
         }
+        
+        AbstractSuite.waitOutputReady();
     }
     
     /** 
@@ -120,7 +123,24 @@ public class ListenerTest_Performance extends AbstractTest {
                 Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));                    
             }
         }
+        
+        AbstractSuite.waitOutputReady();
     } 
+    
+    private static void waitRunttimeReady() throws Exception {
+        
+        String shadow = null;
+        long timeout = System.currentTimeMillis();
+        while (System.currentTimeMillis() -timeout < 3000) {
+            Thread.sleep(250);
+            String v1 = String.format("%08d", Integer.valueOf(Thread.activeCount() /10));
+            String v2 = String.format("%08d", Integer.valueOf((int)(AbstractSuite.getMemoryUsage() /1024 /1024)));
+            if (shadow == null || (v1 + "\0" + v2).compareTo(shadow) < 0) {
+                timeout = System.currentTimeMillis();
+                shadow = (v1 + "\0" + v2);
+            }
+        }
+    }
     
     /** 
      *  TestCase for aceptance.
@@ -131,20 +151,24 @@ public class ListenerTest_Performance extends AbstractTest {
     @Test
     public void testAceptance_3() throws Exception {
         
+        ListenerTest_Performance.waitRunttimeReady();
+        
         long threadCount1 = Thread.activeCount() /10;
-        long memoryUsage1 = TestUtils.nemoryUsage() /1024 /1024;
+        long memoryUsage1 = AbstractSuite.getMemoryUsage() /1024 /1024;
         
         Group group = Group.create(40);
         long threadCount2 = Thread.activeCount() /10;
-        long memoryUsage2 = TestUtils.nemoryUsage() /1024 /1024;     
+        long memoryUsage2 = AbstractSuite.getMemoryUsage() /1024 /1024;     
         
         group.perform();
-        long threadCount3 = Thread.activeCount() /10;
-        long memoryUsage3 = TestUtils.nemoryUsage() /1024 /1024;
         
-        Thread.sleep(7500);
+        long threadCount3 = Thread.activeCount() /10;
+        long memoryUsage3 = AbstractSuite.getMemoryUsage() /1024 /1024;
+        
+        ListenerTest_Performance.waitRunttimeReady();
+
         long threadCount4 = Thread.activeCount() /10;
-        long memoryUsage4 = TestUtils.nemoryUsage() /1024 /1024;
+        long memoryUsage4 = AbstractSuite.getMemoryUsage() /1024 /1024;
 
         for (Group.Worker worker : group.workerList) {
             Assert.assertEquals(2, worker.status);
@@ -160,21 +184,16 @@ public class ListenerTest_Performance extends AbstractTest {
         }
         
         Assert.assertTrue(threadCount2 > threadCount1);
-        Assert.assertTrue(threadCount2 > threadCount3);
         Assert.assertTrue(threadCount2 > threadCount4);
-        
         Assert.assertTrue(threadCount3 > threadCount1);
         Assert.assertTrue(threadCount3 > threadCount4);
+        Assert.assertTrue(threadCount1 >= threadCount4);
         
-        Assert.assertTrue(threadCount4 >= threadCount1
-                || threadCount4 < threadCount1);
-
-        Assert.assertTrue(memoryUsage1 > memoryUsage2);
-        Assert.assertTrue(memoryUsage1 > memoryUsage4);
-
         Assert.assertTrue(memoryUsage3 > memoryUsage1);
         Assert.assertTrue(memoryUsage3 > memoryUsage2);
         Assert.assertTrue(memoryUsage3 > memoryUsage4);
+        
+        AbstractSuite.waitOutputReady();
     }
     
     /**
@@ -266,7 +285,7 @@ public class ListenerTest_Performance extends AbstractTest {
                 worker.requestList = new ArrayList<>();
                 worker.responseList = new ArrayList<>();
                 worker.group = group;
-                File resources = new File(TestUtils.getRootStage(), "/documents/performance");
+                File resources = new File(AbstractSuite.getRootStage(), "/documents/performance");
                 for (File file : resources.listFiles())
                     worker.requestList.add("GET /performance/" + file.getName() + " HTTP/1.0\r\n\r\n");
                 worker.start();
@@ -319,7 +338,7 @@ public class ListenerTest_Performance extends AbstractTest {
                     
                     Response response = new Response();
                     response.duration = System.currentTimeMillis();
-                    try {response.data = TestHttpUtils.sendRequest(host, request);
+                    try {response.data = HttpUtils.sendRequest(host, request);
                     } catch (IOException | GeneralSecurityException exception) {
                         return Response.create(exception);
                     }

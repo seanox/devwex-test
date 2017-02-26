@@ -24,10 +24,11 @@ package com.seanox.devwex;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.seanox.devwex.TestHttpUtils.HeaderField;
-import com.seanox.devwex.TestHttpUtils.Authentication.Digest;
 import com.seanox.test.utils.Codec;
+import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
+import com.seanox.test.utils.HttpUtils.HeaderField;
+import com.seanox.test.utils.HttpUtils.Authentication.Digest;
 
 /**
  *  TestCases for {@link com.seanox.devwex.Listener}.
@@ -47,13 +48,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -71,13 +72,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/a/b/d/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
@@ -96,13 +97,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
     } 
     
@@ -121,13 +122,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-B")));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -146,13 +147,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-b:pwd-b") + "\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-b")));
     }
     
@@ -171,13 +172,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-b:pwd-b") + "\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -196,13 +197,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
     }   
     
@@ -220,13 +221,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/a/b/c/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A2")));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -244,13 +245,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/a/b/d/e/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-E")));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }  
     
@@ -268,13 +269,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-E")));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -293,13 +294,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-e")));
     }
     
@@ -322,7 +323,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
@@ -332,13 +333,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8080/authentication/a/b/d/e/e/")));
 
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
         
         request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
     
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-E")));
@@ -347,20 +348,20 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
          
         request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-e")));
     }
     
@@ -373,8 +374,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         if (auth == 2)
             request += "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n";
         request += "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
-      
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS(status)));
     }
     
@@ -415,8 +415,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         if (auth == 2)
             request += "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n";
         request += "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
-        
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC(realm)));
     }
@@ -452,7 +451,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         if (auth != null && !auth.trim().isEmpty())
             request += "Authorization: Basic " + Codec.encodeBase64(auth) + "\r\n";
         request += "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         if (realm != null)
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC(realm)));      
@@ -463,7 +462,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     /** 
      *  TestCase for aceptance.
      *  Test for Basic Authentication:
-     *  Users and Realm are separated by the colon when encrypting. Below are
+     *  Users and realm are separated by the colon when encrypting. Below are
      *  tested different combinations in the definition.   
      *  @throws Exception
      */    
@@ -498,13 +497,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-a")));
     }
     
@@ -522,17 +521,18 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/a/xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));  
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
+     *  TestCase for aceptance.
      *  Test for Basic Authentication:
      *  VHA defines {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}.
      *  VHF extends VHA, overwrites {@code /authentication/a
@@ -550,75 +550,75 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request, new Digest("usr-a", "pwd-a")));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Digest("usr-a", "pwd-a")));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
         
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request, new Digest("usr-a", "pwd-a")));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Digest("usr-a", "pwd-a")));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
     }
     
@@ -641,51 +641,51 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         request = "GET /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));  
         
         request = "GET /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
         
         request = "HEAD /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));  
         
         request = "HEAD /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
     }
     
@@ -707,51 +707,51 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         request = "GET /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "GET /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-e")));
         
         request = "HEAD /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "HEAD /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-e")));
     }
     
@@ -773,51 +773,51 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         request = "GET /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "GET /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-e")));
         
         request = "HEAD /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "HEAD /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-e")));
     }
 
@@ -839,14 +839,14 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
             request += "Authorization: Basic " + Codec.encodeBase64(login) + "\r\n";
         request += "\r\n";
 
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         if (authorisation != null)
-            Assert.assertTrue(TestHttpUtils.getResponseHeaderValue(response, HeaderField.WWW_AUTHENTICATE).startsWith(authorisation + " "));
+            Assert.assertTrue(HttpUtils.getResponseHeaderValue(response, HeaderField.WWW_AUTHENTICATE).startsWith(authorisation + " "));
         else
-            Assert.assertFalse(TestHttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
+            Assert.assertFalse(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         if (authorisation != null)
             Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         else
@@ -877,18 +877,18 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
             request = "GET " + uri + " HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "\r\n";
-            response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+            response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         } else if (("Basic").equalsIgnoreCase(method)) {
             request = "GET " + uri + " HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "Authorization: Basic " + Codec.encodeBase64(user + ":" + password) + "\r\n"
                     + "\r\n";
-            response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+            response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         } else if (("Digest").equalsIgnoreCase(method)) {
             request = "GET " + uri + " HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "\r\n";
-            response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request, new Digest(user, password)));
+            response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Digest(user, password)));
         } else Assert.fail("Unsupported authentication method: '" + method + "'");
         
         Assert.assertNotNull(response);
@@ -897,7 +897,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
 
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, user)));
     }
     
@@ -953,13 +953,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-b") + "\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));  
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -978,13 +978,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-b:pwd-a") + "\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));  
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     } 
     
@@ -1007,26 +1007,26 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-a")));
         
         request = "GET /authentication/bvc HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-ax:pwd-ax") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));  
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));  
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -1049,26 +1049,26 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-a")));
         
         request = "GET /authentication/bvr HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-ax:pwd-ax") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));  
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));  
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -1091,39 +1091,39 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
         
         request = "GET /authentication/bvv/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-as:pwd-ax") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "GET /authentication/bvv HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-as:pwd-ax") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
 
@@ -1146,27 +1146,27 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001")));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         Assert.assertTrue(response.matches("(?s)^.*\\[v\\:xx=123\\] \\[m\\].*$"));
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("1", request, "usr-a")));
         
         request = "GET /authentication/bvm HTTP/1.0\r\n"
            + "Host: vHa\r\n"
            + "Authorization: Basic " + Codec.encodeBase64("usr-ax:pwd-ax") + "\r\n"
            + "\r\n";
-        response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));    
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE));  
         
         Thread.sleep(50);
-        accessLog = TestUtils.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -1176,15 +1176,15 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHf\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64(user + ":" + password) + "\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
 
          if (authorisation)
-             Assert.assertTrue(TestHttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
+             Assert.assertTrue(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
          else
-             Assert.assertFalse(TestHttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
+             Assert.assertFalse(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
          
          Thread.sleep(50);
-         String accessLog = TestUtils.getAccessLogTail();
+         String accessLog = AbstractSuite.getAccessLogTail();
          if (authorisation)
              Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
          else
@@ -1195,7 +1195,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
      *  TestCase for aceptance.
      *  Test for Basic Authentication:
      *  The directory structure {@code /authentication} uses a mix of different
-     *  authorizations with different options and options . The correct use and
+     *  authorizations with different options and options. The correct use and
      *  response is checked.
      *  @throws Exception
      */       
@@ -1268,21 +1268,21 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET " + uri + " HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
          
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE(method)));  
          
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
      *  TestCase for aceptance.
-     *  The change of Autorisierungart must be working. In the following, the
-     *  correct function is checked. The request must be responded with 401 and
-     *  the correct {@code WWW-Authenticate}.
+     *  The change of authentication method must be working. In the following,
+     *  the correct function is checked. The request must be responded with 401
+     *  and the correct {@code WWW-Authenticate}.
      *  @throws Exception
      */    
     @Test
@@ -1307,13 +1307,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/a/b/e/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
@@ -1331,13 +1331,13 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/a/b/e/c/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(TestHttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-BEC")));
         
         Thread.sleep(50);
-        String accessLog = TestUtils.getAccessLogTail();
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }     
 }
