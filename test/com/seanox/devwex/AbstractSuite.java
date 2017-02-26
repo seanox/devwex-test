@@ -33,32 +33,34 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
+import com.seanox.test.utils.HttpUtils.Keystore;
 import com.seanox.test.utils.OutputStreamTail;
 import com.seanox.test.utils.OutputStreams;
 
 /**
  *  Abstract class to implements and use test suites.
  */
-abstract class AbstractSuite {
+public abstract class AbstractSuite {
     
     /** path of {@code ./stage} */
     private static final String DIRECTORY_STAGE = "./stage";
 
-    /** path of {@code ./stage/program} */
-    private static final String DIRECTORY_STAGE_PROGRAM = "./stage/program";
-    
     /** path of {@code ./stage/libraries} */
-    private static final String DIRECTORY_STAGE_LIBRARIES = "./stage/libraries";
+    private static final String PATH_STAGE_LIBRARIES = "./stage/libraries";
     
     /** path of {@code ./resources} */
-    private static final String DIRECTORY_RESOURCES = "./resources";    
+    private static final String PATH_RESOURCES = "./resources";    
     
     /** path of {@code ./resources/program} */
-    private static final String DIRECTORY_RESOURCES_PROGRAM = "./resources/program";
+    private static final String PATH_RESOURCES_PROGRAM = "./resources/program";
     
     /** internal counter of executed test units */
     private static volatile int counter;
@@ -78,22 +80,25 @@ abstract class AbstractSuite {
     /** tail of error output stream*/
     private static volatile OutputStreamTail systemErrTail;
     
+    /** keystore for SSL connections */
+    private static volatile Keystore keystore;
+    
     /**
      *  Execution with the loading of a new test class for the initialization
      *  of the test environment.
      *  @throws IOException
      */
+    @SuppressWarnings("unchecked")
     @BeforeClass
     public static void onBeforeClass() throws IOException {
         
         final File root = new File(".").getCanonicalFile();
 
-        final File rootResources = new File(root, DIRECTORY_RESOURCES).getCanonicalFile();
-        final File rootResourcesProgram = new File(root, DIRECTORY_RESOURCES_PROGRAM).getCanonicalFile();
+        final File rootResources = new File(root, PATH_RESOURCES).getCanonicalFile();
+        final File rootResourcesProgram = new File(root, PATH_RESOURCES_PROGRAM).getCanonicalFile();
         
         final File rootStage = new File(root, DIRECTORY_STAGE).getCanonicalFile();
-        final File rootStageProgram = new File(root, DIRECTORY_STAGE_PROGRAM).getCanonicalFile();
-        final File rootStageLibraries = new File(root, DIRECTORY_STAGE_LIBRARIES).getCanonicalFile();
+        final File rootStageLibraries = new File(root, PATH_STAGE_LIBRARIES).getCanonicalFile();
         
         File accessLog = new File(rootStage, "access.log");
         File outputLog = new File(rootStage, "output.log");
@@ -150,6 +155,30 @@ abstract class AbstractSuite {
         System.setOut(new PrintStream(new OutputStreams(systemOut, systemOutTail, systemOutLog)));
         
         Files.copy(Paths.get(rootResourcesProgram.toString(), "devwex.ini"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING);
+        
+        String content = new String(Files.readAllBytes(Paths.get("./devwex.ini")));
+        Initialize initialize = Initialize.parse(content);
+        List<String> sectionList = Collections.list(initialize.elements());
+        for (String sectionName : sectionList) {
+            if (!sectionName.matches("(?i)server:.*:ssl$"))
+                continue;
+            Section section = initialize.get(sectionName);
+            if (!section.contains("keystore")
+                    || !section.contains("password"))
+                continue;
+            String keystore = section.get("keystore");
+            String password = section.get("password");
+            AbstractSuite.keystore = new Keystore() {
+
+                public String getPassword() {
+                    return password;
+                }
+                
+                public File getFile() {
+                    return new File(keystore);
+                }
+            };
+        }
         
         String libraries = rootStageLibraries.toString();
         System.setProperty("libraries", libraries);
@@ -218,12 +247,17 @@ abstract class AbstractSuite {
      *  @return the root stage as file
      *  @throws IOException
      */
+    static File getRoot() throws IOException {
+        return new File(".").getCanonicalFile();
+    }
+    
+    /**
+     *  Returns the root stage as file.
+     *  @return the root stage as file
+     *  @throws IOException
+     */
     static File getRootStage() throws IOException {
-        
-        final File root = new File(".").getCanonicalFile();
-        final File rootStage = new File(root, DIRECTORY_STAGE).getCanonicalFile();
-        
-        return rootStage;
+        return new File(AbstractSuite.getRoot(), DIRECTORY_STAGE).getCanonicalFile();
     }
 
     /**
@@ -242,5 +276,80 @@ abstract class AbstractSuite {
      */
     static File getRootStageOutputLog() throws IOException {
         return new File(AbstractSuite.getRootStage(), "output.log");
+    }
+    
+    /**
+     *  Returns the root stage program keystore as file.
+     *  @return the root stage program keystore as file
+     *  @throws IOException
+     */
+    static File getRootStageProgramKeystore() throws IOException {
+        return new File(AbstractSuite.getRootStage(), "program/keystore");
+    }
+
+    /**
+     *  Returns the last entry of the access log.
+     *  @return the last entry of the access log
+     *  @throws IOException
+     */
+    static String getAccessLogTail() throws IOException {
+    
+        String[] accessLog = AbstractSuite.getAccessLog().split("[\r\n]+");
+        return accessLog[accessLog.length -1];
+    }
+
+    /**
+     *  Returns the last entry of the output.
+     *  @return the last entry of the output
+     *  @throws IOException
+     */
+    static String getOutputLogTail() throws IOException {
+    
+        String[] outputLog = AbstractSuite.getOutputLog().split("[\r\n]+");
+        List<String> outputLogList = Arrays.asList(outputLog);
+        Collections.reverse(outputLogList);
+        LinkedList<String> outputLogTailList = new LinkedList<>();
+        for (String log : outputLogList) {
+            outputLogTailList.addFirst(log);
+            if (!log.matches("^[\\d\\-\\s\\:]+ \\.{3} .*$"))
+                break;
+        }
+        return String.join("\r\n", outputLogTailList.toArray(new String[0]));
+    }
+    
+    /**
+     *  Returns the current memory usage.
+     *  @return the current memory usage
+     */
+    static long getMemoryUsage() {
+        Runtime runtime = Runtime.getRuntime();
+        return runtime.totalMemory() -runtime.freeMemory();
+    }
+
+    /**
+     *  Wait until the OutputStream is ready.
+     *  @throws InterruptedException
+     *  @throws IOException
+     */
+    static void waitOutputReady() throws InterruptedException, IOException {
+        
+        String shadow = null;
+        long timeout = System.currentTimeMillis();
+        while (System.currentTimeMillis() -timeout < 3000) {
+            Thread.sleep(50);
+            String accessLog = AbstractSuite.getAccessLogTail();
+            String outputLog = AbstractSuite.getOutputLogTail();
+            if (!(accessLog + "\0" + outputLog).equals(shadow))
+                timeout = System.currentTimeMillis();
+            shadow = (accessLog + "\0" + outputLog);
+        }
+    }
+
+    /**
+     *  Returns the default keystore for SSL connections.
+     *  @return the default keystore for SSL connections
+     */    
+    public static Keystore getKeystore() {
+        return AbstractSuite.keystore;
     }
 }

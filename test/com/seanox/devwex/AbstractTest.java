@@ -33,8 +33,13 @@ import org.junit.runner.Description;
 /**
  *  Abstract class to implements and use test classes.
  */
-abstract class AbstractTest extends AbstractSuite {
+public abstract class AbstractTest extends AbstractSuite {
     
+    /**
+     *  TestWatcher to execute onBefore and onAfter methods before and after of
+     *  a test unit. These methods can be used to prepare and finalize
+     *  severally test units. 
+     */
     @Rule
     public TestRule watcher = new TestWatcher() {
         
@@ -72,11 +77,21 @@ abstract class AbstractTest extends AbstractSuite {
             }
         }
     };
-
+    
+    /**
+     *  The method can be used to prepare the test class before the first test
+     *  unit.
+     *  @throws Exception
+     */
     @Before
     public void onBefore() throws Exception {
     }
     
+    /**
+     *  The method can be used to finalize the test class after the last test
+     *  unit.
+     *  @throws Exception
+     */    
     @After
     public void onAfter() throws Exception {
     }
