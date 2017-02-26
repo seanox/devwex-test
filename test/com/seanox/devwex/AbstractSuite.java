@@ -178,6 +178,7 @@ public abstract class AbstractSuite {
                     return new File(keystore);
                 }
             };
+            break;
         }
         
         String libraries = rootStageLibraries.toString();
