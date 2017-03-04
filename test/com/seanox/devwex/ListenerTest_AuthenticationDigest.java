@@ -190,7 +190,7 @@ public class ListenerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/a/b/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-b", "pwd-b")));
+        HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-b", "pwd-b"));
 
         Thread.sleep(50);
         accessLog = AbstractSuite.getAccessLogTail();

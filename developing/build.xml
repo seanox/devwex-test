@@ -7,12 +7,71 @@
   
   <target name="compile">
     <delete file="${workspace.resources.libraries}/ConnectorA.class"/>
-    <delete file="${workspace.resources.libraries}/ConnectorA.jar"/>
+    <delete file="${workspace.resources.libraries}/connectorA.jar"/>
     <javac srcdir="${workspace.resources.libraries}" destdir="${workspace.resources.libraries}"
       includeantruntime="false"/>
-    <jar destfile="${workspace.resources.libraries}/ConnectorA.jar"
+    <jar destfile="${workspace.resources.libraries}/connectorA.jar"
        basedir="${workspace.resources.libraries}"
        includes="ConnectorA.class"/>
+    
+    <delete file="${workspace.resources.libraries}/ConnectorB.class"/>
+    <delete file="${workspace.resources.libraries}/connectorB.jar"/>
+    <javac srcdir="${workspace.resources.libraries}" destdir="${workspace.resources.libraries}"
+      includeantruntime="false"/>
+    <jar destfile="${workspace.resources.libraries}/connectorB.jar"
+       basedir="${workspace.resources.libraries}"
+       includes="ConnectorB.class"/> 
+    
+    <delete file="${workspace.resources.libraries}/ConnectorC.class"/>
+    <delete file="${workspace.resources.libraries}/connectorC.jar"/>
+    <javac srcdir="${workspace.resources.libraries}" destdir="${workspace.resources.libraries}"
+      includeantruntime="false"/>
+    <jar destfile="${workspace.resources.libraries}/connectorC.jar"
+       basedir="${workspace.resources.libraries}"
+       includes="ConnectorC.class"/>      
+    
+    <delete file="${workspace.resources.libraries}/ConnectorD.class"/>
+    <delete file="${workspace.resources.libraries}/connectorD.jar"/>
+    <javac srcdir="${workspace.resources.libraries}" destdir="${workspace.resources.libraries}"
+      includeantruntime="false"/>
+    <jar destfile="${workspace.resources.libraries}/connectorD.jar"
+       basedir="${workspace.resources.libraries}"
+       includes="ConnectorD.class"/>
+
+    <delete file="${workspace.resources.libraries}/ConnectorE.class"/>
+    <delete file="${workspace.resources.libraries}/connectorE.jar"/>
+    <javac srcdir="${workspace.resources.libraries}" destdir="${workspace.resources.libraries}"
+      includeantruntime="false"/>
+    <jar destfile="${workspace.resources.libraries}/connectorE.jar"
+       basedir="${workspace.resources.libraries}"
+       includes="ConnectorE.class"/>
+    
+    <delete file="${workspace.resources.libraries}/ConnectorF.class"/>
+    <delete file="${workspace.resources.libraries}/connectorF.jar"/>
+    <javac srcdir="${workspace.resources.libraries}" destdir="${workspace.resources.libraries}"
+      includeantruntime="false"/>
+    <jar destfile="${workspace.resources.libraries}/connectorF.jar"
+       basedir="${workspace.resources.libraries}"
+       includes="ConnectorF.class"/>    
+    
+    <delete file="${workspace.resources.libraries}/Scripting.class"/>
+    <delete file="${workspace.resources.libraries}/scripting.jar"/>
+    <javac srcdir="${workspace.resources.libraries}" destdir="${workspace.resources.libraries}"
+      includeantruntime="false"/>
+    <jar destfile="${workspace.resources.libraries}/scripting.jar"
+       basedir="${workspace.resources.libraries}"
+       includes="Scripting.class">
+       <manifest>
+         <attribute name="Main-Class" value="Scripting"/>
+       </manifest>      
+    </jar>
+    
     <delete file="${workspace.resources.libraries}/ConnectorA.class"/>
+    <delete file="${workspace.resources.libraries}/ConnectorB.class"/>
+    <delete file="${workspace.resources.libraries}/ConnectorC.class"/>
+    <delete file="${workspace.resources.libraries}/ConnectorD.class"/>    
+    <delete file="${workspace.resources.libraries}/ConnectorE.class"/>
+    <delete file="${workspace.resources.libraries}/ConnectorF.class"/>
+    <delete file="${workspace.resources.libraries}/Scripting.class"/>
   </target>
 </project>
