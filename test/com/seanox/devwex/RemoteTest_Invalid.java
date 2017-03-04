@@ -45,7 +45,7 @@ public class RemoteTest_Invalid extends AbstractTest {
             command += "XXXXXXXXX";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:25001", command + "\r\n"));
         
-        Assert.assertEquals("INFO: UNKNOWN COMMAND\r\n", response);
+        Assert.assertEquals("UNKNOWN COMMAND\r\n", response);
     }
     
     /** 
@@ -59,6 +59,6 @@ public class RemoteTest_Invalid extends AbstractTest {
         
         String response = new String(HttpUtils.sendRequest("127.0.0.1:25001", "restar\r\n123"));
         
-        Assert.assertEquals("INFO: UNKNOWN COMMAND\r\n", response);
+        Assert.assertEquals("UNKNOWN COMMAND\r\n", response);
     }
 }

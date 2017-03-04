@@ -125,7 +125,7 @@ public class GeneratorTest extends AbstractTest {
     }    
     
     /** TestCase for aceptance. */
-    @Test(timeout=1000)
+    @Test(timeout=1250)
     public void testAceptance_7() {
         
         Generator generator = Generator.parse(ResourceUtils.getContextContent("testAceptance_0_1").getBytes());

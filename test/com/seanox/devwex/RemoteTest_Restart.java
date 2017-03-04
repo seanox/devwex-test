@@ -51,6 +51,6 @@ public class RemoteTest_Restart extends AbstractTest {
             tail2 = tail2.substring(offset);
 
         Assert.assertTrue(tail2.matches("(?si)^.*[\r\n]+[\\d\\- :]+\\s+SERVICE RESTARTED\\s+\\([\\d\\.]+\\s+SEC\\)([\r\n]+|$)"));
-        Assert.assertEquals("INFO: SERVICE RESTARTED\r\n", response);
+        Assert.assertEquals("SERVICE RESTARTED\r\n", response);
     }
 }

@@ -312,7 +312,7 @@ public abstract class AbstractSuite {
         LinkedList<String> outputLogTailList = new LinkedList<>();
         for (String log : outputLogList) {
             outputLogTailList.addFirst(log);
-            if (!log.matches("^[\\d\\-\\s\\:]+ \\.{3} .*$"))
+            if (log.matches("^\\d{4}(-\\d{2}){2} \\d{2}(:\\d{2}){2}((\\s.*)|$)"))
                 break;
         }
         return String.join("\r\n", outputLogTailList.toArray(new String[0]));
