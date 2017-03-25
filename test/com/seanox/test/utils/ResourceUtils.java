@@ -23,6 +23,9 @@ package com.seanox.test.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *  Utils for resources.
@@ -33,6 +36,9 @@ import java.io.InputStream;
  *  also correspond to the names of methods from the context class.<br>
  *  A section starts at the beginning of the line with {@code #### <name>} and
  *  ends with the following or the file end.
+ *      <dir>Context Sub-Content</dir>
+ *  Context with decimal decimal value, separated by an underscore.
+ *  Sub-Content can also be used as a set.    
  */
 public class ResourceUtils {
     
@@ -51,12 +57,77 @@ public class ResourceUtils {
     }
     
     /**
+     *  Determines the context content for the called class.
+     *  @param  name      name of content
+     *  @param  normalize converts line breaks into the system standard
+     *  @return content to the called class, otherwise {@code null}
+     */
+    public static String getCurrentContextContent() {
+
+        StackTraceElement stackTraceElement = ResourceUtils.getCurrentContext();
+        Class<?> context;
+        try {context = Class.forName(stackTraceElement.getClassName());
+        } catch (ClassNotFoundException exception) {
+            return null;
+        }
+        String contextName = stackTraceElement.getClassName().replaceAll("\\.", "/") + ".txt";
+        InputStream inputStream = context.getClassLoader().getResourceAsStream(contextName);
+        try {return new String(StreamUtils.read(inputStream));
+        } catch (IOException exception) {
+            return null;
+        } 
+    }    
+    
+    /**
+     *  Determines the context (sub)content for the called class as array.
+     *  @param  name      name of content
+     *  @param  normalize converts line breaks into the system standard
+     *  @return (sub)content for the called class as array, otherwise {@code null}
+     */
+    public static String[] getContextContentSet() {
+        return ResourceUtils.getContextContentSet(null);
+    }
+
+    /**
+     *  Determines the context (sub)content for the called class as array.
+     *  @param  name      name of content
+     *  @param  normalize converts line breaks into the system standard
+     *  @return (sub)content for the called class as array, otherwise {@code null}
+     */
+    public static String[] getContextContentSet(String name) {
+        
+        if (name == null)
+            name = ResourceUtils.getCurrentContext().getMethodName();
+        
+        String content = ResourceUtils.getCurrentContextContent();
+        if (content == null)
+            return null;
+        List<String> contextList = new ArrayList<>(); 
+        String filter = "^#{4,}" + Pattern.LINE_SPACE + "*(" + name + "+(?:_\\d+)*)" + Pattern.LINE_SPACE + "*$";
+        for (String line : content.split("[\r\n]+"))
+            if (line.matches(filter))
+                contextList.add(line);
+        Collections.sort(contextList, TextUtils.NATURAL_COMPARATOR);
+        return contextList.toArray(new String[0]);
+    }
+    
+    /**
      *  Determines the context content for the called class and method name.
      *  @return content to the called class and method name,
      *          otherwise {@code null}
      */
     public static String getContextContent() {
-        return ResourceUtils.getContextContent(true);
+        return ResourceUtils.getContextContent(-1);
+    }
+    
+    /**
+     *  Determines the context content for the called class and method name.
+     *  @param  index optional index for sub content 
+     *  @return content to the called class and method name,
+     *          otherwise {@code null}
+     */
+    public static String getContextContent(int index) {
+        return ResourceUtils.getContextContent(index, true);
     }
     
     /**
@@ -66,10 +137,21 @@ public class ResourceUtils {
      *          otherwise {@code null}
      */
     public static String getContextContent(boolean normalize) {
+        return ResourceUtils.getContextContent(-1, normalize);
+    }
+    
+    /**
+     *  Determines the context content for the called class and method name.
+     *  @param  index     optional index for sub content 
+     *  @param  normalize converts line breaks into the system standard
+     *  @return content to the called class and method name,
+     *          otherwise {@code null}
+     */
+    public static String getContextContent(int index, boolean normalize) {
 
         StackTraceElement stackTraceElement = ResourceUtils.getCurrentContext();
-        return ResourceUtils.getContextContent(stackTraceElement.getMethodName(), normalize);
-    }
+        return ResourceUtils.getContextContent(stackTraceElement.getMethodName(), index, normalize);
+    }    
     
     /**
      *  Determines the context content for the called class and specified name.
@@ -78,8 +160,18 @@ public class ResourceUtils {
      *          otherwise {@code null}
      */
     public static String getContextContent(String name) {
-        
-        return ResourceUtils.getContextContent(name, true);
+        return ResourceUtils.getContextContent(name, -1);
+    }
+    
+    /**
+     *  Determines the context content for the called class and specified name.
+     *  @param  name  name of content
+     *  @param  index optional index for sub content 
+     *  @return content to the called class and specified name,
+     *          otherwise {@code null}
+     */
+    public static String getContextContent(String name, int index) {
+        return ResourceUtils.getContextContent(name, index, true);
     }
     
     /**
@@ -90,24 +182,32 @@ public class ResourceUtils {
      *          otherwise {@code null}
      */
     public static String getContextContent(String name, boolean normalize) {
+        return ResourceUtils.getContextContent(name, -1, normalize);
+    }
+    
+    /**
+     *  Determines the context content for the called class and specified name.
+     *  @param  name      name of content
+     *  @param  index     optional index for sub content 
+     *  @param  normalize converts line breaks into the system standard
+     *  @return content to the called class and specified name,
+     *          otherwise {@code null}
+     */
+    public static String getContextContent(String name, int index, boolean normalize) {
 
-        StackTraceElement stackTraceElement = ResourceUtils.getCurrentContext();
+        if (index > 0)
+            name += "_" + index;
         
-        try {
-            Class<?> context = Class.forName(stackTraceElement.getClassName());
-            String contextName = stackTraceElement.getClassName().replaceAll("\\.", "/") + ".txt";
-            InputStream inputStream = context.getClassLoader().getResourceAsStream(contextName);
-            String content = new String(StreamUtils.read(inputStream)); 
-            String filter = "^(?s)(?:.*?" + Pattern.LINE_BREAK + "){0,1}#{4,}" + Pattern.LINE_SPACE + "*" + name + Pattern.LINE_SPACE + "*" + Pattern.LINE_BREAK
-                    + "(.*?)" + "(?:" + Pattern.LINE_BREAK + "{0,1}#{4,}" + Pattern.LINE_SPACE + "*[a-zA-Z0-9_]+" + Pattern.LINE_SPACE + "*" + Pattern.LINE_BREAK + ".*){0,1}$";
-            if (!content.matches(filter))
-                return null;
-            content = content.replaceAll(filter, "$1");
-            if (normalize)
-                content = content.replaceAll(Pattern.LINE_BREAK, System.lineSeparator());
-            return content;
-        } catch (ClassNotFoundException | IOException exception) {
+        String content = ResourceUtils.getCurrentContextContent();
+        if (content == null)
             return null;
-        }
+        String filter = "^(?s)(?:.*?" + Pattern.LINE_BREAK + "){0,1}#{4,}" + Pattern.LINE_SPACE + "*" + name + Pattern.LINE_SPACE + "*" + Pattern.LINE_BREAK
+                + "(.*?)" + "(?:" + Pattern.LINE_BREAK + "{0,1}#{4,}" + Pattern.LINE_SPACE + "*[a-zA-Z0-9_]+" + Pattern.LINE_SPACE + "*" + Pattern.LINE_BREAK + ".*){0,1}$";
+        if (!content.matches(filter))
+            return null;
+        content = content.replaceAll(filter, "$1");
+        if (normalize)
+            content = content.replaceAll(Pattern.LINE_BREAK, System.lineSeparator());
+        return content;
     }
 }
