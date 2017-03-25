@@ -29,6 +29,9 @@ import java.util.Locale;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.seanox.test.utils.HttpUtils;
+import com.seanox.test.utils.Pattern;
+
 /**
  *  TestCases for {@link com.seanox.devwex.Listener}.
  */
@@ -42,17 +45,18 @@ public class ListenerTest_AccessLog extends AbstractTest {
     @Test
     public void testAceptance_1() throws Exception {
         
-        String accessLog = new SimpleDateFormat("'access-'yyyy-MMdd'.log'").format(new Date());
-        File accessLogFile = new File(TestUtils.getRootStage(), accessLog);
+        String accessLog = new SimpleDateFormat("'access-'yyyyMMdd'.log'").format(new Date());
+        File accessLogFile = new File(AbstractSuite.getRootStage(), accessLog);
         accessLogFile.delete();
         
         String request = "GET / HTTP/1.0\r\n"
-                + "Host: vHk"; 
-        String response = new String(TestUtils.sendRequest("127.0.0.1:80", request + "\r\n\r\n"));
+                + "Host: vHk\r\n"
+                + "\r\n"; 
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
         
-        Assert.assertTrue(response.matches("(?s)^HTTP/1\\.0 200\\s+\\w+.*$"));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
-        Thread.sleep(250);
+        Thread.sleep(50);
         Assert.assertTrue(accessLogFile.exists());
     }
     
@@ -64,11 +68,52 @@ public class ListenerTest_AccessLog extends AbstractTest {
     @Test
     public void testAceptance_2() throws Exception {
         
-        TestUtils.sendRequest("127.0.0.1:80", "GET / HTTP/1.0\r\n\r\n");
+        HttpUtils.sendRequest("127.0.0.1:80", "GET / HTTP/1.0\r\n\r\n");
         
         String pattern = new SimpleDateFormat("Z", Locale.US).format(new Date());
-        Thread.sleep(250);
-        String accessLog = TestUtils.getAccessLogTail();
+        Thread.sleep(50);
+        String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches("^.*?\\[\\d{2}/\\w{3}/\\d{4}(:\\d{2}){3} \\" + pattern + "\\]\\s.*$"));
-    }    
+    }   
+
+    /** 
+     *  TestCase for aceptance.
+     *  Special characters (\, ") must be escaped.
+     *  @throws Exception
+     */
+    @Test
+    public void testAceptance_3() throws Exception {
+        
+        String request = "G\"ET /nix\"xxx\"_zzz\u00FF HTTP/1.0\r\n"
+                + "User-Agent: Nix\"123\"\r\n";
+        HttpUtils.sendRequest("127.0.0.1:80", request + "\r\n");
+        
+        Thread.sleep(50);
+        String accessLog = AbstractSuite.getAccessLogTail();
+        Assert.assertTrue(accessLog.contains(" \"G\\\"ET /nix\\\"xxx\\\"_zzz\\ff HTTP/1.0\" "));
+        Assert.assertTrue(accessLog.contains(" \"Nix\\\"123\\\""));
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  The usage of CGI variables in the file name must work.
+     *  @throws Exception
+     */
+    @Test
+    public void testAceptance_4() throws Exception {
+        
+        String accessLog = new SimpleDateFormat("'access-'yyyyMMdd'_vHl.log'").format(new Date());
+        File accessLogFile = new File(AbstractSuite.getRootStage(), accessLog);
+        accessLogFile.delete();
+        
+        String request = "GET / HTTP/1.0\r\n"
+                + "Host: vHl\r\n"
+                + "\r\n"; 
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
+        
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        
+        Thread.sleep(50);
+        Assert.assertTrue(accessLogFile.exists());
+    }
 }

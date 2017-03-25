@@ -33,6 +33,7 @@ import org.junit.runners.Suite;
     ListenerTest_Authentication.class,
     ListenerTest_Configuration.class,
     ListenerTest_Delete.class,
+    ListenerTest_File.class,
     ListenerTest_FileIndex.class,
     ListenerTest_Filter.class,
     ListenerTest_Gateway.class,
@@ -46,6 +47,7 @@ import org.junit.runners.Suite;
     ListenerTest_Request.class,
     ListenerTest_Status.class,
     ListenerTest_Service.class,
+    ListenerTest_Text.class,
     ListenerTest_VirtualHost.class
 })
 public class ListenerTest extends AbstractSuite {

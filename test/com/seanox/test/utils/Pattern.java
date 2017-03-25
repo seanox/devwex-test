@@ -76,7 +76,7 @@ public class Pattern {
     public static String ACCESS_LOG_STATUS(String code) {
         
         code = code == null ? "-" : "\\Q" + code + "\\E";
-        return "^\\d+(\\.\\d+){3} - (-|\"[^\"]+\") \\[[^]]+\\] (-|\"[^\"]+\") " + code + " \\d+ - -$";
+        return "^\\d+(\\.\\d+){3} - (-|\"[^\"]+\") \\[[^]]+\\] (-|\"[^\"]+\") " + code + " (\\d+|-) - -$";
     }
     
     /** 
@@ -120,7 +120,7 @@ public class Pattern {
             request = request.replaceAll("^(?s)\\s*([^\r\n]+).*$", "$1").trim();
         request = request == null ? "-" : "\\Q\"" + request + "\"\\E"; 
         user = user == null ? "-" : "\\Q\"" + user + "\"\\E";
-        return "^\\d+(\\.\\d+){3} - " + user + " \\[[^]]+\\] " + request + " " + code + " \\d+ - -$";
+        return "^\\d+(\\.\\d+){3} - " + user + " \\[[^]]+\\] " + request + " " + code + " (\\d+|-) - -$";
     }
     
     /** 
