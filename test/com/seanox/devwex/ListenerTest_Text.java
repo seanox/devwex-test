@@ -99,7 +99,7 @@ public class ListenerTest_Text extends AbstractTest {
         String[] lines = TextUtils.extractLines(content); 
         for (int loop = 0; loop < lines.length; loop += 2) {
             Assert.assertEquals("#" + (loop +1) + ": " + lines[loop], lines[loop +1],
-                    ListenerTest_Text.textHash(TextUtils.decode(lines[loop])));
+                    ListenerTest_Text.textHash(TextUtils.unescape(lines[loop])));
         }
     }
     

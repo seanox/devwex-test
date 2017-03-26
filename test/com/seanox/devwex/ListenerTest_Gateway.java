@@ -822,7 +822,8 @@ public class ListenerTest_Gateway extends AbstractTest {
      *  For {@code SERVER:X}, JSX was configured as XCGI.
      *  The environment variables must be transferred via Std_IO.
      *  For the CGI all request-header-parameters will be passed with the
-     *  prefix 'HTTP_...'. Duplicates are not overwritten.
+     *  prefix 'HTTP_...'. Duplicates are ignored, only the first parameter
+     *  will be used.
      *  @throws Exception
      */       
     @Test
@@ -844,6 +845,6 @@ public class ListenerTest_Gateway extends AbstractTest {
         Assert.assertTrue(header.trim().length() > 0);
         String body = "\r\n" + response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
 
-        Assert.assertTrue(body.matches("(?s)^.*\r\nHTTP_AAA=A1\r\nHTTP_AAA=A1\r\nHTTP_AAA=A2\r\nHTTP_AAC=A2\r\n.*$"));
+        Assert.assertTrue(body.matches("(?s)^.*\r\nHTTP_AAA=A1\r\nHTTP_AAC=A2\r\n.*$"));
     }   
 }
