@@ -21,8 +21,7 @@
  */
 package com.seanox.devwex;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -108,24 +107,24 @@ public class SectionTest_Contains extends AbstractTest {
         
         Section section = new Section();
         section.set("A", "a1");
-        assertEquals("a1", section.get("A"));
-        assertEquals("a1", section.get("a"));
+        Assert.assertEquals("a1", section.get("A"));
+        Assert.assertEquals("a1", section.get("a"));
         
         section.set("a", "a2");
-        assertEquals("a2", section.get("A"));
-        assertEquals("a2", section.get("a"));
+        Assert.assertEquals("a2", section.get("A"));
+        Assert.assertEquals("a2", section.get("a"));
         
         section.set(" a", "a3");
-        assertEquals("a3", section.get("A"));
-        assertEquals("a3", section.get("a"));
+        Assert.assertEquals("a3", section.get("A"));
+        Assert.assertEquals("a3", section.get("a"));
         
         section.set(" a ", "a4");
-        assertEquals("a4", section.get("A"));
-        assertEquals("a4", section.get("a"));
+        Assert.assertEquals("a4", section.get("A"));
+        Assert.assertEquals("a4", section.get("a"));
 
         section.set("a ", "a5");
-        assertEquals("a5", section.get("A"));
-        assertEquals("a5", section.get("a"));
+        Assert.assertEquals("a5", section.get("A"));
+        Assert.assertEquals("a5", section.get("a"));
     }
     
     /** TestCase for overwrite a key. */
@@ -137,7 +136,7 @@ public class SectionTest_Contains extends AbstractTest {
         section.set("a", "a2");
         section.set(" A", "a3");
         section.set(" a   ", "a4");
-        assertEquals("a4", section.get("A"));
-        assertEquals("a4", section.get("a"));
+        Assert.assertEquals("a4", section.get("A"));
+        Assert.assertEquals("a4", section.get("a"));
     }
 }

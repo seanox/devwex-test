@@ -24,6 +24,7 @@ package com.seanox.devwex;
 import java.lang.reflect.Method;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestRule;
@@ -94,5 +95,131 @@ public abstract class AbstractTest extends AbstractSuite {
      */    
     @After
     public void onAfter() throws Exception {
+    }
+    
+    /** Simple time measurement and testing. */
+    static class Timing {
+
+        /** start time */
+        private Long startTime;
+        
+        /** stop time */
+        private Long stopTime;
+        
+        /** Constructor, creates a new Timing object. */
+        private Timing() {
+            this.reset();
+        }
+        
+        /**
+         *  Creates a new Timing object.
+         *  The time measurement is not started automatically.
+         *  @return the created Timing object
+         */
+        static Timing create() {
+            return Timing.create(false);
+        }
+        
+        /**
+         *  Creates a new Timing object.
+         *  With parameter 'start', the measurement will start automatically.
+         *  @return the created Timing object
+         */        
+        static Timing create(boolean start) {
+            
+            Timing timing = new Timing();
+            if (start)
+                timing.start();
+            return timing;
+        }
+
+        /** Starts the measurement, if it is not running yet. */
+        void start() {
+            
+            long delta = 0;
+            if (this.stopTime != null)
+                delta = this.stopTime.longValue() -this.startTime.longValue();
+            
+            if (this.startTime == null)
+                this.startTime = Long.valueOf(System.currentTimeMillis() -delta);
+        }
+        
+        /** Stopps the measurement, if it is running. */
+        void stop() {
+            
+            if (this.startTime != null)
+                this.stopTime = Long.valueOf(System.currentTimeMillis());
+        }
+        
+        /** Resets the measurement. */
+        void reset() {
+            
+            this.startTime = null;
+            this.stopTime  = null;
+        }
+        
+        /** Restarts the measurement (reset + start). */
+        void restart() {
+            
+            this.reset();
+            this.start();
+        }
+        
+        /**
+         *  Gets the current measured time in milliseconds.
+         *  @return the current measured time in milliseconds
+         */
+        long timeMillis() {
+
+            if (this.startTime == null)
+                return 0;
+            return System.currentTimeMillis() -this.startTime.longValue();
+        }
+        
+        /**
+         *  Checks whether the currently measured time is greater than or equal
+         *  to the specified millisecond.
+         *  @param milliseconds
+         */
+        void assertTimeOut(int milliseconds) {
+            if (this.timeMillis() < milliseconds)
+                Assert.assertEquals("out of " + milliseconds + " ms", this.timeMillis() + " ms");
+        }
+
+        /**
+         *  Checks whether the currently measured time is outside of the
+         *  specified time frame in milliseconds.
+         *  @param millisecondsFrom
+         *  @param millisecondsTo
+         */
+        void assertTimeOut(int millisecondsFrom, int millisecondsTo) {
+            
+            long time = this.timeMillis();
+            if (time >= millisecondsFrom && time <= millisecondsTo)
+                Assert.assertEquals("out of " + millisecondsFrom + " - " + millisecondsTo + " ms", time + " ms");
+        } 
+
+        /**
+         *  Checks whether the currently measured time is less than or equal to
+         *  the specified millisecond.
+         *  @param milliseconds
+         */
+        void assertTimeIn(int milliseconds) {
+            if (this.timeMillis() > milliseconds)
+                Assert.assertEquals("in " + milliseconds + " ms", this.timeMillis() + " ms");
+        }   
+        
+        /**
+         *  Checks whether the currently measured time is within the specified
+         *  time frame in milliseconds.
+         *  @param millisecondsFrom
+         *  @param millisecondsTo
+         */
+        void assertTimeRangeIn(int millisecondsFrom, int millisecondsTo) {
+            
+            long time = this.timeMillis();
+            if (time < millisecondsFrom || time > millisecondsTo)
+                Assert.assertEquals("in " + millisecondsFrom + " - " + millisecondsTo + " ms", time + " ms");
+        }   
     }
 }

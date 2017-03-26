@@ -722,8 +722,7 @@ public class ListenerTest_Put extends AbstractTest {
     @Test
     public void testAceptance_24() throws Exception {
         
-        long timing = System.currentTimeMillis();
-
+        Timing timing = Timing.create(true);
         String request = "Put /put_test_1/test_file.3 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "Content-Length: 10\r\n"
@@ -731,7 +730,9 @@ public class ListenerTest_Put extends AbstractTest {
                 + "12345";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
-        Assert.assertTrue(System.currentTimeMillis() -timing < 16000);
+        timing.assertTimeIn(16000);
+        timing.assertTimeOut(15000);
+
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_424));
         
         Thread.sleep(50);

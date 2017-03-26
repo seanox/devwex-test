@@ -43,9 +43,9 @@ public class RemoteTest_Status extends AbstractTest {
         String response = new String(HttpUtils.sendRequest("127.0.0.1:25001", "sTatuS\r"));
         
         Assert.assertNotNull(response);
-        Assert.assertTrue(response.contains("\r\nSAPI: "));
-        Assert.assertTrue(response.contains("\r\nTIME: "));
-        Assert.assertTrue(response.contains("\r\nTIUP: "));
+        Assert.assertTrue(response, response.contains("\r\nSAPI: "));
+        Assert.assertTrue(response, response.contains("\r\nTIME: "));
+        Assert.assertTrue(response, response.contains("\r\nTIUP: "));
     }
     
     /** 
@@ -60,9 +60,9 @@ public class RemoteTest_Status extends AbstractTest {
         String response = new String(HttpUtils.sendRequest("127.0.0.1:25001", "sTatuS\n"));
 
         Assert.assertNotNull(response);
-        Assert.assertTrue(response.contains("\r\nSAPI: "));
-        Assert.assertTrue(response.contains("\r\nTIME: "));
-        Assert.assertTrue(response.contains("\r\nTIUP: "));
+        Assert.assertTrue(response, response.contains("\r\nSAPI: "));
+        Assert.assertTrue(response, response.contains("\r\nTIME: "));
+        Assert.assertTrue(response, response.contains("\r\nTIUP: "));
     }
     
     /** 
@@ -77,8 +77,8 @@ public class RemoteTest_Status extends AbstractTest {
         String response = new String(HttpUtils.sendRequest("127.0.0.1:25001", "sTatuS\r\n"));
         
         Assert.assertNotNull(response);
-        Assert.assertTrue(response.contains("\r\nSAPI: "));
-        Assert.assertTrue(response.contains("\r\nTIME: "));
-        Assert.assertTrue(response.contains("\r\nTIUP: "));
+        Assert.assertTrue(response, response.contains("\r\nSAPI: "));
+        Assert.assertTrue(response, response.contains("\r\nTIME: "));
+        Assert.assertTrue(response, response.contains("\r\nTIUP: "));
     }
 }

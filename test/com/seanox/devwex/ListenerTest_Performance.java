@@ -51,11 +51,9 @@ public class ListenerTest_Performance extends AbstractTest {
         
         Group group = Group.create(40);
         
-        long time = System.currentTimeMillis();
+        Timing timing = Timing.create(true);
         group.perform();
-        time = System.currentTimeMillis() -time;
-        Assert.assertTrue(time < 2500);
-        Assert.assertTrue(time > 1000);
+        timing.assertTimeRangeIn(1000, 2500);
         
         for (Group.Worker worker : group.workerList) {
             Assert.assertEquals(2, worker.status);
@@ -86,17 +84,13 @@ public class ListenerTest_Performance extends AbstractTest {
         Group group1 = Group.create(40);
         Group group2 = Group.create(40);
         
-        long time1 = System.currentTimeMillis();
+        Timing timing = Timing.create(true);
         group1.perform();
-        time1 = System.currentTimeMillis() -time1;
-        Assert.assertTrue(time1 < 1750);
-        Assert.assertTrue(time1 > 1000);
+        timing.assertTimeRangeIn(1000, 2000);
         
-        long time2 = System.currentTimeMillis();
+        timing.restart();;
         group2.perform();
-        time2 = System.currentTimeMillis() -time2;
-        Assert.assertTrue(time2 < 1500);
-        Assert.assertTrue(time2 > 1000);
+        timing.assertTimeRangeIn(1000, 2000);
         
         for (Group.Worker worker : group1.workerList) {
             Assert.assertEquals(2, worker.status);
@@ -127,16 +121,16 @@ public class ListenerTest_Performance extends AbstractTest {
         AbstractSuite.waitOutputReady();
     } 
     
-    private static void waitRunttimeReady() throws Exception {
+    private static void waitRuntimeReady() throws Exception {
         
         String shadow = null;
-        long timeout = System.currentTimeMillis();
-        while (System.currentTimeMillis() -timeout < 3000) {
+        Timing timing = Timing.create(true);
+        while (timing.timeMillis() < 3000) {
             Thread.sleep(250);
             String v1 = String.format("%08d", Integer.valueOf(Thread.activeCount() /10));
             String v2 = String.format("%08d", Integer.valueOf((int)(AbstractSuite.getMemoryUsage() /1024 /1024)));
             if (shadow == null || (v1 + "\0" + v2).compareTo(shadow) < 0) {
-                timeout = System.currentTimeMillis();
+                timing.restart();
                 shadow = (v1 + "\0" + v2);
             }
         }
@@ -151,7 +145,7 @@ public class ListenerTest_Performance extends AbstractTest {
     @Test
     public void testAceptance_3() throws Exception {
         
-        ListenerTest_Performance.waitRunttimeReady();
+        ListenerTest_Performance.waitRuntimeReady();
         
         long threadCount1 = Thread.activeCount() /10;
         long memoryUsage1 = AbstractSuite.getMemoryUsage() /1024 /1024;
@@ -165,7 +159,7 @@ public class ListenerTest_Performance extends AbstractTest {
         long threadCount3 = Thread.activeCount() /10;
         long memoryUsage3 = AbstractSuite.getMemoryUsage() /1024 /1024;
         
-        ListenerTest_Performance.waitRunttimeReady();
+        ListenerTest_Performance.waitRuntimeReady();
 
         long threadCount4 = Thread.activeCount() /10;
         long memoryUsage4 = AbstractSuite.getMemoryUsage() /1024 /1024;

@@ -21,8 +21,7 @@
  */
 package com.seanox.devwex;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.seanox.test.utils.ResourceUtils;
@@ -37,7 +36,7 @@ public class InitializeTest_Parse extends AbstractTest {
     public void testAceptance_1() {
         
         Initialize initialize = Initialize.parse(ResourceUtils.getContextContent());
-        assertEquals(ResourceUtils.getContextContent("testAceptance_1_1"), InitializeTest.toString(initialize));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_1_1"), InitializeTest.toString(initialize));
     }
     
     /** TestCase for aceptance. */
@@ -45,7 +44,7 @@ public class InitializeTest_Parse extends AbstractTest {
     public void testAceptance_2() {
 
         Initialize initialize = Initialize.parse(ResourceUtils.getContextContent());
-        assertEquals(ResourceUtils.getContextContent("testAceptance_2_1"), InitializeTest.toString(initialize));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_2_1"), InitializeTest.toString(initialize));
     }
     
     /** TestCase for aceptance. */
@@ -53,7 +52,7 @@ public class InitializeTest_Parse extends AbstractTest {
     public void testAceptance_3() {
 
         Initialize initialize = Initialize.parse(ResourceUtils.getContextContent());
-        assertEquals(ResourceUtils.getContextContent("testAceptance_3_1"), InitializeTest.toString(initialize));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_3_1"), InitializeTest.toString(initialize));
     }
     
     /** TestCase for aceptance. */
@@ -61,7 +60,7 @@ public class InitializeTest_Parse extends AbstractTest {
     public void testAceptance_4() {
 
         Initialize initialize = Initialize.parse(ResourceUtils.getContextContent());
-        assertEquals(ResourceUtils.getContextContent("testAceptance_4_1"), InitializeTest.toString(initialize));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_4_1"), InitializeTest.toString(initialize));
     }
     
     /** TestCase for aceptance. */
@@ -69,7 +68,7 @@ public class InitializeTest_Parse extends AbstractTest {
     public void testAceptance_5() {
 
         Initialize initialize = Initialize.parse(ResourceUtils.getContextContent());
-        assertEquals(ResourceUtils.getContextContent("testAceptance_5_1"), InitializeTest.toString(initialize));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_5_1"), InitializeTest.toString(initialize));
     }
     
     /** TestCase for aceptance. */
@@ -77,7 +76,7 @@ public class InitializeTest_Parse extends AbstractTest {
     public void testAceptance_6() {
 
         Initialize initialize = Initialize.parse(ResourceUtils.getContextContent());
-        assertEquals(ResourceUtils.getContextContent("testAceptance_6_1"), InitializeTest.toString(initialize));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_6_1"), InitializeTest.toString(initialize));
     }  
     
     /** TestCase for aceptance. */
@@ -85,6 +84,6 @@ public class InitializeTest_Parse extends AbstractTest {
     public void testAceptance_7() {
 
         Initialize initialize = Initialize.parse(ResourceUtils.getContextContent());
-        assertEquals(ResourceUtils.getContextContent("testAceptance_7_1"), InitializeTest.toString(initialize));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_7_1"), InitializeTest.toString(initialize));
     } 
 }

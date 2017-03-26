@@ -31,8 +31,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.seanox.test.utils.HttpUtils;
-import com.seanox.test.utils.Pattern;
 import com.seanox.test.utils.HttpUtils.RequestEvent;
+import com.seanox.test.utils.Pattern;
 
 /**
  *  TestCases for {@link com.seanox.devwex.Listener}.
@@ -716,14 +716,16 @@ public class ListenerTest_Gateway extends AbstractTest {
      *  Reason, the header has already begun.
      *  @throws Exception
      */     
-    @Test(timeout=31000)
+    @Test(timeout=60000)
     public void testAceptance_19() throws Exception {
         
+        Timing timing = Timing.create(true);
         String request = "GET /cgi_timeout_status_200.jsx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
+        timing.assertTimeIn(31000);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
         Thread.sleep(50);
@@ -738,14 +740,16 @@ public class ListenerTest_Gateway extends AbstractTest {
      *  Reason, the header has not yet started.
      *  @throws Exception
      */      
-    @Test(timeout=31000)
+    @Test(timeout=60000)
     public void testAceptance_20() throws Exception {
         
+        Timing timing = Timing.create(true);
         String request = "GET /cgi_timeout_status_504.jsx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
+        timing.assertTimeIn(31000);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_504));
         
         Thread.sleep(50);

@@ -38,11 +38,12 @@ public class RemoteTest_Timeout extends AbstractTest {
      *  A response is not expected.
      *  @throws Exception
      */    
-    @Test(timeout=11000)
+    @Test(timeout=30000)
     public void testTimeout_1() throws Exception {
-        
+
+        Timing timing = Timing.create(true);
         String response = new String(HttpUtils.sendRequest("127.0.0.1:25001"));
-        
+        timing.assertTimeIn(11000); 
         Assert.assertTrue(response.isEmpty());
     }    
     
@@ -53,11 +54,12 @@ public class RemoteTest_Timeout extends AbstractTest {
      *  is started. A response is not expected.
      *  @throws Exception
      */   
-    @Test(timeout=11000)
+    @Test(timeout=30000)
     public void testTimeout_2() throws Exception {
         
+        Timing timing = Timing.create(true);
         String response = new String(HttpUtils.sendRequest("127.0.0.1:25001", "sTatuS"));
-        
+        timing.assertTimeIn(11000); 
         Assert.assertTrue(response.isEmpty());
     }     
 }
