@@ -104,7 +104,7 @@ public class GeneratorTest extends AbstractTest {
      *  TestCase for aceptance. 
      *  @throws Exception
      */
-    @Test(timeout=1050)
+    @Test(timeout=1250)
     public void testAceptance_6() throws Exception {
         
         Generator generator = Generator.parse(ResourceUtils.getContextContent("testAceptance_0_1").getBytes());
@@ -188,6 +188,13 @@ public class GeneratorTest extends AbstractTest {
             generator.set("path", values);
         }
         assertEquals(ResourceUtils.getContextContent(), new String(generator.extract()));
+    }
+    
+    /** TestCase for aceptance. */
+    @Test
+    public void testAceptance_B() {
+        
+        assertEquals("A\00\00\07\00\00B", new String(Generator.parse(("A#[0x0000070000]B").getBytes()).extract()));
     }
 
     /** TestCase for recursion. */
@@ -329,5 +336,5 @@ public class GeneratorTest extends AbstractTest {
         generator.set("b", values);
         generator.set("a", values);
         assertEquals(ResourceUtils.getContextContent(), new String(generator.extract()));
-    }     
+    } 
 }

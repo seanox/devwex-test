@@ -86,12 +86,12 @@ public class TextUtils {
     }
     
     /**
-     *  Dekodiert alle Ausgabe Direktiven nach einem Backslash.
+     *  Dekodiert alle Ausgabe-Direktiven nach einem Backslash.
      *  Die Methode ist tollerant und erh&auml;t fehlerhafte Direktiven.
      *  @param  string zu dekodierender String
      *  @return der dekodierte String
      */
-    public static String decode(String string) {
+    public static String unescape(String string) {
         
         byte[] bytes;
 
@@ -125,6 +125,55 @@ public class TextUtils {
         }
         
         return new String(Arrays.copyOfRange(bytes, 0, count));
+    }
+    
+    /**
+     *  Kodiert im String die Steuerzeichen: BS, HT, LF, FF, CR, ', ",  \ und
+     *  alle Zeichen ausserhalb vom ASCII-Bereich 0x20-0x7F. Die Maskierung
+     *  erfolgt per Slash + ISO oder dem Hexadezimal-Wert.
+     *  @param  string zu maskierender String
+     *  @return der String mit den ggf. maskierten Zeichen.
+     *  @throws Exception
+     *      Im Fall nicht erwarteter Fehler
+     */
+    public static String escape(String string) {
+        
+        byte[] codec;
+        byte[] codex;
+        byte[] cache;
+
+        int    code;
+        int    count;
+        int    cursor;
+        int    length;
+        int    loop;
+        
+        //Datengroesse wird ermittelt
+        length = string.length();
+        
+        //Datenpuffer wird eingerichtet
+        cache = new byte[length *3];
+        
+        codex = ("\b\t\n\f\r\"'\\btnfr\"'\\").getBytes();
+        codec = ("0123456789abcdef").getBytes();
+        
+        for (loop = count = 0; loop < length; loop++) {
+            
+            //der ASCII Code wird ermittelt
+            code = string.charAt(loop);
+            
+            cursor = Arrays.binarySearch(codex, (byte)code);
+            if (cursor >= 0 && cursor < 8) {
+                cache[count++] = '\\';
+                cache[count++] = codex[cursor +8];
+            } else if (code < 0x20 || code > 0x7F) {
+                cache[count++] = '\\';
+                cache[count++] = codec[(code >> 4) & 0xF];
+                cache[count++] = codec[(code & 0xF)];
+            } else cache[count++] = (byte)code;
+        }
+        
+        return new String(Arrays.copyOfRange(cache, 0, count));        
     }
 
     /**

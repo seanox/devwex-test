@@ -62,7 +62,7 @@ public class ListenerTest_Text extends AbstractTest {
     @Test
     public void testAceptance_01() throws Exception {
         
-        int length = ResourceUtils.getContextSet().length;
+        int length = ResourceUtils.getContextContentSet().length;
         for (int loop = 1; loop < length; loop += 2)
             Assert.assertEquals("#" + loop + ":", ResourceUtils.getContextContent(loop +1),
                     new String(ListenerTest_Text.textEscape(ResourceUtils.getContextContent(loop))));
