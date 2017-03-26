@@ -99,8 +99,10 @@ public class Pattern {
     public static String ACCESS_LOG_STATUS(String code, String request, int length) {
         
         code = code == null ? "-" : "\\Q" + code + "\\E";
-        if (request != null)
+        if (request != null) {
             request = request.replaceAll("(?s)^\\s*([^\r\n]+).*$", "$1").trim();
+            request = TextUtils.escape(request);
+        }
         request = request == null ? "-" : "\\Q\"" + request + "\"\\E"; 
         return "^\\d+(\\.\\d+){3} - (-|\"[^\"]+\") \\[[^]]+\\] " + request + " " + code + " " + length + " - -$";
     }
@@ -116,8 +118,10 @@ public class Pattern {
     public static String ACCESS_LOG_STATUS(String code, String request, String user) {
         
         code = code == null ? "-" : "\\Q" + code + "\\E";
-        if (request != null)
+        if (request != null) {
             request = request.replaceAll("^(?s)\\s*([^\r\n]+).*$", "$1").trim();
+            request = TextUtils.escape(request);
+        }
         request = request == null ? "-" : "\\Q\"" + request + "\"\\E"; 
         user = user == null ? "-" : "\\Q\"" + user + "\"\\E";
         return "^\\d+(\\.\\d+){3} - " + user + " \\[[^]]+\\] " + request + " " + code + " (\\d+|-) - -$";
