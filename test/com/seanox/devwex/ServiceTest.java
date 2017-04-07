@@ -25,17 +25,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- *  TestSuite for com.seanox.devwex.
+ *  TestSuite for #{@link com.seanox.devwex.Service}.
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    GeneratorTest.class,
-    InitializeTest.class,
-    ListenerTest.class,
-    RemoteTest.class,
-    SectionTest.class,
-    ServerTest.class,
-    ServiceTest.class
+    ServiceTest_Restart.class
 })
-public class Test extends AbstractSuite {
+public class ServiceTest extends AbstractSuite {
 }

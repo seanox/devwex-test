@@ -30,7 +30,8 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.seanox.devwex.ListenerTest_Performance.Group.Worker.Response;
+import com.seanox.test.utils.Executor;
+import com.seanox.test.utils.Executor.Worker;
 import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
@@ -38,6 +39,14 @@ import com.seanox.test.utils.Pattern;
  *  TestCases for {@link com.seanox.devwex.Listener}.
  */
 public class ListenerTest_Performance extends AbstractTest {
+    
+    private static String createFailedTestWorkerInfo(Executor executor) {
+
+        String result = "";
+        for (Worker worker : executor.getWorkers(Worker.Filter.FAILED, Worker.Filter.INTERRUPTED))
+            result += worker.toString();
+        return result;
+    }
     
     /** 
      *  TestCase for aceptance.
@@ -49,15 +58,27 @@ public class ListenerTest_Performance extends AbstractTest {
     @Test
     public void testAceptance_1() throws Exception {
         
-        Group group = Group.create(40);
+        Service.restart();
+        
+        Executor executor = Executor.create(40, TestWorker.class);
         
         Timing timing = Timing.create(true);
-        group.perform();
-        timing.assertTimeRangeIn(1000, 2500);
+        executor.execute();
+        boolean success = executor.await(3000);
+        timing.assertTimeRangeIn(1000, 2000);
+        String failedTestWorkerInfo = ListenerTest_Performance.createFailedTestWorkerInfo(executor);
+        Assert.assertTrue(failedTestWorkerInfo, success);
+        Assert.assertFalse(failedTestWorkerInfo, executor.isFailed());
+        Assert.assertFalse(failedTestWorkerInfo, executor.isInterrupted());
         
-        for (Group.Worker worker : group.workerList) {
-            Assert.assertEquals(2, worker.status);
-            for (Response response : worker.responseList) {
+        for (Worker worker : executor.getWorkers()) {
+            Assert.assertTrue(worker.isExecuted());
+            Assert.assertTrue(worker.isTerminated());
+            Assert.assertFalse(worker.isFailed());
+            Assert.assertFalse(worker.isInterrupted());
+            TestWorker testWorker = (TestWorker)worker;
+            Assert.assertTrue(testWorker.success);
+            for (TestWorker.Response response : testWorker.responseList) {
                 Assert.assertNull(response.exception);
                 Assert.assertNotNull(response.data);
                 String responseSring = new String(response.data);
@@ -67,8 +88,6 @@ public class ListenerTest_Performance extends AbstractTest {
                 Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));                    
             }
         }
-        
-        AbstractSuite.waitOutputReady();
     }
     
     /** 
@@ -81,20 +100,37 @@ public class ListenerTest_Performance extends AbstractTest {
     @Test
     public void testAceptance_2() throws Exception {
         
-        Group group1 = Group.create(40);
-        Group group2 = Group.create(40);
+        Service.restart();
         
         Timing timing = Timing.create(true);
-        group1.perform();
+
+        Executor executor1 = Executor.create(40, TestWorker.class);
+        executor1.execute();
+        boolean success1 = executor1.await(3000);
         timing.assertTimeRangeIn(1000, 2000);
+        String failedTestWorkerInfo1 = ListenerTest_Performance.createFailedTestWorkerInfo(executor1);
+        Assert.assertTrue(failedTestWorkerInfo1, success1);
+        Assert.assertFalse(failedTestWorkerInfo1, executor1.isFailed());
+        Assert.assertFalse(failedTestWorkerInfo1, executor1.isInterrupted());
         
-        timing.restart();;
-        group2.perform();
+        Executor executor2 = Executor.create(40, TestWorker.class);
+        timing.restart();
+        executor2.execute();
+        boolean success2 = executor2.await(3000); 
         timing.assertTimeRangeIn(1000, 2000);
+        String failedTestWorkerInfo2 = ListenerTest_Performance.createFailedTestWorkerInfo(executor2);
+        Assert.assertTrue(failedTestWorkerInfo2, success2);
+        Assert.assertFalse(failedTestWorkerInfo2, executor2.isFailed());
+        Assert.assertFalse(failedTestWorkerInfo2, executor2.isInterrupted());
         
-        for (Group.Worker worker : group1.workerList) {
-            Assert.assertEquals(2, worker.status);
-            for (Response response : worker.responseList) {
+        for (Worker worker : executor1.getWorkers()) {
+            Assert.assertTrue(worker.isExecuted());
+            Assert.assertTrue(worker.isTerminated());
+            Assert.assertFalse(worker.isFailed());
+            Assert.assertFalse(worker.isInterrupted());
+            TestWorker testWorker = (TestWorker)worker;
+            Assert.assertTrue(testWorker.success);
+            for (TestWorker.Response response : testWorker.responseList) {
                 Assert.assertNull(response.exception);
                 Assert.assertNotNull(response.data);
                 String responseSring = new String(response.data);
@@ -105,9 +141,14 @@ public class ListenerTest_Performance extends AbstractTest {
             }
         }
         
-        for (Group.Worker worker : group2.workerList) {
-            Assert.assertEquals(2, worker.status);
-            for (Response response : worker.responseList) {
+        for (Worker worker : executor2.getWorkers()) {
+            Assert.assertTrue(worker.isExecuted());
+            Assert.assertTrue(worker.isTerminated());
+            Assert.assertFalse(worker.isFailed());
+            Assert.assertFalse(worker.isInterrupted());
+            TestWorker testWorker = (TestWorker)worker;
+            Assert.assertTrue(testWorker.success);
+            for (TestWorker.Response response : testWorker.responseList) {
                 Assert.assertNull(response.exception);
                 Assert.assertNotNull(response.data);
                 String responseSring = new String(response.data);
@@ -117,8 +158,6 @@ public class ListenerTest_Performance extends AbstractTest {
                 Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));                    
             }
         }
-        
-        AbstractSuite.waitOutputReady();
     } 
     
     private static void waitRuntimeReady() throws Exception {
@@ -145,16 +184,24 @@ public class ListenerTest_Performance extends AbstractTest {
     @Test
     public void testAceptance_3() throws Exception {
         
-        ListenerTest_Performance.waitRuntimeReady();
+        Service.restart();
         
         long threadCount1 = Thread.activeCount() /10;
         long memoryUsage1 = AbstractSuite.getMemoryUsage() /1024 /1024;
         
-        Group group = Group.create(40);
+        Executor executor = Executor.create(40, TestWorker.class);
         long threadCount2 = Thread.activeCount() /10;
         long memoryUsage2 = AbstractSuite.getMemoryUsage() /1024 /1024;     
         
-        group.perform();
+        Timing timing = Timing.create(true);
+        executor.execute();
+        boolean success = executor.await(3000);
+        Assert.assertTrue("hallo\r\nhallo", success);
+        timing.assertTimeRangeIn(1000, 2000);
+        String failedTestWorkerInfo = ListenerTest_Performance.createFailedTestWorkerInfo(executor);
+        Assert.assertTrue(failedTestWorkerInfo, success);
+        Assert.assertFalse(failedTestWorkerInfo, executor.isFailed());
+        Assert.assertFalse(failedTestWorkerInfo, executor.isInterrupted());
         
         long threadCount3 = Thread.activeCount() /10;
         long memoryUsage3 = AbstractSuite.getMemoryUsage() /1024 /1024;
@@ -164,9 +211,14 @@ public class ListenerTest_Performance extends AbstractTest {
         long threadCount4 = Thread.activeCount() /10;
         long memoryUsage4 = AbstractSuite.getMemoryUsage() /1024 /1024;
 
-        for (Group.Worker worker : group.workerList) {
-            Assert.assertEquals(2, worker.status);
-            for (Response response : worker.responseList) {
+        for (Worker worker : executor.getWorkers()) {
+            Assert.assertTrue(worker.isExecuted());
+            Assert.assertTrue(worker.isTerminated());
+            Assert.assertFalse(worker.isFailed());
+            Assert.assertFalse(worker.isInterrupted());
+            TestWorker testWorker = (TestWorker)worker;
+            Assert.assertTrue(testWorker.success);
+            for (TestWorker.Response response : testWorker.responseList) {
                 Assert.assertNull(response.exception);
                 Assert.assertNotNull(response.data);
                 String responseSring = new String(response.data);
@@ -181,179 +233,113 @@ public class ListenerTest_Performance extends AbstractTest {
         Assert.assertTrue(threadCount2 > threadCount4);
         Assert.assertTrue(threadCount3 > threadCount1);
         Assert.assertTrue(threadCount3 > threadCount4);
-        Assert.assertTrue(threadCount1 >= threadCount4);
         
-        Assert.assertTrue(memoryUsage3 > memoryUsage1);
-        Assert.assertTrue(memoryUsage3 > memoryUsage2);
-        Assert.assertTrue(memoryUsage3 > memoryUsage4);
-        
-        AbstractSuite.waitOutputReady();
+        Assert.assertFalse(threadCount4 > threadCount1);
+        Assert.assertFalse(memoryUsage1 > memoryUsage3);
+        Assert.assertFalse(memoryUsage2 > memoryUsage3);
+        Assert.assertFalse(memoryUsage4 > memoryUsage3);
+    }
+    
+    @Override
+    public void onAfter() throws Exception {
+        Service.restart();
     }
     
     /**
-     *  Internal class for a group of worker.
-     *  A group contains a lot of workers.
-     *  The worker creates a set of requests, performs them and collects the
-     *  responses. The group prepares the workers and starts them at the same
-     *  time. 
-     */    
-    static class Group {
-
-        /** current status */
-        volatile int status;
+     *  Internal class for a worker.
+     *  A worker creates a set of requests, performs them and collects the
+     *  responses.
+     */
+    public static class TestWorker extends Worker {
         
-        /** set of workers */
-        volatile List<Worker> workerList;
+        /** set of requests */
+        private List<String> requestList;
         
-        /**
-         *  Creates a new group with a specific number of workers.
-         *  The created set of workers is ready to perform all requests.
-         *  @param  size number of workers
-         *  @return the created set of workers is ready to perform all requests
-         *  @throws IOException
-         *  @throws InterruptedException
-         */
-        static Group create(int size)
-                throws IOException, InterruptedException {
+        /** collected set of responses */
+        private List<Response> responseList;
+        
+        private boolean success;
+        
+        @Override
+        protected void prepare() throws IOException {
             
-            Group group = new Group();
-            size = Math.max(1, size);
-            group.workerList = new ArrayList<>();
-            for (int loop = 0; loop < size; loop++)
-                group.workerList.add(Worker.create(group));
-            return group;
+            this.requestList = new ArrayList<>();
+            this.responseList = new ArrayList<>();
+            File resources = new File(AbstractSuite.getRootStage(), "/documents/performance");
+            for (File file : resources.listFiles())
+                this.requestList.add("GET /performance/" + file.getName() + " HTTP/1.0\r\n\r\n");
         }
         
-        /**
-         *  Starts all workers through change the status and waits until all
-         *  workers are finished.
-         */
-        void perform() {
+        @Override
+        protected void execute() {
             
-            if (this.status != 0)
-                throw new IllegalStateException();
+            for (String request : this.requestList)
+                this.responseList.add(Response.create("127.0.0.1:80", request));
+            this.success = true;
+        }
+        
+        @Override
+        public String toString() {
             
-            this.status = 1;
-            
-            for (boolean complete = false; !complete;) {
-                complete = true;
-                for (Worker worker : this.workerList) {
-                    if (worker.status >= 2)
-                        continue;
-                    complete = false;
-                    break;
-                }
+            String result = this.getClass().getSimpleName() + " " + this.hashCode();
+            for (int loop = 0; loop < this.requestList.size(); loop++) {
+                Response response = this.responseList.get(loop);
+                if (response.exception != null)
+                    result += "\t" + this.requestList.get(loop)
+                            + "\t\t" + response.exception;
             }
+            return result;
         }
         
         /**
-         *  Internal class for a worker.
-         *  A worker creates a set of requests, performs them and collects the
-         *  responses.
+         *  Internal class for a response.
+         *  Collection of response data (data, duration, possibly occurred
+         *  exception).
          */
-        static class Worker extends Thread {
+        static class Response {
             
-            /** group of workers */
-            Group group;
+            /** response data */
+            byte[] data;
             
-            /** set of requests */
-            List<String> requestList;
+            /** execution time */
+            long duration;
             
-            /** collected set of responses */
-            List<Response> responseList;
+            /** possibly occurred exception */
+            Exception exception;
             
-            /** current status */
-            volatile int status;
-
             /**
-             *  Creates a new worker object with a set of request.
-             *  @param  group
-             *  @return the created worker, ready to perform all requests
+             *  Performs a request and creates a new response object.
+             *  @param  host
+             *  @param  request
+             *  @return the created response
              *  @throws IOException
              *  @throws InterruptedException
-             */
-            static Worker create(Group group)
-                    throws IOException, InterruptedException {
+             */                
+            static Response create(String host, String request) {
                 
-                Worker worker = new Worker();
-                worker.requestList = new ArrayList<>();
-                worker.responseList = new ArrayList<>();
-                worker.group = group;
-                File resources = new File(AbstractSuite.getRootStage(), "/documents/performance");
-                for (File file : resources.listFiles())
-                    worker.requestList.add("GET /performance/" + file.getName() + " HTTP/1.0\r\n\r\n");
-                worker.start();
-                while (worker.status < 1)
-                    Thread.sleep(25);
-                return worker;
-            }
-            
-            @Override
-            public void run() {
-                
-                this.status = 1;
-                try {
-                    while (this.group.status < 1)
-                        Thread.sleep(25);
-                    for (String request : this.requestList)
-                        this.responseList.add(Response.create("127.0.0.1:80", request));
-                    this.status = 2;
-                } catch (Exception exception) {
-                    this.status = 3;
-                    this.responseList.add(Response.create(exception));
+                Response response = new Response();
+                response.duration = System.currentTimeMillis();
+                try {response.data = HttpUtils.sendRequest(host, request);
+                } catch (IOException | GeneralSecurityException exception) {
+                    return Response.create(exception);
                 }
+                response.duration = System.currentTimeMillis() -response.duration;
+                return response;
             }
             
             /**
-             *  Internal class for a response.
-             *  Collection of response data (data, duration, possibly occurred
-             *  exception).
-             */
-            static class Response {
+             *  Creates a new response object for a occured exception.
+             *  @param  host
+             *  @param  request
+             *  @return the created response
+             *  @throws IOException
+             *  @throws InterruptedException
+             */                 
+            static Response create(Exception exception) {
                 
-                /** response data */
-                byte[] data;
-                
-                /** execution time */
-                long duration;
-                
-                /** possibly occurred exception */
-                Exception exception;
-                
-                /**
-                 *  Performs a request and creates a new response object.
-                 *  @param  host
-                 *  @param  request
-                 *  @return the created response
-                 *  @throws IOException
-                 *  @throws InterruptedException
-                 */                
-                static Response create(String host, String request) {
-                    
-                    Response response = new Response();
-                    response.duration = System.currentTimeMillis();
-                    try {response.data = HttpUtils.sendRequest(host, request);
-                    } catch (IOException | GeneralSecurityException exception) {
-                        return Response.create(exception);
-                    }
-                    response.duration = System.currentTimeMillis() -response.duration;
-                    return response;
-                }
-                
-                /**
-                 *  Creates a new response object for a occured exception.
-                 *  @param  host
-                 *  @param  request
-                 *  @return the created response
-                 *  @throws IOException
-                 *  @throws InterruptedException
-                 */                 
-                static Response create(Exception exception) {
-                    
-                    Response response = new Response();
-                    response.exception = exception;
-                    return response;
-                }
+                Response response = new Response();
+                response.exception = exception;
+                return response;
             }
         }
     }
