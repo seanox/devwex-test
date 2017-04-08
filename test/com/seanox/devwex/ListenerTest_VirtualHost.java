@@ -38,7 +38,7 @@ public class ListenerTest_VirtualHost extends AbstractTest {
      *  @throws Exception
      */
     @Test
-    public void testAceptance_1() throws Exception {
+    public void testAceptance_01() throws Exception {
         
         String request = "GET \\cgi_environment.jsx HTTP/1.0\r\n"
                 + "Host: vhA\r\n"
@@ -64,7 +64,7 @@ public class ListenerTest_VirtualHost extends AbstractTest {
      *  @throws Exception
      */
     @Test
-    public void testAceptance_2() throws Exception {
+    public void testAceptance_02() throws Exception {
         
         String request = "GET \\cgi_environment.jsx HTTP/1.0\r\n"
                 + "Host: vhA\r\n"
@@ -82,5 +82,52 @@ public class ListenerTest_VirtualHost extends AbstractTest {
         Assert.assertTrue(body.matches("(?si)^.*\r\nHTTP_HOST=vhA\r\n.*$"));
         Assert.assertTrue(body.matches("(?si)^.*\r\nVIRTUAL_A=Virtualhost A\r\n.*$"));
         Assert.assertTrue(body.matches("(?si)^.*\r\nSERVER_C=Server C\r\n.*$"));
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  The virtual host must observe the parameter SERVER.
+     *  @throws Exception
+     */
+    @Test
+    public void testAceptance_03() throws Exception {
+        
+        for (int port : new int[] {8081, 8082, 8083, 80}) {
+            String request = "GET \\cgi_environment.jsx HTTP/1.0\r\n"
+                    + "Host: vhS\r\n"
+                    + "\r\n";
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:" + port, request));
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+
+            String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
+            Assert.assertTrue(header.trim().length() > 0);
+            String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
+            if (port != 80)
+                Assert.assertTrue(body.matches("(?si)^.*\r\nVIRTUAL_S=Virtualhost S\r\n.*$"));
+            else 
+                Assert.assertFalse(body.matches("(?si)^.*\r\nVIRTUAL_S=Virtualhost S\r\n.*$"));
+        }
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  The virtual host must observe the parameter SERVER.
+     *  @throws Exception
+     */
+    @Test
+    public void testAceptance_04() throws Exception {
+        
+        for (int port : new int[] {8081, 8082, 8083, 80}) {
+            String request = "GET \\cgi_environment.jsx HTTP/1.0\r\n"
+                    + "Host: vhT\r\n"
+                    + "\r\n";
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:" + port, request));
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+
+            String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
+            Assert.assertTrue(header.trim().length() > 0);
+            String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
+            Assert.assertTrue(body.matches("(?si)^.*\r\nVIRTUAL_T=Virtualhost T\r\n.*$"));
+        }
     }
 }

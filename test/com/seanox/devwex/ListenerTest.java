@@ -29,6 +29,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+    ListenerTest_Performance.class,
     ListenerTest_AccessLog.class,
     ListenerTest_Authentication.class,
     ListenerTest_Configuration.class,
@@ -42,7 +43,6 @@ import org.junit.runners.Suite;
     ListenerTest_Locate.class,
     ListenerTest_MimeType.class,
     ListenerTest_Options.class,
-    ListenerTest_Performance.class,
     ListenerTest_Put.class,
     ListenerTest_Request.class,
     ListenerTest_Status.class,

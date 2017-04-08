@@ -226,23 +226,47 @@ public class ListenerTest_Configuration extends AbstractTest {
     @Test
     public void testAceptance_08() throws Exception {
         
-        String request = "GET /?test=1234567 HTTP/1.0\r\n"
+        String request;
+        String response;
+        String accessLog;
+        String body;
+        
+        request = "GET /?test=1234567A HTTP/1.0\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8094", request));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8095", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(0)));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_TEXT_HTML));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));     
-        String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
+        body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("", body);
         
         Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
+        accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertFalse(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
-        String outputLog = AbstractSuite.getOutputLogTail();
-        outputLog = outputLog.replaceAll("(?i)^.*?\\s(\\d+(?:\\.\\d+){3}.*$)", "$1");
-        Assert.assertTrue(outputLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
+        String outputLog1 = AbstractSuite.getOutputLogTail();
+        outputLog1 = outputLog1.replaceAll("(?i)^.*?\\s(\\d+(?:\\.\\d+){3}.*$)", "$1");
+        Assert.assertTrue(outputLog1.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
+        
+        request = "GET /?test=1234567B HTTP/1.0\r\n"
+                + "\r\n";
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8094", request));
+        
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(0)));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_TEXT_HTML));
+        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));     
+        body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
+        Assert.assertEquals("", body);
+        
+        Thread.sleep(50);
+        accessLog = AbstractSuite.getAccessLogTail();
+        Assert.assertFalse(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
+        String outputLog2 = AbstractSuite.getOutputLogTail();
+        outputLog2 = outputLog2.replaceAll("(?i)^.*?\\s(\\d+(?:\\.\\d+){3}.*$)", "$1");
+        Assert.assertEquals(outputLog1, outputLog2);
+        Assert.assertFalse(outputLog2.matches(Pattern.ACCESS_LOG_STATUS("200", request)));        
     }
 
     /** 
