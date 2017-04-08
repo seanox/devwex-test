@@ -39,7 +39,7 @@ public class RemoteTest_Status extends AbstractTest {
      */
     @Test
     public void testStatus_1() throws Exception {
-
+        
         String response = new String(HttpUtils.sendRequest("127.0.0.1:25001", "sTatuS\r"));
         
         Assert.assertNotNull(response);

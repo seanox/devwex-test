@@ -948,6 +948,158 @@ public class ListenerTest_Locate extends AbstractTest {
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("1", request)));
     }
     
+    /**
+     *  TestCase for aceptance.
+     *  The rule for a reference without target must be ignored.
+     *  The request must be responded by the module with status 404.
+     *  @throws Exception
+     */   
+    @Test
+    public void testAceptance_44() throws Exception {
+        
+        String request = "GET /vd1 HTTP/1.0\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
+        
+        Thread.sleep(50);
+        String accessLog = AbstractSuite.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
+    }
+    
+    /**
+     *  TestCase for aceptance.
+     *  The rule for a redirect without target must be ignored.
+     *  The request must be responded by the module with status 404.
+     *  @throws Exception
+     */  
+    @Test
+    public void testAceptance_45() throws Exception {
+        
+        String request = "GET /vd4 HTTP/1.0\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
+        
+        Thread.sleep(50);
+        String accessLog = AbstractSuite.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
+    }
+    
+    /**
+     *  TestCase for aceptance.
+     *  The rule without alias must be ignored.
+     *  The request must be responded by the module with status 200.
+     *  @throws Exception
+     */   
+    @Test
+    public void testAceptance_46() throws Exception {
+        
+        String request = "GET / HTTP/1.0\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        
+        Thread.sleep(50);
+        String accessLog = AbstractSuite.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
+    }
+    
+    /**
+     *  TestCase for aceptance.
+     *  The rule without alias must be ignored.
+     *  The request must be responded by the module with status 200.
+     *  @throws Exception
+     */     
+    @Test
+    public void testAceptance_47() throws Exception {
+        
+        String request = "GET HTTP/1.0\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_400));
+        
+        Thread.sleep(50);
+        String accessLog = AbstractSuite.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_400));
+    }
+    
+    /**
+     *  TestCase for aceptance.
+     *  The rule without alias must be ignored.
+     *  The request must be responded by the module with status 200.
+     *  @throws Exception
+     */     
+    @Test
+    public void testAceptance_48() throws Exception {
+        
+        String request = "GET + HTTP/1.0\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_400));
+        
+        Thread.sleep(50);
+        String accessLog = AbstractSuite.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_400));
+    }
+    
+    /**
+     *  TestCase for aceptance.
+     *  The rule without alias must be ignored.
+     *  The request must be responded by the module with status 200.
+     *  @throws Exception
+     */     
+    @Test
+    public void testAceptance_49() throws Exception {
+        
+        String request = "GET %20 HTTP/1.0\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_400));
+        
+        Thread.sleep(50);
+        String accessLog = AbstractSuite.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_400));
+    }
+        
+    /**
+     *  TestCase for aceptance.
+     *  The rule for a module without target must be ignored.
+     *  The request must be responded by the module with status 404.
+     *  @throws Exception
+     */  
+    @Test
+    public void testAceptance_50() throws Exception {
+        
+        String request = "GET /vd5 HTTP/1.0\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
+        
+        Thread.sleep(50);
+        String accessLog = AbstractSuite.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
+    }
+    
+    /**
+     *  TestCase for aceptance.
+     *  The rule for a forbidden path without target must be work.
+     *  The request must be responded by the module with status 403.
+     *  @throws Exception
+     */  
+    @Test
+    public void testAceptance_51() throws Exception {
+        
+        String request = "GET /vd6 HTTP/1.0\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
+        
+        Thread.sleep(50);
+        String accessLog = AbstractSuite.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
+    }
+    
     /** 
      *  TestCase for aceptance.
      *  Breaking out of the DocRoot must not happen if the path contains masked

@@ -196,7 +196,6 @@ public class ListenerTest_Performance extends AbstractTest {
         Timing timing = Timing.create(true);
         executor.execute();
         boolean success = executor.await(3000);
-        Assert.assertTrue("hallo\r\nhallo", success);
         timing.assertTimeRangeIn(1000, 2000);
         String failedTestWorkerInfo = ListenerTest_Performance.createFailedTestWorkerInfo(executor);
         Assert.assertTrue(failedTestWorkerInfo, success);
