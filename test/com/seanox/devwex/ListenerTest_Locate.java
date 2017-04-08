@@ -1093,11 +1093,11 @@ public class ListenerTest_Locate extends AbstractTest {
         String request = "GET /vd6 HTTP/1.0\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         
         Thread.sleep(50);
         String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));
     }
     
     /** 
