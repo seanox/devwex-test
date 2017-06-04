@@ -440,7 +440,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
         ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/g/", "x", 0);
         ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/h/", "x", 0);
         ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/i/", "x", 0);
-        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/j/", "x", 0);
+        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/j/", "\\\"x\\\"", 0);
         ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/k/", "", 0);        
     }
     
