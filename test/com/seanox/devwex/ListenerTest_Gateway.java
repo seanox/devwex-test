@@ -850,5 +850,31 @@ public class ListenerTest_Gateway extends AbstractTest {
         String body = "\r\n" + response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
 
         Assert.assertTrue(body.matches("(?s)^.*\r\nHTTP_AAA=A1\r\nHTTP_AAC=A2\r\n.*$"));
-    }   
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Method {@code ALL} was defined for the CGI but {@code METHODS} does
+     *  this not allow and the request is responded with status 403.
+     *  is without content.
+     *  @throws Exception
+     */
+    @Test
+    public void testAceptance_24() throws Exception {
+        
+        String request;
+        String response;
+        
+        request = "Get /method.php HTTP/1.0\r\n"
+                + "Host: vHb\r\n"
+                + "\r\n";
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
+        
+        request = "Zet /method.php HTTP/1.0\r\n"
+                + "Host: vHb\r\n"
+                + "\r\n";
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_405));
+    }    
 }
