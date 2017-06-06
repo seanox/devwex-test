@@ -368,17 +368,17 @@ public class ListenerTest_Filter extends AbstractTest {
     
     /** 
      *  TestCase for aceptance.
-     *  If the request contains {@code Felda2: t1} the request is responded
-     *  with status 403 because the target {@code ../documents/filter_a_.html}
+     *  If the request contains {@code Feldo: t1} the request is responded
+     *  with status 403 because the target {@code ../documents/filter_a.html_}
      *  does not exists.
-     *  filter expression: {@code GET IS CONTAINS FELDA2 T1 > ./stage/documents/filter_a.html_}
+     *  filter expression: {@code GET IS CONTAINS FELDO T1 > ./stage/documents/filter_a.html_}
      *  @throws Exception
      */
     @Test
     public void testAceptance_14() throws Exception {
         
         String request = "GET / HTTP/1.0\r\n"
-                + "Felda2: t1\r\n"
+                + "Feldo: t1\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8086", request));
