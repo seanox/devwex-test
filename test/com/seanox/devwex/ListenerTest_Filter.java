@@ -673,4 +673,42 @@ public class ListenerTest_Filter extends AbstractTest {
             Files.delete(testFile);
         Assert.assertFalse(Files.exists(testFile));
     }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Method {@code ALL} was defined for the CGI but {@code METHODS} does
+     *  this not allow and the request is responded with status 403.
+     *  is without content.
+     *  @throws Exception
+     */
+    @Test
+    public void testAceptance_24() throws Exception {
+        
+        String request;
+        String response;
+        
+        request = "GET /nix HTTP/1.0\r\n"
+                + "Feld-C: 123\r\n"
+                + "\r\n";
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8086", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
+        
+        request = "GET /nix?xXx1 HTTP/1.0\r\n"
+                + "Feld-C: 123\r\n"
+                + "\r\n";
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8086", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));  
+        
+        request = "GET /nix?xXx HTTP/1.0\r\n"
+                + "Feld-C: 123\r\n"
+                + "\r\n";
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8086", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));    
+
+        request = "GET /nix?xxx HTTP/1.0\r\n"
+                + "Feld-C: 123\r\n"
+                + "\r\n";
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8086", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));    
+    }  
 }
