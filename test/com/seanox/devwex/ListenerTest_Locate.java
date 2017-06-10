@@ -804,11 +804,11 @@ public class ListenerTest_Locate extends AbstractTest {
             request = "GET " + request + " HTTP/1.0\r\n"
                     + "\r\n";
             String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
+            Assert.assertTrue(request, response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
             
             Thread.sleep(50);
             String accessLog = AbstractSuite.getAccessLogTail();
-            Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
+            Assert.assertTrue(request, accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
         }
     }
     
@@ -1102,6 +1102,151 @@ public class ListenerTest_Locate extends AbstractTest {
     
     /** 
      *  TestCase for aceptance.
+     *  Configuration: {@code [VIRTUAL:VHA:REF] /o/o/2 > ./stage/documents_d/test.txt [x]}
+     *  Virtual paths to individual files must work. The request via
+     *  {@code HEAD} must be responded with status 200, because the target
+     *  exists and method {@code HEAD} is allowed. The request via {@code GET}
+     *  must be responded with status 405, because the target exists also but
+     *  method {@code GET} is not allowed and the options {@code [X]} was only
+     *  supported for modules.
+     *  @throws Exception
+     */      
+    @Test
+    public void testAceptance_52() throws Exception {
+        
+        String response;
+        String request;
+        String accessLog;
+
+        request = "HEAD /o/o/2 HTTP/1.0\r\n"
+                + "\r\n";
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8091", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+        
+        Thread.sleep(50);
+        accessLog = AbstractSuite.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
+
+        request = "GET /o/o/2 HTTP/1.0\r\n"
+                + "\r\n";
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8091", request));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_405));
+        
+        Thread.sleep(50);
+        accessLog = AbstractSuite.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_405));
+    }    
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Configuration: {@code [VIRTUAL:VHA:REF] /o/o/2 > ./stage/documents_d/test.txt [x]}
+     *  Virtual paths to individual files must work. The request via
+     *  {@code HEAD} must be responded with status 200, 302, 404.
+     *  @throws Exception
+     */     
+    @Test
+    public void testAceptance_53() throws Exception {
+        
+        for (String path : new String[] {"404:/o", "404:/o/", "404:/o/o", "404:/o/o/",
+                "200:/o/o/2", "302:/o/o/2/",
+                "404:/o/o/2/1", "404:/o/o/2/1/", "404:/o/o/2/1/0"}) {
+            String[] text = path.split(":");
+            String request = "HEAD " + text[1] + " HTTP/1.0\r\n"
+                    + "\r\n";
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:8091", request));
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS(text[0])));
+
+            Thread.sleep(50);
+            String accessLog = AbstractSuite.getAccessLogTail();
+            Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS(text[0])));
+        }
+    }  
+
+    /** 
+     *  TestCase for aceptance.
+     *  Locate must work for references in {@code [VIRTUAL:REF]} without 
+     *  target.
+     *  @throws Exception
+     */     
+    @Test
+    public void testAceptance_54() throws Exception {
+        
+        for (String path : new String[] {"302:/locate", "200:/locate/", "200:/locate/1.txt:locate-1", "200:/locate/2.txt:locate-2",
+                "302:/locate/a", "200:/locate/a/", "200:/locate/a/1.txt:locate-a-1", "200:/locate/a/2.txt:locate-a-2",
+                "404:/locate/a/1.txt/xxx", "200:/locate/a/2.txt/xxx:locate-a-2",
+                "403:/locate/b", "403:/locate/b/1.txt", "403:/locate/b/2.txt",
+                "401:/locate/c", "401:/locate/c/1.txt", "401:/locate/c/2.txt"}) {
+            
+            String[] text = path.split(":");
+            String request = "gEt " + text[1] + " HTTP/1.0\r\n"
+                    + "\r\n";
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:8092", request));
+            Assert.assertTrue(path, response.matches(Pattern.HTTP_RESPONSE_STATUS(text[0])));
+            if (text.length > 2)
+                Assert.assertTrue(path, response.contains(text[2]));
+
+            Thread.sleep(50);
+            String accessLog = AbstractSuite.getAccessLogTail();
+            Assert.assertTrue(path, accessLog.matches(Pattern.ACCESS_LOG_STATUS(text[0])));
+        }
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Locate must work for references in {@code [VIRTUAL:REF]} without
+     *  target and virtual path without a slash at the beginning.
+     *  @throws Exception
+     */      
+    @Test
+    public void testAceptance_55() throws Exception {
+        
+        for (String path : new String[] {"302:/locate/d", "200:/locate/d/",
+                "200:/locate/d/1.txt:locate-d-1", "200:/locate/d/2.txt:locate-d-2",
+                "404:/locate/d/1.txt/xxx", "200:/locate/d/2.txt/xxx:locate-d-2"}) {
+            
+            String[] text = path.split(":");
+            String request = "gEt " + text[1] + " HTTP/1.0\r\n"
+                    + "\r\n";
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:8092", request));
+            Assert.assertTrue(path, response.matches(Pattern.HTTP_RESPONSE_STATUS(text[0])));
+            if (text.length > 2)
+                Assert.assertTrue(path, response.contains(text[2]));
+
+            Thread.sleep(50);
+            String accessLog = AbstractSuite.getAccessLogTail();
+            Assert.assertTrue(path, accessLog.matches(Pattern.ACCESS_LOG_STATUS(text[0])));
+        }
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  Locate must work for references in {@code [VIRTUAL:REF]} if the target
+     *  is a path without a slash at the beginning.
+     *  @throws Exception
+     */       
+    @Test
+    public void testAceptance_56() throws Exception {
+        
+        for (String path : new String[] {"302:/locate/e", "200:/locate/e/",
+                "200:/locate/e/1.txt:locate-d-1", "200:/locate/e/2.txt:locate-d-2",
+                "404:/locate/e/1.txt/xxx", "200:/locate/e/2.txt/xxx:locate-d-2"}) {
+            
+            String[] text = path.split(":");
+            String request = "gEt " + text[1] + " HTTP/1.0\r\n"
+                    + "\r\n";
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:8092", request));
+            Assert.assertTrue(path, response.matches(Pattern.HTTP_RESPONSE_STATUS(text[0])));
+            if (text.length > 2)
+                Assert.assertTrue(path, response.contains(text[2]));
+
+            Thread.sleep(50);
+            String accessLog = AbstractSuite.getAccessLogTail();
+            Assert.assertTrue(path, accessLog.matches(Pattern.ACCESS_LOG_STATUS(text[0])));
+        }
+    }      
+    
+    /** 
+     *  TestCase for aceptance.
      *  Breaking out of the DocRoot must not happen if the path contains masked
      *  special characters.
      *  @throws Exception
@@ -1248,7 +1393,7 @@ public class ListenerTest_Locate extends AbstractTest {
 
             request = "GET " + request + " HTTP/1.0\r\n\r\n";
             response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
+            Assert.assertTrue(request, response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         }        
     }      
 }
