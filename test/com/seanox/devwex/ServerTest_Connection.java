@@ -47,10 +47,10 @@ public class ServerTest_Connection extends AbstractTest {
          
         String request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8443", request));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:443", request));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_DIFFUSE));
 
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8443", request, AbstractSuite.getKeystore()));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:443", request, AbstractSuite.getKeystore()));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
     } 
     
