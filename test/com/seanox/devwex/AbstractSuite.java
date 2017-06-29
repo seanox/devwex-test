@@ -51,11 +51,14 @@ import com.seanox.test.utils.OutputStreams;
 public abstract class AbstractSuite {
     
     /** path of {@code ./stage} */
-    private static final String DIRECTORY_STAGE = "./stage";
+    private static final String PATH_STAGE = "./stage";
 
     /** path of {@code ./stage/libraries} */
     private static final String PATH_STAGE_LIBRARIES = "./stage/libraries";
-    
+
+    /** path of {@code ./stage/certificates} */
+    private static final String PATH_STAGE_CERTIFICATES = "./stage/certificates";
+
     /** path of {@code ./resources} */
     private static final String PATH_RESOURCES = "./resources";    
     
@@ -94,11 +97,7 @@ public abstract class AbstractSuite {
         
         final File root = new File(".").getCanonicalFile();
 
-        final File rootResources = new File(root, PATH_RESOURCES).getCanonicalFile();
-        final File rootResourcesProgram = new File(root, PATH_RESOURCES_PROGRAM).getCanonicalFile();
-        
-        final File rootStage = new File(root, DIRECTORY_STAGE).getCanonicalFile();
-        final File rootStageLibraries = new File(root, PATH_STAGE_LIBRARIES).getCanonicalFile();
+        final File rootStage = new File(root, PATH_STAGE).getCanonicalFile();
         
         File accessLog = new File(rootStage, "access.log");
         File outputLog = new File(rootStage, "output.log");
@@ -135,6 +134,9 @@ public abstract class AbstractSuite {
         
         rootStage.mkdir();
         
+        final File rootResources = new File(root, PATH_RESOURCES).getCanonicalFile();
+
+        final File rootResourcesProgram = new File(root, PATH_RESOURCES_PROGRAM).getCanonicalFile();
         Files.walkFileTree(rootResources.toPath(), new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult preVisitDirectory(Path path, BasicFileAttributes attributes)
@@ -151,7 +153,7 @@ public abstract class AbstractSuite {
             }
         });
         
-        systemOutLog = new FileOutputStream(new File(root, DIRECTORY_STAGE + "/output.log")); 
+        systemOutLog = new FileOutputStream(new File(root, PATH_STAGE + "/output.log")); 
         System.setOut(new PrintStream(new OutputStreams(systemOut, systemOutTail, systemOutLog)));
         
         Files.copy(Paths.get(rootResourcesProgram.toString(), "devwex.ini"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING);
@@ -181,6 +183,7 @@ public abstract class AbstractSuite {
             break;
         }
         
+        final File rootStageLibraries = new File(root, PATH_STAGE_LIBRARIES).getCanonicalFile();
         String libraries = rootStageLibraries.toString();
         System.setProperty("libraries", libraries);
         
@@ -226,7 +229,7 @@ public abstract class AbstractSuite {
     static String getAccessLog() throws IOException {
         
         final File root = new File(".").getCanonicalFile();
-        final File rootStage = new File(root, DIRECTORY_STAGE).getCanonicalFile();
+        final File rootStage = new File(root, PATH_STAGE).getCanonicalFile();
         
         return new String(Files.readAllBytes(Paths.get(rootStage.toString(), "access.log")));
     }
@@ -238,7 +241,7 @@ public abstract class AbstractSuite {
     static String getOutputLog() throws IOException {
         
         final File root = new File(".").getCanonicalFile();
-        final File rootStage = new File(root, DIRECTORY_STAGE).getCanonicalFile();
+        final File rootStage = new File(root, PATH_STAGE).getCanonicalFile();
         
         return new String(Files.readAllBytes(Paths.get(rootStage.toString(), "output.log")));
     }
@@ -258,7 +261,7 @@ public abstract class AbstractSuite {
      *  @throws IOException
      */
     static File getRootStage() throws IOException {
-        return new File(AbstractSuite.getRoot(), DIRECTORY_STAGE).getCanonicalFile();
+        return new File(AbstractSuite.getRoot(), PATH_STAGE).getCanonicalFile();
     }
 
     /**
@@ -280,12 +283,12 @@ public abstract class AbstractSuite {
     }
     
     /**
-     *  Returns the root stage program keystore as file.
-     *  @return the root stage program keystore as file
+     *  Returns the root stage certificates directory as file.
+     *  @return the root stage certificates directory as file
      *  @throws IOException
      */
-    static File getRootStageProgramKeystore() throws IOException {
-        return new File(AbstractSuite.getRootStage(), "program/keystore");
+    static File getRootStageCertificates() throws IOException {
+        return new File(AbstractSuite.getRootStage(), PATH_STAGE_CERTIFICATES);
     }
 
     /**

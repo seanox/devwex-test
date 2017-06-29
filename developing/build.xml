@@ -4,6 +4,8 @@
   <property name="workspace" value="."/>
   <property name="workspace.resources" value="${workspace}/resources"/>  
   <property name="workspace.resources.libraries" value="${workspace.resources}/libraries"/>
+  <property name="workspace.resources.program" value="${workspace.resources}/program"/>
+  <property name="workspace.resources.certificates" value="${workspace.resources}/certificates"/>
   
   <target name="compile">
     <delete file="${workspace.resources.libraries}/ConnectorA.class"/>
@@ -74,4 +76,53 @@
     <delete file="${workspace.resources.libraries}/ConnectorF.class"/>
     <delete file="${workspace.resources.libraries}/Scripting.class"/>
   </target>
+  
+  <target name="keystore">
+    <delete dir="${workspace.resources.certificates}"/>
+    <mkdir dir="${workspace.resources.certificates}"/>
+    <exec executable="keytool">
+      <arg line="-genkeypair -alias ServerKey -keyalg RSA -keysize 2048 -validity 365
+        -dname 'CN=127.0.0.1,O=Seanox Software Solutions,L=Berlin,ST=Germany,C=DE'
+        -keystore ${workspace.resources.certificates}/server_ma.jks -keypass changeIt -storepass changeIt"/>
+    </exec>    
+    <exec executable="keytool">
+      <arg line="-genkeypair -alias ClientKey -keyalg RSA -keysize 2048 -validity 365
+        -dname 'CN=127.0.0.1,O=Seanox Software Solutions,L=Berlin,ST=Germany,C=DE'
+        -keystore ${workspace.resources.certificates}/client_ma.jks -keypass changeIt -storepass changeIt"/>
+    </exec>    
+    <exec executable="keytool">
+      <arg line="-exportcert -alias ClientKey -keystore ${workspace.resources.certificates}/client_ma.jks -storepass changeIt
+        -file ${workspace.resources.certificates}/client_public.cer"/>
+    </exec>    
+    <exec executable="keytool">
+      <arg line="-importcert -alias ClientCer -keystore ${workspace.resources.certificates}/server_ma.jks -storepass changeIt
+        -file ${workspace.resources.certificates}/client_public.cer -noprompt"/>
+    </exec>     
+    <exec executable="keytool">
+      <arg line="-exportcert -alias ServerKey -keystore ${workspace.resources.certificates}/server_ma.jks -storepass changeIt
+        -file ${workspace.resources.certificates}/server_public.cer"/>
+    </exec> 
+    <exec executable="keytool">
+      <arg line="-importcert -alias ServerCer -keystore ${workspace.resources.certificates}/client_ma.jks -storepass changeIt
+        -file ${workspace.resources.certificates}/server_public.cer -noprompt"/>
+    </exec>
+    <exec executable="keytool">
+      <arg line="-importkeystore -srckeystore ${workspace.resources.certificates}/server_ma.jks -destkeystore ${workspace.resources.certificates}/server.p12
+        -deststoretype PKCS12 -keypass changeIt -storepass changeIt -srcstorepass changeIt -noprompt"/>
+    </exec>
+    <exec executable="keytool">
+      <arg line="-importkeystore -srckeystore ${workspace.resources.certificates}/client_ma.jks -destkeystore ${workspace.resources.certificates}/client.p12
+        -deststoretype PKCS12 -keypass changeIt -storepass changeIt -srcstorepass changeIt -noprompt"/>
+    </exec>        
+    <exec executable="keytool">
+      <arg line="-genkey -alias seanox.local -keyalg RSA -keysize 2048 -validity 365
+        -dname 'CN=127.0.0.1,O=Seanox Software Solutions,L=Berlin,ST=Germany,C=DE'
+        -keystore '${workspace.resources.certificates}/server.jks' -keypass changeIt -storepass changeIt"/>
+    </exec>
+      <exec executable="keytool">
+        <arg line="-genkey -alias seanox.local -keyalg RSA -keysize 2048 -validity 365
+          -dname 'CN=127.0.0.1,O=Seanox Software Solutions,L=Berlin,ST=Germany,C=DE'
+          -keystore '${workspace.resources.certificates}/client.jks' -keypass changeIt -storepass changeIt"/>
+      </exec>    
+  </target>   
 </project>
