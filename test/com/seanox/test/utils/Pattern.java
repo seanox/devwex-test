@@ -25,6 +25,33 @@ package com.seanox.test.utils;
  *  Pattern for regular expressions.
  */
 public class Pattern {
+    
+    /** cross platform line break */
+    public static final String LINE_BREAK = "(?:(?:\\r\\n)|(?:\\n\\r)|[\\r\\n])";
+    
+    /** spaces without line break */
+    public static final String LINE_SPACE = "[^\\S\\r\\n]";
+    
+    /** 
+     *  Pattern for netweork connection.<br>
+     *  Format: {@code host:port}<br>
+     *  Grouping:
+     *  <dir>
+     *    0: match<br>
+     *    1: host<br>
+     *    2: port<br>
+     *  </ul> 
+     */
+    public static final String NETWORK_CONNECTION = "^(?i:([a-z_\\-\\d\\.:]+):(\\d{1,5}))$";
+    
+    /** Pattern for netweork connection: domain. */
+    public static final String NETWORK_DOMAIN = "^[A-Za-z0-9]+(?:[A-Za-z0-9\\-_\\.]*[A-Za-z0-9]+)*$";
+    
+    /** 
+     *  Pattern for netweork connection: domain.
+     *  Can be embedded in another expression.
+     */
+    public static final String NETWORK_DOMAIN_FRAGMENT = "(?:" + NETWORK_DOMAIN.substring(1, NETWORK_DOMAIN.length() -2) + ")";
 
     /** Pattern for an access log entry with status 200 */
     public static final String ACCESS_LOG_STATUS_200 = ACCESS_LOG_STATUS("200");
@@ -76,7 +103,7 @@ public class Pattern {
     public static String ACCESS_LOG_STATUS(String code) {
         
         code = code == null ? "-" : "\\Q" + code + "\\E";
-        return "^\\d+(\\.\\d+){3} - (-|\"[^\"]+\") \\[[^]]+\\] (-|\"[^\"]+\") " + code + " (\\d+|-) - -$";
+        return "^" + NETWORK_DOMAIN_FRAGMENT + " - (-|\"[^\"]+\") \\[[^]]+\\] (-|\"[^\"]+\") " + code + " (\\d+|-) - -$";
     }
     
     /** 
@@ -104,7 +131,7 @@ public class Pattern {
             request = TextUtils.escape(request);
         }
         request = request == null ? "-" : "\\Q\"" + request + "\"\\E"; 
-        return "^\\d+(\\.\\d+){3} - (-|\"[^\"]+\") \\[[^]]+\\] " + request + " " + code + " " + length + " - -$";
+        return "^" + NETWORK_DOMAIN_FRAGMENT + " - (-|\"[^\"]+\") \\[[^]]+\\] " + request + " " + code + " " + length + " - -$";
     }
     
     /** 
@@ -124,7 +151,7 @@ public class Pattern {
         }
         request = request == null ? "-" : "\\Q\"" + request + "\"\\E"; 
         user = user == null ? "-" : "\\Q\"" + user + "\"\\E";
-        return "^\\d+(\\.\\d+){3} - " + user + " \\[[^]]+\\] " + request + " " + code + " (\\d+|-) - -$";
+        return "^" + NETWORK_DOMAIN_FRAGMENT + " - " + user + " \\[[^]]+\\] " + request + " " + code + " (\\d+|-) - -$";
     }
     
     /** 
@@ -348,22 +375,4 @@ public class Pattern {
     public static String HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST(String realm) {
         return "(?si)^.*\r\nWWW-Authenticate: Digest realm=\"\\Q" + realm + "\\E\",.*$";
     }
-    
-    /** cross platform line break */
-    public static final String LINE_BREAK = "(?:(?:\\r\\n)|(?:\\n\\r)|[\\r\\n])";
-    
-    /** spaces without line break */
-    public static final String LINE_SPACE = "[^\\S\\r\\n]";
-    
-    /** 
-     *  Pattern for netweork connection.<br>
-     *  Format: {@code host:port}<br>
-     *  Grouping:
-     *  <dir>
-     *    0: match<br>
-     *    1: host<br>
-     *    2: port<br>
-     *  </ul> 
-     */
-    public static final String NETWORK_CONNECTION = "^(?i:([a-z_\\-\\d\\.:]+):(\\d{1,5}))$";
 }

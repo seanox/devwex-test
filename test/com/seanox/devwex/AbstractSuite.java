@@ -288,7 +288,7 @@ public abstract class AbstractSuite {
      *  @throws IOException
      */
     static File getRootStageCertificates() throws IOException {
-        return new File(AbstractSuite.getRootStage(), PATH_STAGE_CERTIFICATES);
+        return new File(AbstractSuite.getRoot(), PATH_STAGE_CERTIFICATES);
     }
 
     /**
