@@ -324,7 +324,6 @@ public class ServerTest_Connection extends AbstractTest {
             URL url = new URL("https://127.0.0.3");
             HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
             Assert.assertEquals(200, urlConn.getResponseCode());
-            
         }
     }
     
