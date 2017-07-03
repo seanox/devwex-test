@@ -3,7 +3,7 @@
  *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
  *  Diese Software unterliegt der Version 2 der GNU General Public License.
  *
- *  TODO: devwex-test
+ *  Seanox Test Utilities
  *  Copyright (C) 2017 Seanox Software Solutions
  *
  *  This program is free software; you can redistribute it and/or modify it
@@ -56,7 +56,6 @@ public class MockUtils {
                     else if (this.counter > 0)
                         return '-';
                     else return 'A'; 
-                    
                 } finally {
                     this.counter++;
                 }
