@@ -24,6 +24,8 @@ package com.seanox.test.utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.security.GeneralSecurityException;
@@ -211,6 +213,20 @@ public class HttpUtils {
             throws IOException, GeneralSecurityException {
         return HttpUtils.sendRequest(address, request, (Keystore)null);
     }
+    
+    /**
+     *  Sends a HTTP request to a server.
+     *  @param  address
+     *  @param  request
+     *  @param  data
+     *  @return the received response
+     *  @throws IOException
+     *  @throws GeneralSecurityException
+     */
+    public static byte[] sendRequest(String address, String request, InputStream data)
+            throws IOException, GeneralSecurityException {
+        return HttpUtils.sendRequest(address, request, data, null);
+    }    
 
     /**
      *  Sends a HTTP request to a server.
@@ -223,15 +239,34 @@ public class HttpUtils {
      */
     public static byte[] sendRequest(String address, String request, Keystore keystore)
             throws IOException, GeneralSecurityException {
+        return HttpUtils.sendRequest(address, request, (InputStream)null, keystore);
+    }
+    
+    /**
+     *  Sends a HTTP request to a server.
+     *  @param  address
+     *  @param  request
+     *  @param  data
+     *  @param  keystore
+     *  @return the received response
+     *  @throws IOException
+     *  @throws GeneralSecurityException
+     */
+    public static byte[] sendRequest(String address, String request, InputStream data, Keystore keystore)
+            throws IOException, GeneralSecurityException {
         
         if (!address.matches(Pattern.NETWORK_CONNECTION))
             throw new IllegalArgumentException("Invalid connection string: " + address + ", expected <host>:<port>");
     
         try (Socket socket = HttpUtils.createSocket(address, keystore)) {
             if (request != null) {
-                PrintWriter writer = new PrintWriter(socket.getOutputStream());
+                OutputStream output = socket.getOutputStream();
+                PrintWriter writer = new PrintWriter(output);
                 writer.print(request);
                 writer.flush();
+                while (data != null
+                        && StreamUtils.forward(data, output) >= 0)
+                    continue;
             }
             return StreamUtils.read(socket.getInputStream());   
         }

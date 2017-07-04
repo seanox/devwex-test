@@ -23,6 +23,7 @@ package com.seanox.test.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 
 /**
  *  Utils for mock data.
@@ -43,11 +44,20 @@ public class MockUtils {
      *  @param  size
      *  @return the created readable InputStream.
      */
-    public static InputStream createInputStream(final int size) {
+    public static InputStream createInputStream(final long size) {
         return new InputStream() {
-            private int counter;
+            
+            private long counter;
+            
             @Override
-            public int read() throws IOException {
+            public int available()
+                    throws IOException {
+                return (int)Math.max(Math.min(0, size -this.counter), Integer.MAX_VALUE);
+            }
+
+            @Override
+            public int read()
+                    throws IOException {
                 try {
                     if (this.counter > size -1)
                         return -1;
@@ -59,6 +69,26 @@ public class MockUtils {
                 } finally {
                     this.counter++;
                 }
+            }
+            
+            @Override
+            public int read(byte[] bytes, int offset, int lenght)
+                    throws IOException {
+                
+                if (bytes == null)
+                    throw new NullPointerException();
+                else if (offset < 0 || lenght < 0 || lenght > bytes.length - offset)
+                    throw new IndexOutOfBoundsException();
+                else if (lenght == 0)
+                    return 0;
+                
+                if (this.counter <= 0
+                        || this.counter + offset + lenght >= size -1)
+                    return super.read(bytes, offset, lenght);
+                
+                Arrays.fill(bytes, 0, lenght, (byte)'-');
+                this.counter += offset +lenght; 
+                return lenght;    
             }
         };
     }
