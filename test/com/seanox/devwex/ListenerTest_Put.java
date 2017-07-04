@@ -21,12 +21,18 @@
  */
 package com.seanox.devwex;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 import com.seanox.test.utils.Codec;
 import com.seanox.test.utils.HttpUtils;
+import com.seanox.test.utils.MockUtils;
 import com.seanox.test.utils.Pattern;
+import com.seanox.test.utils.StreamUtils;
 
 /**
  *  TestCases for {@link com.seanox.devwex.Listener}.
@@ -739,6 +745,44 @@ public class ListenerTest_Put extends AbstractTest {
         String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_424));
     } 
+    
+    /** 
+     *  TestCase for aceptance.
+     *  For large PUT requests.
+     *  No server timeout may occur and the data must be written correctly.
+     *  In this case the request is responded with status 201.
+     *  @throws Exception
+     */      
+    @Test
+    public void testAceptance_25() throws Exception {
+        
+        String request;
+        String response;
+        
+        request = "Delete /put_test_1/test_file.upload HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "Content-Length: 0\r\n"
+                + "\r\n";
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+            
+        long size = 3L *1000L *1000L *1000L;
+        InputStream input = MockUtils.createInputStream(size);
+        request = "Put /put_test_1/test_file.upload HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "Content-Length: " + size + "\r\n"
+                + "\r\n";
+        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request, input));
+        
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
+
+        File file = new File(AbstractSuite.getRootStage(), "/documents_vh_A/put_test_1/test_file.upload");
+        Assert.assertEquals(size, file.length());
+        Assert.assertEquals("---------E", new String(StreamUtils.tail(new FileInputStream(file), 10)));
+        
+        Thread.sleep(50);
+        String accessLog = AbstractSuite.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_201));
+    }     
 
     /** 
      *  TestCase for aceptance.
