@@ -22,7 +22,6 @@
 package com.seanox.devwex;
 
 import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -43,32 +42,35 @@ public class ListenerTest_Request extends AbstractTest {
     
     /** 
      *  TestCase for timeout.
-     *  The transfer from the request is limited to 15 seconds. For a longer
-     *  time, status 400 is responded.
+     *  The timeout is defined to 15 seconds. Because the request is not
+     *  terminated, the server waits for the request end. Therefore the
+     *  request must be responded with status 408.
      *  @throws Exception
-     */    
+     */  
     @Test(timeout=16000)
     public void testTimeout_1() throws Exception {
        
         String response = new String(HttpUtils.sendRequest("127.0.0.1:80"));
         
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_400));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_408));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
         Thread.sleep(50);
         String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_400));
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_408));
     }
     
     /** 
      *  TestCase for timeout.
-     *  The transfer from the request is limited to 15 seconds. For a longer
-     *  time (also slow request), status 400 is responded.
+     *  The timeout is defined to 15 seconds and the request is transmitted
+     *  slowly. The total duration is over 15 seconds, but the individual parts
+     *  of the request are transmitted less than 15 seconds. The request must
+     *  be transmitted completely and responded with status 200.
      *  @throws Exception
-     */    
-    @Test(timeout=20000)
+     */      
+    @Test(timeout=25000)
     public void testTimeout_2() throws Exception {
         
         try (Socket socket = new Socket("127.0.0.1", 8085)) {
@@ -78,40 +80,75 @@ public class ListenerTest_Request extends AbstractTest {
             writer.print("GET / HTTP/1.0");
             writer.flush();
             
-            byte[] data = new byte[65535];
-            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-            boolean control = true;
-            while (control) {
-                int size = 0;
-                for (int loop1 = 1; control && loop1 < 10; loop1++) {
-                    writer.printf("%nline-%02d: ", Integer.valueOf(loop1));
-                    for (int loop2 = 1; control && loop2 < 10; loop2++) {
-                        Thread.sleep(275);
-                        writer.print("x");
-                        if (input.available() > 0)
-                            size = input.read(data);
-                        else size = 0;
-                        if (size > 0)
-                            buffer.write(data, 0, size);
-                        if (size < 0)
-                            control = false;
-                        if (buffer.toString().contains("\r\n"))
-                            control = false;
-                    }
+            for (int loop1 = 1; loop1 < 10; loop1++) {
+                writer.printf("%nline-%02d: ", Integer.valueOf(loop1));
+                for (int loop2 = 1; loop2 < 10; loop2++) {
+                    Thread.sleep(275);
+                    writer.print("x");
+                    writer.flush();
+                    Assert.assertFalse(input.available() > 0);
                 }
             }
+            writer.print("\r\n\r\n");
+            writer.flush();
             
-            String response = buffer.toString();
-            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_400));
+            String response = new String(StreamUtils.read(input));
+            
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
             Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
             
             Thread.sleep(50);
             String accessLog = AbstractSuite.getAccessLogTail();
-            Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("400", "GET / HTTP/1.0")));
+            Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", "GET / HTTP/1.0")));
         }
     }    
+    
+    /** 
+     *  TestCase for timeout.
+     *  The timeout is defined to 15 seconds and the request is transmitted
+     *  slowly. The total duration is over 15 seconds, but the individual parts
+     *  of the request are transmitted less than 15 seconds. Because the
+     *  request is not terminated, the server waits for the request end.
+     *  Therefore the request  must be responded with status 408.
+     *  @throws Exception
+     */      
+    @Test(timeout=40000)
+    public void testTimeout_3() throws Exception {
+        
+        try (Socket socket = new Socket("127.0.0.1", 8085)) {
+            
+            InputStream input = new BufferedInputStream(socket.getInputStream(), 65535);
+            PrintWriter writer = new PrintWriter(socket.getOutputStream());
+            writer.print("GET / HTTP/1.0");
+            writer.flush();
+            
+            for (int loop1 = 1; loop1 < 10; loop1++) {
+                writer.printf("%nline-%02d: ", Integer.valueOf(loop1));
+                for (int loop2 = 1; loop2 < 10; loop2++) {
+                    Thread.sleep(275);
+                    writer.print("x");
+                    writer.flush();
+                    Assert.assertFalse(input.available() > 0);
+                }
+            }
+
+            Thread.sleep(250);
+            Assert.assertTrue(input.available() <= 0);
+            
+            String response = new String(StreamUtils.read(input));
+            
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_408));
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+            Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
+            
+            Thread.sleep(50);
+            String accessLog = AbstractSuite.getAccessLogTail();
+            Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("408", "GET / HTTP/1.0")));
+        }
+    }  
     
     /** 
      *  TestCase for aceptance.
