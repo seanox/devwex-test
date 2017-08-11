@@ -29,6 +29,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+    ServiceTest_Print.class,
     ServiceTest_Restart.class
 })
 public class ServiceTest extends AbstractSuite {
