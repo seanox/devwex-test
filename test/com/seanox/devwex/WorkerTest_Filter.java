@@ -32,9 +32,9 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Listener}.
+ *  TestCases for {@link com.seanox.devwex.Worker}.
  */
-public class ListenerTest_Filter extends AbstractTest {
+public class WorkerTest_Filter extends AbstractTest {
     
     /** 
      *  TestCase for aceptance.
@@ -488,7 +488,7 @@ public class ListenerTest_Filter extends AbstractTest {
      *  If the request contains {@code Felda: t5}, then a module should be
      *  used. But the module definition is incorrect, the option {@code [M]} is
      *  missing here. So the request is responded with status 403.
-     *  filter expression: {@code GET IS CONTAINS FELDA T5 > ConnectorA}
+     *  filter expression: {@code GET IS CONTAINS FELDA T5 > ExtensionA}
      *  @throws Exception
      */
     @Test
@@ -508,7 +508,7 @@ public class ListenerTest_Filter extends AbstractTest {
      *  TestCase for aceptance.
      *  If the request contains {@code Felda: t3}, then a module should be
      *  used. So the request is responded with status 001.
-     *  filter expression: {@code GET IS CONTAINS FELDA T3 > ConnectorA [pA=3] [m]}
+     *  filter expression: {@code GET IS CONTAINS FELDA T3 > ExtensionA [pA=3] [m]}
      *  @throws Exception
      */
     @Test
@@ -521,9 +521,8 @@ public class ListenerTest_Filter extends AbstractTest {
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8086", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ConnectorA\r\n.*$"));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nModultype: 1\r\n.*$"));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: ConnectorA \\[pA=3\\] \\[m\\]\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ExtensionA::Filter\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: ExtensionA \\[pA=3\\] \\[m\\]\r\n.*$"));
         
         Thread.sleep(50);
         String accessLog = AbstractSuite.getAccessLogTail();
@@ -537,7 +536,7 @@ public class ListenerTest_Filter extends AbstractTest {
      *  The request is responded with status 200 and a test file is created in
      *  DocRoot. Each filter increases the value in the file. Finally, the file
      *  must contain the value "3".
-     *  filter expression: {@code ALL ALWAYS > ConnectorE [M]}
+     *  filter expression: {@code ALL ALWAYS > ExtensionE [M]}
      *  @throws Exception
      */
     @Test
@@ -563,8 +562,8 @@ public class ListenerTest_Filter extends AbstractTest {
     /** 
      *  TestCase for aceptance.
      *  Configuration:
-     *      {@code FLT: GET IS CONTAINS QUERY -404- > ConnectorF [M]}
-     *      {@code REF: /env.test > ConnectorC [M]}
+     *      {@code FLT: GET IS CONTAINS QUERY -404- > ExtensionF [M]}
+     *      {@code REF: /env.test > ExtensionC [M]}
      *  The request is responded with status 404 even the path is defined as
      *  module.
      *  @throws Exception
@@ -604,8 +603,8 @@ public class ListenerTest_Filter extends AbstractTest {
     /** 
      *  TestCase for aceptance.
      *  Configuration:
-     *      {@code FLT: PUT IS CONTAINS QUERY -404- > ConnectorF [M]}
-     *      {@code REF: /env.test > ConnectorC [M]}
+     *      {@code FLT: PUT IS CONTAINS QUERY -404- > vF [M]}
+     *      {@code REF: /env.test > ExtensionC [M]}
      *  The request is responded with status 201 because the status 404 + PUT
      *  is equals to a ressource that does not exist. This is the normal
      *  situation to create a new ressource.

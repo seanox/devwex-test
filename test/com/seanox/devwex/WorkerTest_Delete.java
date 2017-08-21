@@ -361,7 +361,7 @@ public class WorkerTest_Delete extends AbstractTest {
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ExtensionA\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ExtensionA::Service\r\n.*$"));
         Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: ExtensionA \\[v:xx=123\\] \\[m\\]\r\n.*$"));
         
         Thread.sleep(50);
