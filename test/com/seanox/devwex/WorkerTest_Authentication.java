@@ -25,12 +25,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- *  TestSuite for #{@link com.seanox.devwex.Listener}.
+ *  TestSuite for #{@link com.seanox.devwex.Worker}.
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    ListenerTest_AuthenticationBasic.class,
-    ListenerTest_AuthenticationDigest.class
+    WorkerTest_AuthenticationBasic.class,
+    WorkerTest_AuthenticationDigest.class
 })
-public class ListenerTest_Authentication extends AbstractSuite {
+public class WorkerTest_Authentication extends AbstractSuite {
 }

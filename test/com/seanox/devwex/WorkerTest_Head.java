@@ -32,9 +32,9 @@ import com.seanox.test.utils.Pattern;
 import com.seanox.test.utils.HttpUtils.HeaderField;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Listener}.
+ *  TestCases for {@link com.seanox.devwex.Worker}.
  */
-public class ListenerTest_Head extends AbstractTest {
+public class WorkerTest_Head extends AbstractTest {
     
     /** 
      *  TestCase for aceptance.
@@ -584,137 +584,137 @@ public class ListenerTest_Head extends AbstractTest {
 
             int count = 0;
 
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      "1");    
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      "127");
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      "1");
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      "127");    
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "127",    "256");
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    "127");
+            WorkerTest_Head.assertAceptance_18(++count, path, "0",      "0");
+            WorkerTest_Head.assertAceptance_18(++count, path, "0",      "1");    
+            WorkerTest_Head.assertAceptance_18(++count, path, "0",      "127");
+            WorkerTest_Head.assertAceptance_18(++count, path, "0",      "65535");
+            WorkerTest_Head.assertAceptance_18(++count, path, "1",      "0");
+            WorkerTest_Head.assertAceptance_18(++count, path, "1",      "1");
+            WorkerTest_Head.assertAceptance_18(++count, path, "1",      "127");    
+            WorkerTest_Head.assertAceptance_18(++count, path, "1",      "65535");
+            WorkerTest_Head.assertAceptance_18(++count, path, "127",    "256");
+            WorkerTest_Head.assertAceptance_18(++count, path, "256",    "127");
     
-            ListenerTest_Head.assertAceptance_18(++count, path, "127",    "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "127",    "1");
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  "1");
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  "256");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-256",   "127");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-127",   "256");
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    "-127");
-            ListenerTest_Head.assertAceptance_18(++count, path, "127",    "-256");
+            WorkerTest_Head.assertAceptance_18(++count, path, "127",    "0");
+            WorkerTest_Head.assertAceptance_18(++count, path, "127",    "1");
+            WorkerTest_Head.assertAceptance_18(++count, path, "65535",  "0");
+            WorkerTest_Head.assertAceptance_18(++count, path, "65535",  "1");
+            WorkerTest_Head.assertAceptance_18(++count, path, "256",    "65535");
+            WorkerTest_Head.assertAceptance_18(++count, path, "65535",  "256");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-256",   "127");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-127",   "256");
+            WorkerTest_Head.assertAceptance_18(++count, path, "256",    "-127");
+            WorkerTest_Head.assertAceptance_18(++count, path, "127",    "-256");
     
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      "A");
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      "A");
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    "B");
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  "C");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-0",     "A");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-1",     "A");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-256",   "B");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-65535", "C");
-            ListenerTest_Head.assertAceptance_18(++count, path, "A",      "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "A",      "1");
+            WorkerTest_Head.assertAceptance_18(++count, path, "0",      "A");
+            WorkerTest_Head.assertAceptance_18(++count, path, "1",      "A");
+            WorkerTest_Head.assertAceptance_18(++count, path, "256",    "B");
+            WorkerTest_Head.assertAceptance_18(++count, path, "65535",  "C");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-0",     "A");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-1",     "A");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-256",   "B");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-65535", "C");
+            WorkerTest_Head.assertAceptance_18(++count, path, "A",      "0");
+            WorkerTest_Head.assertAceptance_18(++count, path, "A",      "1");
     
-            ListenerTest_Head.assertAceptance_18(++count, path, "B",      "256");
-            ListenerTest_Head.assertAceptance_18(++count, path, "C",      "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "A",      "-0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "A",      "-1");
-            ListenerTest_Head.assertAceptance_18(++count, path, "B",      "-256");
-            ListenerTest_Head.assertAceptance_18(++count, path, "C",      "-65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      "");
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    "");
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  "");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-0",     "");
+            WorkerTest_Head.assertAceptance_18(++count, path, "B",      "256");
+            WorkerTest_Head.assertAceptance_18(++count, path, "C",      "65535");
+            WorkerTest_Head.assertAceptance_18(++count, path, "A",      "-0");
+            WorkerTest_Head.assertAceptance_18(++count, path, "A",      "-1");
+            WorkerTest_Head.assertAceptance_18(++count, path, "B",      "-256");
+            WorkerTest_Head.assertAceptance_18(++count, path, "C",      "-65535");
+            WorkerTest_Head.assertAceptance_18(++count, path, "0",      "");
+            WorkerTest_Head.assertAceptance_18(++count, path, "256",    "");
+            WorkerTest_Head.assertAceptance_18(++count, path, "65535",  "");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-0",     "");
     
-            ListenerTest_Head.assertAceptance_18(++count, path, "-1",     "");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-256",   "");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-65535", "");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,     "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,     "256");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,     "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,     "A");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,      null);
-            ListenerTest_Head.assertAceptance_18(++count, path, "",       "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "",       "256");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-1",     "");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-256",   "");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-65535", "");
+            WorkerTest_Head.assertAceptance_18(++count, path, null,     "0");
+            WorkerTest_Head.assertAceptance_18(++count, path, null,     "256");
+            WorkerTest_Head.assertAceptance_18(++count, path, null,     "65535");
+            WorkerTest_Head.assertAceptance_18(++count, path, null,     "A");
+            WorkerTest_Head.assertAceptance_18(++count, path, null,      null);
+            WorkerTest_Head.assertAceptance_18(++count, path, "",       "0");
+            WorkerTest_Head.assertAceptance_18(++count, path, "",       "256");
            
-            ListenerTest_Head.assertAceptance_18(++count, path, "",       "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "",       "-0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "",       "-1");
-            ListenerTest_Head.assertAceptance_18(++count, path, "",       "-256");
-            ListenerTest_Head.assertAceptance_18(++count, path, "",       "-65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      " ");
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      " ");
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    " ");
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  " ");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-0",     " ");
+            WorkerTest_Head.assertAceptance_18(++count, path, "",       "65535");
+            WorkerTest_Head.assertAceptance_18(++count, path, "",       "-0");
+            WorkerTest_Head.assertAceptance_18(++count, path, "",       "-1");
+            WorkerTest_Head.assertAceptance_18(++count, path, "",       "-256");
+            WorkerTest_Head.assertAceptance_18(++count, path, "",       "-65535");
+            WorkerTest_Head.assertAceptance_18(++count, path, "0",      " ");
+            WorkerTest_Head.assertAceptance_18(++count, path, "1",      " ");
+            WorkerTest_Head.assertAceptance_18(++count, path, "256",    " ");
+            WorkerTest_Head.assertAceptance_18(++count, path, "65535",  " ");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-0",     " ");
             
-            ListenerTest_Head.assertAceptance_18(++count, path, null,       "-0");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,       "-1");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,       "-256");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,       "-65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      null);
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      null);
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    null);
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  null);
-            ListenerTest_Head.assertAceptance_18(++count, path, "-0",     null);  
-            ListenerTest_Head.assertAceptance_18(++count, path, null,    "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,  "256");
-            ListenerTest_Head.assertAceptance_18(++count, path, null,   "127");            
+            WorkerTest_Head.assertAceptance_18(++count, path, null,       "-0");
+            WorkerTest_Head.assertAceptance_18(++count, path, null,       "-1");
+            WorkerTest_Head.assertAceptance_18(++count, path, null,       "-256");
+            WorkerTest_Head.assertAceptance_18(++count, path, null,       "-65535");
+            WorkerTest_Head.assertAceptance_18(++count, path, "0",      null);
+            WorkerTest_Head.assertAceptance_18(++count, path, "1",      null);
+            WorkerTest_Head.assertAceptance_18(++count, path, "256",    null);
+            WorkerTest_Head.assertAceptance_18(++count, path, "65535",  null);
+            WorkerTest_Head.assertAceptance_18(++count, path, "-0",     null);  
+            WorkerTest_Head.assertAceptance_18(++count, path, null,    "65535");
+            WorkerTest_Head.assertAceptance_18(++count, path, null,  "256");
+            WorkerTest_Head.assertAceptance_18(++count, path, null,   "127");            
             
-            ListenerTest_Head.assertAceptance_18(++count, path, "-1",     " ");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-256",   " ");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-65535", " ");
-            ListenerTest_Head.assertAceptance_18(++count, path, " ",      "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, " ",      "1");
-            ListenerTest_Head.assertAceptance_18(++count, path, " ",      "256");
-            ListenerTest_Head.assertAceptance_18(++count, path, " ",      "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, " ",      "-0");
-            ListenerTest_Head.assertAceptance_18(++count, path, " ",      "-1");
-            ListenerTest_Head.assertAceptance_18(++count, path, " ",      "-256");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-1",     " ");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-256",   " ");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-65535", " ");
+            WorkerTest_Head.assertAceptance_18(++count, path, " ",      "0");
+            WorkerTest_Head.assertAceptance_18(++count, path, " ",      "1");
+            WorkerTest_Head.assertAceptance_18(++count, path, " ",      "256");
+            WorkerTest_Head.assertAceptance_18(++count, path, " ",      "65535");
+            WorkerTest_Head.assertAceptance_18(++count, path, " ",      "-0");
+            WorkerTest_Head.assertAceptance_18(++count, path, " ",      "-1");
+            WorkerTest_Head.assertAceptance_18(++count, path, " ",      "-256");
             
-            ListenerTest_Head.assertAceptance_18(++count, path, " ",      "-65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      "-");
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      "-");
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    "-");
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  "-");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-0",     "-");    
-            ListenerTest_Head.assertAceptance_18(++count, path, "-1",     "-");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-256",   "-");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-65535", "-");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-",      "0");
+            WorkerTest_Head.assertAceptance_18(++count, path, " ",      "-65535");
+            WorkerTest_Head.assertAceptance_18(++count, path, "0",      "-");
+            WorkerTest_Head.assertAceptance_18(++count, path, "1",      "-");
+            WorkerTest_Head.assertAceptance_18(++count, path, "256",    "-");
+            WorkerTest_Head.assertAceptance_18(++count, path, "65535",  "-");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-0",     "-");    
+            WorkerTest_Head.assertAceptance_18(++count, path, "-1",     "-");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-256",   "-");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-65535", "-");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-",      "0");
     
-            ListenerTest_Head.assertAceptance_18(++count, path, "-",      "256");    
-            ListenerTest_Head.assertAceptance_18(++count, path, "-",      "65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-",      "-0");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-",      "-1");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-",      "-256");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-",      "-65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "0",      ";");
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      ";");    
-            ListenerTest_Head.assertAceptance_18(++count, path, "256",    ";");
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535",  ";");
-            ListenerTest_Head.assertAceptance_18(++count, path, "0;",      null);
-            ListenerTest_Head.assertAceptance_18(++count, path, "1;",      null);    
-            ListenerTest_Head.assertAceptance_18(++count, path, "256;",    null);
-            ListenerTest_Head.assertAceptance_18(++count, path, "65535;",  null);            
+            WorkerTest_Head.assertAceptance_18(++count, path, "-",      "256");    
+            WorkerTest_Head.assertAceptance_18(++count, path, "-",      "65535");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-",      "-0");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-",      "-1");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-",      "-256");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-",      "-65535");
+            WorkerTest_Head.assertAceptance_18(++count, path, "0",      ";");
+            WorkerTest_Head.assertAceptance_18(++count, path, "1",      ";");    
+            WorkerTest_Head.assertAceptance_18(++count, path, "256",    ";");
+            WorkerTest_Head.assertAceptance_18(++count, path, "65535",  ";");
+            WorkerTest_Head.assertAceptance_18(++count, path, "0;",      null);
+            WorkerTest_Head.assertAceptance_18(++count, path, "1;",      null);    
+            WorkerTest_Head.assertAceptance_18(++count, path, "256;",    null);
+            WorkerTest_Head.assertAceptance_18(++count, path, "65535;",  null);            
     
-            ListenerTest_Head.assertAceptance_18(++count, path, "-0",     ";");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-1",     ";");
-            ListenerTest_Head.assertAceptance_18(++count, path, "-256",   ";");    
-            ListenerTest_Head.assertAceptance_18(++count, path, "-65535", ";");
-            ListenerTest_Head.assertAceptance_18(++count, path, ";",      "0");
-            ListenerTest_Head.assertAceptance_18(++count, path, ";",      "1");
-            ListenerTest_Head.assertAceptance_18(++count, path, ";",      "256");
-            ListenerTest_Head.assertAceptance_18(++count, path, ";",      "65535");    
-            ListenerTest_Head.assertAceptance_18(++count, path, ";",      "-0");
-            ListenerTest_Head.assertAceptance_18(++count, path, ";",      "-1");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-0",     ";");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-1",     ";");
+            WorkerTest_Head.assertAceptance_18(++count, path, "-256",   ";");    
+            WorkerTest_Head.assertAceptance_18(++count, path, "-65535", ";");
+            WorkerTest_Head.assertAceptance_18(++count, path, ";",      "0");
+            WorkerTest_Head.assertAceptance_18(++count, path, ";",      "1");
+            WorkerTest_Head.assertAceptance_18(++count, path, ";",      "256");
+            WorkerTest_Head.assertAceptance_18(++count, path, ";",      "65535");    
+            WorkerTest_Head.assertAceptance_18(++count, path, ";",      "-0");
+            WorkerTest_Head.assertAceptance_18(++count, path, ";",      "-1");
             
-            ListenerTest_Head.assertAceptance_18(++count, path, ";",      "-256");
-            ListenerTest_Head.assertAceptance_18(++count, path, ";",      "-65535");
-            ListenerTest_Head.assertAceptance_18(++count, path, "1",      "");
-            ListenerTest_Head.assertAceptance_18(++count, path, "",       "1");
+            WorkerTest_Head.assertAceptance_18(++count, path, ";",      "-256");
+            WorkerTest_Head.assertAceptance_18(++count, path, ";",      "-65535");
+            WorkerTest_Head.assertAceptance_18(++count, path, "1",      "");
+            WorkerTest_Head.assertAceptance_18(++count, path, "",       "1");
         }
     }
     

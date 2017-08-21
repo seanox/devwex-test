@@ -31,9 +31,9 @@ import com.seanox.test.utils.HttpUtils.HeaderField;
 import com.seanox.test.utils.HttpUtils.Authentication.Digest;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Listener}.
+ *  TestCases for {@link com.seanox.devwex.Worker}.
  */
-public class ListenerTest_AuthenticationBasic extends AbstractTest {
+public class WorkerTest_AuthenticationBasic extends AbstractTest {
     
     /** 
      *  TestCase for aceptance.
@@ -390,20 +390,20 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     @Test
     public void testAceptance_13() throws Exception {
         
-        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/f", "401", 0);
-        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/g", "401", 0);
-        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/h", "401", 0);
-        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/i", "401", 0);
+        WorkerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/f", "401", 0);
+        WorkerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/g", "401", 0);
+        WorkerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/h", "401", 0);
+        WorkerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/i", "401", 0);
 
-        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/f", "403", 1);
-        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/g", "403", 1);
-        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/h", "403", 1);
-        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/i", "403", 1);
+        WorkerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/f", "403", 1);
+        WorkerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/g", "403", 1);
+        WorkerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/h", "403", 1);
+        WorkerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/i", "403", 1);
 
-        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/f", "401", 2);
-        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/g", "401", 2);
-        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/h", "401", 2);
-        ListenerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/i", "401", 2);
+        WorkerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/f", "401", 2);
+        WorkerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/g", "401", 2);
+        WorkerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/h", "401", 2);
+        WorkerTest_AuthenticationBasic.assertAceptance_13("/authentication/a/b/c/i", "401", 2);
     }
     
     private static void assertAceptance_14(String uri, String realm, int auth) throws Exception {
@@ -431,17 +431,17 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     @Test
     public void testAceptance_14() throws Exception {
         
-        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/a/", "", 0);
-        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/b/", "", 0);
-        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/c/", "", 0);
-        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/d/", "", 0);
-        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/e/", "", 0);
-        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/f/", "x", 0);
-        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/g/", "x", 0);
-        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/h/", "x", 0);
-        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/i/", "x", 0);
-        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/j/", "\\\"x\\\"", 0);
-        ListenerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/k/", "", 0);        
+        WorkerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/a/", "", 0);
+        WorkerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/b/", "", 0);
+        WorkerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/c/", "", 0);
+        WorkerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/d/", "", 0);
+        WorkerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/e/", "", 0);
+        WorkerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/f/", "x", 0);
+        WorkerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/g/", "x", 0);
+        WorkerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/h/", "x", 0);
+        WorkerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/i/", "x", 0);
+        WorkerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/j/", "\\\"x\\\"", 0);
+        WorkerTest_AuthenticationBasic.assertAceptance_14("/authentication/r/k/", "", 0);        
     }
     
     private static void assertAceptance_15(String uri, String realm, String auth) throws Exception {
@@ -469,15 +469,15 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     @Test
     public void testAceptance_15() throws Exception {
         
-        ListenerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/a/", "", null);
-        ListenerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/a/", "", null);
-        ListenerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/b/", "sb", null);
-        ListenerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/b/", "sb", null);
+        WorkerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/a/", "", null);
+        WorkerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/a/", "", null);
+        WorkerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/b/", "sb", null);
+        WorkerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/b/", "sb", null);
 
-        ListenerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/a/", "", "usrSa1:");
-        ListenerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/a/", null, "usrSa2:");
-        ListenerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/b/", "sb", "usrSb1:");
-        ListenerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/b/", null, "usrSb2:");        
+        WorkerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/a/", "", "usrSa1:");
+        WorkerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/a/", null, "usrSa2:");
+        WorkerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/b/", "sb", "usrSb1:");
+        WorkerTest_AuthenticationBasic.assertAceptance_15("/authentication/s/b/", null, "usrSb2:");        
     } 
     
     /** 
@@ -911,31 +911,31 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     @Test
     public void testAceptance_22() throws Exception {
         
-        ListenerTest_AuthenticationBasic.assertAceptance_22_1("/o1", null);
-        ListenerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2", null);
-        ListenerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3", null);
-        ListenerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1", "Basic");
-        ListenerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1/b2", "Basic");
-        ListenerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1/b2/b3", "Basic");
-        ListenerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1/b2/b3/n1", null);
-        ListenerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1/b2/b3/n1/n2", null);
-        ListenerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1/b2/b3/n1/n2/n3", null);
-        ListenerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1/b2/b3/n1/n2/n3/d1", "Digest");
-        ListenerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1/b2/b3/n1/n2/n3/d1/d2", "Digest");
-        ListenerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1/b2/b3/n1/n2/n3/d1/d2/d3", "Digest");
+        WorkerTest_AuthenticationBasic.assertAceptance_22_1("/o1", null);
+        WorkerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2", null);
+        WorkerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3", null);
+        WorkerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1", "Basic");
+        WorkerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1/b2", "Basic");
+        WorkerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1/b2/b3", "Basic");
+        WorkerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1/b2/b3/n1", null);
+        WorkerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1/b2/b3/n1/n2", null);
+        WorkerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1/b2/b3/n1/n2/n3", null);
+        WorkerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1/b2/b3/n1/n2/n3/d1", "Digest");
+        WorkerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1/b2/b3/n1/n2/n3/d1/d2", "Digest");
+        WorkerTest_AuthenticationBasic.assertAceptance_22_1("/o1/o2/o3/b1/b2/b3/n1/n2/n3/d1/d2/d3", "Digest");
 
-        ListenerTest_AuthenticationBasic.assertAceptance_22_2("/o1");
-        ListenerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2");
-        ListenerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3");
-        ListenerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1", "Basic", "usr-b", "pwd-b");
-        ListenerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1/b2", "Basic", "usr-b", "pwd-b");
-        ListenerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1/b2/b3", "Basic", "usr-b", "pwd-b");
-        ListenerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1/b2/b3/n1");
-        ListenerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1/b2/b3/n1/n2");
-        ListenerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1/b2/b3/n1/n2/n3");
-        ListenerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1/b2/b3/n1/n2/n3/d1", "Digest", "usr-d", "pwd-d");
-        ListenerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1/b2/b3/n1/n2/n3/d1/d2", "Digest", "usr-d", "pwd-d");
-        ListenerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1/b2/b3/n1/n2/n3/d1/d2/d3", "Digest", "usr-d", "pwd-d");        
+        WorkerTest_AuthenticationBasic.assertAceptance_22_2("/o1");
+        WorkerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2");
+        WorkerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3");
+        WorkerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1", "Basic", "usr-b", "pwd-b");
+        WorkerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1/b2", "Basic", "usr-b", "pwd-b");
+        WorkerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1/b2/b3", "Basic", "usr-b", "pwd-b");
+        WorkerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1/b2/b3/n1");
+        WorkerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1/b2/b3/n1/n2");
+        WorkerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1/b2/b3/n1/n2/n3");
+        WorkerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1/b2/b3/n1/n2/n3/d1", "Digest", "usr-d", "pwd-d");
+        WorkerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1/b2/b3/n1/n2/n3/d1/d2", "Digest", "usr-d", "pwd-d");
+        WorkerTest_AuthenticationBasic.assertAceptance_22_2("/o1/o2/o3/b1/b2/b3/n1/n2/n3/d1/d2/d3", "Digest", "usr-d", "pwd-d");        
     }
     
     /** 
@@ -1130,7 +1130,7 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     /** 
      *  TestCase for aceptance.
      *  Test for Basic Authentication:
-     *  {@code /authentication/bvm > ConnectorA [v:xx=123] [m] [Acc:group:c]}
+     *  {@code /authentication/bvm > ExtensionA [v:xx=123] [m] [Acc:group:c]}
      *  The URI requires an authorization and referenced a modul. The requests 
      *  must be responded with status 401 and 001.
      *  @throws Exception
@@ -1202,65 +1202,65 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     @Test
     public void testAceptance_29() throws Exception {
         
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg0", "usr-a", "pwd-a", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg0", "usr-b", "pwd-b", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg0", "usr-e", "pwd-e", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg0", "usr-d", "pwd-d", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg0", "usr-x", "pwd-x", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg0", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg0", "usr-b", "pwd-b", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg0", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg0", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg0", "usr-x", "pwd-x", false);
 
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg1", "usr-a", "pwd-a", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg1", "usr-b", "pwd-b", true);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg1", "usr-e", "pwd-e", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg1", "usr-d", "pwd-d", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg1", "usr-x", "pwd-x", true);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg1", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg1", "usr-b", "pwd-b", true);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg1", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg1", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg1", "usr-x", "pwd-x", true);
 
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg2", "usr-a", "pwd-a", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg2", "usr-b", "pwd-b", true);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg2", "usr-e", "pwd-e", true);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg2", "usr-d", "pwd-d", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg2", "usr-x", "pwd-x", true);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg2", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg2", "usr-b", "pwd-b", true);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg2", "usr-e", "pwd-e", true);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg2", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg2", "usr-x", "pwd-x", true);
 
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg3", "usr-a", "pwd-a", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg3", "usr-b", "pwd-b", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg3", "usr-e", "pwd-e", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg3", "usr-d", "pwd-d", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg3", "usr-x", "pwd-x", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg3", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg3", "usr-b", "pwd-b", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg3", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg3", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg3", "usr-x", "pwd-x", false);
 
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg4", "usr-a", "pwd-a", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg4", "usr-b", "pwd-b", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg4", "usr-e", "pwd-e", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg4", "usr-d", "pwd-d", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg4", "usr-x", "pwd-x", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg4", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg4", "usr-b", "pwd-b", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg4", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg4", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg4", "usr-x", "pwd-x", false);
 
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg5", "usr-a", "pwd-a", true);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg5", "usr-b", "pwd-b", true);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg5", "usr-e", "pwd-e", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg5", "usr-d", "pwd-d", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg5", "usr-x", "pwd-x", true);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg5", "usr-a", "pwd-a", true);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg5", "usr-b", "pwd-b", true);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg5", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg5", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg5", "usr-x", "pwd-x", true);
 
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg6", "usr-a", "pwd-a", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg6", "usr-b", "pwd-b", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg6", "usr-e", "pwd-e", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg6", "usr-d", "pwd-d", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg6", "usr-x", "pwd-x", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg6", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg6", "usr-b", "pwd-b", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg6", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg6", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg6", "usr-x", "pwd-x", false);
 
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg7", "usr-a", "pwd-a", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg7", "usr-b", "pwd-b", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg7", "usr-e", "pwd-e", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg7", "usr-d", "pwd-d", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg7", "usr-x", "pwd-x", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg7", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg7", "usr-b", "pwd-b", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg7", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg7", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg7", "usr-x", "pwd-x", false);
 
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg8", "usr-a", "pwd-a", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg8", "usr-b", "pwd-b", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg8", "usr-e", "pwd-e", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg8", "usr-d", "pwd-d", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg8", "usr-x", "pwd-x", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg8", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg8", "usr-b", "pwd-b", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg8", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg8", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg8", "usr-x", "pwd-x", false);
 
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg9", "usr-a", "pwd-a", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg9", "usr-b", "pwd-b", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg9", "usr-e", "pwd-e", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg9", "usr-d", "pwd-d", false);
-        ListenerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg9", "usr-x", "pwd-x", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg9", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg9", "usr-b", "pwd-b", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg9", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg9", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationBasic.assertAceptance_29("/authentication/bg9", "usr-x", "pwd-x", false);
     }
     
     private static void assertAceptance_30(String uri, String method) throws Exception {
@@ -1288,9 +1288,9 @@ public class ListenerTest_AuthenticationBasic extends AbstractTest {
     @Test
     public void testAceptance_30() throws Exception {
         
-        ListenerTest_AuthenticationBasic.assertAceptance_30("/authentication/bdb/a", "Basic");
-        ListenerTest_AuthenticationBasic.assertAceptance_30("/authentication/bdb/a/b", "Digest");
-        ListenerTest_AuthenticationBasic.assertAceptance_30("/authentication/bdb/a/b/c", "Basic");
+        WorkerTest_AuthenticationBasic.assertAceptance_30("/authentication/bdb/a", "Basic");
+        WorkerTest_AuthenticationBasic.assertAceptance_30("/authentication/bdb/a/b", "Digest");
+        WorkerTest_AuthenticationBasic.assertAceptance_30("/authentication/bdb/a/b/c", "Basic");
     }     
     
     /** 

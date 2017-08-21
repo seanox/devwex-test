@@ -190,7 +190,7 @@ public abstract class AbstractSuite {
         accessLog.createNewFile();
         outputLog.createNewFile();
         
-        Service.main(new String[] {"start*"});
+        Service.main(new String[] {"start"});
     }
 
     /**

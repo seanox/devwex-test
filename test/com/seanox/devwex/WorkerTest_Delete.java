@@ -31,9 +31,9 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Listener}.
+ *  TestCases for {@link com.seanox.devwex.Worker}.
  */
-public class ListenerTest_Delete extends AbstractTest {
+public class WorkerTest_Delete extends AbstractTest {
     
     /** 
      *  TestCase for aceptance.
@@ -361,9 +361,8 @@ public class ListenerTest_Delete extends AbstractTest {
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ConnectorA\r\n.*$"));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nModultype: 7\r\n.*$"));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: ConnectorA \\[v:xx=123\\] \\[m\\]\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ExtensionA\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: ExtensionA \\[v:xx=123\\] \\[m\\]\r\n.*$"));
         
         Thread.sleep(50);
         String accessLog = AbstractSuite.getAccessLogTail();

@@ -29,19 +29,19 @@ import com.seanox.test.utils.ResourceUtils;
 import com.seanox.test.utils.TextUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Listener}.
+ *  TestCases for {@link com.seanox.devwex.Worker}.
  */
-public class ListenerTest_File extends AbstractTest {
+public class WorkerTest_File extends AbstractTest {
     
     private static String fileNormalize(String path) throws Exception {
-        return (String)Accession.invoke(Listener.class, "fileNormalize",
+        return (String)Accession.invoke(Worker.class, "fileNormalize",
                 new Object[] {path});
     }
     
     /** 
      *  TestCase for aceptance.
      *  Tested the use of method:
-     *      {@code Listener#fileNormalize(String)}.
+     *      {@code Worker#fileNormalize(String)}.
      *  @throws Exception
      */ 
     @Test
@@ -51,6 +51,6 @@ public class ListenerTest_File extends AbstractTest {
         String[] lines = TextUtils.extractLines(content); 
         for (int loop = 0; loop < lines.length; loop += 2)
             Assert.assertEquals("#" + (loop +1) + ": " + lines[loop], lines[loop +1],
-                    ListenerTest_File.fileNormalize(lines[loop]));
+                    WorkerTest_File.fileNormalize(lines[loop]));
     }
 }
