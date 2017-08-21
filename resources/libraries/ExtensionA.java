@@ -19,112 +19,45 @@
  *  with this program; if not, write to the Free Software Foundation, Inc.,
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-import java.io.OutputStream;
-import java.lang.reflect.Field;
-import java.net.Socket;
-import java.util.Map;
 
-/** Very elementary module, only for internal use. */
-public class ConnectorA {
+/** Very elementary extension, only for internal use. */
+public class ExtensionA extends AbstractExtension {
     
-    /** referenced listener */
-    private Object listener;
-    
-    /** socket of listener */
-    private Socket socket;   
-    
-    /** listener output stream */
-    private OutputStream output;
-    
-    /** listener environment */
-    private Object environment;
-    
-    /** internal map of listener environment */
-    private Map<String, String> environmentMap;    
-
-    /** listener connection control */
-    private boolean control;
-
-    /** listener response status */
-    private int status;
-
-    /** modul type */
-    private int type;
-    
-    /**
-     *  Synchronizes the fields of two objects.
-     *  In the target object is searched for the fields from the source object
-     *  and synchronized when if they exist.
-     *  @param source
-     *  @param target
-     */
-    private static void synchronizeFields(Object source, Object target)
-            throws Exception {
-
-        for (Field inport : source.getClass().getDeclaredFields()) {
-
-            Field export;
-            try {export = target.getClass().getDeclaredField(inport.getName());
-            } catch (NoSuchFieldException exception) {
-                continue;
-            }
-
-            export.setAccessible(true);
-            inport.setAccessible(true);
-
-            if (inport.getType().equals(Boolean.TYPE))
-                export.setBoolean(target, inport.getBoolean(source));
-            else if (inport.getType().equals(Integer.TYPE))
-                export.setInt(target, inport.getInt(source));
-            else if (inport.getType().equals(Long.TYPE))
-                export.setLong(target, inport.getLong(source));
-            else if (!inport.getType().isPrimitive())
-                export.set(target, inport.get(source));
-        }
+    public ExtensionA(String options) {
     }
     
-    private static Object getField(Object source, String field)
-            throws Exception {
+    public void filter(Object worker, String options) throws Exception {
+        this.perform(worker, options);
+    }
+
+    public void service(Object worker, String options) throws Exception {
+        this.perform(worker, options);
+    }
         
-        Field export = source.getClass().getDeclaredField(field);
-        export.setAccessible(true);
-        return export.get(source);
-    }
-    
-    public void bind(Object listener, int type) throws Exception {
+    private void perform(Object worker, String options) throws Exception {
 
-        this.listener = listener;
-        this.type = type;
-        ConnectorA.synchronizeFields(listener, this);
-        if (this.environment != null)
-            this.environmentMap = (Map<String, String>)ConnectorA.getField(this.environment, "entries");
-        if (this.output == null)
-            this.output = this.socket.getOutputStream();        
-        this.service();
-    }
-    
-    private void service() throws Exception {
-        
-        String string;
+        Meta meta = Meta.create(worker);
 
         try {
           
-            this.status = 1;
+            meta.status = 1;
 
             //the header is built and written out
-            string = ("HTTP/1.0 ").concat("001 Test ok").concat("\r\n");
-            string = string.concat("Server: ").concat(this.environmentMap.get("SERVER_SOFTWARE")).concat("\r\n");
-            if (this.environmentMap.get("MODULE_OPTS").length() > 0)
-                string = string.concat("Opts: ").concat(this.environmentMap.get("MODULE_OPTS")).concat("\r\n");
-            string = string.concat("Modul: ").concat(this.getClass().getName()).concat("\r\n");
-            string = string.concat("Modultype: ").concat(String.valueOf(this.type)).concat("\r\n\r\n");
+            String string = ("HTTP/1.0 ").concat("001 Test ok").concat("\r\n");
+            string = string.concat("Server: ").concat(meta.environmentMap.get("SERVER_SOFTWARE")).concat("\r\n");
+            if (meta.environmentMap.get("MODULE_OPTS").length() > 0)
+                string = string.concat("Opts: ").concat(meta.environmentMap.get("MODULE_OPTS")).concat("\r\n");
+            String method = new Throwable().getStackTrace()[1].getMethodName();
+            method = method.substring(0, 1).toUpperCase().concat(method.substring(1).toLowerCase());
+            string = string.concat("Modul: ").concat(this.getClass().getName() + "::" + method).concat("\r\n\r\n");
 
             //the connection is marked as closed
-            this.control = false;
-            this.output.write(string.getBytes());
+            meta.control = false;
+            meta.output.write(string.getBytes());
 
         } finally {
-            ConnectorA.synchronizeFields(this, this.listener);
+            
+            meta.synchronize();
         }
     }
 }

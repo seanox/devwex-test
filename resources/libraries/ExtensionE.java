@@ -19,77 +19,33 @@
  *  with this program; if not, write to the Free Software Foundation, Inc.,
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Map;
 
-/** Very elementary module, only for internal use. */
-public class ConnectorE {
+/** Very elementary extension, only for internal use. */
+public class ExtensionE extends AbstractExtension {
     
-    /** copy of listener environment */
-    private Object environment;
+    public ExtensionE(String options) {
+    }    
     
-    /** internal map of listener environment */
-    private Map<String, String> environmentMap;    
-    
-    /**
-     *  Synchronizes the fields of two objects.
-     *  In the target object is searched for the fields from the source object
-     *  and synchronized when if they exist.
-     *  @param source
-     *  @param target
-     */
-    private static void synchronizeFields(Object source, Object target)
-            throws Exception {
+    public void filter(Object worker, String options) throws Exception {
+        
+        Meta meta = Meta.create(worker);
 
-        for (Field inport : source.getClass().getDeclaredFields()) {
+        try {
+            
+            String docRoot = meta.environmentMap.get("DOCUMENT_ROOT");
+            
+            int value = 1;
+            Path testFile = Paths.get(docRoot, "test.txt");
+            if (Files.exists(testFile))
+                value = Integer.valueOf(new String(Files.readAllBytes(testFile))).intValue() +1;
+            Files.write(testFile, String.valueOf(value).getBytes());
 
-            Field export;
-            try {export = target.getClass().getDeclaredField(inport.getName());
-            } catch (NoSuchFieldException exception) {
-                continue;
-            }
-
-            export.setAccessible(true);
-            inport.setAccessible(true);
-
-            if (inport.getType().equals(Boolean.TYPE))
-                export.setBoolean(target, inport.getBoolean(source));
-            else if (inport.getType().equals(Integer.TYPE))
-                export.setInt(target, inport.getInt(source));
-            else if (inport.getType().equals(Long.TYPE))
-                export.setLong(target, inport.getLong(source));
-            else if (!inport.getType().isPrimitive())
-                export.set(target, inport.get(source));
+        } finally {
+            
+            meta.synchronize();
         }
-    }
-    
-    private static Object getField(Object source, String field)
-            throws Exception {
-        
-        Field export = source.getClass().getDeclaredField(field);
-        export.setAccessible(true);
-        return export.get(source);
-    }
-
-    public void bind(Object listener, int type) throws Exception {
-
-        ConnectorE.synchronizeFields(listener, this);
-        if (this.environment != null)
-            this.environmentMap = (Map<String, String>)ConnectorE.getField(this.environment, "entries");
-        this.service();
-    }
-    
-    public void service() throws Exception {
-        
-        String docRoot = this.environmentMap.get("DOCUMENT_ROOT");
-        
-        int value = 1;
-        Path testFile = Paths.get(docRoot, "test.txt");
-        if (Files.exists(testFile))
-            value = Integer.valueOf(new String(Files.readAllBytes(testFile))).intValue() +1;
-        Files.write(testFile, String.valueOf(value).getBytes());
     }
 }
