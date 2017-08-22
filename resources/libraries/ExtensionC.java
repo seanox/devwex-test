@@ -21,7 +21,6 @@
  */
 import java.util.Arrays;
 
-/** Very elementary extension, only for internal use. */
 public class ExtensionC extends AbstractWorkerExtension {
     
     public ExtensionC(String options) {

@@ -19,13 +19,12 @@
  *  with this program; if not, write to the Free Software Foundation, Inc.,
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-public class ConnectorD {
-
-    public void bind(Object listener, int type) {
-        this.service();
-    }
+public class ExtensionD extends AbstractWorkerExtension {
     
-    private void service() {
+    public ExtensionD(String options) {
+    }    
+    
+    public void filter(Worker worker, String options) throws Exception {
         throw new NullPointerException();
     }
 }

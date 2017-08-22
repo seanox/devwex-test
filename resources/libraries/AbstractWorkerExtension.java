@@ -24,10 +24,6 @@ import java.lang.reflect.Field;
 import java.net.Socket;
 import java.util.Map;
 
-/** 
- *  Abstract class to implements very elementary worker extensions.
- *  Only for internal use.
- */
 class AbstractWorkerExtension extends AbstractExtension {
     
     public void filter(Object facade, String options) throws Exception {

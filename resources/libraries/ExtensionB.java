@@ -23,7 +23,6 @@ import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.Socket;
 
-/** Very elementary extension, only for internal use. */
 public class ExtensionB {
 
     /** referenced worker */

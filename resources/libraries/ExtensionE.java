@@ -23,7 +23,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-/** Very elementary extension, only for internal use. */
 public class ExtensionE extends AbstractWorkerExtension {
     
     public ExtensionE(String options) {
