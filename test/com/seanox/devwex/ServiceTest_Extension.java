@@ -21,18 +21,11 @@
  */
 package com.seanox.devwex;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-
 /**
- *  TestSuite for #{@link com.seanox.devwex.Service}.
+ *  TestCases for {@link com.seanox.devwex.Service}.
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    ServiceTest_Extension.class,
-    ServiceTest_Print.class,
-    ServiceTest_Restart.class,
-    ServiceTest_Server.class
-})
-public class ServiceTest extends AbstractSuite {
+public class ServiceTest_Extension extends AbstractTest {
+    
+    //TODO: Beispiel für fehlerhaft implementierte Extension API
+    //TODO: Beispiel für Fehler beim Initialisieren
 }

@@ -89,5 +89,7 @@ public class ServiceTest_Print extends AbstractTest {
         String outputLog = AbstractSuite.getOutputLogTail();
         outputLog = outputLog.replaceAll("^[\\d-]+ [\\d:]+", "2000-01-01 14:00:00");
         Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_4_1"), outputLog);
-    }    
+    }
+    
+    //TODO: print + strict
 }

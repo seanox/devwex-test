@@ -21,18 +21,22 @@
  */
 package com.seanox.devwex;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-
 /**
- *  TestSuite for #{@link com.seanox.devwex.Service}.
+ *  TestCases for {@link com.seanox.devwex.Service}.
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    ServiceTest_Extension.class,
-    ServiceTest_Print.class,
-    ServiceTest_Restart.class,
-    ServiceTest_Server.class
-})
-public class ServiceTest extends AbstractSuite {
+public class ServiceTest_Server extends AbstractTest {
+    
+    //TODO: [REMOTE:BAS]    25001
+    //TODO: [REMOTE:A:BAS]  25002
+    //TODO: [REMOTE:B:BAS]  25003
+    //TODO: [REMOTE::BAS]   25004
+    
+    //TODO; [COUNT:BAS]     package: com.seanox.devwex
+    //TODO; [COUNT:A:BAS]   example
+    //TODO; [COUNT:B:BAS]   example (gleiche Klasse aber eigene Instanz, unabhängiger Zähler zu COUNT:A)
+    //TODO; [COUNT:B:BAS]   example-x (existiert nicht)
+    
+    //TODO: Beispiel für fehlerhaft implementierte Server API
+    //TODO: Beispiel für Fehler beim Initialisieren
+    //TODO: Beispiel für Fehler beim Run
 }
