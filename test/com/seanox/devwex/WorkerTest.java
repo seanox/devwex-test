@@ -25,30 +25,29 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- *  TestSuite for #{@link com.seanox.devwex.Listener}.
+ *  TestSuite for #{@link com.seanox.devwex.Worker}.
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    ListenerTest_Performance.class,
-    ListenerTest_AccessLog.class,
-    ListenerTest_Authentication.class,
-    ListenerTest_Configuration.class,
-    ListenerTest_Delete.class,
-    ListenerTest_File.class,
-    ListenerTest_FileIndex.class,
-    ListenerTest_Filter.class,
-    ListenerTest_Gateway.class,
-    ListenerTest_Get.class,
-    ListenerTest_Head.class,
-    ListenerTest_Locate.class,
-    ListenerTest_MimeType.class,
-    ListenerTest_Options.class,
-    ListenerTest_Put.class,
-    ListenerTest_Request.class,
-    ListenerTest_Status.class,
-    ListenerTest_Service.class,
-    ListenerTest_Text.class,
-    ListenerTest_VirtualHost.class
+    WorkerTest_Performance.class,
+    WorkerTest_AccessLog.class,
+    WorkerTest_Authentication.class,
+    WorkerTest_Configuration.class,
+    WorkerTest_Delete.class,
+    WorkerTest_File.class,
+    WorkerTest_FileIndex.class,
+    WorkerTest_Filter.class,
+    WorkerTest_Gateway.class,
+    WorkerTest_Get.class,
+    WorkerTest_Head.class,
+    WorkerTest_Locate.class,
+    WorkerTest_MimeType.class,
+    WorkerTest_Options.class,
+    WorkerTest_Put.class,
+    WorkerTest_Request.class,
+    WorkerTest_Status.class,
+    WorkerTest_Text.class,
+    WorkerTest_VirtualHost.class
 })
-public class ListenerTest extends AbstractSuite {
+public class WorkerTest extends AbstractSuite {
 }

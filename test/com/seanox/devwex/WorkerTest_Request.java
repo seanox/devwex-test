@@ -36,9 +36,9 @@ import com.seanox.test.utils.Pattern;
 import com.seanox.test.utils.StreamUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Listener}.
+ *  TestCases for {@link com.seanox.devwex.Worker}.
  */
-public class ListenerTest_Request extends AbstractTest {
+public class WorkerTest_Request extends AbstractTest {
     
     /** 
      *  TestCase for timeout.

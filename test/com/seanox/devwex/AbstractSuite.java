@@ -322,6 +322,17 @@ public abstract class AbstractSuite {
     }
     
     /**
+     *  Returns the last line of the output.
+     *  @return the last line of the output
+     *  @throws IOException
+     */
+    static String getOutputLogTailLine() throws IOException {
+    
+        String lines[] = AbstractSuite.getOutputLogTail().split("[\r\n]+");
+        return lines[lines.length -1];
+    }
+    
+    /**
      *  Returns the current memory usage.
      *  @return the current memory usage
      */

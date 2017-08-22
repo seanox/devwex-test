@@ -36,9 +36,9 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Listener}.
+ *  TestCases for {@link com.seanox.devwex.Worker}.
  */
-public class ListenerTest_Performance extends AbstractTest {
+public class WorkerTest_Performance extends AbstractTest {
     
     private static String createFailedTestWorkerInfo(Executor executor) {
 
@@ -66,7 +66,7 @@ public class ListenerTest_Performance extends AbstractTest {
         executor.execute();
         boolean success = executor.await(3000);
         timing.assertTimeRangeIn(1000, 2000);
-        String failedTestWorkerInfo = ListenerTest_Performance.createFailedTestWorkerInfo(executor);
+        String failedTestWorkerInfo = WorkerTest_Performance.createFailedTestWorkerInfo(executor);
         Assert.assertTrue(failedTestWorkerInfo, success);
         Assert.assertFalse(failedTestWorkerInfo, executor.isFailed());
         Assert.assertFalse(failedTestWorkerInfo, executor.isInterrupted());
@@ -108,7 +108,7 @@ public class ListenerTest_Performance extends AbstractTest {
         executor1.execute();
         boolean success1 = executor1.await(3000);
         timing.assertTimeRangeIn(1000, 2000);
-        String failedTestWorkerInfo1 = ListenerTest_Performance.createFailedTestWorkerInfo(executor1);
+        String failedTestWorkerInfo1 = WorkerTest_Performance.createFailedTestWorkerInfo(executor1);
         Assert.assertTrue(failedTestWorkerInfo1, success1);
         Assert.assertFalse(failedTestWorkerInfo1, executor1.isFailed());
         Assert.assertFalse(failedTestWorkerInfo1, executor1.isInterrupted());
@@ -118,7 +118,7 @@ public class ListenerTest_Performance extends AbstractTest {
         executor2.execute();
         boolean success2 = executor2.await(3000); 
         timing.assertTimeRangeIn(1000, 2000);
-        String failedTestWorkerInfo2 = ListenerTest_Performance.createFailedTestWorkerInfo(executor2);
+        String failedTestWorkerInfo2 = WorkerTest_Performance.createFailedTestWorkerInfo(executor2);
         Assert.assertTrue(failedTestWorkerInfo2, success2);
         Assert.assertFalse(failedTestWorkerInfo2, executor2.isFailed());
         Assert.assertFalse(failedTestWorkerInfo2, executor2.isInterrupted());
@@ -197,7 +197,7 @@ public class ListenerTest_Performance extends AbstractTest {
         executor.execute();
         boolean success = executor.await(3000);
         timing.assertTimeRangeIn(1000, 2000);
-        String failedTestWorkerInfo = ListenerTest_Performance.createFailedTestWorkerInfo(executor);
+        String failedTestWorkerInfo = WorkerTest_Performance.createFailedTestWorkerInfo(executor);
         Assert.assertTrue(failedTestWorkerInfo, success);
         Assert.assertFalse(failedTestWorkerInfo, executor.isFailed());
         Assert.assertFalse(failedTestWorkerInfo, executor.isInterrupted());
@@ -205,7 +205,7 @@ public class ListenerTest_Performance extends AbstractTest {
         long threadCount3 = Thread.activeCount() /10;
         long memoryUsage3 = AbstractSuite.getMemoryUsage() /1024 /1024;
         
-        ListenerTest_Performance.waitRuntimeReady();
+        WorkerTest_Performance.waitRuntimeReady();
 
         long threadCount4 = Thread.activeCount() /10;
         long memoryUsage4 = AbstractSuite.getMemoryUsage() /1024 /1024;

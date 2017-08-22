@@ -37,9 +37,9 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Listener}.
+ *  TestCases for {@link com.seanox.devwex.Worker}.
  */
-public class ListenerTest_Configuration extends AbstractTest {
+public class WorkerTest_Configuration extends AbstractTest {
     
     /** 
      *  TestCase for aceptance.
@@ -245,8 +245,7 @@ public class ListenerTest_Configuration extends AbstractTest {
         Thread.sleep(50);
         accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertFalse(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
-        String outputLog1 = AbstractSuite.getOutputLogTail();
-        outputLog1 = outputLog1.replaceAll("^(?:[^\\s]+\\s+){3}\\s*(.*)$", "$1");
+        String outputLog1 = AbstractSuite.getOutputLogTailLine();
         Assert.assertTrue(outputLog1.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
         
         request = "GET /?test=1234567B HTTP/1.0\r\n"
@@ -263,8 +262,7 @@ public class ListenerTest_Configuration extends AbstractTest {
         Thread.sleep(50);
         accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertFalse(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
-        String outputLog2 = AbstractSuite.getOutputLogTail();
-        outputLog2 = outputLog2.replaceAll("^(?:[^\\s]+\\s+){3}\\s*(.*)$", "$1");
+        String outputLog2 = AbstractSuite.getOutputLogTailLine();
         Assert.assertEquals(outputLog1, outputLog2);
         Assert.assertFalse(outputLog2.matches(Pattern.ACCESS_LOG_STATUS("200", request)));        
     }

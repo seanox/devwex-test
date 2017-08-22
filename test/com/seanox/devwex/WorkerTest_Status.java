@@ -28,9 +28,9 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Listener}.
+ *  TestCases for {@link com.seanox.devwex.Worker}.
  */
-public class ListenerTest_Status extends AbstractTest {
+public class WorkerTest_Status extends AbstractTest {
     
     /** 
      *  TestCase for aceptance.

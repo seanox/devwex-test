@@ -35,9 +35,9 @@ import com.seanox.test.utils.HttpUtils.RequestEvent;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Listener}.
+ *  TestCases for {@link com.seanox.devwex.Worker}.
  */
-public class ListenerTest_Gateway extends AbstractTest {
+public class WorkerTest_Gateway extends AbstractTest {
     
     /** 
      *  TestCase for aceptance.
@@ -67,7 +67,7 @@ public class ListenerTest_Gateway extends AbstractTest {
     /** 
      *  TestCase for aceptance.
      *  The file extension {@code *.con }" was defined as CGI with the module
-     *  {@code ConnectorA}. Thus the module respponded the request with status
+     *  {@code ExtensionA}. Thus the module respponded the request with status
      *  001.
      *  @throws Exception
      */
@@ -80,9 +80,8 @@ public class ListenerTest_Gateway extends AbstractTest {
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ConnectorA\r\n.*$"));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nModultype: 7\r\n.*$"));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: ConnectorA \\[pa=1\\] \\[M\\]\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ExtensionA::Service\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: ExtensionA \\[pa=1\\] \\[M\\]\r\n.*$"));
         
         Thread.sleep(50);
         String accessLog = AbstractSuite.getAccessLogTail();
@@ -92,7 +91,7 @@ public class ListenerTest_Gateway extends AbstractTest {
     /** 
      *  TestCase for aceptance.
      *  The file extension {@code *.con }" was defined as CGI with the module
-     *  {@code ConnectorA}. Thus the module respponded the request with status
+     *  {@code ExtensionA}. Thus the module respponded the request with status
      *  001.
      *  @throws Exception
      */

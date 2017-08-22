@@ -28,9 +28,9 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Listener}.
+ *  TestCases for {@link com.seanox.devwex.Worker}.
  */
-public class ListenerTest_Locate extends AbstractTest {
+public class WorkerTest_Locate extends AbstractTest {
     
     /** 
      *  TestCase for aceptance.
@@ -545,7 +545,7 @@ public class ListenerTest_Locate extends AbstractTest {
     /** 
      *  TestCase for aceptance.
      *  The virtual path {@code /test.modul} is defined as module. The request
-     *  must be responded by ConnectorA with status 001.
+     *  must be responded by ExtensionA with status 001.
      *  @throws Exception
      */
     @Test
@@ -557,9 +557,8 @@ public class ListenerTest_Locate extends AbstractTest {
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1") + "\r\n";
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
-        Assert.assertTrue(header.matches("(?s)^.*\r\nModul: ConnectorA\r\n.*$"));
-        Assert.assertTrue(header.matches("(?s)^.*\r\nModultype: 7\r\n.*$"));
-        Assert.assertTrue(header.matches("(?s)^.*\r\nOpts: ConnectorA \\[v:xx=123\\] \\[m\\]\r\n.*$"));
+        Assert.assertTrue(header.matches("(?s)^.*\r\nModul: ExtensionA::Service\r\n.*$"));
+        Assert.assertTrue(header.matches("(?s)^.*\r\nOpts: ExtensionA \\[v:xx=123\\] \\[m\\]\r\n.*$"));
         
         Thread.sleep(50);
         String accessLog = AbstractSuite.getAccessLogTail();
@@ -570,7 +569,7 @@ public class ListenerTest_Locate extends AbstractTest {
      *  TestCase for aceptance.
      *  The virtual path {@code /test.modul} is defined as module. Virtual
      *  paths of modusl are absolute. Even this request must be responded by
-     *  ConnectorA with status 001.
+     *  ExtensionA with status 001.
      *  @throws Exception
      */    
     @Test
@@ -581,9 +580,8 @@ public class ListenerTest_Locate extends AbstractTest {
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ConnectorA\r\n.*$"));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nModultype: 7\r\n.*$"));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: ConnectorA \\[v:xx=123\\] \\[m\\]\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ExtensionA::Service\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: ExtensionA \\[v:xx=123\\] \\[m\\]\r\n.*$"));
         
         Thread.sleep(50);
         String accessLog = AbstractSuite.getAccessLogTail();
@@ -833,45 +831,45 @@ public class ListenerTest_Locate extends AbstractTest {
     @Test
     public void testAceptance_40() throws Exception {
         
-        ListenerTest_Locate.assertAceptance_40("xaa",  403);
-        ListenerTest_Locate.assertAceptance_40("xaax", 404);
-        ListenerTest_Locate.assertAceptance_40("xab",  403);
-        ListenerTest_Locate.assertAceptance_40("xabx", 404);
-        ListenerTest_Locate.assertAceptance_40("xac",  403);
-        ListenerTest_Locate.assertAceptance_40("xacx", 403);
-        ListenerTest_Locate.assertAceptance_40("xad",  403);
-        ListenerTest_Locate.assertAceptance_40("xadx", 403);
+        WorkerTest_Locate.assertAceptance_40("xaa",  403);
+        WorkerTest_Locate.assertAceptance_40("xaax", 404);
+        WorkerTest_Locate.assertAceptance_40("xab",  403);
+        WorkerTest_Locate.assertAceptance_40("xabx", 404);
+        WorkerTest_Locate.assertAceptance_40("xac",  403);
+        WorkerTest_Locate.assertAceptance_40("xacx", 403);
+        WorkerTest_Locate.assertAceptance_40("xad",  403);
+        WorkerTest_Locate.assertAceptance_40("xadx", 403);
 
-        ListenerTest_Locate.assertAceptance_40("xa1",  403);
-        ListenerTest_Locate.assertAceptance_40("xa1x", 404);
-        ListenerTest_Locate.assertAceptance_40("xa2",  403);
-        ListenerTest_Locate.assertAceptance_40("xa2x", 403);
-        ListenerTest_Locate.assertAceptance_40("xa3",  403);
-        ListenerTest_Locate.assertAceptance_40("xa3x", 403);
-        ListenerTest_Locate.assertAceptance_40("xa4",  403);
-        ListenerTest_Locate.assertAceptance_40("xa4x", 404);
-        ListenerTest_Locate.assertAceptance_40("xa5",  403);
-        ListenerTest_Locate.assertAceptance_40("xa5x", 403);
-        ListenerTest_Locate.assertAceptance_40("xa6",  403);
-        ListenerTest_Locate.assertAceptance_40("xa6x", 403);
-        ListenerTest_Locate.assertAceptance_40("xa7",  403);
-        ListenerTest_Locate.assertAceptance_40("xa7x", 403);
-        ListenerTest_Locate.assertAceptance_40("xa8",  403);
-        ListenerTest_Locate.assertAceptance_40("xa8x", 403);
+        WorkerTest_Locate.assertAceptance_40("xa1",  403);
+        WorkerTest_Locate.assertAceptance_40("xa1x", 404);
+        WorkerTest_Locate.assertAceptance_40("xa2",  403);
+        WorkerTest_Locate.assertAceptance_40("xa2x", 403);
+        WorkerTest_Locate.assertAceptance_40("xa3",  403);
+        WorkerTest_Locate.assertAceptance_40("xa3x", 403);
+        WorkerTest_Locate.assertAceptance_40("xa4",  403);
+        WorkerTest_Locate.assertAceptance_40("xa4x", 404);
+        WorkerTest_Locate.assertAceptance_40("xa5",  403);
+        WorkerTest_Locate.assertAceptance_40("xa5x", 403);
+        WorkerTest_Locate.assertAceptance_40("xa6",  403);
+        WorkerTest_Locate.assertAceptance_40("xa6x", 403);
+        WorkerTest_Locate.assertAceptance_40("xa7",  403);
+        WorkerTest_Locate.assertAceptance_40("xa7x", 403);
+        WorkerTest_Locate.assertAceptance_40("xa8",  403);
+        WorkerTest_Locate.assertAceptance_40("xa8x", 403);
 
-        ListenerTest_Locate.assertAceptance_40("xb1",  500);
-        ListenerTest_Locate.assertAceptance_40("xb1x", 500);
-        ListenerTest_Locate.assertAceptance_40("xb2",  500);
-        ListenerTest_Locate.assertAceptance_40("xb2x", 500);
-        ListenerTest_Locate.assertAceptance_40("xb3",  500);
-        ListenerTest_Locate.assertAceptance_40("xb3x", 500);
-        ListenerTest_Locate.assertAceptance_40("xb4",  500);
-        ListenerTest_Locate.assertAceptance_40("xb4x", 500);
+        WorkerTest_Locate.assertAceptance_40("xb1",  502);
+        WorkerTest_Locate.assertAceptance_40("xb1x", 502);
+        WorkerTest_Locate.assertAceptance_40("xb2",  502);
+        WorkerTest_Locate.assertAceptance_40("xb2x", 502);
+        WorkerTest_Locate.assertAceptance_40("xb3",  502);
+        WorkerTest_Locate.assertAceptance_40("xb3x", 502);
+        WorkerTest_Locate.assertAceptance_40("xb4",  502);
+        WorkerTest_Locate.assertAceptance_40("xb4x", 502);
 
-        ListenerTest_Locate.assertAceptance_40("xc1",  302);
-        ListenerTest_Locate.assertAceptance_40("xc1x", 404);
-        ListenerTest_Locate.assertAceptance_40("xc2",  302);
-        ListenerTest_Locate.assertAceptance_40("xc2x", 302);
+        WorkerTest_Locate.assertAceptance_40("xc1",  302);
+        WorkerTest_Locate.assertAceptance_40("xc1x", 404);
+        WorkerTest_Locate.assertAceptance_40("xc2",  302);
+        WorkerTest_Locate.assertAceptance_40("xc2x", 302);
     }
     
     private static void assertAceptance_41(String uri, String value) throws Exception {
@@ -900,10 +898,10 @@ public class ListenerTest_Locate extends AbstractTest {
     @Test
     public void testAceptance_41() throws Exception {
         
-        ListenerTest_Locate.assertAceptance_41("/test1/xxx/123", "/test1/xxx");
-        ListenerTest_Locate.assertAceptance_41("/test2/xxx/123", "/test2/xxx/");
-        ListenerTest_Locate.assertAceptance_41("/test3/xxx/123/", "/test3/xxx/index.jsx");
-        ListenerTest_Locate.assertAceptance_41("/test4/xxx/123/", "/test4/xxx/index.jsx");        
+        WorkerTest_Locate.assertAceptance_41("/test1/xxx/123", "/test1/xxx");
+        WorkerTest_Locate.assertAceptance_41("/test2/xxx/123", "/test2/xxx/");
+        WorkerTest_Locate.assertAceptance_41("/test3/xxx/123/", "/test3/xxx/index.jsx");
+        WorkerTest_Locate.assertAceptance_41("/test4/xxx/123/", "/test4/xxx/index.jsx");        
     }
     
     /**

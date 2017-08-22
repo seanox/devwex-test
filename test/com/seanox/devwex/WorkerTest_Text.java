@@ -29,34 +29,34 @@ import com.seanox.test.utils.ResourceUtils;
 import com.seanox.test.utils.TextUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Listener}.
+ *  TestCases for {@link com.seanox.devwex.Worker}.
  */
-public class ListenerTest_Text extends AbstractTest {
+public class WorkerTest_Text extends AbstractTest {
     
     private static String textReplace(String string, String search, String replace) throws Exception {
-        return (String)Accession.invoke(Listener.class, "textReplace",
+        return (String)Accession.invoke(Worker.class, "textReplace",
                 new Object[] {string, search, replace});
     }
     
     private static String textHash(String string) throws Exception {
-        return (String)Accession.invoke(Listener.class, "textHash",
+        return (String)Accession.invoke(Worker.class, "textHash",
                 new Object[] {string});
     }
 
     private static String textEscape(String string) throws Exception {
-        return (String)Accession.invoke(Listener.class, "textEscape",
+        return (String)Accession.invoke(Worker.class, "textEscape",
                 new Object[] {string});
     }
     
     private static String textDecode(String string) throws Exception {
-        return (String)Accession.invoke(Listener.class, "textDecode",
+        return (String)Accession.invoke(Worker.class, "textDecode",
                 new Object[] {string});
     }
     
     /** 
      *  TestCase for aceptance.
      *  Tested the use of method:
-     *      {@code Listener#textEscape(String)}.
+     *      {@code Worker#textEscape(String)}.
      *  @throws Exception
      */  
     @Test
@@ -65,13 +65,13 @@ public class ListenerTest_Text extends AbstractTest {
         int length = ResourceUtils.getContextContentSet().length;
         for (int loop = 1; loop < length; loop += 2)
             Assert.assertEquals("#" + loop + ":", ResourceUtils.getContextContent(loop +1),
-                    new String(ListenerTest_Text.textEscape(ResourceUtils.getContextContent(loop))));
+                    new String(WorkerTest_Text.textEscape(ResourceUtils.getContextContent(loop))));
     }
     
     /** 
      *  TestCase for aceptance.
      *  Tested the use of method:
-     *      {@code Listener#textReplace(String, String, String)}.
+     *      {@code Worker#textReplace(String, String, String)}.
      *  @throws Exception
      */    
     @Test
@@ -82,14 +82,14 @@ public class ListenerTest_Text extends AbstractTest {
         for (int loop = 0; loop < lines.length; loop += 2) {
             String[] args = TextUtils.split(lines[loop], ":");
             Assert.assertEquals("#" + (loop +1) + ": " + lines[loop], lines[loop +1],
-                    ListenerTest_Text.textReplace(args[0], args[1], args[2]));
+                    WorkerTest_Text.textReplace(args[0], args[1], args[2]));
         }
     }
     
     /** 
      *  TestCase for aceptance.
      *  Tested the use of method:
-     *      {@code Listener#textHash(String, String, String)}.
+     *      {@code Worker#textHash(String, String, String)}.
      *  @throws Exception
      */    
     @Test
@@ -99,14 +99,14 @@ public class ListenerTest_Text extends AbstractTest {
         String[] lines = TextUtils.extractLines(content); 
         for (int loop = 0; loop < lines.length; loop += 2) {
             Assert.assertEquals("#" + (loop +1) + ": " + lines[loop], lines[loop +1],
-                    ListenerTest_Text.textHash(TextUtils.unescape(lines[loop])));
+                    WorkerTest_Text.textHash(TextUtils.unescape(lines[loop])));
         }
     }
     
     /** 
      *  TestCase for aceptance.
      *  Tested the use of method:
-     *      {@code Listener#textDecode(String, String, String)}.
+     *      {@code Worker#textDecode(String, String, String)}.
      *  @throws Exception
      */    
     @Test
@@ -116,7 +116,7 @@ public class ListenerTest_Text extends AbstractTest {
         String[] lines = TextUtils.extractLines(content); 
         for (int loop = 0; loop < lines.length; loop += 2) {
             Assert.assertEquals("#" + (loop +1) + ": " + lines[loop], lines[loop +1],
-                    ListenerTest_Text.textDecode(lines[loop]));
+                    WorkerTest_Text.textDecode(lines[loop]));
         }
     }
 }
