@@ -21,43 +21,34 @@
  */
 
 /** Very elementary extension, only for internal use. */
-public class ExtensionA extends AbstractExtension {
+public class ExtensionA extends AbstractWorkerExtension {
     
     public ExtensionA(String options) {
     }
     
-    public void filter(Object worker, String options) throws Exception {
+    public void filter(Worker worker, String options) throws Exception {
         this.perform(worker, options);
     }
 
-    public void service(Object worker, String options) throws Exception {
+    public void service(Worker worker, String options) throws Exception {
         this.perform(worker, options);
     }
         
-    private void perform(Object worker, String options) throws Exception {
-
-        Meta meta = Meta.create(worker);
-
-        try {
+    private void perform(Worker worker, String options) throws Exception {
           
-            meta.status = 1;
+        worker.status = 1;
 
-            //the header is built and written out
-            String string = ("HTTP/1.0 ").concat("001 Test ok").concat("\r\n");
-            string = string.concat("Server: ").concat(meta.environmentMap.get("SERVER_SOFTWARE")).concat("\r\n");
-            if (meta.environmentMap.get("MODULE_OPTS").length() > 0)
-                string = string.concat("Opts: ").concat(meta.environmentMap.get("MODULE_OPTS")).concat("\r\n");
-            String method = new Throwable().getStackTrace()[1].getMethodName();
-            method = method.substring(0, 1).toUpperCase().concat(method.substring(1).toLowerCase());
-            string = string.concat("Modul: ").concat(this.getClass().getName() + "::" + method).concat("\r\n\r\n");
+        //the header is built and written out
+        String string = ("HTTP/1.0 ").concat("001 Test ok").concat("\r\n");
+        string = string.concat("Server: ").concat(worker.environmentMap.get("SERVER_SOFTWARE")).concat("\r\n");
+        if (worker.environmentMap.get("MODULE_OPTS").length() > 0)
+            string = string.concat("Opts: ").concat(worker.environmentMap.get("MODULE_OPTS")).concat("\r\n");
+        String method = new Throwable().getStackTrace()[1].getMethodName();
+        method = method.substring(0, 1).toUpperCase().concat(method.substring(1).toLowerCase());
+        string = string.concat("Modul: ").concat(this.getClass().getName() + "::" + method).concat("\r\n\r\n");
 
-            //the connection is marked as closed
-            meta.control = false;
-            meta.output.write(string.getBytes());
-
-        } finally {
-            
-            meta.synchronize();
-        }
+        //the connection is marked as closed
+        worker.control = false;
+        worker.output.write(string.getBytes());
     }
 }

@@ -24,28 +24,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /** Very elementary extension, only for internal use. */
-public class ExtensionE extends AbstractExtension {
+public class ExtensionE extends AbstractWorkerExtension {
     
     public ExtensionE(String options) {
     }    
     
-    public void filter(Object worker, String options) throws Exception {
+    public void filter(Worker worker, String options) throws Exception {
         
-        Meta meta = Meta.create(worker);
-
-        try {
-            
-            String docRoot = meta.environmentMap.get("DOCUMENT_ROOT");
-            
-            int value = 1;
-            Path testFile = Paths.get(docRoot, "test.txt");
-            if (Files.exists(testFile))
-                value = Integer.valueOf(new String(Files.readAllBytes(testFile))).intValue() +1;
-            Files.write(testFile, String.valueOf(value).getBytes());
-
-        } finally {
-            
-            meta.synchronize();
-        }
+        String docRoot = worker.environmentMap.get("DOCUMENT_ROOT");
+        
+        int value = 1;
+        Path testFile = Paths.get(docRoot, "test.txt");
+        if (Files.exists(testFile))
+            value = Integer.valueOf(new String(Files.readAllBytes(testFile))).intValue() +1;
+        Files.write(testFile, String.valueOf(value).getBytes());
     }
 }

@@ -21,17 +21,12 @@
  */
 
 /** Very elementary extension, only for internal use. */
-public class ExtensionF extends AbstractExtension {
+public class ExtensionF extends AbstractWorkerExtension {
     
     public ExtensionF(String options) {
     }
 
-    public void filter(Object worker, String options) throws Exception {
-        
-        Meta meta = Meta.create(worker);
-        try {meta.status = 404;
-        } finally {
-            meta.synchronize();
-        }
+    public void filter(Worker worker, String options) throws Exception {
+        worker.status = 404;
     }
 }

@@ -14,7 +14,7 @@
       includeantruntime="false" debug="true"/>
     <jar destfile="${workspace.resources.libraries}/extensionA.jar"
        basedir="${workspace.resources.libraries}"
-       includes="ExtensionA*.class AbstractExtension.class"/>
+       includes="ExtensionA*.class Abstract*Extension.class"/>
     
     <delete file="${workspace.resources.libraries}/ExtensionB.class"/>
     <delete file="${workspace.resources.libraries}/extensionB.jar"/>
@@ -22,7 +22,7 @@
       includeantruntime="false" debug="true"/>
     <jar destfile="${workspace.resources.libraries}/extensionB.jar"
        basedir="${workspace.resources.libraries}"
-       includes="ExtensionB*.class AbstractExtension.class"/> 
+       includes="ExtensionB*.class Abstract*Extension.class"/> 
     
     <delete file="${workspace.resources.libraries}/ExtensionC.class"/>
     <delete file="${workspace.resources.libraries}/extensionC.jar"/>
@@ -30,7 +30,7 @@
       includeantruntime="false" debug="true"/>
     <jar destfile="${workspace.resources.libraries}/extensionC.jar"
        basedir="${workspace.resources.libraries}"
-       includes="ExtensionC*.class AbstractExtension.class"/>      
+       includes="ExtensionC*.class Abstract*Extension.class"/>      
     
     <delete file="${workspace.resources.libraries}/ExtensionD.class"/>
     <delete file="${workspace.resources.libraries}/extensionD.jar"/>
@@ -38,7 +38,7 @@
       includeantruntime="false" debug="true"/>
     <jar destfile="${workspace.resources.libraries}/extensionD.jar"
        basedir="${workspace.resources.libraries}"
-       includes="ExtensionD*.class AbstractExtension.class"/>
+       includes="ExtensionD*.class Abstract*Extension.class"/>
 
     <delete file="${workspace.resources.libraries}/ExtensionE.class"/>
     <delete file="${workspace.resources.libraries}/extensionE.jar"/>
@@ -46,7 +46,7 @@
       includeantruntime="false" debug="true"/>
     <jar destfile="${workspace.resources.libraries}/extensionE.jar"
        basedir="${workspace.resources.libraries}"
-       includes="ExtensionE*.class AbstractExtension.class"/>
+       includes="ExtensionE*.class Abstract*Extension.class"/>
     
     <delete file="${workspace.resources.libraries}/ExtensionF.class"/>
     <delete file="${workspace.resources.libraries}/extensionF.jar"/>
@@ -54,7 +54,7 @@
       includeantruntime="false" debug="true"/>
     <jar destfile="${workspace.resources.libraries}/extensionF.jar"
        basedir="${workspace.resources.libraries}"
-       includes="ExtensionF*.class AbstractExtension.class"/>    
+       includes="ExtensionF*.class Abstract*Extension.class"/>    
     
     <delete file="${workspace.resources.libraries}/Scripting.class"/>
     <delete file="${workspace.resources.libraries}/scripting.jar"/>

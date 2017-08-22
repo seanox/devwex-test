@@ -23,22 +23,22 @@ import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.Socket;
 
-/** Very elementary module, only for internal use. */
-public class ConnectorB {
+/** Very elementary extension, only for internal use. */
+public class ExtensionB {
 
-    /** referenced listener */
-    private Object listener;
+    /** referenced worker */
+    private Object worker;
     
-    /** socket of listener */
+    /** socket of worker */
     private Socket socket;   
     
-    /** listener output stream */
+    /** worker output stream */
     private OutputStream output;
 
-    /** listener connection control */
+    /** worker connection control */
     private boolean control;
 
-    /** listener response status */
+    /** worker response status */
     private int status;
 
     /** modul type */
@@ -76,11 +76,11 @@ public class ConnectorB {
         }
     }
     
-    public void bind(Object listener, int type) throws Exception {
+    public void bind(Object worker, int type) throws Exception {
         
-        this.listener = listener;
+        this.worker = worker;
         this.type = type;
-        ConnectorB.synchronizeFields(listener, this);
+        ExtensionB.synchronizeFields(worker, this);
         if (this.output == null)
             this.output = this.socket.getOutputStream();
         this.service();
@@ -106,7 +106,7 @@ public class ConnectorB {
             this.output.write(string.getBytes());
 
         } finally {
-            ConnectorB.synchronizeFields(this, this.listener);
+            ExtensionB.synchronizeFields(this, this.worker);
         }        
     }
 }
