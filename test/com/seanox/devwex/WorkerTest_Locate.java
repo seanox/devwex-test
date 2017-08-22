@@ -1241,7 +1241,32 @@ public class WorkerTest_Locate extends AbstractTest {
             String accessLog = AbstractSuite.getAccessLogTail();
             Assert.assertTrue(path, accessLog.matches(Pattern.ACCESS_LOG_STATUS(text[0])));
         }
-    }      
+    }
+    
+    /** 
+     *  TestCase for aceptance.
+     *  The virtual path {@code /e} is defined as module, but an error occurs
+     *  when the service method is executed. The request must be responded with
+     *  status 502 and the error must be logged in the output-log.
+     *  @throws Exception
+     */      
+    @Test
+    public void testAceptance_57() throws Exception {
+        
+        String request = "GET /e HTTP/1.0\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8092", request));
+        String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1") + "\r\n";
+        Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_502));
+
+        Thread.sleep(50);
+        String accessLog = AbstractSuite.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_502));
+        
+        Thread.sleep(50);
+        String ouputLog = AbstractSuite.getOutputLogTail();
+        Assert.assertTrue(ouputLog.contains("ExtensionD$Exception"));
+    }    
     
     /** 
      *  TestCase for aceptance.

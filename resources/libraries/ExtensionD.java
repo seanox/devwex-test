@@ -24,7 +24,10 @@ public class ExtensionD extends AbstractWorkerExtension {
     public ExtensionD(String options) {
     }    
     
-    public void filter(Worker worker, String options) throws Exception {
-        throw new NullPointerException();
+    public void service(Worker worker, String options) throws Exception {
+        throw new Exception();
+    }
+    
+    static class Exception extends java.lang.Exception {
     }
 }
