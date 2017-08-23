@@ -297,19 +297,50 @@ public abstract class AbstractSuite {
      *  @throws IOException
      */
     static String getAccessLogTail() throws IOException {
-    
-        String[] accessLog = AbstractSuite.getAccessLog().split("[\r\n]+");
-        return accessLog[accessLog.length -1];
+        return AbstractSuite.getAccessLogTail(true);
     }
-
+    
+    /**
+     *  Returns the last entry of the access log.
+     *  @param  normalize removes all whitespaces at the beginning and end
+     *  @return the last entry of the access log
+     *  @throws IOException
+     */
+    static String getAccessLogTail(boolean normalize) throws IOException {
+    
+        String string;
+        string = AbstractSuite.getAccessLog();
+        if (!normalize)
+            string += "!"; 
+        String[] accessLog = string.split("[\r\n]+");
+        string = accessLog[accessLog.length -1];
+        if (normalize)
+            return string;
+        return string.substring(0, string.length() -1);
+    } 
+    
     /**
      *  Returns the last entry of the output.
      *  @return the last entry of the output
      *  @throws IOException
      */
     static String getOutputLogTail() throws IOException {
+        return AbstractSuite.getOutputLogTail(true);
+    }
+
+    /**
+     *  Returns the last entry of the output.
+     *  @param  normalize removes all whitespaces at the beginning and end
+     *  @return the last entry of the output
+     *  @throws IOException
+     */
+    static String getOutputLogTail(boolean normalize) throws IOException {
     
-        String[] outputLog = AbstractSuite.getOutputLog().split("[\r\n]+");
+        String string;
+        string = AbstractSuite.getOutputLog();
+        if (!normalize)
+            string += "!"; 
+        String[] outputLog = string.split("[\r\n]+");
         List<String> outputLogList = Arrays.asList(outputLog);
         Collections.reverse(outputLogList);
         LinkedList<String> outputLogTailList = new LinkedList<>();
@@ -318,7 +349,10 @@ public abstract class AbstractSuite {
             if (log.matches("^\\d{4}(-\\d{2}){2} \\d{2}(:\\d{2}){2}((\\s.*)|$)"))
                 break;
         }
-        return String.join("\r\n", outputLogTailList.toArray(new String[0]));
+        string = String.join("\r\n", outputLogTailList.toArray(new String[0]));
+        if (normalize)
+            return string;
+        return string.substring(0, string.length() -1);
     }
     
     /**
@@ -327,9 +361,26 @@ public abstract class AbstractSuite {
      *  @throws IOException
      */
     static String getOutputLogTailLine() throws IOException {
+        return AbstractSuite.getOutputLogTailLine(true);
+    }
     
-        String lines[] = AbstractSuite.getOutputLogTail().split("[\r\n]+");
-        return lines[lines.length -1];
+    /**
+     *  Returns the last line of the output.
+     *  @param  normalize removes all whitespaces at the beginning and end
+     *  @return the last line of the output
+     *  @throws IOException
+     */
+    static String getOutputLogTailLine(boolean normalize) throws IOException {
+    
+        String string;
+        string = AbstractSuite.getOutputLog();
+        if (!normalize)
+            string += "!";         
+        String outputLog[] = string.split("[\r\n]+");
+        string = outputLog[outputLog.length -1];
+        if (normalize)
+            return string;
+        return string.substring(0, string.length() -1);
     }
     
     /**
