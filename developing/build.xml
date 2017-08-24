@@ -6,60 +6,52 @@
   <property name="workspace.resources.libraries" value="${workspace.resources}/libraries"/>
   <property name="workspace.resources.program" value="${workspace.resources}/program"/>
   <property name="workspace.resources.certificates" value="${workspace.resources}/certificates"/>
+  <property name="workspace.developing" value="${workspace}/developing"/>
+    
   
   <target name="compile">
-    <delete file="${workspace.resources.libraries}/ExtensionA.class"/>
-    <delete file="${workspace.resources.libraries}/extensionA.jar"/>
+    <delete>
+      <fileset dir="${workspace.resources.libraries}">
+        <include name="**/*.class"/>
+        <include name="**/*.jar"/>
+      </fileset>
+    </delete>    
     <javac srcdir="${workspace.resources.libraries}" destdir="${workspace.resources.libraries}"
+      classpath="${workspace.developing}/devwex.jar"
       includeantruntime="false" debug="true"/>
+    
     <jar destfile="${workspace.resources.libraries}/extensionA.jar"
        basedir="${workspace.resources.libraries}"
        includes="ExtensionA*.class Abstract*Extension*.class"/>
     
-    <delete file="${workspace.resources.libraries}/ExtensionB.class"/>
-    <delete file="${workspace.resources.libraries}/extensionB.jar"/>
-    <javac srcdir="${workspace.resources.libraries}" destdir="${workspace.resources.libraries}"
-      includeantruntime="false" debug="true"/>
     <jar destfile="${workspace.resources.libraries}/extensionB.jar"
        basedir="${workspace.resources.libraries}"
        includes="ExtensionB*.class Abstract*Extension*.class"/> 
     
-    <delete file="${workspace.resources.libraries}/ExtensionC.class"/>
-    <delete file="${workspace.resources.libraries}/extensionC.jar"/>
-    <javac srcdir="${workspace.resources.libraries}" destdir="${workspace.resources.libraries}"
-      includeantruntime="false" debug="true"/>
     <jar destfile="${workspace.resources.libraries}/extensionC.jar"
        basedir="${workspace.resources.libraries}"
        includes="ExtensionC*.class Abstract*Extension*.class"/>      
     
-    <delete file="${workspace.resources.libraries}/ExtensionD.class"/>
-    <delete file="${workspace.resources.libraries}/extensionD.jar"/>
-    <javac srcdir="${workspace.resources.libraries}" destdir="${workspace.resources.libraries}"
-      includeantruntime="false" debug="true"/>
     <jar destfile="${workspace.resources.libraries}/extensionD.jar"
        basedir="${workspace.resources.libraries}"
        includes="ExtensionD*.class Abstract*Extension*.class"/>
 
-    <delete file="${workspace.resources.libraries}/ExtensionE.class"/>
-    <delete file="${workspace.resources.libraries}/extensionE.jar"/>
-    <javac srcdir="${workspace.resources.libraries}" destdir="${workspace.resources.libraries}"
-      includeantruntime="false" debug="true"/>
     <jar destfile="${workspace.resources.libraries}/extensionE.jar"
        basedir="${workspace.resources.libraries}"
        includes="ExtensionE*.class Abstract*Extension*.class"/>
     
-    <delete file="${workspace.resources.libraries}/ExtensionF.class"/>
-    <delete file="${workspace.resources.libraries}/extensionF.jar"/>
-    <javac srcdir="${workspace.resources.libraries}" destdir="${workspace.resources.libraries}"
-      includeantruntime="false" debug="true"/>
     <jar destfile="${workspace.resources.libraries}/extensionF.jar"
        basedir="${workspace.resources.libraries}"
-       includes="ExtensionF*.class Abstract*Extension*.class"/>    
+       includes="ExtensionF*.class Abstract*Extension*.class"/>
     
-    <delete file="${workspace.resources.libraries}/Scripting.class"/>
-    <delete file="${workspace.resources.libraries}/scripting.jar"/>
-    <javac srcdir="${workspace.resources.libraries}" destdir="${workspace.resources.libraries}"
-    includeantruntime="false" debug="true"/>
+    <jar destfile="${workspace.resources.libraries}/count-A.jar"
+       basedir="${workspace.resources.libraries}"
+       includes="com/seanox/devwex/Count*.class"/> 
+    
+    <jar destfile="${workspace.resources.libraries}/count-B.jar"
+       basedir="${workspace.resources.libraries}"
+       includes="example/Count*.class"/>     
+    
     <jar destfile="${workspace.resources.libraries}/scripting.jar"
        basedir="${workspace.resources.libraries}"
        includes="Scripting.class">
@@ -68,7 +60,11 @@
        </manifest>      
     </jar>
     
-    <delete dir="${workspace.resources.libraries}" includes="*.class"/>
+    <delete>
+      <fileset dir="${workspace.resources.libraries}">
+        <include name="**/*.class"/>
+      </fileset>
+    </delete>     
   </target>
   
   <target name="keystore">

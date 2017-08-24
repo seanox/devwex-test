@@ -21,19 +21,77 @@
  */
 package com.seanox.devwex;
 
+import org.junit.Assert;
+import org.junit.Test;
+
+import com.seanox.test.utils.HttpUtils;
+
 /**
  *  TestCases for {@link com.seanox.devwex.Service}.
  */
 public class ServiceTest_Server extends AbstractTest {
     
-    //TODO: [REMOTE:BAS]    25001
-    //TODO: [REMOTE:A:BAS]  25002
-    //TODO: [REMOTE:B:BAS]  25003
-    //TODO: [REMOTE::BAS]   25004
+    /** 
+     *  TestCase for aceptance.
+     *  A server can be configured and started by different instances.
+     *      [REMOTE:BAS]    25001
+     *      [REMOTE:A:BAS]  25002
+     *      [REMOTE:B:BAS]  25003
+     *      [REMOTE::BAS]   25004
+     *  @throws Exception
+     */    
+    @Test
+    public void testAceptance_01() throws Exception {
+        
+        for (int port = 25001; port < 25004; port++) {
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:" + port, "sTatuS\r"));
+            Assert.assertNotNull(response);
+            Assert.assertTrue(response, response.contains("\r\nSAPI: "));
+            Assert.assertTrue(response, response.contains("\r\nTIME: "));
+            Assert.assertTrue(response, response.contains("\r\nTIUP: "));            
+        }
+    }
     
-    //TODO; [COUNT:BAS]     package: com.seanox.devwex
-    //TODO; [COUNT:A:BAS]   example
-    //TODO; [COUNT:B:BAS]   example (gleiche Klasse aber eigene Instanz, unabhängiger Zähler zu COUNT:A)
+    @Test
+    public void testAceptance_02() throws Exception {
+        
+        String response;
+        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9001));
+        Assert.assertEquals("1 com.seanox.devwex.Count$1", response);
+        for (int loop = 2; loop < 10; loop++) {
+            response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9001));
+            Assert.assertEquals(String.valueOf(loop) + " com.seanox.devwex.Count$1", response);
+        }
+        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9002));
+        Assert.assertEquals("1 com.seanox.devwex.Count$1", response);
+        for (int loop = 2; loop < 15; loop++) {
+            response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9002));
+            Assert.assertEquals(String.valueOf(loop) + " com.seanox.devwex.Count$1", response);
+        }        
+        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9001));
+        Assert.assertEquals("10 com.seanox.devwex.Count$1", response);
+    }
+    
+    @Test
+    public void testAceptance_03() throws Exception {
+        
+        String response;
+        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9003));
+        Assert.assertEquals("1 example.Count$1", response);
+        for (int loop = 2; loop < 10; loop++) {
+            response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9003));
+            Assert.assertEquals(String.valueOf(loop) + " example.Count$1", response);
+        }
+        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9004));
+        Assert.assertEquals("1 example.Count$1", response);
+        for (int loop = 2; loop < 15; loop++) {
+            response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9004));
+            Assert.assertEquals(String.valueOf(loop) + " example.Count$1", response);
+        }        
+        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9003));
+        Assert.assertEquals("10 example.Count$1", response);
+    }    
+    
     //TODO; [COUNT:B:BAS]   example-x (existiert nicht)
     
     //TODO: Beispiel für fehlerhaft implementierte Server API
