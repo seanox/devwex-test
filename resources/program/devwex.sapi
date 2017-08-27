@@ -1,0 +1,102 @@
+[COMMON]                                                        ;general configuration of service
+  CLEANUP                     = ON                              ;automatic smart clean up of resources
+  RELOAD                      = ON                              ;automatic reload and restart on changes of configuration
+
+[REMOTE:BAS]                                                    ;general configuration of remote servers
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 25001                           ;local port of server
+  
+[REMOTE:A:BAS]                                                  ;general configuration of remote servers
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 25002                           ;local port of server  
+
+[REMOTE:B:BAS]                                                  ;general configuration of remote servers
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 25003                           ;local port of server  
+
+[REMOTE::BAS]                                                   ;general configuration of remote servers
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 25004                           ;local port of server  
+
+[COUNT:BAS]
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9001                            ;local port of server
+
+[COUNT:A:BAS]
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9002                            ;local port of server
+  
+[COUNT:B1:BAS]
+  SCOPE                       = server
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9003                            ;local port of server  
+
+[COUNT:B2:BAS]
+  SCOPE                       = server
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9004                            ;local port of server
+  
+[COUNT:C:BAS]
+  SCOPE                       = server-x
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9005                            ;local port of server   
+  
+[ERROR_01:BAS]
+  SCOPE                       = server
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9006                            ;local port of server   
+
+[ERROR_02:BAS]
+  SCOPE                       = server
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9007                            ;local port of server   
+
+[ERROR_03:BAS]
+  SCOPE                       = server
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9008                            ;local port of server
+  
+[ERROR_11:BAS]
+  SCOPE                       = server
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9011                            ;local port of server     
+
+[ERROR_12:BAS]
+  SCOPE                       = server
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9012                            ;local port of server     
+  
+[ERROR_13:BAS]
+  SCOPE                       = server
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9013                            ;local port of server     
+  
+[ERROR_14:BAS]
+  SCOPE                       = server
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9014                            ;local port of server
+  
+[ERROR_15:BAS]
+  SCOPE                       = server
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9015                            ;local port of server
+  
+[ERROR_16:BAS]
+  SCOPE                       = server
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9016                            ;local port of server     
+       
+[ERROR_17:BAS]
+  SCOPE                       = server
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9017                            ;local port of server
+  
+[ERROR_18:BAS]
+  SCOPE                       = server
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9018                            ;local port of server
+  
+[ERROR_19:BAS]
+  SCOPE                       = server
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9019                            ;local port of server     
