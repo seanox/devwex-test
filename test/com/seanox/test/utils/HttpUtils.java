@@ -151,9 +151,13 @@ public class HttpUtils {
     private static Socket createSocket(String address, Keystore keystore)
             throws IOException, GeneralSecurityException {
 
-        if (keystore == null)
-            return new Socket(address.replaceAll(Pattern.NETWORK_CONNECTION, "$1"),
+        if (keystore == null) {
+            Socket socket = new Socket(address.replaceAll(Pattern.NETWORK_CONNECTION, "$1"),
                     Integer.valueOf(address.replaceAll(Pattern.NETWORK_CONNECTION, "$2")).intValue());
+            socket.setSoTimeout(65535);
+            socket.setSoLinger(true, 65535);
+            return socket;
+        }
         
         KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
         keyStore.load(new FileInputStream(keystore.getFile()), keystore.getPassword().toCharArray());
@@ -172,6 +176,8 @@ public class HttpUtils {
         SSLSocket sslSocket = (SSLSocket)sslSocketFactory.createSocket(address.replaceAll(Pattern.NETWORK_CONNECTION, "$1"),
                 Integer.valueOf(address.replaceAll(Pattern.NETWORK_CONNECTION, "$2")).intValue());
         sslSocket.startHandshake();
+        sslSocket.setSoTimeout(65535);
+        sslSocket.setSoLinger(true, 65535);
         
         return sslSocket;
     }
