@@ -19,7 +19,7 @@
  *  with this program; if not, write to the Free Software Foundation, Inc.,
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-package example;
+package server;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;
@@ -32,7 +32,7 @@ import com.seanox.devwex.Initialize;
 import com.seanox.devwex.Section;
 import com.seanox.devwex.Service;
 
-public class Count implements Runnable {
+public class Error_02 implements Runnable {
 
     private volatile ServerSocket socket;
 
@@ -40,9 +40,7 @@ public class Count implements Runnable {
 
     private volatile String caption;
 
-    private volatile long count;
-
-    public Count(String server, Object data) throws Throwable {
+    public Error_02(String server, Object data) throws Throwable {
 
         InetAddress address;
         Section     options;
@@ -77,62 +75,6 @@ public class Count implements Runnable {
     }
 
     public void run() {
-
-        Service.print(("SERVER ").concat(this.caption).concat(" READY"));
-        
-        Thread thread = null;
-        while (!this.socket.isClosed()) {
-            
-            try {
-                if (thread == null
-                        || !thread.isAlive()) {
-                    this.accept = this.socket.accept();
-                    thread = new Thread() {
-                        @Override
-                        public void run() {
-                            try {
-                                String string = String.valueOf(++Count.this.count) + " " + this.getClass().getName(); 
-                                Count.this.accept.setSoTimeout(10000);
-                                Count.this.accept.getOutputStream().write(string.getBytes());
-                            } catch (Exception exception) {
-                                Service.print(exception);
-                            } finally {
-                                try {Count.this.accept.close();
-                                } catch (IOException exception) {
-                                    Service.print(exception);
-                                }
-                            }                            
-                        }
-                    };
-                    thread.start();
-                }
-                
-                try {Thread.sleep(250);
-                } catch (Throwable throwable) {
-                    this.destroy();
-                }
-                
-            } catch (SocketException exception) {
-                
-                this.destroy();
-                
-            } catch (InterruptedIOException exception) {
-                
-                continue;
-                
-            } catch (Throwable throwable) {
-                
-                Service.print(throwable);
-                try {this.accept.close();
-                } catch (Throwable exception) {
-                }
-                try {Thread.sleep(25);
-                } catch (Throwable throwable1) {
-                    this.destroy();
-                }
-            }
-        }
-        
-        Service.print(("SERVER ").concat(this.caption).concat(" STOPPED"));
+        throw new RuntimeException(this.getClass().getName());
     }
 }
