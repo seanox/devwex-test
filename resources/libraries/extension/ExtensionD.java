@@ -19,13 +19,17 @@
  *  with this program; if not, write to the Free Software Foundation, Inc.,
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-class AbstractExtension {
-    
-    public String explain() {
-        return null;
-    }
+package extension;
 
-    public void destroy() {
-        return;
+public class ExtensionD extends AbstractWorkerExtension {
+    
+    public ExtensionD(String options) {
+    }    
+    
+    public void service(Worker worker, String options) throws Exception {
+        throw new Exception();
+    }
+    
+    static class Exception extends java.lang.Exception {
     }
 }

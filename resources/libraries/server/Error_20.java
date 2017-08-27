@@ -19,15 +19,19 @@
  *  with this program; if not, write to the Free Software Foundation, Inc.,
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-public class ExtensionD extends AbstractWorkerExtension {
-    
-    public ExtensionD(String options) {
-    }    
-    
-    public void service(Worker worker, String options) throws Exception {
-        throw new Exception();
+package server;
+
+public class Error_20 implements Runnable {
+
+    public Error_20(String server, Object data) {
     }
     
-    static class Exception extends java.lang.Exception {
+    public void explain() {
+    }
+
+    public void destroy() {
+    }
+
+    public void run() {
     }
 }

@@ -19,23 +19,21 @@
  *  with this program; if not, write to the Free Software Foundation, Inc.,
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+package server;
 
-public class ExtensionE extends AbstractWorkerExtension {
+public class Error_22 implements Runnable {
+
+    public Error_22(String server, Object data) {
+    }
     
-    public ExtensionE(String options) {
-    }    
-    
-    public void filter(Worker worker, String options) throws Exception {
-        
-        String docRoot = worker.environmentMap.get("DOCUMENT_ROOT");
-        
-        int value = 1;
-        Path testFile = Paths.get(docRoot, "test.txt");
-        if (Files.exists(testFile))
-            value = Integer.valueOf(new String(Files.readAllBytes(testFile))).intValue() +1;
-        Files.write(testFile, String.valueOf(value).getBytes());
+    public Object explain() {
+        return null;
+    }
+
+    public int destroy() {
+        return -1;
+    }
+
+    public void run() {
     }
 }
