@@ -40,13 +40,13 @@ import com.seanox.test.utils.StreamUtils;
 public class WorkerTest_Put extends AbstractTest {
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The creation of directories is responded with status 201 and the
      *  location.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_01() throws Exception {
+    public void testAcceptance_01() throws Exception {
         
         String request;
         String response;
@@ -79,13 +79,13 @@ public class WorkerTest_Put extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The creation of directories without Content-length is responded with
      *  status 201 and the location.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_02() throws Exception {
+    public void testAcceptance_02() throws Exception {
         
         String request;
         String response;
@@ -118,13 +118,13 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The creation of directories with invalid characters in the name is
      *  responded with status 424.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_03() throws Exception {
+    public void testAcceptance_03() throws Exception {
         
         String request = "Put /put_test_2.:::2 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -139,13 +139,13 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The creation of directories that alrady exists is responded with status
      *  201 and the location.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_04() throws Exception {
+    public void testAcceptance_04() throws Exception {
         
         String request;
         String response;
@@ -173,13 +173,13 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The creation of directories without a slash at the end is responded with status
      *  201 and the location with a slash at the end.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_05() throws Exception {
+    public void testAcceptance_05() throws Exception {
         
         String request= "Put /put_test_1 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -198,13 +198,13 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The creation of a directory with sub-directories is responded with
      *  status 201 and the location to the main directory.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_06() throws Exception {
+    public void testAcceptance_06() throws Exception {
         
         String request = "Put /put_test_1/x1/x2/x3 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -224,13 +224,13 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The creation of a files is responded with status 201 and the location
      *  to the file.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_07() throws Exception {
+    public void testAcceptance_07() throws Exception {
         
         String request = "Put /put_test_1/test_file.1 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -252,13 +252,13 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The overwriting of an existing a files is responded with status 201 and
      *  the location to the file.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_08() throws Exception {
+    public void testAcceptance_08() throws Exception {
         
         String request;
         String response;
@@ -289,13 +289,13 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Overlength is ignored. Only as much data is written, as specified by
      *  Content-Length.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_09() throws Exception {
+    public void testAcceptance_09() throws Exception {
         
         String request;
         String response;
@@ -332,12 +332,12 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Requests with an invalid Content-Length are responded with status 411.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_10() throws Exception {
+    public void testAcceptance_10() throws Exception {
         
         String request;
         String response;
@@ -363,12 +363,12 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Requests with an invalid Content-Length are responded with status 411.
      *  @throws Exception
      */       
     @Test
-    public void testAceptance_11() throws Exception {
+    public void testAcceptance_11() throws Exception {
         
         String request;
         String response;
@@ -394,13 +394,13 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The creation of a file that already exists as a directory is responded
      *  with status 302 and the location to the directory.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_12() throws Exception {
+    public void testAcceptance_12() throws Exception {
         
         String request = "Put /put_test_1/x1 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -421,13 +421,13 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The creation of a directory that already exists as a file is responded
      *  with status 302 and the location to the file.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_13() throws Exception {
+    public void testAcceptance_13() throws Exception {
         
         String request = "Put /put_test_1/test_file.1/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -446,12 +446,12 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  PUT-requests to a CGI, are executed by the CGI application.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_14() throws Exception {
+    public void testAcceptance_14() throws Exception {
         
         String request = "Put /method.jsx HTTP/1.0\r\n"
                 + "Host: vHe\r\n"
@@ -465,14 +465,14 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  PUT-requests to a CGI, are executed by the CGI application.
      *  The request is responded with status 403 if the PUT method not allowed
      *  for the CGI.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_15() throws Exception {
+    public void testAcceptance_15() throws Exception {
         
         String request = "Put /method.jsx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -483,13 +483,13 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  PUT-requests to a module, are executed by the module (/test.modul).
      *  The path is absolute, therefore also /test.modul123 is accepted.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_17() throws Exception {
+    public void testAcceptance_17() throws Exception {
         
         String request = "Put /test.modul123 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -505,13 +505,13 @@ public class WorkerTest_Put extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The path /test.xxx is absolute, therefore also /test.xxx123 is
      *  accepted.
      *  @throws Exception
      */        
     @Test
-    public void testAceptance_18() throws Exception {
+    public void testAcceptance_18() throws Exception {
         
         String request;
         String response;
@@ -553,12 +553,12 @@ public class WorkerTest_Put extends AbstractTest {
     }     
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  PUT is supported for absolute path.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_19() throws Exception {
+    public void testAcceptance_19() throws Exception {
         
         String request;
         String response;
@@ -601,13 +601,13 @@ public class WorkerTest_Put extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  PUT requests to a redirected url is responded with status 302 and the
      *  location.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_20() throws Exception {
+    public void testAcceptance_20() throws Exception {
         
         String request = "Put /redirect/a/b/c/file.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -627,12 +627,12 @@ public class WorkerTest_Put extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  PUT requests to a forbidden url is responded with status 403.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_21() throws Exception {
+    public void testAcceptance_21() throws Exception {
         
         String request = "Put /forbidden/absolute-xxx.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -644,14 +644,14 @@ public class WorkerTest_Put extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  PUT requests in combination with an authentication must work.
      *  In this case the authentication is not correct and the request is
      *  responded with status 401.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_22() throws Exception {
+    public void testAcceptance_22() throws Exception {
         
         String request = "Put /authentication/a/test.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -663,14 +663,14 @@ public class WorkerTest_Put extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  PUT requests in combination with an authentication must work.
      *  In this case the authentication is correct and the request is responded
      *  with status 201.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_23() throws Exception {
+    public void testAcceptance_23() throws Exception {
         
         String request;
         String response;
@@ -717,7 +717,7 @@ public class WorkerTest_Put extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  For PUT requests, the number of bytes is written, which is specified
      *  with Content-Length. If fewer bytes are present, the server waits until
      *  the timeout (TIMEOUT = 15000). In this case the request is responded
@@ -725,7 +725,7 @@ public class WorkerTest_Put extends AbstractTest {
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_24() throws Exception {
+    public void testAcceptance_24() throws Exception {
         
         Timing timing = Timing.create(true);
         String request = "Put /put_test_1/test_file.3 HTTP/1.0\r\n"
@@ -746,14 +746,14 @@ public class WorkerTest_Put extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  For large PUT requests.
      *  No server timeout may occur and the data must be written correctly.
      *  In this case the request is responded with status 201.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_25() throws Exception {
+    public void testAcceptance_25() throws Exception {
         
         String request;
         String response;
@@ -784,12 +784,12 @@ public class WorkerTest_Put extends AbstractTest {
     }     
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  PUT-requests without a Content-Length creates a file.
      *  @throws Exception
      */       
     @Test
-    public void testAceptance_98() throws Exception {
+    public void testAcceptance_98() throws Exception {
         
         String request;
         String response;
@@ -810,12 +810,12 @@ public class WorkerTest_Put extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  PUT-requests with a Content-Length creates a file.
      *  @throws Exception
      */       
     @Test
-    public void testAceptance_99() throws Exception {
+    public void testAcceptance_99() throws Exception {
         
         String request;
         String response;

@@ -34,35 +34,35 @@ import com.seanox.test.utils.ResourceUtils;
  */
 public class GeneratorTest extends AbstractTest {
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_1() {
+    public void testAcceptance_1() {
         
         Generator generator = Generator.parse(ResourceUtils.getContextContent().getBytes());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_1_1"), new String(generator.extract()));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_1_1"), new String(generator.extract()));
     }
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_2() {
+    public void testAcceptance_2() {
         
         Generator generator = Generator.parse(ResourceUtils.getContextContent().getBytes());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_2_1"), new String(generator.extract()));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_2_1"), new String(generator.extract()));
     }
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_3() {
+    public void testAcceptance_3() {
         
-        Generator generator = Generator.parse(ResourceUtils.getContextContent("testAceptance_0_0").getBytes());
+        Generator generator = Generator.parse(ResourceUtils.getContextContent("testAcceptance_0_0").getBytes());
         Assert.assertEquals(ResourceUtils.getContextContent(), new String(generator.extract()));
     }
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_4() {
+    public void testAcceptance_4() {
         
-        Generator generator = Generator.parse(ResourceUtils.getContextContent("testAceptance_0_0").getBytes());
+        Generator generator = Generator.parse(ResourceUtils.getContextContent("testAcceptance_0_0").getBytes());
         Hashtable<String, Object> values = new Hashtable<>();
         String path = new String();
         for (String entry : ("/1/22/333/4444/55555").split("/")) {
@@ -75,13 +75,13 @@ public class GeneratorTest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance. 
+     *  TestCase for acceptance. 
      *  @throws Exception
      */
     @Test
-    public void testAceptance_5() throws Exception {
+    public void testAcceptance_5() throws Exception {
         
-        Generator generator = Generator.parse(ResourceUtils.getContextContent("testAceptance_0_0").getBytes());
+        Generator generator = Generator.parse(ResourceUtils.getContextContent("testAcceptance_0_0").getBytes());
         Hashtable<String, Object> values = new Hashtable<>();
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         for (int loop = 1; loop < 7; loop++) {
@@ -100,12 +100,12 @@ public class GeneratorTest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance. 
+     *  TestCase for acceptance. 
      *  @throws Exception
      */
-    public void testAceptance_6() throws Exception {
+    public void testAcceptance_6() throws Exception {
         
-        Generator generator = Generator.parse(ResourceUtils.getContextContent("testAceptance_0_1").getBytes());
+        Generator generator = Generator.parse(ResourceUtils.getContextContent("testAcceptance_0_1").getBytes());
         Hashtable<String, Object> values = new Hashtable<>();
         values.put("name", "A");
         values.put("date", "B");
@@ -124,10 +124,10 @@ public class GeneratorTest extends AbstractTest {
         timing.assertTimeIn(1250);
     }    
     
-    /** TestCase for aceptance. */
-    public void testAceptance_7() {
+    /** TestCase for acceptance. */
+    public void testAcceptance_7() {
         
-        Generator generator = Generator.parse(ResourceUtils.getContextContent("testAceptance_0_1").getBytes());
+        Generator generator = Generator.parse(ResourceUtils.getContextContent("testAcceptance_0_1").getBytes());
         Hashtable<String, Object> values = new Hashtable<>();
         values.put("name", "A");
         values.put("date", "B");
@@ -143,11 +143,11 @@ public class GeneratorTest extends AbstractTest {
         timing.assertTimeIn(1250);
     }
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_8() {
+    public void testAcceptance_8() {
         
-        Generator generator = Generator.parse(ResourceUtils.getContextContent("testAceptance_0_1").getBytes());
+        Generator generator = Generator.parse(ResourceUtils.getContextContent("testAcceptance_0_1").getBytes());
         Hashtable<String, Object> values = new Hashtable<>();
         String path = new String();
         for (String entry : ("/1/22/333/4444/55555").split("/")) {
@@ -159,11 +159,11 @@ public class GeneratorTest extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContextContent(), new String(generator.extract()));
     }
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_9() {
+    public void testAcceptance_9() {
         
-        Generator generator = Generator.parse(ResourceUtils.getContextContent("testAceptance_0_2").getBytes());
+        Generator generator = Generator.parse(ResourceUtils.getContextContent("testAcceptance_0_2").getBytes());
         Hashtable<String, Object> values = new Hashtable<>();
         String path = new String();
         for (String entry : ("/1/22/333/4444/55555").split("/")) {
@@ -175,11 +175,11 @@ public class GeneratorTest extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContextContent(), new String(generator.extract()));
     }
 
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_A() {
+    public void testAcceptance_A() {
         
-        Generator generator = Generator.parse(ResourceUtils.getContextContent("testAceptance_0_2").getBytes());
+        Generator generator = Generator.parse(ResourceUtils.getContextContent("testAcceptance_0_2").getBytes());
         Hashtable<String, Object> values = new Hashtable<>();
         String path = new String();
         for (String entry : ("1/22/333/4444/55555").split("/")) {
@@ -191,9 +191,9 @@ public class GeneratorTest extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContextContent(), new String(generator.extract()));
     }
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_B() {
+    public void testAcceptance_B() {
         
         Assert.assertEquals("A\00\00\07\00\00B", new String(Generator.parse(("A#[0x0000070000]B").getBytes()).extract()));
     }

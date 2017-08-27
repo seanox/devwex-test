@@ -1,19 +1,19 @@
-#### testAceptance_01_1
+#### testAcceptance_01_1
 Peter und der Wolf
-#### testAceptance_01_2
+#### testAcceptance_01_2
 Peter und der Wolf
-#### testAceptance_01_3
+#### testAcceptance_01_3
 Petär und der Wölf
-#### testAceptance_01_4
+#### testAcceptance_01_4
 Pet\e4r und der W\f6lf
-#### testAceptance_01_5
+#### testAcceptance_01_5
 Petär
   und
     der
       Wölf
-#### testAceptance_01_6
+#### testAcceptance_01_6
 Pet\e4r\r\n  und\r\n    der\r\n      W\f6lf
-#### testAceptance_02
+#### testAcceptance_02
 Peter und der Wolf:e:x
 Pxtxr und dxr Wolf
 PetEr und dEr Wolf:e:x
@@ -32,7 +32,7 @@ Peter und der Wolf::
 Peter und der Wolf
 Peter und der Wolf::x
 Peter und der Wolf
-#### testAceptance_03
+#### testAcceptance_03
 \00Hallo Berlin
 00b3d047ac653dc7c2596ec68de48576
 \00\00Hallo Berlin
@@ -71,7 +71,7 @@ Hallo Berlin\20\20\20
 fe0b0b38fdd319b4f2863fe565db349a
 Hallo Berlin
 eb346657049e1de86b750bc21e1d2f0b
-#### testAceptance_04
+#### testAcceptance_04
 Peter+und+der+Wolf
 Peter und der Wolf
 Peter+und der+W%C3%B6lf der+W%C3%B6lf

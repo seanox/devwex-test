@@ -33,14 +33,14 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_Status extends AbstractTest {
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Request of a forbidden url.
      *  Template for status 403 is not dedicated and is contained in status-4xx.html.
      *  The response must contains 'Template: status-4xx.html'.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_1() throws Exception {
+    public void testAcceptance_1() throws Exception {
         
         String request = "Get /forbidden.html HTTP/1.0\r\n"
                 + "Host: vHo\r\n"
@@ -52,14 +52,14 @@ public class WorkerTest_Status extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Request of a faulty CGI application.
      *  Template for status 502 is not dedicated and is contained in status.html.
      *  The response must contains 'Template: status.html'.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_2() throws Exception {
+    public void testAcceptance_2() throws Exception {
         
         String request = "Get /error.cgi HTTP/1.0\r\n"
                 + "Host: vHo\r\n"
@@ -71,14 +71,14 @@ public class WorkerTest_Status extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Request of a not exsting url.
      *  Template for status 404 is dedicated.
      *  The response must contains 'Template: status-404.html'.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_3() throws Exception {
+    public void testAcceptance_3() throws Exception {
         
         String request = "Get /not_found.html HTTP/1.0\r\n"
                 + "Host: vHo\r\n"

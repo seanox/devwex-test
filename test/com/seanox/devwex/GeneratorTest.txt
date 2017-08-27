@@ -1,12 +1,12 @@
-#### testAceptance_1
-#### testAceptance_1_1
-#### testAceptance_2
+#### testAcceptance_1
+#### testAcceptance_1_1
+#### testAcceptance_2
 
 
-#### testAceptance_2_1
+#### testAcceptance_2_1
 
 
-#### testAceptance_0_0
+#### testAcceptance_0_0
 
 Line: #[missing] #[path:[[aaa:#[base]bbb:#[name]ccc:]]]
 
@@ -35,7 +35,7 @@ Decode:
 
 End:
 
-#### testAceptance_0_1
+#### testAcceptance_0_1
 
 Line: #[missing #[path:[[aaa:#[basebbb:#[name]ccc:]]]
 
@@ -57,7 +57,7 @@ Decode:
 
 End:
 
-#### testAceptance_0_2
+#### testAcceptance_0_2
 
 Line: #[missing] #[path:[aaa:#[basebbb:#[name]ccc:]]]
 
@@ -79,7 +79,7 @@ Decode:
 
 End:
 
-#### testAceptance_3
+#### testAcceptance_3
 
 Line:  
 
@@ -102,7 +102,7 @@ Decode:
 
 End:
 
-#### testAceptance_4
+#### testAcceptance_4
 
 Line:  aaa:bbb:ccc:aaa:1bbb:1ccc:aaa:122bbb:22ccc:aaa:122333bbb:333ccc:aaa:1223334444bbb:4444ccc:aaa:122333444455555bbb:55555ccc:
 
@@ -125,7 +125,7 @@ Decode:
 
 End:
 
-#### testAceptance_5
+#### testAcceptance_5
 
 Line:  
 
@@ -184,7 +184,7 @@ Decode:
 
 End:
 
-#### testAceptance_8
+#### testAcceptance_8
 
 Line: #[missing aaa:#[basebbb:ccc:aaa:#[basebbb:1ccc:aaa:#[basebbb:22ccc:aaa:#[basebbb:333ccc:aaa:#[basebbb:4444ccc:aaa:#[basebbb:55555ccc:
 
@@ -200,7 +200,7 @@ Decode:
 
 End:
 
-#### testAceptance_9
+#### testAcceptance_9
 
 Line:  #[path:[aaa:#[basebbb:ccc:]]]
 
@@ -216,7 +216,7 @@ Decode:
 
 End:
 
-#### testAceptance_A
+#### testAcceptance_A
 
 Line:  #[path:[aaa:#[basebbb:1ccc:]]]
 

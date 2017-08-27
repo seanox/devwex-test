@@ -32,17 +32,17 @@ import com.seanox.test.utils.ResourceUtils;
 public class ServiceTest_Print extends AbstractTest {
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Optional insertion of an indentation.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_01() throws Exception {
+    public void testAcceptance_01() throws Exception {
         
         String outputLog;
         String outputPattern;
         
-        outputPattern = ResourceUtils.getContextContent("testAceptance_01_1");
+        outputPattern = ResourceUtils.getContextContent("testAcceptance_01_1");
         
         Service.print(ResourceUtils.getContextContent());
         Thread.sleep(50);
@@ -60,17 +60,17 @@ public class ServiceTest_Print extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Optional insertion of an indentation.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_02() throws Exception {
+    public void testAcceptance_02() throws Exception {
         
         String outputLog;
         String outputPattern;
         
-        outputPattern = ResourceUtils.getContextContent("testAceptance_02_1");
+        outputPattern = ResourceUtils.getContextContent("testAcceptance_02_1");
         
         Service.print(ResourceUtils.getContextContent());
         Thread.sleep(50);
@@ -88,17 +88,17 @@ public class ServiceTest_Print extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Optional insertion of an indentation.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_03() throws Exception {
+    public void testAcceptance_03() throws Exception {
         
         String outputLog;
         String outputPattern;
         
-        outputPattern = ResourceUtils.getContextContent("testAceptance_03_1");
+        outputPattern = ResourceUtils.getContextContent("testAcceptance_03_1");
         
         Service.print(ResourceUtils.getContextContent());
         Thread.sleep(50);
@@ -116,17 +116,17 @@ public class ServiceTest_Print extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Optional insertion of an indentation.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_04() throws Exception {
+    public void testAcceptance_04() throws Exception {
         
         String outputLog;
         String outputPattern;
         
-        outputPattern = ResourceUtils.getContextContent("testAceptance_04_1");
+        outputPattern = ResourceUtils.getContextContent("testAcceptance_04_1");
         
         Service.print(ResourceUtils.getContextContent());
         Thread.sleep(50);
@@ -144,12 +144,12 @@ public class ServiceTest_Print extends AbstractTest {
     }
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  In case of Throwable/Error/Exception, there is no compulsory indentation.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_05() throws Exception {
+    public void testAcceptance_05() throws Exception {
         
         Service.print(new Throwable("###1"));
         Thread.sleep(50);
@@ -160,13 +160,13 @@ public class ServiceTest_Print extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  In case of Throwable/Error/Exception, there is no compulsory indentation.
      *  Optional insertion of an indentation.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_06() throws Exception {
+    public void testAcceptance_06() throws Exception {
         
         Service.print(new Throwable("###1", new Throwable("###2")));
         Thread.sleep(50);
@@ -177,12 +177,12 @@ public class ServiceTest_Print extends AbstractTest {
     }    
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Optional insertion of an indentation.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_07() throws Exception {
+    public void testAcceptance_07() throws Exception {
         
         Service.print(new Throwable("###1", new Throwable("###2", new Throwable("###3"))));
         Thread.sleep(50);
@@ -194,12 +194,12 @@ public class ServiceTest_Print extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Empty contents are not output.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_08() throws Exception {
+    public void testAcceptance_08() throws Exception {
         
         String outputLogEnd;
         
@@ -225,14 +225,14 @@ public class ServiceTest_Print extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  With option 'strict' line breaks are handled as white spaces and not
      *  written out. Without option 'strict' line breaks will be write as a
      *  single line break.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_09() throws Exception {
+    public void testAcceptance_09() throws Exception {
         
         String outputLogEnd;
         

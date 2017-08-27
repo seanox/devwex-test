@@ -1,9 +1,9 @@
-#### testAceptance_1
-#### testAceptance_1_1
-#### testAceptance_2
+#### testAcceptance_1
+#### testAcceptance_1_1
+#### testAcceptance_2
 
-#### testAceptance_2_1
-#### testAceptance_3
+#### testAcceptance_2_1
+#### testAcceptance_3
 
  [sec-A]     ; comment
 a = 1
@@ -19,7 +19,7 @@ d = 5
 [sec-E] extends sec-E
 e = 6
 
-#### testAceptance_3_1
+#### testAcceptance_3_1
 [SEC-A]
 A = 1
 
@@ -37,7 +37,7 @@ D = 5
 [SEC-E]
 E = 6
 
-#### testAceptance_4
+#### testAcceptance_4
  
  [aaa]
 
@@ -47,7 +47,7 @@ E = 6
    
      
  
-#### testAceptance_4_1
+#### testAcceptance_4_1
 [AAA]
 [BBB]
 [CCC]

@@ -33,12 +33,12 @@ import com.seanox.test.utils.Executor.Worker;
 public class ServiceTest_Restart extends AbstractTest {
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Asynchronous restart must work.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_01() throws Exception {
+    public void testAcceptance_01() throws Exception {
         
         long offset = AbstractSuite.getRootStageOutputLog().length();
         

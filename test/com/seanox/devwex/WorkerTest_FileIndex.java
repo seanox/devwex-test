@@ -33,12 +33,12 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_FileIndex extends AbstractTest {
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Without sorting, the file index of directories must not contain '?'.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_1() throws Exception {
+    public void testAcceptance_1() throws Exception {
         
         String request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
@@ -61,12 +61,12 @@ public class WorkerTest_FileIndex extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  With sorting, the file index of directories must not contain '?'.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_2() throws Exception {
+    public void testAcceptance_2() throws Exception {
         
         String request = "GET /?d HTTP/1.0\r\n"
                 + "\r\n";
@@ -89,12 +89,12 @@ public class WorkerTest_FileIndex extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The path from subdirectories must be created correctly.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_3() throws Exception {
+    public void testAcceptance_3() throws Exception {
         
         String request = "GET /test_a/test/ HTTP/1.0\r\n"
                 + "Host: vHb\r\n"

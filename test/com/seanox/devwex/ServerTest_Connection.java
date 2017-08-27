@@ -52,13 +52,13 @@ import com.seanox.test.utils.Pattern;
 public class ServerTest_Connection extends AbstractTest {
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Connections with SSL/TLS must works.
      *  Cross connections does not work.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_01() throws Exception {
+    public void testAcceptance_01() throws Exception {
         
         String response;
          
@@ -72,13 +72,13 @@ public class ServerTest_Connection extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Connections with SSL/TLS must works.
      *  Cross connections does not work.
      *  @throws Exception
      */        
     @Test(expected=SSLException.class)
-    public void testAceptance_02() throws Exception {
+    public void testAcceptance_02() throws Exception {
 
         String request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
@@ -151,13 +151,13 @@ public class ServerTest_Connection extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code CLIENTAUTH = OFF} 
      *  Connection without client certificate must works.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_03() throws Exception {
+    public void testAcceptance_03() throws Exception {
         
         ServerTest_Connection.initHttpsUrlConnection();
         URL url = new URL("https://127.0.0.1");
@@ -166,12 +166,12 @@ public class ServerTest_Connection extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code CLIENTAUTH = OFF} 
      *  Connection with client certificate must ignore.
      *  @throws Exception
      */     
-    public void testAceptance_04() throws Exception {
+    public void testAcceptance_04() throws Exception {
         
         File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_a.p12");
         ServerTest_Connection.initHttpsMutualAuthenticationUrlConnection(certificate, "changeIt");
@@ -181,12 +181,12 @@ public class ServerTest_Connection extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code CLIENTAUTH = OFF} 
      *  Connection with a unknown client certificate must ignore.
      *  @throws Exception
      */     
-    public void testAceptance_05() throws Exception {
+    public void testAcceptance_05() throws Exception {
         
         File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_x.p12");
         ServerTest_Connection.initHttpsMutualAuthenticationUrlConnection(certificate, "changeIt");
@@ -196,13 +196,13 @@ public class ServerTest_Connection extends AbstractTest {
     }      
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code CLIENTAUTH = ON} 
      *  Connection without client certificate must fail.
      *  @throws Exception
      */     
     @Test(expected=SocketException.class)
-    public void testAceptance_06() throws Exception {
+    public void testAcceptance_06() throws Exception {
         
         ServerTest_Connection.initHttpsUrlConnection();
         URL url = new URL("https://127.0.0.2");
@@ -211,13 +211,13 @@ public class ServerTest_Connection extends AbstractTest {
     }       
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code CLIENTAUTH = ON} 
      *  Connection with client certificate must works.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_07() throws Exception {
+    public void testAcceptance_07() throws Exception {
         
         File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_a.p12");
         ServerTest_Connection.initHttpsMutualAuthenticationUrlConnection(certificate, "changeIt");
@@ -227,13 +227,13 @@ public class ServerTest_Connection extends AbstractTest {
     }   
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code CLIENTAUTH = AUTO} 
      *  Connection without client certificate must works.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_08() throws Exception {
+    public void testAcceptance_08() throws Exception {
         
         ServerTest_Connection.initHttpsUrlConnection();
         URL url = new URL("https://127.0.0.3");
@@ -242,13 +242,13 @@ public class ServerTest_Connection extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code CLIENTAUTH = AUTO} 
      *  Connection with client certificate must works.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_09() throws Exception {
+    public void testAcceptance_09() throws Exception {
 
         File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_a.p12");
         ServerTest_Connection.initHttpsMutualAuthenticationUrlConnection(certificate, "changeIt");
@@ -258,13 +258,13 @@ public class ServerTest_Connection extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code CLIENTAUTH = OFF} 
      *  Connection with known and unknown client certificates must works.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_10() throws Exception {
+    public void testAcceptance_10() throws Exception {
 
         for (char client : ("abcx").toCharArray()) {
             File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_" + client + ".p12");
@@ -276,13 +276,13 @@ public class ServerTest_Connection extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code CLIENTAUTH = ON} 
      *  Connection with known client certificates must works.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_11() throws Exception {
+    public void testAcceptance_11() throws Exception {
 
         for (char client : ("abc").toCharArray()) {
             File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_" + client + ".p12");
@@ -294,13 +294,13 @@ public class ServerTest_Connection extends AbstractTest {
     }     
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code CLIENTAUTH = ON} 
      *  Connection with unknown client certificate must fail.
      *  @throws Exception
      */      
     @Test(expected=SocketException.class)
-    public void testAceptance_12() throws Exception {
+    public void testAcceptance_12() throws Exception {
             
         File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_x.p12");
         ServerTest_Connection.initHttpsMutualAuthenticationUrlConnection(certificate, "changeIt");
@@ -310,13 +310,13 @@ public class ServerTest_Connection extends AbstractTest {
     }     
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code CLIENTAUTH = AUTO}
      *  Connection with known and unknow client certificates must work.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_13() throws Exception {
+    public void testAcceptance_13() throws Exception {
 
         for (char client : ("abcx").toCharArray()) {
             File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_" + client + ".p12");
@@ -328,13 +328,13 @@ public class ServerTest_Connection extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code CLIENTAUTH = AUTO} + {@code MUTUAL AUTH = ALL IS EMPTY auth_cert} 
      *  Connection with client certificate must works.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_14() throws Exception {
+    public void testAcceptance_14() throws Exception {
 
         for (char client : ("abc").toCharArray()) {
             File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_" + client + ".p12");
@@ -346,13 +346,13 @@ public class ServerTest_Connection extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code CLIENTAUTH = AUTO} + {@code MUTUAL AUTH = ALL IS EMPTY auth_cert} 
      *  Connection with a unknown client certificate must be denied with status
      *  403.
      *  @throws Exception
      */     
-    public void testAceptance_15() throws Exception {
+    public void testAcceptance_15() throws Exception {
             
         File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_x.p12");
         ServerTest_Connection.initHttpsMutualAuthenticationUrlConnection(certificate, "changeIt");
@@ -362,12 +362,12 @@ public class ServerTest_Connection extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code CLIENTAUTH = AUTO} + {@code MUTUAL AUTH = ALL IS EMPTY auth_cert} 
      *  Connection without a client certificate must works.
      *  @throws Exception
      */     
-    public void testAceptance_16() throws Exception {
+    public void testAcceptance_16() throws Exception {
         
         ServerTest_Connection.initHttpsUrlConnection();
         URL url = new URL("https://127.0.0.4");

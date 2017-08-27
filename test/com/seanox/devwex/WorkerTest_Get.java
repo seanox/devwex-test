@@ -37,12 +37,12 @@ import com.seanox.test.utils.HttpUtils.HeaderField;
 public class WorkerTest_Get extends AbstractTest {
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Directories are responded with status 200 and without Content-Length.
      *  @throws Exception
      */  
     @Test
-    public void testAceptance_01() throws Exception {
+    public void testAcceptance_01() throws Exception {
         
         String request = "Get / HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -53,13 +53,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Directories without a slah at the end, are responded with status 302
      *  and a redirect.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_02() throws Exception {
+    public void testAcceptance_02() throws Exception {
         
         String request = "Get /test_a HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -77,12 +77,12 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Directories these not exists, are responded with status 404.
      *  @throws Exception
      */  
     @Test
-    public void testAceptance_03() throws Exception {
+    public void testAcceptance_03() throws Exception {
         
         String request = "Get /test_ax HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -92,13 +92,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Files are responded with status 200, Content-Length, Content-Type and
      *  LastModified.
      *  @throws Exception
      */  
     @Test
-    public void testAceptance_04() throws Exception {
+    public void testAcceptance_04() throws Exception {
         
         String request = "Get /method_file.txt HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -111,13 +111,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Files with a slah at the end, are responded with status 302 and a
      *  redirect.
      *  @throws Exception
      */   
     @Test
-    public void testAceptance_05() throws Exception {
+    public void testAcceptance_05() throws Exception {
         
         String request = "Get /method_file.txt/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -135,13 +135,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Requests with a correct If-Modified-Since are responded with status
      *  304.
      *  @throws Exception
      */  
     @Test
-    public void testAceptance_06() throws Exception {
+    public void testAcceptance_06() throws Exception {
         
         String request;
         String response;  
@@ -170,13 +170,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Requests with a incorrect If-Modified-Since are responded with status
      *  200.
      *  @throws Exception
      */  
     @Test
-    public void testAceptance_07() throws Exception {
+    public void testAcceptance_07() throws Exception {
         
         String request = "Get /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 19 Jan 2004 16:58:55 GMT\r\n"
@@ -190,13 +190,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Requests with a correct If-Modified-Since (incl. length) are responded
      *  with status 304.
      *  @throws Exception
      */   
     @Test
-    public void testAceptance_08() throws Exception {
+    public void testAcceptance_08() throws Exception {
         
         String request;
         String response;  
@@ -225,13 +225,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Requests with a If-Modified-Since (correct date, invalid length) are
      *  responded with status 200.
      *  @throws Exception
      */ 
     @Test
-    public void testAceptance_09() throws Exception {
+    public void testAcceptance_09() throws Exception {
         
         String request = "Get /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 19 Jan 2004 16:58:56 GMT; xxx; length=21\r\n"
@@ -245,12 +245,12 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Requests with an other If-Modified-Since are responded with status 200.
      *  @throws Exception
      */  
     @Test
-    public void testAceptance_10() throws Exception {
+    public void testAcceptance_10() throws Exception {
         String request = "Get /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 19 Jan 2004 16:58:57 GMT; xxx; length=20\r\n"
                 + "Host: vHa\r\n"
@@ -263,13 +263,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Requested directories with a default page are responded with status 200
      *  and the details of the default page.
      *  @throws Exception
      */        
     @Test
-    public void testAceptance_11() throws Exception {
+    public void testAcceptance_11() throws Exception {
         String request = "Get /test_a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
@@ -281,13 +281,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The If-Modified-Since is ignored for directories.
      *  The request are responded with status 200.
      *  @throws Exception
      */        
     @Test
-    public void testAceptance_12() throws Exception {
+    public void testAcceptance_12() throws Exception {
         String request = "Get /test_d/ HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
@@ -300,14 +300,14 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The If-Modified-Since is ignored for directories.
      *  The request are responded with status 403, because the access is
      *  forbidden.
      *  @throws Exception
      */   
     @Test
-    public void testAceptance_13() throws Exception {
+    public void testAcceptance_13() throws Exception {
         String request = "Get /forbidden HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
@@ -318,13 +318,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The If-Modified-Since is ignored for absolutes paths.
      *  The request are responded with status 200.
      *  @throws Exception
      */ 
     @Test
-    public void testAceptance_14() throws Exception {
+    public void testAcceptance_14() throws Exception {
         String request = "Get /absolute HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
@@ -337,13 +337,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The If-Modified-Since is ignored for absolutes paths.
      *  The request are responded with status 200.
      *  @throws Exception
      */  
     @Test
-    public void testAceptance_15() throws Exception {
+    public void testAcceptance_15() throws Exception {
         String request = "Get /absolutexxx HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
@@ -356,14 +356,14 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The If-Modified-Since is ignored for the CGI.
      *  The request are responded with status 403, because the CGI does not
      *  exists.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_16() throws Exception {
+    public void testAcceptance_16() throws Exception {
         String request = "Get /method.jsx HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHe\r\n"
@@ -376,13 +376,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The request are responded with status 200 by the CGI self, if the HEAD
      *  method allowed.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_17() throws Exception {
+    public void testAcceptance_17() throws Exception {
         String request = "Get /method.jsx HTTP/1.0\r\n"
                 + "Host: vHb\r\n"
                 + "\r\n";
@@ -393,13 +393,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The decoding (MIME/UTF8) from the URL must work.
      *  The request is responded with status 200.
      *  @throws Exception
      */ 
     @Test
-    public void testAceptance_18() throws Exception {
+    public void testAcceptance_18() throws Exception {
         String request = "Get /decoding_maﬂ1bc.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
@@ -409,13 +409,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The decoding (MIME/UTF8) from the URL must work.
      *  The request is responded with status 200.
      *  @throws Exception
      */ 
     @Test
-    public void testAceptance_19() throws Exception {
+    public void testAcceptance_19() throws Exception {
         String request = "Get /decoding_maﬂ1bc.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
@@ -425,13 +425,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The decoding (MIME/UTF8) from the URL must work.
      *  The request is responded with status 200.
      *  @throws Exception
      */ 
     @Test
-    public void testAceptance_20() throws Exception {
+    public void testAcceptance_20() throws Exception {
         String request = "Get /decoding_ma%DF1bc.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
@@ -441,13 +441,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The decoding (MIME/UTF8) from the URL must work.
      *  The request is responded with status 200.
      *  @throws Exception
      */ 
     @Test
-    public void testAceptance_21() throws Exception {
+    public void testAcceptance_21() throws Exception {
         String request = "Get /decoding_ma%c3%9f1bc.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
@@ -457,13 +457,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The decoding (MIME/UTF8) from the URL must work.
      *  The request is responded with status 200.
      *  @throws Exception
      */ 
     @Test
-    public void testAceptance_22() throws Exception {
+    public void testAcceptance_22() throws Exception {
         String request = "Get /decoding_maﬂ123.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
@@ -475,13 +475,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The decoding (MIME/UTF8) from the URL must work.
      *  The request is responded with status 200 and the correct content.
      *  @throws Exception
      */ 
     @Test
-    public void testAceptance_23() throws Exception {
+    public void testAcceptance_23() throws Exception {
         String request = "Get /decoding_ma%DF123.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
@@ -493,13 +493,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The decoding (MIME/UTF8) from the URL must work.
      *  The request is responded with status 200 and the correct content.
      *  @throws Exception
      */ 
     @Test
-    public void testAceptance_24() throws Exception {
+    public void testAcceptance_24() throws Exception {
         
         String request = "Get /decoding_maﬂ%c3%9f%DF123.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -512,13 +512,13 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The decoding (MIME/UTF8) from the URL must work.
      *  The request is responded with status 200 and the correct content.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_25() throws Exception {
+    public void testAcceptance_25() throws Exception {
         
         String request = "Get /decoding_ma%DFﬂ%c3%9f123.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -530,7 +530,7 @@ public class WorkerTest_Get extends AbstractTest {
         Assert.assertEquals("-2-", body);
     }
     
-    private static void assertAceptance_26(int count, String path, String start, String end) throws Exception {
+    private static void assertAcceptance_26(int count, String path, String start, String end) throws Exception {
         
         if (start != null
                 && start.contains("-")
@@ -712,160 +712,160 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The correct response for GET request with a Range header is checked.
      *  @throws Exception
      */       
     @Test
-    public void testAceptance_26() throws Exception {
+    public void testAcceptance_26() throws Exception {
         
         for (String path : new String[] {"/partial_content.txt", "/partial_content_empty.txt",
                 "/partial_content-nix.txt", "/"}) {
 
             int count = 0;
             
-            WorkerTest_Get.assertAceptance_26(++count, path, "0",      "0");
-            WorkerTest_Get.assertAceptance_26(++count, path, "0",      "1");    
-            WorkerTest_Get.assertAceptance_26(++count, path, "0",      "127");
-            WorkerTest_Get.assertAceptance_26(++count, path, "0",      "65535");
-            WorkerTest_Get.assertAceptance_26(++count, path, "1",      "0");
-            WorkerTest_Get.assertAceptance_26(++count, path, "1",      "1");
-            WorkerTest_Get.assertAceptance_26(++count, path, "1",      "127");    
-            WorkerTest_Get.assertAceptance_26(++count, path, "1",      "65535");
-            WorkerTest_Get.assertAceptance_26(++count, path, "127",    "256");
-            WorkerTest_Get.assertAceptance_26(++count, path, "256",    "127");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      "0");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      "1");    
+            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      "127");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      "65535");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      "0");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      "1");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      "127");    
+            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      "65535");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "127",    "256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    "127");
     
-            WorkerTest_Get.assertAceptance_26(++count, path, "127",    "0");
-            WorkerTest_Get.assertAceptance_26(++count, path, "127",    "1");
-            WorkerTest_Get.assertAceptance_26(++count, path, "65535",  "0");
-            WorkerTest_Get.assertAceptance_26(++count, path, "65535",  "1");
-            WorkerTest_Get.assertAceptance_26(++count, path, "256",    "65535");
-            WorkerTest_Get.assertAceptance_26(++count, path, "65535",  "256");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-256",   "127");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-127",   "256");
-            WorkerTest_Get.assertAceptance_26(++count, path, "256",    "-127");
-            WorkerTest_Get.assertAceptance_26(++count, path, "127",    "-256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "127",    "0");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "127",    "1");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  "0");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  "1");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    "65535");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  "256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-256",   "127");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-127",   "256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    "-127");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "127",    "-256");
     
-            WorkerTest_Get.assertAceptance_26(++count, path, "0",      "A");
-            WorkerTest_Get.assertAceptance_26(++count, path, "1",      "A");
-            WorkerTest_Get.assertAceptance_26(++count, path, "256",    "B");
-            WorkerTest_Get.assertAceptance_26(++count, path, "65535",  "C");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-0",     "A");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-1",     "A");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-256",   "B");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-65535", "C");
-            WorkerTest_Get.assertAceptance_26(++count, path, "A",      "0");
-            WorkerTest_Get.assertAceptance_26(++count, path, "A",      "1");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      "A");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      "A");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    "B");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  "C");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-0",     "A");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-1",     "A");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-256",   "B");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-65535", "C");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "A",      "0");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "A",      "1");
     
-            WorkerTest_Get.assertAceptance_26(++count, path, "B",      "256");
-            WorkerTest_Get.assertAceptance_26(++count, path, "C",      "65535");
-            WorkerTest_Get.assertAceptance_26(++count, path, "A",      "-0");
-            WorkerTest_Get.assertAceptance_26(++count, path, "A",      "-1");
-            WorkerTest_Get.assertAceptance_26(++count, path, "B",      "-256");
-            WorkerTest_Get.assertAceptance_26(++count, path, "C",      "-65535");
-            WorkerTest_Get.assertAceptance_26(++count, path, "0",      "");
-            WorkerTest_Get.assertAceptance_26(++count, path, "256",    "");
-            WorkerTest_Get.assertAceptance_26(++count, path, "65535",  "");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-0",     "");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "B",      "256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "C",      "65535");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "A",      "-0");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "A",      "-1");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "B",      "-256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "C",      "-65535");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      "");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    "");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  "");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-0",     "");
             
-            WorkerTest_Get.assertAceptance_26(++count, path, "-1",     "");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-256",   "");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-65535", "");
-            WorkerTest_Get.assertAceptance_26(++count, path, null,     "0");
-            WorkerTest_Get.assertAceptance_26(++count, path, null,     "256");
-            WorkerTest_Get.assertAceptance_26(++count, path, null,     "65535");
-            WorkerTest_Get.assertAceptance_26(++count, path, null,     "A");
-            WorkerTest_Get.assertAceptance_26(++count, path, null,      null);
-            WorkerTest_Get.assertAceptance_26(++count, path, "",       "0");
-            WorkerTest_Get.assertAceptance_26(++count, path, "",       "256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-1",     "");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-256",   "");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-65535", "");
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "0");
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "65535");
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "A");
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,      null);
+            WorkerTest_Get.assertAcceptance_26(++count, path, "",       "0");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "",       "256");
             
-            WorkerTest_Get.assertAceptance_26(++count, path, "",       "65535");
-            WorkerTest_Get.assertAceptance_26(++count, path, "",       "-0");
-            WorkerTest_Get.assertAceptance_26(++count, path, "",       "-1");
-            WorkerTest_Get.assertAceptance_26(++count, path, "",       "-256");
-            WorkerTest_Get.assertAceptance_26(++count, path, "",       "-65535");
-            WorkerTest_Get.assertAceptance_26(++count, path, "0",      " ");
-            WorkerTest_Get.assertAceptance_26(++count, path, "1",      " ");
-            WorkerTest_Get.assertAceptance_26(++count, path, "256",    " ");
-            WorkerTest_Get.assertAceptance_26(++count, path, "65535",  " ");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-0",     " ");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "",       "65535");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "",       "-0");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "",       "-1");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "",       "-256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "",       "-65535");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      " ");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      " ");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    " ");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  " ");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-0",     " ");
             
-            WorkerTest_Get.assertAceptance_26(++count, path, null,       "-0");
-            WorkerTest_Get.assertAceptance_26(++count, path, null,       "-1");
-            WorkerTest_Get.assertAceptance_26(++count, path, null,       "-256");
-            WorkerTest_Get.assertAceptance_26(++count, path, null,       "-65535");
-            WorkerTest_Get.assertAceptance_26(++count, path, "0",      null);
-            WorkerTest_Get.assertAceptance_26(++count, path, "1",      null);
-            WorkerTest_Get.assertAceptance_26(++count, path, "256",    null);
-            WorkerTest_Get.assertAceptance_26(++count, path, "65535",  null);
-            WorkerTest_Get.assertAceptance_26(++count, path, "-0",     null);  
-            WorkerTest_Get.assertAceptance_26(++count, path, null,    "65535");
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,       "-0");
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,       "-1");
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,       "-256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,       "-65535");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      null);
+            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      null);
+            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    null);
+            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  null);
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-0",     null);  
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,    "65535");
             
-            WorkerTest_Get.assertAceptance_26(++count, path, null,  "256");
-            WorkerTest_Get.assertAceptance_26(++count, path, null,   "127");            
-            WorkerTest_Get.assertAceptance_26(++count, path, "-1",     " ");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-256",   " ");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-65535", " ");
-            WorkerTest_Get.assertAceptance_26(++count, path, " ",      "0");
-            WorkerTest_Get.assertAceptance_26(++count, path, " ",      "1");
-            WorkerTest_Get.assertAceptance_26(++count, path, " ",      "256");
-            WorkerTest_Get.assertAceptance_26(++count, path, " ",      "65535");
-            WorkerTest_Get.assertAceptance_26(++count, path, " ",      "-0");
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,  "256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,   "127");            
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-1",     " ");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-256",   " ");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-65535", " ");
+            WorkerTest_Get.assertAcceptance_26(++count, path, " ",      "0");
+            WorkerTest_Get.assertAcceptance_26(++count, path, " ",      "1");
+            WorkerTest_Get.assertAcceptance_26(++count, path, " ",      "256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, " ",      "65535");
+            WorkerTest_Get.assertAcceptance_26(++count, path, " ",      "-0");
             
-            WorkerTest_Get.assertAceptance_26(++count, path, " ",      "-1");
-            WorkerTest_Get.assertAceptance_26(++count, path, " ",      "-256");
-            WorkerTest_Get.assertAceptance_26(++count, path, " ",      "-65535");
-            WorkerTest_Get.assertAceptance_26(++count, path, "0",      "-");
-            WorkerTest_Get.assertAceptance_26(++count, path, "1",      "-");
-            WorkerTest_Get.assertAceptance_26(++count, path, "256",    "-");
-            WorkerTest_Get.assertAceptance_26(++count, path, "65535",  "-");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-0",     "-");    
-            WorkerTest_Get.assertAceptance_26(++count, path, "-1",     "-");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-256",   "-");
+            WorkerTest_Get.assertAcceptance_26(++count, path, " ",      "-1");
+            WorkerTest_Get.assertAcceptance_26(++count, path, " ",      "-256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, " ",      "-65535");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      "-");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      "-");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    "-");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  "-");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-0",     "-");    
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-1",     "-");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-256",   "-");
             
-            WorkerTest_Get.assertAceptance_26(++count, path, "-65535", "-");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-",      "0");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-",      "256");    
-            WorkerTest_Get.assertAceptance_26(++count, path, "-",      "65535");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-",      "-0");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-",      "-1");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-",      "-256");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-",      "-65535");
-            WorkerTest_Get.assertAceptance_26(++count, path, "0",      ";");
-            WorkerTest_Get.assertAceptance_26(++count, path, "1",      ";");    
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-65535", "-");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-",      "0");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-",      "256");    
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-",      "65535");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-",      "-0");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-",      "-1");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-",      "-256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-",      "-65535");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      ";");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      ";");    
             
-            WorkerTest_Get.assertAceptance_26(++count, path, "256",    ";");
-            WorkerTest_Get.assertAceptance_26(++count, path, "65535",  ";");
-            WorkerTest_Get.assertAceptance_26(++count, path, "0;",      null);
-            WorkerTest_Get.assertAceptance_26(++count, path, "1;",      null);    
-            WorkerTest_Get.assertAceptance_26(++count, path, "256;",    null);
-            WorkerTest_Get.assertAceptance_26(++count, path, "65535;",  null);            
-            WorkerTest_Get.assertAceptance_26(++count, path, "-0",     ";");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-1",     ";");
-            WorkerTest_Get.assertAceptance_26(++count, path, "-256",   ";");    
-            WorkerTest_Get.assertAceptance_26(++count, path, "-65535", ";");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    ";");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  ";");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "0;",      null);
+            WorkerTest_Get.assertAcceptance_26(++count, path, "1;",      null);    
+            WorkerTest_Get.assertAcceptance_26(++count, path, "256;",    null);
+            WorkerTest_Get.assertAcceptance_26(++count, path, "65535;",  null);            
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-0",     ";");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-1",     ";");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-256",   ";");    
+            WorkerTest_Get.assertAcceptance_26(++count, path, "-65535", ";");
 
-            WorkerTest_Get.assertAceptance_26(++count, path, ";",      "0");
-            WorkerTest_Get.assertAceptance_26(++count, path, ";",      "1");
-            WorkerTest_Get.assertAceptance_26(++count, path, ";",      "256");
-            WorkerTest_Get.assertAceptance_26(++count, path, ";",      "65535");    
-            WorkerTest_Get.assertAceptance_26(++count, path, ";",      "-0");
-            WorkerTest_Get.assertAceptance_26(++count, path, ";",      "-1");
-            WorkerTest_Get.assertAceptance_26(++count, path, ";",      "-256");
-            WorkerTest_Get.assertAceptance_26(++count, path, ";",      "-65535");
-            WorkerTest_Get.assertAceptance_26(++count, path, "1",      "");
-            WorkerTest_Get.assertAceptance_26(++count, path, "",       "1");            
+            WorkerTest_Get.assertAcceptance_26(++count, path, ";",      "0");
+            WorkerTest_Get.assertAcceptance_26(++count, path, ";",      "1");
+            WorkerTest_Get.assertAcceptance_26(++count, path, ";",      "256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, ";",      "65535");    
+            WorkerTest_Get.assertAcceptance_26(++count, path, ";",      "-0");
+            WorkerTest_Get.assertAcceptance_26(++count, path, ";",      "-1");
+            WorkerTest_Get.assertAcceptance_26(++count, path, ";",      "-256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, ";",      "-65535");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      "");
+            WorkerTest_Get.assertAcceptance_26(++count, path, "",       "1");            
         }
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The correct response for GET request with a Range,
      *  If-Modified-Since and If-UnModified-Since header is checked.
      *  @throws Exception
      */  
     @Test
-    public void testAceptance_27() throws Exception {
+    public void testAcceptance_27() throws Exception {
         
         for (String path : new String[] {"/partial_content.txt", "/partial_content_empty.txt",
                 "/partial_content-nix.txt", "/"}) {

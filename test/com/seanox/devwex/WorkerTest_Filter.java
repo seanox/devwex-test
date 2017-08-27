@@ -37,13 +37,13 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_Filter extends AbstractTest {
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Without 'Feld-C' the request is responded with status 403.
      *  filter expression: {@code GET IS EMPTY FELD-C}
      *  @throws Exception
      */
     @Test
-    public void testAceptance_01() throws Exception {
+    public void testAcceptance_01() throws Exception {
         
         String request;
         String response;
@@ -61,14 +61,14 @@ public class WorkerTest_Filter extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The filter method ALL is working for all methods, also unknown methods.
      *  The request is responded with status 403.
      *  filter expression: {@code ALL IS CONTAINS REQUEST ABC}
      *  @throws Exception
      */
     @Test
-    public void testAceptance_02() throws Exception {
+    public void testAcceptance_02() throws Exception {
         
         String request;
         String response;
@@ -117,14 +117,14 @@ public class WorkerTest_Filter extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  If 'FeldA' contains 'A1', the HEAD request is responded with status 403
      *  but the GET request is responded with status 200.
      *  filter expression: {@code HEAD IS CONTAINS FELDA A1}
      *  @throws Exception
      */
     @Test
-    public void testAceptance_03() throws Exception {
+    public void testAcceptance_03() throws Exception {
         
         String request;
         String response;
@@ -145,14 +145,14 @@ public class WorkerTest_Filter extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  If 'FeldA' ends not with 'A2', the request is responded with status 200
      *  but with 'A2' at the end, the request is responded with status 403.
      *  filter expression: {@code HEAD IS ENDS FELDA A2}
      *  @throws Exception
      */
     @Test
-    public void testAceptance_04() throws Exception {
+    public void testAcceptance_04() throws Exception {
         
         String request;
         String response;
@@ -173,14 +173,14 @@ public class WorkerTest_Filter extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The filter must also work with encoded special characters (MIME/UFT8).
      *  The request is responded with status 403.
      *  filter expression: {@code GET IS CONTAINS PATH -ß-}
      *  @throws Exception
      */
     @Test
-    public void testAceptance_05() throws Exception {
+    public void testAcceptance_05() throws Exception {
         
         String request = "GET /xxx-%df%c3%9f- HTTP/1.0\r\n\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
@@ -189,7 +189,7 @@ public class WorkerTest_Filter extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  If 'FeldA' starts not with 'A3', the request is responded with status
      *  200 but with 'A3' at the beginn, the request is responded with status
      *  403.
@@ -197,7 +197,7 @@ public class WorkerTest_Filter extends AbstractTest {
      *  @throws Exception
      */
     @Test
-    public void testAceptance_06() throws Exception {
+    public void testAcceptance_06() throws Exception {
         
         String request;
         String response;
@@ -218,14 +218,14 @@ public class WorkerTest_Filter extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The filter must also work with encoded special characters (MIME/UFT8).
      *  The request is responded with status 403.
      *  filter expression: {@code GET IS CONTAINS PATH -ß-}
      *  @throws Exception
      */
     @Test
-    public void testAceptance_07() throws Exception {
+    public void testAcceptance_07() throws Exception {
         
         String request = "GET /xxx-%c3%9f- HTTP/1.0\r\n\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
@@ -234,14 +234,14 @@ public class WorkerTest_Filter extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  If 'FeldA' equals not 'A4', the request is responded with status 200
      *  but 'FeldA' equals 'A4', the request is responded with status 403.
      *  filter expression: {@code HEAD IS EQUALS FELDA A4}
      *  @throws Exception
      */
     @Test
-    public void testAceptance_08() throws Exception {
+    public void testAcceptance_08() throws Exception {
         
         String request;
         String response;
@@ -262,14 +262,14 @@ public class WorkerTest_Filter extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The filter must also work with encoded special characters (MIME/UFT8).
      *  The request is responded with status 403.
      *  filter expression: {@code GET IS CONTAINS PATH -ß-}
      *  @throws Exception
      */
     @Test
-    public void testAceptance_09() throws Exception {
+    public void testAcceptance_09() throws Exception {
         
         String request = "GET /xxx-%c3%9f%df- HTTP/1.0\r\n\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
@@ -278,14 +278,14 @@ public class WorkerTest_Filter extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  If 'FeldA' equals not 'A4', the request is responded with status 200
      *  but 'FeldA' equals 'A4', the request is responded with status 403.
      *  filter expression: {@code HEAD IS EQUALS FELDA A4}
      *  @throws Exception
      */
     @Test
-    public void testAceptance_10() throws Exception {
+    public void testAcceptance_10() throws Exception {
         
         String request;
         String response;
@@ -314,14 +314,14 @@ public class WorkerTest_Filter extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The filter must also work with encoded special characters (MIME/UFT8).
      *  The request is responded with status 403.
      *  filter expression: {@code GET IS CONTAINS PATH -ß-}
      *  @throws Exception
      */
     @Test
-    public void testAceptance_11() throws Exception {
+    public void testAcceptance_11() throws Exception {
         
         String request = "GET /xxx-%DF- HTTP/1.0\r\n\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
@@ -330,14 +330,14 @@ public class WorkerTest_Filter extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The filter must also work with encoded special characters (MIME/UFT8).
      *  The request is responded with status 403.
      *  filter expression: {@code GET IS CONTAINS PATH -ß-}
      *  @throws Exception
      */
     @Test
-    public void testAceptance_12() throws Exception {
+    public void testAcceptance_12() throws Exception {
         
         String request = "GET /xxx-ß- HTTP/1.0\r\n\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
@@ -346,7 +346,7 @@ public class WorkerTest_Filter extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  If the request contains {@code Felda: t1} and {@code Felda: field-C},
      *  the request is responded with status 200 and the content of
      *  {@code ../documents/filter_a.html}.
@@ -354,7 +354,7 @@ public class WorkerTest_Filter extends AbstractTest {
      *  @throws Exception
      */
     @Test
-    public void testAceptance_13() throws Exception {
+    public void testAcceptance_13() throws Exception {
         
         String request = "GET / HTTP/1.0\r\n"
                 + "Felda: t1\r\n"
@@ -367,7 +367,7 @@ public class WorkerTest_Filter extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  If the request contains {@code Feldo: t1} the request is responded
      *  with status 403 because the target {@code ../documents/filter_a.html_}
      *  does not exists.
@@ -375,7 +375,7 @@ public class WorkerTest_Filter extends AbstractTest {
      *  @throws Exception
      */
     @Test
-    public void testAceptance_14() throws Exception {
+    public void testAcceptance_14() throws Exception {
         
         String request = "GET / HTTP/1.0\r\n"
                 + "Feldo: t1\r\n"
@@ -387,14 +387,14 @@ public class WorkerTest_Filter extends AbstractTest {
     }   
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  If the request contains {@code Felda: t2} the request is responded with
      *  status 302 and a redirect/location to {@code http://www.xxx.zz/a=1}.
      *  filter expression: {@code GET IS CONTAINS FELDA T2 > http://www.xxx.zz/a=1 [r]}
      *  @throws Exception
      */
     @Test
-    public void testAceptance_15() throws Exception {
+    public void testAcceptance_15() throws Exception {
         
         String request = "GET / HTTP/1.0\r\n"
                 + "Felda: t2\r\n"
@@ -414,7 +414,7 @@ public class WorkerTest_Filter extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  If 'FeldA' equals not '3B1BB2', the request is responded with status
      *  200 but 'FeldA' equals '3B1BB2', the request is responded with status
      *  403.
@@ -422,7 +422,7 @@ public class WorkerTest_Filter extends AbstractTest {
      *  @throws Exception
      */
     @Test
-    public void testAceptance_16() throws Exception {
+    public void testAcceptance_16() throws Exception {
         
         String request;
         String response;
@@ -441,7 +441,7 @@ public class WorkerTest_Filter extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  If the request contains {@code Felda: t4} the request is responded with
      *  status 403 because for the redirect is the option {@code [R]} is
      *  missing.
@@ -449,7 +449,7 @@ public class WorkerTest_Filter extends AbstractTest {
      *  @throws Exception
      */
     @Test
-    public void testAceptance_17() throws Exception {
+    public void testAcceptance_17() throws Exception {
         
         String request = "GET / HTTP/1.0\r\n"
                 + "Felda: t4\r\n"
@@ -462,7 +462,7 @@ public class WorkerTest_Filter extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  If the request contains {@code Felda: t6} and {@code Feldb: t7} the
      *  request is responded with status 200 and the content of
      *  {@code ../documents/filter_a.html}.
@@ -470,7 +470,7 @@ public class WorkerTest_Filter extends AbstractTest {
      *  @throws Exception
      */
     @Test
-    public void testAceptance_18() throws Exception {
+    public void testAcceptance_18() throws Exception {
         
         String request = "GET / HTTP/1.0\r\n"
                 + "Felda: t6\r\n"
@@ -484,7 +484,7 @@ public class WorkerTest_Filter extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  If the request contains {@code Felda: t5}, then a module should be
      *  used. But the module definition is incorrect, the option {@code [M]} is
      *  missing here. So the request is responded with status 403.
@@ -492,7 +492,7 @@ public class WorkerTest_Filter extends AbstractTest {
      *  @throws Exception
      */
     @Test
-    public void testAceptance_19() throws Exception {
+    public void testAcceptance_19() throws Exception {
         
         String request = "GET / HTTP/1.0\r\n"
                 + "Felda: t5\r\n"
@@ -505,14 +505,14 @@ public class WorkerTest_Filter extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  If the request contains {@code Felda: t3}, then a module should be
      *  used. So the request is responded with status 001.
      *  filter expression: {@code GET IS CONTAINS FELDA T3 > ExtensionA [pA=3] [m]}
      *  @throws Exception
      */
     @Test
-    public void testAceptance_20() throws Exception {
+    public void testAcceptance_20() throws Exception {
         
         String request = "GET / HTTP/1.0\r\n"
                 + "Felda: t3\r\n"
@@ -530,7 +530,7 @@ public class WorkerTest_Filter extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  VHP has three ALWAYS filters.
      *  All filters are executed because no filter changes the server status.
      *  The request is responded with status 200 and a test file is created in
@@ -540,7 +540,7 @@ public class WorkerTest_Filter extends AbstractTest {
      *  @throws Exception
      */
     @Test
-    public void testAceptance_21() throws Exception {
+    public void testAcceptance_21() throws Exception {
         
         String docRoot = AbstractSuite.getRootStage().toString() + "/documents_vh_P";
         Path testFile = Paths.get(docRoot, "test.txt");
@@ -560,7 +560,7 @@ public class WorkerTest_Filter extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration:
      *      {@code FLT: GET IS CONTAINS QUERY -404- > ExtensionF [M]}
      *      {@code REF: /env.test > ExtensionC [M]}
@@ -569,7 +569,7 @@ public class WorkerTest_Filter extends AbstractTest {
      *  @throws Exception
      */
     @Test
-    public void testAceptance_22() throws Exception {
+    public void testAcceptance_22() throws Exception {
         
         String request;
         String response;
@@ -601,7 +601,7 @@ public class WorkerTest_Filter extends AbstractTest {
     }
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration:
      *      {@code FLT: PUT IS CONTAINS QUERY -404- > vF [M]}
      *      {@code REF: /env.test > ExtensionC [M]}
@@ -611,7 +611,7 @@ public class WorkerTest_Filter extends AbstractTest {
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_23() throws Exception {
+    public void testAcceptance_23() throws Exception {
         
         String request;
         String response;
@@ -674,14 +674,14 @@ public class WorkerTest_Filter extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Method {@code ALL} was defined for the CGI but {@code METHODS} does
      *  this not allow and the request is responded with status 403.
      *  is without content.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_24() throws Exception {
+    public void testAcceptance_24() throws Exception {
         
         String request;
         String response;

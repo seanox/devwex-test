@@ -38,12 +38,12 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_AccessLog extends AbstractTest {
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The usage of time symbols in the file name must work.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_1() throws Exception {
+    public void testAcceptance_1() throws Exception {
         
         String accessLog = new SimpleDateFormat("'access-'yyyyMMdd'.log'").format(new Date());
         File accessLogFile = new File(AbstractSuite.getRootStage(), accessLog);
@@ -61,12 +61,12 @@ public class WorkerTest_AccessLog extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The time zone must be set correctly in the access log.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_2() throws Exception {
+    public void testAcceptance_2() throws Exception {
         
         HttpUtils.sendRequest("127.0.0.1:80", "GET / HTTP/1.0\r\n\r\n");
         
@@ -77,12 +77,12 @@ public class WorkerTest_AccessLog extends AbstractTest {
     }   
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Special characters (\, ") must be escaped.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_3() throws Exception {
+    public void testAcceptance_3() throws Exception {
         
         String request = "G\"ET /nix\"xxx\"_zzz\u00FF HTTP/1.0\r\n"
                 + "User-Agent: Nix\"123\"\r\n";
@@ -95,12 +95,12 @@ public class WorkerTest_AccessLog extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The usage of CGI variables in the file name must work.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_4() throws Exception {
+    public void testAcceptance_4() throws Exception {
         
         String accessLog = new SimpleDateFormat("'access-'yyyyMMdd'_vHl.log'").format(new Date());
         File accessLogFile = new File(AbstractSuite.getRootStage(), accessLog);

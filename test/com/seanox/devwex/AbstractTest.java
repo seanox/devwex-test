@@ -23,9 +23,7 @@ package com.seanox.devwex;
 
 import java.lang.reflect.Method;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
@@ -43,7 +41,7 @@ public abstract class AbstractTest extends AbstractSuite {
      */
     @Rule
     public TestRule watcher = new TestWatcher() {
-        
+
         @Override
         protected void starting(Description description) {
 
@@ -78,24 +76,6 @@ public abstract class AbstractTest extends AbstractSuite {
             }
         }
     };
-    
-    /**
-     *  The method can be used to prepare the test class before the first test
-     *  unit.
-     *  @throws Exception
-     */
-    @Before
-    public void onBefore() throws Exception {
-    }
-    
-    /**
-     *  The method can be used to finalize the test class after the last test
-     *  unit.
-     *  @throws Exception
-     */    
-    @After
-    public void onAfter() throws Exception {
-    }
     
     /** Simple time measurement and testing. */
     static class Timing {

@@ -1,4 +1,4 @@
-#### testAceptance_1
+#### testAcceptance_1
 PARAm-A        = ValuE-1         ;comment
 PARAm-B    [+] = ValuE-2; ValuE-3
                + ValuE-4; ValuE-5
@@ -11,7 +11,7 @@ PARAm-E        + bbb
 PARAm-F        = ccc
                = ddd
 
-#### testAceptance_1_1
+#### testAcceptance_1_1
 PARAM-A              = ValuE-1
 PARAM-B          [+] = ValuE-2; ValuE-3 ValuE-4; ValuE-5 ValuE-6
 PARAM-C              = p_c
@@ -20,7 +20,7 @@ PARAM-E              = aaa
 PARAM-E        + BBB
 PARAM-F              = ccc
 
-#### testAceptance_2
+#### testAcceptance_2
                           + invalid
  PARAM-A                  = 0x574552542D31 ;comment
    0x504152414D2D42       = ValuE-2        ;comment
@@ -37,7 +37,7 @@ PARAM-F              = ccc
   xxx                     = 0x504152414D2  ;invalid value
   0x50415241XD2D43        = 0x504152414X2D43  ;invalid key and value
         
-#### testAceptance_2_1
+#### testAcceptance_2_1
 PARAM-A          = WERT-1
 PARAM-B          = ValuE-2
 PARAM-C          = WERT-3
@@ -48,7 +48,7 @@ PARAM-E
 XXX              = 0x504152414D2
 0X50415241XD2D43 = 0x504152414X2D43
 
-#### testAceptance_3
+#### testAcceptance_3
  PARAM-A                  = 0x574552542D31 ;comment
    0x504152414D2D42       = ValuE-2        ;comment
 0x504152414D2D43      [+] = 0x574552542D33
@@ -60,14 +60,14 @@ XXX              = 0x504152414D2
     PARAM-E        [?][+] = 0x574552542D363B20574552542D37
   0x504152414D2D45 [?]                     ;comment
 
-#### testAceptance_3_1
+#### testAcceptance_3_1
 PARAM-A = WERT-1
 PARAM-B = ValuE-2
 PARAM-C = WERT-3
 PARAM-D = WERT-4 ¤ WERT-5
 PARAM-E
 
-#### testAceptance_4
+#### testAcceptance_4
 
 
  pAram-A = 1
@@ -80,31 +80,31 @@ pAram-D=4
 
 pAram-E =5
 
-#### testAceptance_4_1
+#### testAcceptance_4_1
 PARAM-A = 1
 PARAM-B = 2
 PARAM-C = 3
 PARAM-D = 4
 PARAM-E = 5
 
-#### testAceptance_5
+#### testAcceptance_5
      
      
-#### testAceptance_5_1
-#### testAceptance_6
-#### testAceptance_6_1
-#### testAceptance_7
+#### testAcceptance_5_1
+#### testAcceptance_6
+#### testAcceptance_6_1
+#### testAcceptance_7
  
    0x000709 = A
    0x000A0D = B
    0x000001 = 0x0000
    0x000002 = 0x0007
    
-#### testAceptance_7_1
-#### testAceptance_8
+#### testAcceptance_7_1
+#### testAcceptance_8
   ReDIRECT = /redirect > http://www.xXx.zzz/?a=2 [r]        ;test comment
   MoDUL    = /test.modul > test.Connector001 [v:xx=123] [m] ;test comment
-#### testAceptance_8_1  
+#### testAcceptance_8_1  
 REDIRECT = /redirect > http://www.xXx.zzz/?a=2 [r]
 MODUL    = /test.modul > test.Connector001 [v:xx=123] [m]
 

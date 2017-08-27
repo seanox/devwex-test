@@ -38,8 +38,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.Before;
+import org.junit.ClassRule;
+import org.junit.rules.ExternalResource;
 
 import com.seanox.test.utils.HttpUtils.Keystore;
 import com.seanox.test.utils.OutputStreamTail;
@@ -68,6 +69,9 @@ public abstract class AbstractSuite {
     /** internal counter of executed test units */
     private static volatile int counter;
     
+    /** internal counter of executed test units */
+    private static volatile List<String> trace;
+    
     /** internal shared new system and error output stream  */
     private static volatile OutputStream systemOutLog;
 
@@ -87,123 +91,144 @@ public abstract class AbstractSuite {
     private static volatile Keystore keystore;
     
     /**
-     *  Execution with the loading of a new test class for the initialization
-     *  of the test environment.
-     *  @throws IOException
-     */
-    @SuppressWarnings("unchecked")
-    @BeforeClass
-    public static void onBeforeClass() throws IOException {
-        
-        final File root = new File(".").getCanonicalFile();
+     *  Resource Management
+     *  Execution with loading of a new test class for the initialization of
+     *  the test environment and execution at the end of a test class to stop
+     *  the test environment.
+     */     
+    @ClassRule
+    public static volatile ExternalResource resource = new ExternalResource() {
+       
+        @Override
+        @SuppressWarnings("unchecked")
+        protected void before() throws IOException {
+            
+            if (++AbstractSuite.counter > 1)
+                return;
+    
+            AbstractSuite.systemOut = System.out;
+            AbstractSuite.systemOutTail = new OutputStreamTail();
+            System.setOut(new PrintStream(new OutputStreams(AbstractSuite.systemOut, AbstractSuite.systemOutTail)));
+    
+            AbstractSuite.systemErr = System.err;
+            AbstractSuite.systemErrTail = new OutputStreamTail();
+            System.setErr(new PrintStream(new OutputStreams(AbstractSuite.systemErr, AbstractSuite.systemErrTail)));
 
-        final File rootStage = new File(root, PATH_STAGE).getCanonicalFile();
-        
-        File accessLog = new File(rootStage, "access.log");
-        File outputLog = new File(rootStage, "output.log");
-        
-        if (++counter > 1)
-            return;
+            final File root = new File(".").getCanonicalFile();
+            final File rootStage = new File(root, AbstractSuite.PATH_STAGE).getCanonicalFile();
 
-        systemOut = System.out;
-        systemOutTail = new OutputStreamTail();
-        System.setOut(new PrintStream(new OutputStreams(systemOut, systemOutTail)));
-
-        systemErr = System.err;
-        systemErrTail = new OutputStreamTail();
-        System.setErr(new PrintStream(new OutputStreams(systemErr, systemErrTail)));
+            if (Files.exists(rootStage.toPath()))
+                Files.walkFileTree(rootStage.toPath(), new SimpleFileVisitor<Path>() {
+                    @Override
+                    public FileVisitResult visitFile(Path path, BasicFileAttributes attributes)
+                            throws IOException {
+                        if (Files.exists(path))
+                            Files.delete(path);
+                        return FileVisitResult.CONTINUE;
+                    }
         
-        if (Files.exists(rootStage.toPath()))
-            Files.walkFileTree(rootStage.toPath(), new SimpleFileVisitor<Path>() {
+                    @Override
+                    public FileVisitResult postVisitDirectory(Path path, IOException exception)
+                            throws IOException {
+                        if (Files.exists(path))
+                            Files.delete(path);                
+                        return FileVisitResult.CONTINUE;
+                    }
+                });
+            
+            rootStage.mkdir();
+            
+            final File rootResources = new File(root, AbstractSuite.PATH_RESOURCES).getCanonicalFile();
+    
+            final File rootResourcesProgram = new File(root, AbstractSuite.PATH_RESOURCES_PROGRAM).getCanonicalFile();
+            Files.walkFileTree(rootResources.toPath(), new SimpleFileVisitor<Path>() {
                 @Override
-                public FileVisitResult visitFile(Path path, BasicFileAttributes attributes)
+                public FileVisitResult preVisitDirectory(Path path, BasicFileAttributes attributes)
                         throws IOException {
-                    if (Files.exists(path))
-                        Files.delete(path);
+                    Files.createDirectories(rootStage.toPath().resolve(rootResources.toPath().relativize(path)));
                     return FileVisitResult.CONTINUE;
                 }
     
                 @Override
-                public FileVisitResult postVisitDirectory(Path path, IOException exception)
+                public FileVisitResult visitFile(Path path, BasicFileAttributes attributes)
                         throws IOException {
-                    if (Files.exists(path))
-                        Files.delete(path);                
+                    Files.copy(path, rootStage.toPath().resolve(rootResources.toPath().relativize(path)));
                     return FileVisitResult.CONTINUE;
                 }
             });
-        
-        rootStage.mkdir();
-        
-        final File rootResources = new File(root, PATH_RESOURCES).getCanonicalFile();
-
-        final File rootResourcesProgram = new File(root, PATH_RESOURCES_PROGRAM).getCanonicalFile();
-        Files.walkFileTree(rootResources.toPath(), new SimpleFileVisitor<Path>() {
-            @Override
-            public FileVisitResult preVisitDirectory(Path path, BasicFileAttributes attributes)
-                    throws IOException {
-                Files.createDirectories(rootStage.toPath().resolve(rootResources.toPath().relativize(path)));
-                return FileVisitResult.CONTINUE;
+            
+            AbstractSuite.systemOutLog = new FileOutputStream(new File(root, AbstractSuite.PATH_STAGE + "/output.log")); 
+            System.setOut(new PrintStream(new OutputStreams(AbstractSuite.systemOut, AbstractSuite.systemOutTail, AbstractSuite.systemOutLog)));
+    
+            if (Files.exists(rootResourcesProgram.toPath()))
+                Files.walkFileTree(rootResourcesProgram.toPath(), new SimpleFileVisitor<Path>() {
+                    @Override
+                    public FileVisitResult visitFile(Path path, BasicFileAttributes attributes)
+                            throws IOException {
+                        File file = path.toFile();
+                        if (file.isFile())
+                            Files.copy(path, Paths.get("./" + file.getName()), StandardCopyOption.REPLACE_EXISTING); 
+                        return FileVisitResult.CONTINUE;
+                    }
+                });
+            
+            String content = new String(Files.readAllBytes(Paths.get("./devwex.ini")));
+            Initialize initialize = Initialize.parse(content);
+            List<String> sectionList = Collections.list(initialize.elements());
+            for (String sectionName : sectionList) {
+                if (!sectionName.matches("(?i)server:.*:ssl$"))
+                    continue;
+                Section section = initialize.get(sectionName);
+                if (!section.contains("keystore")
+                        || !section.contains("password"))
+                    continue;
+                String keystore = section.get("keystore");
+                String password = section.get("password");
+                AbstractSuite.keystore = new Keystore() {
+    
+                    public String getPassword() {
+                        return password;
+                    }
+                    
+                    public File getFile() {
+                        return new File(keystore);
+                    }
+                };
+                break;
             }
-
-            @Override
-            public FileVisitResult visitFile(Path path, BasicFileAttributes attributes)
-                    throws IOException {
-                Files.copy(path, rootStage.toPath().resolve(rootResources.toPath().relativize(path)));
-                return FileVisitResult.CONTINUE;
-            }
-        });
-        
-        systemOutLog = new FileOutputStream(new File(root, PATH_STAGE + "/output.log")); 
-        System.setOut(new PrintStream(new OutputStreams(systemOut, systemOutTail, systemOutLog)));
-        
-        Files.copy(Paths.get(rootResourcesProgram.toString(), "devwex.ini"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING);
-        
-        String content = new String(Files.readAllBytes(Paths.get("./devwex.ini")));
-        Initialize initialize = Initialize.parse(content);
-        List<String> sectionList = Collections.list(initialize.elements());
-        for (String sectionName : sectionList) {
-            if (!sectionName.matches("(?i)server:.*:ssl$"))
-                continue;
-            Section section = initialize.get(sectionName);
-            if (!section.contains("keystore")
-                    || !section.contains("password"))
-                continue;
-            String keystore = section.get("keystore");
-            String password = section.get("password");
-            AbstractSuite.keystore = new Keystore() {
-
-                public String getPassword() {
-                    return password;
-                }
-                
-                public File getFile() {
-                    return new File(keystore);
-                }
-            };
-            break;
+            
+            final File rootStageLibraries = new File(root, AbstractSuite.PATH_STAGE_LIBRARIES).getCanonicalFile();
+            String libraries = rootStageLibraries.toString();
+            System.setProperty("libraries", libraries);
+            
+            File accessLog = new File(rootStage, "access.log");
+            accessLog.createNewFile();
+            
+            File outputLog = new File(rootStage, "output.log");
+            outputLog.createNewFile();
+            
+            Service.main(new String[] {"start"});   
         }
         
-        final File rootStageLibraries = new File(root, PATH_STAGE_LIBRARIES).getCanonicalFile();
-        String libraries = rootStageLibraries.toString();
-        System.setProperty("libraries", libraries);
+        @Override
+        protected void after() {
+            
+            if (--AbstractSuite.counter > 0)
+                return;
+            System.setOut(AbstractSuite.systemOut);
+            System.setErr(AbstractSuite.systemErr);
+        }
+    };
+    
+    @Before
+    public void printOutSection() {
         
-        accessLog.createNewFile();
-        outputLog.createNewFile();
-        
-        Service.main(new String[] {"start"});
-    }
-
-    /**
-     *  Execution at the end of a test class to stop the test environment.
-     *  @throws IOException
-     */
-    @AfterClass
-    public static void onAfterClass() {
-        
-        if (--counter > 0)
+        if (AbstractSuite.trace == null)
+            AbstractSuite.trace = new LinkedList<>();
+        if (AbstractSuite.trace.contains(this.getClass().getName()))
             return;
-        System.setOut(systemOut);
-        System.setErr(systemErr);
+        AbstractSuite.trace.add(this.getClass().getName());
+        Service.print("[" + this.getClass().getName() + "]", false);
     }
     
     /**
@@ -244,6 +269,23 @@ public abstract class AbstractSuite {
         final File rootStage = new File(root, PATH_STAGE).getCanonicalFile();
         
         return new String(Files.readAllBytes(Paths.get(rootStage.toString(), "output.log")));
+    }
+    
+    /**
+     *  Returns the content for a test class (section) in the output log.
+     *  If the section can not be found, {@code null} is returned.
+     *  @return the content for a test class (section) in the output log or
+     *          {@code null}, if the section can not be found
+     */    
+    static String getOutputLog(Class<? extends AbstractTest> section) throws IOException {
+
+        String string = AbstractSuite.getOutputLog();
+        if (section == null)
+            return string;
+        String pattern = "(?s)^.*[\r\n]+\\Q[" + section.getName() + "]\\E[\r\n]+(.*?)(?:(?:[\r\n]+\\[.*$)|(?:$))";
+        if (string.matches(pattern))
+            return string.replaceAll(pattern, "$1");
+        return null;
     }
     
     /**

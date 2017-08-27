@@ -151,12 +151,12 @@ public class WorkerTest_Request extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Without a path, then terminates the request with status 400.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_1() throws Exception {
+    public void testAcceptance_1() throws Exception {
         
         String request = "GET\r\n\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
@@ -172,13 +172,13 @@ public class WorkerTest_Request extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The path starts without a slash, then terminates the request with
      *  status 400.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_2() throws Exception {
+    public void testAcceptance_2() throws Exception {
         
         String request = "GET XXX\r\n\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
@@ -194,13 +194,13 @@ public class WorkerTest_Request extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  If the path starts with backslash, the server will change it to slash
      *  and respond to it with status 200.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_3() throws Exception {
+    public void testAcceptance_3() throws Exception {
         
         String request = "GET \\\r\n\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
@@ -216,13 +216,13 @@ public class WorkerTest_Request extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Each request line is limited to 32768 characters and will be terminated
      *  with status 413 if it is overlength.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_5() throws Exception {
+    public void testAcceptance_5() throws Exception {
         
         String request = "GET /";
         while (request.length() < 40000)
@@ -241,13 +241,13 @@ public class WorkerTest_Request extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The request is limited to 65535 characters and will be terminated with
      *  status 200 if it is big but not overlength.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_6() throws Exception {
+    public void testAcceptance_6() throws Exception {
         
         String requestLine = "";
         while (requestLine.length() < 1000)
@@ -271,13 +271,13 @@ public class WorkerTest_Request extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The request is limited to 65535 characters and will be terminated with
      *  status 200 if big but it is not overlength.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_7() throws Exception {
+    public void testAcceptance_7() throws Exception {
         
         String requestLine = "";
         while (requestLine.length() < 1000)
@@ -301,13 +301,13 @@ public class WorkerTest_Request extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  A request whose header contains no data but only {@code [CRLF][CRLF]}
      *  is terminated with status 400.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_8() throws Exception {
+    public void testAcceptance_8() throws Exception {
         
         String response = new String(HttpUtils.sendRequest("127.0.0.1:80", "\r\n\r\n"));
         
@@ -322,14 +322,14 @@ public class WorkerTest_Request extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Aborted requests should not be blocked. The value of MAXACCESS must not
      *  be reached. All 150 queries must be responded with status 200, even if
      *  the MAXACCESS is set to 100.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_9() throws Exception {
+    public void testAcceptance_9() throws Exception {
         
         int threadCount = Thread.activeCount();
         

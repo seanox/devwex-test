@@ -33,12 +33,12 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_VirtualHost extends AbstractTest {
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Virtual hosts must be resolved correctly.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_01() throws Exception {
+    public void testAcceptance_01() throws Exception {
         
         String request = "GET \\cgi_environment.jsx HTTP/1.0\r\n"
                 + "Host: vhA\r\n"
@@ -59,12 +59,12 @@ public class WorkerTest_VirtualHost extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Virtual hosts must be resolved correctly.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_02() throws Exception {
+    public void testAcceptance_02() throws Exception {
         
         String request = "GET \\cgi_environment.jsx HTTP/1.0\r\n"
                 + "Host: vhA\r\n"
@@ -85,12 +85,12 @@ public class WorkerTest_VirtualHost extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The virtual host must observe the parameter SERVER.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_03() throws Exception {
+    public void testAcceptance_03() throws Exception {
         
         for (int port : new int[] {8081, 8082, 8083, 80}) {
             String request = "GET \\cgi_environment.jsx HTTP/1.0\r\n"
@@ -110,12 +110,12 @@ public class WorkerTest_VirtualHost extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The virtual host must observe the parameter SERVER.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_04() throws Exception {
+    public void testAcceptance_04() throws Exception {
         
         for (int port : new int[] {8081, 8082, 8083, 80}) {
             String request = "GET \\cgi_environment.jsx HTTP/1.0\r\n"

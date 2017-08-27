@@ -36,13 +36,13 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_Delete extends AbstractTest {
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The Deleting of files whose path is a directory is responded with the
      *  location and status 302.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_01() throws Exception {
+    public void testAcceptance_01() throws Exception {
         
         String request;
         String response;
@@ -97,13 +97,13 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The Deleting of files whose path is a directory is responded with the
      *  location and status 302.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_02() throws Exception {
+    public void testAcceptance_02() throws Exception {
         
         String request = "Delete /delete_test_2/x1 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -122,12 +122,12 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The deletion of files is responded with status 200 and without content.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_03() throws Exception {
+    public void testAcceptance_03() throws Exception {
         
         String request = "Delete /delete_test_2/x1/file_test.2 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -151,12 +151,12 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The Deleting of files that do not exist is responded with status 404.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_04() throws Exception {
+    public void testAcceptance_04() throws Exception {
         
         String request = "Delete /delete_test_2/x1/file_test.2 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -174,13 +174,13 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The deletion of directories is responded with status 200 and without
      *  content.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_05() throws Exception {
+    public void testAcceptance_05() throws Exception {
         
         String request = "Delete /delete_test_2/x1/x2/x3/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -204,12 +204,12 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The Deleting of directories that do not exist is responded with status 404.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_06() throws Exception {
+    public void testAcceptance_06() throws Exception {
         
         String request = "Delete /delete_test_2/x1/x2/x3/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -227,14 +227,14 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The deletion of directories with sub-directories is responded with
      *  status 200. All sub-directories and files will be deleted.
      *  content.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_07() throws Exception {
+    public void testAcceptance_07() throws Exception {
         
         File target = new File(AbstractSuite.getRootStage(), "documents_vh_A/delete_test_1");
         
@@ -264,14 +264,14 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The deletion of directories with sub-directories is responded with
      *  status 200. All sub-directories and files will be deleted.
      *  content.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_08() throws Exception {
+    public void testAcceptance_08() throws Exception {
         
         File target = new File(AbstractSuite.getRootStage(), "documents_vh_A/delete_test_2");
         
@@ -301,13 +301,13 @@ public class WorkerTest_Delete extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  DELETE is executed by a CGI.
      *  The request is responded with Status 200.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_09() throws Exception {
+    public void testAcceptance_09() throws Exception {
         
         String request = "Delete /method.jsx HTTP/1.0\r\n"
                 + "Host: vHe\r\n"
@@ -324,13 +324,13 @@ public class WorkerTest_Delete extends AbstractTest {
     }
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  DELETE is executed by a CGI, but the CGI does not exists.
      *  The request is responded with Status 403.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_10() throws Exception {
+    public void testAcceptance_10() throws Exception {
         
         String request = "Delete /method.php HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -345,7 +345,7 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  DELETE is executed by a moduls.
      *  The path of the uri is for a module is absolute and so the module with
      *  the path {@code /test.modul} will also responses an uri with the path
@@ -353,7 +353,7 @@ public class WorkerTest_Delete extends AbstractTest {
      *  @throws Exception
      */
     @Test
-    public void testAceptance_11() throws Exception {
+    public void testAcceptance_11() throws Exception {
         
         String request = "Delete /test.modul123 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -370,14 +370,14 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Delete is executed for an absolute reference (URL). Thus, the request
      *  is responded with Status 200. The path is absolute, so
      *  {@code /test.xxx123} is also covered by {@code /test.xxx}.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_12() throws Exception {
+    public void testAcceptance_12() throws Exception {
         
         String request;
         String response;
@@ -453,13 +453,13 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Delete is executed for an absolute reference (URL).
      *  Thus, the request is responded with Status 200.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_13() throws Exception {
+    public void testAcceptance_13() throws Exception {
         
         String request;
         String response;
@@ -520,13 +520,13 @@ public class WorkerTest_Delete extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Delete with a URL with redirection.
      *  The request is responded with status 302 and a location.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_14() throws Exception {
+    public void testAcceptance_14() throws Exception {
         
         String request = "Delete /redirect/a/b/c HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -545,13 +545,13 @@ public class WorkerTest_Delete extends AbstractTest {
     }    
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Delete with a forbidden URL.
      *  The request is responded with status 403.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_15() throws Exception {
+    public void testAcceptance_15() throws Exception {
         
         String request = "Delete /forbidden/absolute.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -569,13 +569,13 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Delete with Basic-Authentication without access data.
      *  The request is responded with status 401.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_16() throws Exception {
+    public void testAcceptance_16() throws Exception {
         
         String request = "Delete /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -593,14 +593,14 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Delete with Basic Authentication.
      *  The request must be responded with status 200 because the access data
      *  are included.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_17() throws Exception {
+    public void testAcceptance_17() throws Exception {
         
         String request;
         String response;

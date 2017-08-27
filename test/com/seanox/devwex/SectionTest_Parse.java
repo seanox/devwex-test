@@ -31,73 +31,73 @@ import com.seanox.test.utils.ResourceUtils;
  */
 public class SectionTest_Parse extends AbstractTest {
     
-    private void onBeforeTestAceptance_1() {
+    private void onBeforeTestAcceptance_1() {
 
         System.setProperty("param-c", "p_c");
     }
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_1() {
+    public void testAcceptance_1() {
 
         Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_1_1"), SectionTest.toString(section));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_1_1"), SectionTest.toString(section));
     }
 
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_2() {
+    public void testAcceptance_2() {
         
         Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_2_1"), SectionTest.toString(section));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_2_1"), SectionTest.toString(section));
     }
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_3() {
+    public void testAcceptance_3() {
         
         Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_3_1"), SectionTest.toString(section));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_3_1"), SectionTest.toString(section));
     }    
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_4() {
+    public void testAcceptance_4() {
         
         Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_4_1"), SectionTest.toString(section));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_4_1"), SectionTest.toString(section));
     } 
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_5() {
+    public void testAcceptance_5() {
         
         Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_5_1"), SectionTest.toString(section));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_5_1"), SectionTest.toString(section));
     }
 
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_6() {
+    public void testAcceptance_6() {
         
         Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_6_1"), SectionTest.toString(section));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_6_1"), SectionTest.toString(section));
     }
 
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_7() {
+    public void testAcceptance_7() {
         
         Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_7_1"), SectionTest.toString(section));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_7_1"), SectionTest.toString(section));
     }
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_8() {
+    public void testAcceptance_8() {
         
         Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_8_1"), SectionTest.toString(section));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_8_1"), SectionTest.toString(section));
     }    
     
     /** TestCase for override keys. */

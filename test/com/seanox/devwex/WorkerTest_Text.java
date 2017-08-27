@@ -54,13 +54,13 @@ public class WorkerTest_Text extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Tested the use of method:
      *      {@code Worker#textEscape(String)}.
      *  @throws Exception
      */  
     @Test
-    public void testAceptance_01() throws Exception {
+    public void testAcceptance_01() throws Exception {
         
         int length = ResourceUtils.getContextContentSet().length;
         for (int loop = 1; loop < length; loop += 2)
@@ -69,13 +69,13 @@ public class WorkerTest_Text extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Tested the use of method:
      *      {@code Worker#textReplace(String, String, String)}.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_02() throws Exception {
+    public void testAcceptance_02() throws Exception {
 
         String content = ResourceUtils.getContextContent();
         String[] lines = TextUtils.extractLines(content); 
@@ -87,13 +87,13 @@ public class WorkerTest_Text extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Tested the use of method:
      *      {@code Worker#textHash(String, String, String)}.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_03() throws Exception {
+    public void testAcceptance_03() throws Exception {
 
         String content = ResourceUtils.getContextContent();
         String[] lines = TextUtils.extractLines(content); 
@@ -104,13 +104,13 @@ public class WorkerTest_Text extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Tested the use of method:
      *      {@code Worker#textDecode(String, String, String)}.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_04() throws Exception {
+    public void testAcceptance_04() throws Exception {
 
         String content = ResourceUtils.getContextContent();
         String[] lines = TextUtils.extractLines(content); 

@@ -27,6 +27,7 @@ import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -49,14 +50,14 @@ public class WorkerTest_Performance extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Measures the execution time of 1000 (40 x 25) request.
      *  The first load test is slower because the server first increases the
      *  number of threads.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_1() throws Exception {
+    public void testAcceptance_1() throws Exception {
         
         Service.restart();
         
@@ -91,14 +92,14 @@ public class WorkerTest_Performance extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Measures the execution time of 1000 (40 x 25) request.
      *  The second load test is faster because the server has a large number
      *  of threads.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_2() throws Exception {
+    public void testAcceptance_2() throws Exception {
         
         Service.restart();
         
@@ -176,13 +177,13 @@ public class WorkerTest_Performance extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The internal resource management must fast deallocate threads and
      *  memory.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_3() throws Exception {
+    public void testAcceptance_3() throws Exception {
         
         Service.restart();
         
@@ -239,7 +240,7 @@ public class WorkerTest_Performance extends AbstractTest {
         Assert.assertFalse(memoryUsage4 > memoryUsage3);
     }
     
-    @Override
+    @After
     public void onAfter() throws Exception {
         Service.restart();
     }

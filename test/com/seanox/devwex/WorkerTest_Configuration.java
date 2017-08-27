@@ -42,13 +42,13 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_Configuration extends AbstractTest {
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] IDENTITY = ON}
      *  The CGI-parameter {@code SERVER_NAME} must be available.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_01() throws Exception {
+    public void testAcceptance_01() throws Exception {
         
         String request = "GET \\cgi_environment.jsx?parameter=SERVER_NAME HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -66,13 +66,13 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] IDENTITY = ?}
      *  The CGI-parameter {@code SERVER_NAME} is not available.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_02() throws Exception {
+    public void testAcceptance_02() throws Exception {
         
         String request = "GET \\documents\\cgi_environment.jsx?parameter=SERVER_NAME HTTP/1.0\r\n"
                 + "Host: vHc\r\n"
@@ -90,13 +90,13 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] IDENTITY = OFF}
      *  The CGI-parameter {@code SERVER_NAME} is not available.
      *  @throws Exception
      */       
     @Test
-    public void testAceptance_03() throws Exception {
+    public void testAcceptance_03() throws Exception {
         
         String request = "GET \\cgi_environment.jsx?parameter=SERVER_NAME HTTP/1.0\r\n"
                 + "\r\n";
@@ -113,13 +113,13 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] docroot = ?}
      *  The DooRoot is the current working directory.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_04() throws Exception {
+    public void testAcceptance_04() throws Exception {
         
         String request = "GET / HTTP/1.0\r\n"
                 + "Host: vHq\r\n"
@@ -138,13 +138,13 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] DEFAULT = index_1.html, index_2.html}
      *  In the requested directory, the file index_1.html is found and shown.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_05() throws Exception {
+    public void testAcceptance_05() throws Exception {
         
         String request = "GET /test_a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -163,13 +163,13 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] DEFAULT = index_1.html, index_2.html}
      *  In the requested directory, the file index_2.html is found and shown.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_06() throws Exception {
+    public void testAcceptance_06() throws Exception {
         
         String request = "GET /test_b/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -189,14 +189,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] DEFAULT = index_1.html, index_2.html}
      *  In the requested directory, the files index_1.html and index_2.html is
      *  not found, therefore the directory is shown.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_07() throws Exception {
+    public void testAcceptance_07() throws Exception {
         
         String request = "GET /test_c/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -217,14 +217,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }    
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] DEFAULT = ' '}
      *  Without correct default, the directory is shown.
      *  Without ACCESSLOG, the StdIO is used for logging.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_08() throws Exception {
+    public void testAcceptance_08() throws Exception {
         
         String request;
         String response;
@@ -268,7 +268,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration:
      *      {@code [SERVER/VIRTUAL:BAS] MAXACCESS = 3}
      *      {@code [SERVER/VIRTUAL:BAS] BACKLOG = 5}
@@ -277,7 +277,7 @@ public class WorkerTest_Configuration extends AbstractTest {
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_09() throws Exception {
+    public void testAcceptance_09() throws Exception {
         
         int threadCount = Thread.activeCount();
         
@@ -309,14 +309,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = XXX}
      *  The method XXX is included in the method list, but not implemented.
      *  The request must be responded with status 501.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_10() throws Exception {
+    public void testAcceptance_10() throws Exception {
         
         String request = "XXX / HTTP/1.0\r\n"
                 + "\r\n";
@@ -333,14 +333,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = XXX}
      *  The method ZZZ is included in the method list and not implemented.
      *  The request must be responded with status 405.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_11() throws Exception {
+    public void testAcceptance_11() throws Exception {
         
         String request = "ZZZ / HTTP/1.0\r\n"
                 + "\r\n";
@@ -354,14 +354,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = AAA}
      *  The method AAA is included in the method list, but not implemented.
      *  The request must be responded with status 501.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_12() throws Exception {
+    public void testAcceptance_12() throws Exception {
         
         String request = "AAA / HTTP/1.0\r\n"
                 + "\r\n";
@@ -378,14 +378,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = BBB}
      *  The method BBB is included in the method list, but no module is
      *  assigned. The request must be responded with status 501.
      *  @throws Exception
      */        
     @Test
-    public void testAceptance_13() throws Exception {
+    public void testAcceptance_13() throws Exception {
         
         String request = "BBB / HTTP/1.0\r\n"
                 + "\r\n";
@@ -402,14 +402,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = BBB}
      *  The method CCC is not included in the method list. The request must be
      *  responded with status 405, even if a module exists.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_14() throws Exception {
+    public void testAcceptance_14() throws Exception {
         
         String request = "CCC / HTTP/1.0\r\n"
                 + "\r\n";
@@ -422,21 +422,21 @@ public class WorkerTest_Configuration extends AbstractTest {
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_405));          
     }
     
-    private void onBeforeTestAceptance_15() throws Exception {
+    private void onBeforeTestAcceptance_15() throws Exception {
         
         Path path = new File(AbstractSuite.getRootStage(), "/documents/commons/hidden.txt").toPath();
         Files.setAttribute(path, "dos:hidden", Boolean.TRUE);
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] INDEX = ON}
      *  The file index includes all entries of a directory, even hidden entries.
      *  Access to hidden files is allowed.
      *  @throws Exception
      */ 
     @Test
-    public void testAceptance_15() throws Exception {
+    public void testAcceptance_15() throws Exception {
         
         String request;
         String response;
@@ -458,14 +458,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] INDEX = ON [S]}
      *  The file index includes all not hidden entries of a directory.
      *  Access to hidden files is allowed.
      *  @throws Exception
      */ 
     @Test
-    public void testAceptance_16() throws Exception {
+    public void testAcceptance_16() throws Exception {
         
         String request;
         String response;
@@ -487,14 +487,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] INDEX = ON [S]}
      *  The file index includes all not hidden entries of a directory.
      *  Access to hidden files is allowed.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_17() throws Exception {
+    public void testAcceptance_17() throws Exception {
         
         String request;
         String response;
@@ -516,14 +516,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] INDEX = OFF [S]}
      *  The file index is not allowed. The request must be responded with
      *  status 403. Access to hidden files is allowed.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_18() throws Exception {
+    public void testAcceptance_18() throws Exception {
         
         String request;
         String response;
@@ -545,14 +545,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = ALL}
      *  The alias ALL will no longer supported, because the Allow-Header can
      *  not be filled correctly. The request must be responded with status 405.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_19() throws Exception {
+    public void testAcceptance_19() throws Exception {
         
         String request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
@@ -566,14 +566,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = XYZ ...}
      *  The method XYZ is included in the method list, but not implemented.
      *  The request must be responded with status 501.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_21() throws Exception {
+    public void testAcceptance_21() throws Exception {
         
         String request = "XYZ / HTTP/1.0\r\n"
                 + "\r\n";
@@ -590,14 +590,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = HEAD, ALL 123}
      *  The method HEAD is supported, but GET not. The request must be
      *  responded with status 405.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_23() throws Exception {
+    public void testAcceptance_23() throws Exception {
         
         String request;
         String response;
@@ -625,14 +625,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = HEAD ALL 123}
      *  The method ALL 123 will no supported. The request must be responded
      *  with status 400.
      *  @throws Exception
      */  
     @Test
-    public void testAceptance_24() throws Exception {
+    public void testAcceptance_24() throws Exception {
         
         String request = "ALL 123 / HTTP/1.0\r\n"
                 + "\r\n";
@@ -646,14 +646,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = ALL}
      *  The alias ALL will no longer supported, because the Allow-Header can
      *  not be filled correctly. The request must be responded with status 405.
      *  @throws Exception
      */  
     @Test
-    public void testAceptance_25() throws Exception {
+    public void testAcceptance_25() throws Exception {
         
         String request = "HEAD / HTTP/1.0\r\n"
                 + "\r\n";
@@ -667,14 +667,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = ALL get}
      *  In the case of status 405, the response header ALLOW must be set
      *  correctly.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_26() throws Exception {
+    public void testAcceptance_26() throws Exception {
         
         String request = "XYZ / HTTP/1.0\r\n"
                 + "\r\n";
@@ -688,7 +688,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_405));          
     }
     
-    private void onBeforeTestAceptance_27() {
+    private void onBeforeTestAcceptance_27() {
         
         System.setProperty("env_PARAM_D", "abc");
         System.setProperty("env_PARAM_E", "");
@@ -699,14 +699,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_A = }
      *  The value of ENV_PARAM_A is static and empty. Section works smart and
      *  therefore the variable does not exist.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_27() throws Exception {
+    public void testAcceptance_27() throws Exception {
         
         String request;
         String response;
@@ -728,13 +728,13 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_B = 123}
      *  The value of ENV_PARAM_C is static and is used normally.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_28() throws Exception {
+    public void testAcceptance_28() throws Exception {
         
         String request;
         String response;
@@ -756,14 +756,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_C [?] = 456}
      *  The value of ENV_PARAM_C is dynamically. Bcause no corresponding
      *  environment variable exists, the default value 456 is used.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_29() throws Exception {
+    public void testAcceptance_29() throws Exception {
         
         String request;
         String response;
@@ -785,14 +785,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_D [?] = 789}
      *  The value of ENV_PARAM_D is dynamically and is set by the corresponding
      *  environment variable. The default value 789 is not used.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_30() throws Exception {
+    public void testAcceptance_30() throws Exception {
         
         String request;
         String response;
@@ -814,7 +814,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_E [?]}
      *  The value of ENV_PARAM_F is dynamically, but the corresponding
      *  environment variable is empty. Section works smart and therefore the
@@ -822,7 +822,7 @@ public class WorkerTest_Configuration extends AbstractTest {
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_31() throws Exception {
+    public void testAcceptance_31() throws Exception {
      
         String request;
         String response;
@@ -837,7 +837,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_F [?]}
      *  The value of ENV_PARAM_F is dynamically, but there is no corresponding
      *  environment variable. Section works smart and therefore the variable
@@ -845,7 +845,7 @@ public class WorkerTest_Configuration extends AbstractTest {
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_32() throws Exception {
+    public void testAcceptance_32() throws Exception {
      
         String request;
         String response;
@@ -860,14 +860,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_G [?]}
      *  The value of ENV_PARAM_G is dynamically and is set by value of the
      *  environment variable.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_33() throws Exception {
+    public void testAcceptance_33() throws Exception {
         
         String request;
         String response;
@@ -889,14 +889,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_H = xyz [?]}
      *  The function {@code [?]} at the end of the line is ignored and is a
      *  part of the value.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_34() throws Exception {
+    public void testAcceptance_34() throws Exception {
         
         String request;
         String response;
@@ -918,14 +918,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_I = uvw [+]}
      *  The function {@code [+]} at the end of the line is ignored and is a
      *  part of the value.
      *  @throws Exception
      */       
     @Test
-    public void testAceptance_35() throws Exception {
+    public void testAcceptance_35() throws Exception {
         
         String request;
         String response;
@@ -947,13 +947,13 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_J [?] = xxx}
      *  The parameter is overwritten with an empty environment variable.
      *  @throws Exception
      */       
     @Test
-    public void testAceptance_36() throws Exception {
+    public void testAcceptance_36() throws Exception {
         
         String request;
         String response;
@@ -975,14 +975,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [COMMONS] RELOAD = ON}
      *  If the configuration file is changed, the server must restart and load
      *  the new configuration.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_37() throws Exception {
+    public void testAcceptance_37() throws Exception {
         
         String request;
         String response;
@@ -1020,13 +1020,13 @@ public class WorkerTest_Configuration extends AbstractTest {
     //TODO: Testfall mit leerer + ungueltiger Konfiguration, der Server muss durchstarten aber mit der letzten geladenen Konfiguration o.ae.
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ACCESS = OFF}
      *  The logging will be completely disabled.
      *  @throws Exception
      */   
     @Test
-    public void testAceptance_38() throws Exception {
+    public void testAcceptance_38() throws Exception {
         
         Thread.sleep(50);
 
@@ -1048,14 +1048,14 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:ENV] TESTINIT = ... + ...}
      *  The line function {@code +} must work correctly.
      *  The vlaue of the key TESTINIT must be assembled correctly.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_39() throws Exception {
+    public void testAcceptance_39() throws Exception {
         
         String request;
         String response;
@@ -1077,13 +1077,13 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] IDENTITY = ON}
      *  The server signature in the response header is activated.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_40() throws Exception {
+    public void testAcceptance_40() throws Exception {
         
         for (String request : new String[] {
                 "GET \\cgi_environment.jsx?parameter=SERVER_NAME HTTP/1.0\r\nHost: vHa\r\n\r\n",
@@ -1101,13 +1101,13 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] IDENTITY = ON}
      *  The server signature in the response header is disabled.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_41() throws Exception {
+    public void testAcceptance_41() throws Exception {
         
         for (String request : new String[] {
                 "GET \\cgi_environment.jsx?parameter=SERVER_NAME HTTP/1.0\r\n\r\n",

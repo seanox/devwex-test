@@ -33,13 +33,13 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_MimeType extends AbstractTest {
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  For the file extension {@code xxx} was not defined a mimetype.
      *  The request must be responded with status 200 and the standard mimetype.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_1() throws Exception {
+    public void testAcceptance_1() throws Exception {
         
         String request = "GET /mimetype_test.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -51,13 +51,13 @@ public class WorkerTest_MimeType extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  For the file extension {@code xls} was defined a mimetype.
      *  The request must be responded with status 200 and the defined a mimetype.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_2() throws Exception {
+    public void testAcceptance_2() throws Exception {
         
         String request = "GET /mimetype_test.xls HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -69,14 +69,14 @@ public class WorkerTest_MimeType extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  For the file extension {@code xls} was defined a mimetype.
      *  The request with {@code Accept: *}{@code /*} must be responded with
      *  status 200 and the defined a mimetype.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_3() throws Exception {
+    public void testAcceptance_3() throws Exception {
         
         String request = "GET /mimetype_test.xls HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -89,14 +89,14 @@ public class WorkerTest_MimeType extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  For the file extension {@code xls} was defined a mimetype.
      *  The request with {@code Accept: application/*} must be responded with
      *  status 200 and the defined a mimetype.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_4() throws Exception {
+    public void testAcceptance_4() throws Exception {
         
         String request = "GET /mimetype_test.xls HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -109,14 +109,14 @@ public class WorkerTest_MimeType extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  For the file extension {@code xls} was defined a mimetype.
      *  The request with {@code Accept: *}{@code /vnd.ms-excel} must be
      *  responded with status 200 and the defined a mimetype.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_5() throws Exception {
+    public void testAcceptance_5() throws Exception {
         
         String request = "GET /mimetype_test.xls HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -129,13 +129,13 @@ public class WorkerTest_MimeType extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  For the file extension {@code xxx} was not defined a mimetype.
      *  The request must be responded with status 200 and the standard mimetype.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_6() throws Exception {
+    public void testAcceptance_6() throws Exception {
         
         String request = "GET /mimetype_test.xxx HTTP/1.0\r\n"
                 + "Host: vHi\r\n"
@@ -148,13 +148,13 @@ public class WorkerTest_MimeType extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Accept and the content-type the server has determined do not match.
      *  The request must be responded with status 406.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_7() throws Exception {
+    public void testAcceptance_7() throws Exception {
         
         String request = "GET /mimetype_test.xxx HTTP/1.0\r\n"
                 + "Host: vHi\r\n"
@@ -166,13 +166,13 @@ public class WorkerTest_MimeType extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Accept and the content-type the server has determined do not match.
      *  The request must be responded with status 406.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_8() throws Exception {
+    public void testAcceptance_8() throws Exception {
         
         String request = "GET /mimetype_test.xxx HTTP/1.0\r\n"
                 + "Host: vHi\r\n"
@@ -184,14 +184,14 @@ public class WorkerTest_MimeType extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  For the file extension {@code xxx} was not defined a mimetype.
      *  The request must be responded with status 200 and the standard mimetype.
      *  Accept is blank and is ignored.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_9() throws Exception {
+    public void testAcceptance_9() throws Exception {
         
         String request = "GET /mimetype_test.xxx HTTP/1.0\r\n"
                 + "Host: vHi\r\n"

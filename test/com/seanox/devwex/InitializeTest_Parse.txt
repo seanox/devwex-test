@@ -1,9 +1,9 @@
-#### testAceptance_1
-#### testAceptance_1_1
-#### testAceptance_2
+#### testAcceptance_1
+#### testAcceptance_1_1
+#### testAcceptance_2
 
-#### testAceptance_2_1
-#### testAceptance_3
+#### testAcceptance_2_1
+#### testAcceptance_3
 
  [sec-A]     ; comment
 a = 1
@@ -19,7 +19,7 @@ d = 5
 [sec-E] extends sec-E
 e = 6
 
-#### testAceptance_3_1
+#### testAcceptance_3_1
 [SEC-A]
 A = 1
 
@@ -37,7 +37,7 @@ D = 5
 [SEC-E]
 E = 6
 
-#### testAceptance_4
+#### testAcceptance_4
 
  [a0[
 aa0 = 1 
@@ -63,7 +63,7 @@ dd0 = 7
  [d1]
 dd1 = 8
 
-#### testAceptance_4_1
+#### testAcceptance_4_1
 [A1]
 AA1 = 2
 
@@ -79,7 +79,7 @@ CC1 = 6
 [D1]
 DD1 = 8
 
-#### testAceptance_5
+#### testAcceptance_5
 [a0[
 aa0 = 1 
 [a1]
@@ -96,7 +96,7 @@ cc1 = 6
 dd0 = 7 
 [d1]
 dd1 = 8
-#### testAceptance_5_1
+#### testAcceptance_5_1
 [A1]
 AA1 = 2
 
@@ -112,7 +112,7 @@ CC1 = 6
 [D1]
 DD1 = 8
 
-#### testAceptance_6
+#### testAcceptance_6
 [0x53454354494F4E2D41]
 [0x4142435B305D]
 [0x4142435B315D]
@@ -120,7 +120,7 @@ DD1 = 8
 [0x53454354494F4E2D4]
 [0x4142435B305X]
 [0x4142435B315Y]
-#### testAceptance_6_1
+#### testAcceptance_6_1
 [SECTION-A]
 [0x4142435B305D]
 [0x4142435B315D]
@@ -129,7 +129,7 @@ DD1 = 8
 [0X4142435B305X]
 [0X4142435B315Y]
 
-#### testAceptance_7
+#### testAcceptance_7
 [A]
 a = 1
 b = 2
@@ -138,7 +138,7 @@ b = 3
 [A]
 b = 4
 
-#### testAceptance_7_1
+#### testAcceptance_7_1
 [A]
 B = 4
 

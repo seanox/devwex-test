@@ -31,59 +31,59 @@ import com.seanox.test.utils.ResourceUtils;
  */
 public class InitializeTest_Parse extends AbstractTest {
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_1() {
+    public void testAcceptance_1() {
         
         Initialize initialize = Initialize.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_1_1"), InitializeTest.toString(initialize));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_1_1"), InitializeTest.toString(initialize));
     }
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_2() {
+    public void testAcceptance_2() {
 
         Initialize initialize = Initialize.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_2_1"), InitializeTest.toString(initialize));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_2_1"), InitializeTest.toString(initialize));
     }
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_3() {
+    public void testAcceptance_3() {
 
         Initialize initialize = Initialize.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_3_1"), InitializeTest.toString(initialize));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_3_1"), InitializeTest.toString(initialize));
     }
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_4() {
+    public void testAcceptance_4() {
 
         Initialize initialize = Initialize.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_4_1"), InitializeTest.toString(initialize));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_4_1"), InitializeTest.toString(initialize));
     }
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_5() {
+    public void testAcceptance_5() {
 
         Initialize initialize = Initialize.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_5_1"), InitializeTest.toString(initialize));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_5_1"), InitializeTest.toString(initialize));
     }
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_6() {
+    public void testAcceptance_6() {
 
         Initialize initialize = Initialize.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_6_1"), InitializeTest.toString(initialize));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_6_1"), InitializeTest.toString(initialize));
     }  
     
-    /** TestCase for aceptance. */
+    /** TestCase for acceptance. */
     @Test
-    public void testAceptance_7() {
+    public void testAcceptance_7() {
 
         Initialize initialize = Initialize.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAceptance_7_1"), InitializeTest.toString(initialize));
+        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_7_1"), InitializeTest.toString(initialize));
     } 
 }

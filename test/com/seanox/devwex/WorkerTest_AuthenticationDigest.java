@@ -37,13 +37,13 @@ import com.seanox.test.utils.HttpUtils.Authentication.Digest;
 public class WorkerTest_AuthenticationDigest extends AbstractTest {
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  Without {@code usr-a:pwd-a} the request is responded with status 401.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_01() throws Exception {
+    public void testAcceptance_01() throws Exception {
         
         String request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -64,14 +64,14 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code /authentication/a/b/d [acc:none]}
      *  Without login/password the request is responded with status 200.
      *  Access is also possible without login/password.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_02() throws Exception {
+    public void testAcceptance_02() throws Exception {
         
         String request = "GET /authentication/a/b/d/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -87,13 +87,13 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  Authentication {@code usr-a:pwd-a} is required for the access.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_03() throws Exception {
+    public void testAcceptance_03() throws Exception {
         
         String request;
         String response;
@@ -125,13 +125,13 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code /authentication/a/b [acc:usr-b:pwd-b:Section-B]}
      *  Authentication {@code usr-b:pwd-b} is required for the access.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_04() throws Exception {
+    public void testAcceptance_04() throws Exception {
         
         String request;
         String response;
@@ -163,13 +163,13 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code /authentication/a/b [acc:usr-b:pwd-b:Section-B]}
      *  Authentication {@code usr-b:pwd-b} is required for the access.
      *  @throws Exception
      */
     @Test
-    public void testAceptance_05() throws Exception {
+    public void testAcceptance_05() throws Exception {
         
         String request;
         String response;
@@ -198,7 +198,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  Authentication {@code usr-a:pwd-a} is required for the access.
      *  Transmitted was: {@code usr-b:pwd-b}
@@ -206,7 +206,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_06() throws Exception {
+    public void testAcceptance_06() throws Exception {
         
         String request;
         String response;
@@ -238,7 +238,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code /authentication/a/b/c [acc:usr-a:pwd-a:Section-A2]}
      *  Authentication {@code usr-a:pwd-a} is required for the access.
      *  Transmitted was: {@code usr-a:pwd-a}
@@ -246,7 +246,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */       
     @Test
-    public void testAceptance_07() throws Exception {
+    public void testAcceptance_07() throws Exception {
         
         String request;
         String response;
@@ -278,7 +278,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code /authentication/a/b/c [acc:usr-a:pwd-a:Section-A2]}
      *  Authentication {@code usr-a:pwd-a} is required for the access.
      *  Transmitted was: nothing
@@ -286,7 +286,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_08() throws Exception {
+    public void testAcceptance_08() throws Exception {
         
         String request = "GET /authentication/a/b/c/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -307,14 +307,14 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code /authentication/a/b/d/e [acc:usr-e:pwd-e:Section-E]}
      *  Transmitted was: nothing
      *  The request is responded with status 401.
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_09() throws Exception {
+    public void testAcceptance_09() throws Exception {
         
         String request = "GET /authentication/a/b/d/e/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -335,14 +335,14 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code /authentication/a/b/d/e/e [acc:usr-e:pwd-e:Section-E]}
      *  Transmitted was: nothing
      *  The request is responded with status 401.
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_10() throws Exception {
+    public void testAcceptance_10() throws Exception {
         
         String request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -363,7 +363,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code /authentication/a/b/d/e/e [acc:usr-e:pwd-e:Section-E]}
      *  Authentication {@code usr-e:pwd-e} is required for the access.
      *  Transmitted was: {@code usr-e:pwd-e}
@@ -371,7 +371,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_11() throws Exception {
+    public void testAcceptance_11() throws Exception {
         
         String request;
         String response;
@@ -401,7 +401,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Configuration: {@code /authentication/a/b/d/e/e [acc:usr-e:pwd-e:Section-E]}
      *  Authentication {@code usr-e:pwd-e} is required for the access.
      *  Transmitted was: {@code usr-e:pwd-e}
@@ -409,7 +409,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */       
     @Test
-    public void testAceptance_12() throws Exception {
+    public void testAcceptance_12() throws Exception {
         
         String request;
         String response;
@@ -466,7 +466,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-e")));
     }
     
-    private static void assertAceptance_13(String uri, String status, int auth) throws Exception {
+    private static void assertAcceptance_13(String uri, String status, int auth) throws Exception {
         
         String request = "GET " + uri + " HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -484,7 +484,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  The access to @{code /authentication/a/b/d/e/*} is defined in
      *  combination with option @{code [C]}. ACC has the higher priority and
@@ -493,25 +493,25 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_13() throws Exception {
+    public void testAcceptance_13() throws Exception {
         
-        WorkerTest_AuthenticationDigest.assertAceptance_13("/authentication/a/b/c/f", "401", 0);
-        WorkerTest_AuthenticationDigest.assertAceptance_13("/authentication/a/b/c/g", "401", 0);
-        WorkerTest_AuthenticationDigest.assertAceptance_13("/authentication/a/b/c/h", "401", 0);
-        WorkerTest_AuthenticationDigest.assertAceptance_13("/authentication/a/b/c/i", "401", 0);
+        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/f", "401", 0);
+        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/g", "401", 0);
+        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/h", "401", 0);
+        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/i", "401", 0);
 
-        WorkerTest_AuthenticationDigest.assertAceptance_13("/authentication/a/b/c/f", "403", 1);
-        WorkerTest_AuthenticationDigest.assertAceptance_13("/authentication/a/b/c/g", "403", 1);
-        WorkerTest_AuthenticationDigest.assertAceptance_13("/authentication/a/b/c/h", "403", 1);
-        WorkerTest_AuthenticationDigest.assertAceptance_13("/authentication/a/b/c/i", "403", 1);
+        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/f", "403", 1);
+        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/g", "403", 1);
+        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/h", "403", 1);
+        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/i", "403", 1);
 
-        WorkerTest_AuthenticationDigest.assertAceptance_13("/authentication/a/b/c/f", "401", 2);
-        WorkerTest_AuthenticationDigest.assertAceptance_13("/authentication/a/b/c/g", "401", 2);
-        WorkerTest_AuthenticationDigest.assertAceptance_13("/authentication/a/b/c/h", "401", 2);
-        WorkerTest_AuthenticationDigest.assertAceptance_13("/authentication/a/b/c/i", "401", 2);
+        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/f", "401", 2);
+        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/g", "401", 2);
+        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/h", "401", 2);
+        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/i", "401", 2);
     }
     
-    private static void assertAceptance_14(String uri, String realm, int auth) throws Exception {
+    private static void assertAcceptance_14(String uri, String realm, int auth) throws Exception {
         
         String request = "GET " + uri + " HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -530,7 +530,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  The realm can be specified differently. Spaces at the beginning and
      *  end, as well the quotation mark are to be suppressed in the HTTP
@@ -538,22 +538,22 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_14() throws Exception {
+    public void testAcceptance_14() throws Exception {
         
-        WorkerTest_AuthenticationDigest.assertAceptance_14("/authentication/r/a/", "", 0);
-        WorkerTest_AuthenticationDigest.assertAceptance_14("/authentication/r/b/", "", 0);
-        WorkerTest_AuthenticationDigest.assertAceptance_14("/authentication/r/c/", "", 0);
-        WorkerTest_AuthenticationDigest.assertAceptance_14("/authentication/r/d/", "", 0);
-        WorkerTest_AuthenticationDigest.assertAceptance_14("/authentication/r/e/", "", 0);
-        WorkerTest_AuthenticationDigest.assertAceptance_14("/authentication/r/f/", "x", 0);
-        WorkerTest_AuthenticationDigest.assertAceptance_14("/authentication/r/g/", "x", 0);
-        WorkerTest_AuthenticationDigest.assertAceptance_14("/authentication/r/h/", "x", 0);
-        WorkerTest_AuthenticationDigest.assertAceptance_14("/authentication/r/i/", "x", 0);
-        WorkerTest_AuthenticationDigest.assertAceptance_14("/authentication/r/j/", "\\\"x\\\"", 0);
-        WorkerTest_AuthenticationDigest.assertAceptance_14("/authentication/r/k/", "", 0);
+        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/a/", "", 0);
+        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/b/", "", 0);
+        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/c/", "", 0);
+        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/d/", "", 0);
+        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/e/", "", 0);
+        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/f/", "x", 0);
+        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/g/", "x", 0);
+        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/h/", "x", 0);
+        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/i/", "x", 0);
+        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/j/", "\\\"x\\\"", 0);
+        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/k/", "", 0);
     }
     
-    private static void assertAceptance_15(String uri, String realm, String auth) throws Exception {
+    private static void assertAcceptance_15(String uri, String realm, String auth) throws Exception {
         
         String request = "GET " + uri + " HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -570,28 +570,28 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  Users and realm are separated by the colon when encrypting. Below are
      *  tested different combinations in the definition.   
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_15() throws Exception {
+    public void testAcceptance_15() throws Exception {
         
-        WorkerTest_AuthenticationDigest.assertAceptance_15("/authentication/s/a/", "", null);
-        WorkerTest_AuthenticationDigest.assertAceptance_15("/authentication/s/a/", "", null);
-        WorkerTest_AuthenticationDigest.assertAceptance_15("/authentication/s/b/", "sb", null);
-        WorkerTest_AuthenticationDigest.assertAceptance_15("/authentication/s/b/", "sb", null);
+        WorkerTest_AuthenticationDigest.assertAcceptance_15("/authentication/s/a/", "", null);
+        WorkerTest_AuthenticationDigest.assertAcceptance_15("/authentication/s/a/", "", null);
+        WorkerTest_AuthenticationDigest.assertAcceptance_15("/authentication/s/b/", "sb", null);
+        WorkerTest_AuthenticationDigest.assertAcceptance_15("/authentication/s/b/", "sb", null);
 
-        WorkerTest_AuthenticationDigest.assertAceptance_15("/authentication/s/a/", "", "usrSa1:");
-        WorkerTest_AuthenticationDigest.assertAceptance_15("/authentication/s/a/", null, "usrSa2:");
-        WorkerTest_AuthenticationDigest.assertAceptance_15("/authentication/s/b/", "sb", "usrSb1:");
-        WorkerTest_AuthenticationDigest.assertAceptance_15("/authentication/s/b/", null, "usrSb2:");
+        WorkerTest_AuthenticationDigest.assertAcceptance_15("/authentication/s/a/", "", "usrSa1:");
+        WorkerTest_AuthenticationDigest.assertAcceptance_15("/authentication/s/a/", null, "usrSa2:");
+        WorkerTest_AuthenticationDigest.assertAcceptance_15("/authentication/s/b/", "sb", "usrSb1:");
+        WorkerTest_AuthenticationDigest.assertAcceptance_15("/authentication/s/b/", null, "usrSb2:");
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  With {@code acc:usr-a:pwd-a} the authentication is correct and the
@@ -601,7 +601,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_16() throws Exception {
+    public void testAcceptance_16() throws Exception {
         
         String request;
         String response;
@@ -631,7 +631,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  The authentication is missing and the request is responded with status
@@ -639,7 +639,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */  
     @Test
-    public void testAceptance_17() throws Exception {
+    public void testAcceptance_17() throws Exception {
         
         String request = "GET /authentication/a/xxx HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -654,7 +654,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  VHA defines {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}.
      *  VHF extends VHA, overwrites {@code /authentication/a
@@ -663,7 +663,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */   
     @Test
-    public void testAceptance_18() throws Exception {
+    public void testAcceptance_18() throws Exception {
         
         String request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -679,7 +679,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a/b/d/e/e/lock [C]}
      *  The URI requires an authorization and has been redirected, because a
@@ -688,7 +688,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */       
     @Test
-    public void testAceptance_19() throws Exception {
+    public void testAcceptance_19() throws Exception {
         
         String request;
         String response;
@@ -746,7 +746,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a/b/d/e/e/lock [C]}
      *  The URI requires an authorization and the target does not exits. The
@@ -754,7 +754,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */ 
     @Test
-    public void testAceptance_20() throws Exception {
+    public void testAcceptance_20() throws Exception {
         
         String request;
         String response;
@@ -806,7 +806,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a/b/d/e/e/lock [C]}
      *  The URI requires an authorization and has been forbidden. The requests
@@ -814,7 +814,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */     
     @Test
-    public void testAceptance_21() throws Exception {
+    public void testAcceptance_21() throws Exception {
         
         String request;
         String response;
@@ -865,7 +865,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-e")));        
     }
     
-    private static void assertAceptance_22_1(String... args) throws Exception {
+    private static void assertAcceptance_22_1(String... args) throws Exception {
         
         String uri = null;
         if (args.length > 0)
@@ -897,7 +897,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
             Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
     }
 
-    private static void assertAceptance_22_2(String... args) throws Exception {
+    private static void assertAcceptance_22_2(String... args) throws Exception {
         
         String uri = null;
         if (args.length > 0)
@@ -946,44 +946,44 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  The directory structure {@code /o1} uses a mix of different
      *  authorizations. The correct use and response is checked.
      *  @throws Exception
      */        
     @Test
-    public void testAceptance_22() throws Exception {
+    public void testAcceptance_22() throws Exception {
 
-        WorkerTest_AuthenticationDigest.assertAceptance_22_1("/o1", null);
-        WorkerTest_AuthenticationDigest.assertAceptance_22_1("/o1/o2", null);
-        WorkerTest_AuthenticationDigest.assertAceptance_22_1("/o1/o2/o3", null);
-        WorkerTest_AuthenticationDigest.assertAceptance_22_1("/o1/o2/o3/d1", "Digest");
-        WorkerTest_AuthenticationDigest.assertAceptance_22_1("/o1/o2/o3/d1/d2", "Digest");
-        WorkerTest_AuthenticationDigest.assertAceptance_22_1("/o1/o2/o3/d1/d2/d3", "Digest");
-        WorkerTest_AuthenticationDigest.assertAceptance_22_1("/o1/o2/o3/d1/d2/d3/n1", null);
-        WorkerTest_AuthenticationDigest.assertAceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2", null);
-        WorkerTest_AuthenticationDigest.assertAceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2/n3", null);
-        WorkerTest_AuthenticationDigest.assertAceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1", "Basic");
-        WorkerTest_AuthenticationDigest.assertAceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1/b2", "Basic");
-        WorkerTest_AuthenticationDigest.assertAceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1/b2/b3", "Basic");
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1", null);
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2", null);
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3", null);
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1", "Digest");
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1/d2", "Digest");
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3", "Digest");
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1", null);
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2", null);
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2/n3", null);
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1", "Basic");
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1/b2", "Basic");
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1/b2/b3", "Basic");
 
-        WorkerTest_AuthenticationDigest.assertAceptance_22_2("/o1", null);
-        WorkerTest_AuthenticationDigest.assertAceptance_22_2("/o1/o2", null);
-        WorkerTest_AuthenticationDigest.assertAceptance_22_2("/o1/o2/o3", null);
-        WorkerTest_AuthenticationDigest.assertAceptance_22_2("/o1/o2/o3/d1", "Digest", "usr-d", "pwd-d");
-        WorkerTest_AuthenticationDigest.assertAceptance_22_2("/o1/o2/o3/d1/d2", "Digest", "usr-d", "pwd-d");
-        WorkerTest_AuthenticationDigest.assertAceptance_22_2("/o1/o2/o3/d1/d2/d3", "Digest", "usr-d", "pwd-d");
-        WorkerTest_AuthenticationDigest.assertAceptance_22_2("/o1/o2/o3/d1/d2/d3/n1");
-        WorkerTest_AuthenticationDigest.assertAceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2");
-        WorkerTest_AuthenticationDigest.assertAceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2/n3");
-        WorkerTest_AuthenticationDigest.assertAceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1", "Basic", "usr-b", "pwd-b");
-        WorkerTest_AuthenticationDigest.assertAceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1/b2", "Basic", "usr-b", "pwd-b");
-        WorkerTest_AuthenticationDigest.assertAceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1/b2/b3", "Basic", "usr-b", "pwd-b");
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1", null);
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2", null);
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3", null);
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1", "Digest", "usr-d", "pwd-d");
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1/d2", "Digest", "usr-d", "pwd-d");
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3", "Digest", "usr-d", "pwd-d");
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1");
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2");
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2/n3");
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1", "Basic", "usr-b", "pwd-b");
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1/b2", "Basic", "usr-b", "pwd-b");
+        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1/b2/b3", "Basic", "usr-b", "pwd-b");
     }
 
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  The authentication is incorrect and the request is responded with
@@ -991,7 +991,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */       
     @Test
-    public void testAceptance_23() throws Exception {
+    public void testAcceptance_23() throws Exception {
         
         String request;
         String response;
@@ -1021,7 +1021,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a [acc: group:C ] [realm:Section-A] [d]}
      *  The authentication is incorrect and the request is responded with
@@ -1029,7 +1029,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */       
     @Test
-    public void testAceptance_24() throws Exception {
+    public void testAcceptance_24() throws Exception {
         
         String request;
         String response;
@@ -1059,7 +1059,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/dvc [Acc:group:c] [realm:sb] [C] [D]}
      *  The URI requires an authorization and has been forbidden. The requests
@@ -1067,7 +1067,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */       
     @Test
-    public void testAceptance_25() throws Exception {
+    public void testAcceptance_25() throws Exception {
         
         String request;
         String response;
@@ -1097,7 +1097,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/dvr > http://www.heise.de [Acc:group:c] [realm:sb] [R] [D]}
      *  The URI requires an authorization and has been redirected. The requests
@@ -1105,7 +1105,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */        
     @Test
-    public void testAceptance_26() throws Exception {
+    public void testAcceptance_26() throws Exception {
         
         String request;
         String response;
@@ -1135,7 +1135,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/dvv > ./stage/documents_vh_A/test_a [Acc:group:c] [realm:sb] [D]}
      *  The URI requires an authorization and referenced a existing virtual
@@ -1143,7 +1143,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_27() throws Exception {
+    public void testAcceptance_27() throws Exception {
         
         String request;
         String response;
@@ -1195,7 +1195,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/dvm > ExtensionA [v:xx=123] [m] [Acc:group:c] [realm:sb] [D]}
      *  The URI requires an authorization and referenced a modul. The requests 
@@ -1203,7 +1203,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_28() throws Exception {
+    public void testAcceptance_28() throws Exception {
         
         String request;
         String response;
@@ -1244,7 +1244,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
-    private static void assertAceptance_29(String uri, String user, String password, boolean authorisation) throws Exception {
+    private static void assertAcceptance_29(String uri, String user, String password, boolean authorisation) throws Exception {
         
         String request = "GET " + uri + " HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -1265,7 +1265,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  The directory structure {@code /authentication} uses a mix of different
      *  authorizations with different options and options. The correct use and
@@ -1273,70 +1273,70 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */      
     @Test
-    public void testAceptance_29() throws Exception {
+    public void testAcceptance_29() throws Exception {
         
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg0", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg0", "usr-b", "pwd-b", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg0", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg0", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg0", "usr-x", "pwd-x", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg0", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg0", "usr-b", "pwd-b", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg0", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg0", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg0", "usr-x", "pwd-x", false);
 
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg1", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg1", "usr-b", "pwd-b", true);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg1", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg1", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg1", "usr-x", "pwd-x", true);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg1", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg1", "usr-b", "pwd-b", true);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg1", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg1", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg1", "usr-x", "pwd-x", true);
 
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg2", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg2", "usr-b", "pwd-b", true);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg2", "usr-e", "pwd-e", true);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg2", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg2", "usr-x", "pwd-x", true);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg2", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg2", "usr-b", "pwd-b", true);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg2", "usr-e", "pwd-e", true);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg2", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg2", "usr-x", "pwd-x", true);
 
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg3", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg3", "usr-b", "pwd-b", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg3", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg3", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg3", "usr-x", "pwd-x", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg3", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg3", "usr-b", "pwd-b", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg3", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg3", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg3", "usr-x", "pwd-x", false);
 
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg4", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg4", "usr-b", "pwd-b", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg4", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg4", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg4", "usr-x", "pwd-x", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg4", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg4", "usr-b", "pwd-b", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg4", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg4", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg4", "usr-x", "pwd-x", false);
 
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg5", "usr-a", "pwd-a", true);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg5", "usr-b", "pwd-b", true);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg5", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg5", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg5", "usr-x", "pwd-x", true);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg5", "usr-a", "pwd-a", true);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg5", "usr-b", "pwd-b", true);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg5", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg5", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg5", "usr-x", "pwd-x", true);
 
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg6", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg6", "usr-b", "pwd-b", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg6", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg6", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg6", "usr-x", "pwd-x", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg6", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg6", "usr-b", "pwd-b", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg6", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg6", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg6", "usr-x", "pwd-x", false);
 
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg7", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg7", "usr-b", "pwd-b", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg7", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg7", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg7", "usr-x", "pwd-x", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg7", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg7", "usr-b", "pwd-b", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg7", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg7", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg7", "usr-x", "pwd-x", false);
 
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg8", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg8", "usr-b", "pwd-b", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg8", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg8", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg8", "usr-x", "pwd-x", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg8", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg8", "usr-b", "pwd-b", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg8", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg8", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg8", "usr-x", "pwd-x", false);
 
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg9", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg9", "usr-b", "pwd-b", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg9", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg9", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAceptance_29("/authentication/dg9", "usr-x", "pwd-x", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg9", "usr-a", "pwd-a", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg9", "usr-b", "pwd-b", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg9", "usr-e", "pwd-e", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg9", "usr-d", "pwd-d", false);
+        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg9", "usr-x", "pwd-x", false);
     }
     
-    private static void assertAceptance_30(String uri, String method) throws Exception {
+    private static void assertAcceptance_30(String uri, String method) throws Exception {
         
         String request = "GET " + uri + " HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -1351,22 +1351,22 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  The change of authentication method must be working. In the following,
      *  the correct function is checked. The request must be responded with 401
      *  and the correct {@code WWW-Authenticate}.
      *  @throws Exception
      */    
     @Test
-    public void testAceptance_30() throws Exception {
+    public void testAcceptance_30() throws Exception {
         
-        WorkerTest_AuthenticationDigest.assertAceptance_30("/authentication/dbd/a", "Digest");
-        WorkerTest_AuthenticationDigest.assertAceptance_30("/authentication/dbd/a/b", "Basic");
-        WorkerTest_AuthenticationDigest.assertAceptance_30("/authentication/dbd/a/b/c", "Digest");        
+        WorkerTest_AuthenticationDigest.assertAcceptance_30("/authentication/dbd/a", "Digest");
+        WorkerTest_AuthenticationDigest.assertAcceptance_30("/authentication/dbd/a/b", "Basic");
+        WorkerTest_AuthenticationDigest.assertAcceptance_30("/authentication/dbd/a/b/c", "Digest");        
     }     
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a/b/e [acC:group:BE[realm:Section-BE [D]}
      *  With a corrupt acc rule the authentication is ignored and the request
@@ -1374,7 +1374,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */
     @Test
-    public void testAceptance_98() throws Exception {
+    public void testAcceptance_98() throws Exception {
         
         String request = "GET /authentication/a/b/e/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -1390,7 +1390,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a/b/e/c [acC:group:BEC][realm:Section-BEC}
      *  With a correct acc rule after a corrupt acc rule, the authentication is
@@ -1398,7 +1398,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  @throws Exception
      */
     @Test
-    public void testAceptance_99() throws Exception {
+    public void testAcceptance_99() throws Exception {
         
         String request = "GET /authentication/a/b/e/c/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"

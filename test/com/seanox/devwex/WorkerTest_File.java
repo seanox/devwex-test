@@ -39,13 +39,13 @@ public class WorkerTest_File extends AbstractTest {
     }
     
     /** 
-     *  TestCase for aceptance.
+     *  TestCase for acceptance.
      *  Tested the use of method:
      *      {@code Worker#fileNormalize(String)}.
      *  @throws Exception
      */ 
     @Test
-    public void testAceptance_01() throws Exception {
+    public void testAcceptance_01() throws Exception {
         
         String content = ResourceUtils.getContextContent();
         String[] lines = TextUtils.extractLines(content); 
