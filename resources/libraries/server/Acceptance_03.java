@@ -21,7 +21,6 @@
  */
 package server;
 
-import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -32,7 +31,7 @@ import com.seanox.devwex.Initialize;
 import com.seanox.devwex.Section;
 import com.seanox.devwex.Service;
 
-public class Error_02 implements Runnable {
+public class Acceptance_03 implements Runnable {
 
     private volatile ServerSocket socket;
 
@@ -40,7 +39,7 @@ public class Error_02 implements Runnable {
 
     private volatile String caption;
 
-    public Error_02(String server, Object data) throws Throwable {
+    public Acceptance_03(String server, Object data) throws Throwable {
 
         InetAddress address;
         Section     options;
@@ -75,6 +74,51 @@ public class Error_02 implements Runnable {
     }
 
     public void run() {
-        throw new RuntimeException(this.getClass().getName());
+
+        Service.print(("SERVER ").concat(this.caption).concat(" READY"));
+        
+        Thread thread = null;
+        while (!this.socket.isClosed()) {
+            
+            try {
+                if (thread == null
+                        || !thread.isAlive()) {
+                    this.accept = this.socket.accept();
+                    thread = new Thread() {
+                        @Override
+                        public void run() {
+                            throw new RuntimeException(this.getClass().getName());
+                        }
+                    };
+                    thread.start();
+                }
+                
+                try {Thread.sleep(250);
+                } catch (Throwable throwable) {
+                    this.destroy();
+                }
+                
+            } catch (SocketException exception) {
+                
+                this.destroy();
+                
+            } catch (InterruptedIOException exception) {
+                
+                continue;
+                
+            } catch (Throwable throwable) {
+                
+                Service.print(throwable);
+                try {this.accept.close();
+                } catch (Throwable exception) {
+                }
+                try {Thread.sleep(25);
+                } catch (Throwable throwable1) {
+                    this.destroy();
+                }
+            }
+        }
+        
+        Service.print(("SERVER ").concat(this.caption).concat(" STOPPED"));
     }
 }

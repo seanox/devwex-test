@@ -21,18 +21,29 @@
  */
 package server;
 
-public class Error_21 implements Runnable {
+import com.seanox.devwex.Service;
 
-    public Error_21(String server, Object data) {
+public class Acceptance_01 implements Runnable {
+
+    public Acceptance_01(String server, Object data) throws Throwable {
+        throw new Throwable(this.getClass().getName());
     }
     
-    public int explain() {
-        return -1;
+    public String explain() {
+        RuntimeException exception = new RuntimeException("Not expected!!!");
+        Service.print(exception);
+        throw exception;
     }
 
     public void destroy() {
+        RuntimeException exception = new RuntimeException("Not expected!!!");
+        Service.print(exception);
+        throw exception;
     }
 
     public void run() {
+        RuntimeException exception = new RuntimeException("Not expected!!!");
+        Service.print(exception);
+        throw exception;
     }
 }

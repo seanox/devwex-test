@@ -21,13 +21,13 @@
  */
 package server;
 
-public class Error_15 implements Runnable {
+public class Acceptance_21 implements Runnable {
 
-    public Error_15(Object server, Object data) {
+    public Acceptance_21(String server, Object data) {
     }
     
-    public String explain() {
-        return null;
+    public int explain() {
+        return -1;
     }
 
     public void destroy() {

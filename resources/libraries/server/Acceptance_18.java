@@ -21,12 +21,13 @@
  */
 package server;
 
-public class Error_20 implements Runnable {
+public class Acceptance_18 extends Thread {
 
-    public Error_20(String server, Object data) {
+    public Acceptance_18(String server, Object data) {
     }
     
-    public void explain() {
+    public String explain() {
+        return null;
     }
 
     public void destroy() {

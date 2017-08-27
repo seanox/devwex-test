@@ -21,9 +21,9 @@
  */
 package server;
 
-public class Error_14 implements Runnable {
+public class Acceptance_14 implements Runnable {
 
-    public Error_14(String server, Object data, int ignore) {
+    public Acceptance_14(String server, Object data, int ignore) {
     }
     
     public String explain() {

@@ -21,9 +21,9 @@
  */
 package server;
 
-public class Error_17 {
+public class Acceptance_19 extends Thread {
 
-    public Error_17(String server, Object data) {
+    public Acceptance_19(String server, Object data) {
     }
     
     public String explain() {
@@ -31,8 +31,5 @@ public class Error_17 {
     }
 
     public void destroy() {
-    }
-
-    public void run() {
     }
 }
