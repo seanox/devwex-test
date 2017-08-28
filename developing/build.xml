@@ -116,7 +116,7 @@
       basedir="${workspace.resources.libraries}"
       includes="extras/Scripting.class">
       <manifest>
-        <attribute name="Main-Class" value="Scripting"/>
+        <attribute name="Main-Class" value="extras.Scripting"/>
       </manifest>      
     </jar>
     

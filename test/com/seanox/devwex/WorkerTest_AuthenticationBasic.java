@@ -1130,7 +1130,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
     /** 
      *  TestCase for acceptance.
      *  Test for Basic Authentication:
-     *  {@code /authentication/bvm > ExtensionA [v:xx=123] [m] [Acc:group:c]}
+     *  {@code /authentication/bvm > extension.ExtensionA [v:xx=123] [m] [Acc:group:c]}
      *  The URI requires an authorization and referenced a modul. The requests 
      *  must be responded with status 401 and 001.
      *  @throws Exception

@@ -113,6 +113,6 @@ public class SectionTest_Parse extends AbstractTest {
     public void testDynamic_1() {
         
         Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testDynamic_1_1"), SectionTest.toString(section));
+        Assert.assertEquals(ResourceUtils.getContextContent("testDynamic_1_1").toLowerCase(), SectionTest.toString(section).toLowerCase());
     }
 }

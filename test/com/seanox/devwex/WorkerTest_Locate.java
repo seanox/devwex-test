@@ -557,8 +557,8 @@ public class WorkerTest_Locate extends AbstractTest {
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1") + "\r\n";
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
-        Assert.assertTrue(header.matches("(?s)^.*\r\nModul: ExtensionA::Service\r\n.*$"));
-        Assert.assertTrue(header.matches("(?s)^.*\r\nOpts: ExtensionA \\[v:xx=123\\] \\[m\\]\r\n.*$"));
+        Assert.assertTrue(header.matches("(?s)^.*\r\nModul: extension.ExtensionA::Service\r\n.*$"));
+        Assert.assertTrue(header.matches("(?s)^.*\r\nOpts: extension.ExtensionA \\[v:xx=123\\] \\[m\\]\r\n.*$"));
         
         Thread.sleep(50);
         String accessLog = AbstractSuite.getAccessLogTail();
@@ -580,8 +580,8 @@ public class WorkerTest_Locate extends AbstractTest {
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ExtensionA::Service\r\n.*$"));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: ExtensionA \\[v:xx=123\\] \\[m\\]\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: extension.ExtensionA::Service\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: extension.ExtensionA \\[v:xx=123\\] \\[m\\]\r\n.*$"));
         
         Thread.sleep(50);
         String accessLog = AbstractSuite.getAccessLogTail();

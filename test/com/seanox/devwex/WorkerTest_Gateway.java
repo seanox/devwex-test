@@ -67,7 +67,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     /** 
      *  TestCase for acceptance.
      *  The file extension {@code *.con }" was defined as CGI with the module
-     *  {@code ExtensionA}. Thus the module respponded the request with status
+     *  {@code extension.ExtensionA}. Thus the module respponded the request with status
      *  001.
      *  @throws Exception
      */
@@ -80,8 +80,8 @@ public class WorkerTest_Gateway extends AbstractTest {
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: ExtensionA::Service\r\n.*$"));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: ExtensionA \\[pa=1\\] \\[M\\]\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: extension.ExtensionA::Service\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: extension.ExtensionA \\[pa=1\\] \\[M\\]\r\n.*$"));
         
         Thread.sleep(50);
         String accessLog = AbstractSuite.getAccessLogTail();
@@ -91,7 +91,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     /** 
      *  TestCase for acceptance.
      *  The file extension {@code *.con }" was defined as CGI with the module
-     *  {@code ExtensionA}. Thus the module respponded the request with status
+     *  {@code extension.ExtensionA}. Thus the module respponded the request with status
      *  001.
      *  @throws Exception
      */
