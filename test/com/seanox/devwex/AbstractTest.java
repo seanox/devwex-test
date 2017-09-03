@@ -42,8 +42,15 @@ public abstract class AbstractTest extends AbstractSuite {
     @Rule
     public TestRule watcher = new TestWatcher() {
 
+        @SuppressWarnings("unchecked")
         @Override
         protected void starting(Description description) {
+            
+            Class<? extends AbstractTest> source = (Class<? extends AbstractTest>)description.getTestClass();
+            try {AbstractSuite.traceOutput(source, source.getDeclaredMethod(description.getMethodName()));
+            } catch (NoSuchMethodException | SecurityException exception) {
+                throw new RuntimeException(exception);
+            }
 
             String methodName;
             methodName = description.getMethodName();

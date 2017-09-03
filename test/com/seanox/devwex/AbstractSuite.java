@@ -26,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.lang.reflect.Method;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -38,7 +39,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.rules.ExternalResource;
 
@@ -73,19 +73,19 @@ public abstract class AbstractSuite {
     private static volatile List<String> trace;
     
     /** internal shared new system and error output stream  */
-    private static volatile OutputStream systemOutLog;
+    private static volatile OutputStream systemOutputLog;
 
     /** original system output stream */
-    private static volatile PrintStream systemOut;
+    private static volatile PrintStream systemOutput;
     
     /** tail of system output stream*/
-    private static volatile OutputStreamTail systemOutTail;
+    private static volatile OutputStreamTail systemOutputTail;
 
     /** original error output stream */
-    private static volatile PrintStream systemErr;
+    private static volatile PrintStream systemError;
 
     /** tail of error output stream*/
-    private static volatile OutputStreamTail systemErrTail;
+    private static volatile OutputStreamTail systemErrorTail;
     
     /** keystore for SSL connections */
     private static volatile Keystore keystore;
@@ -106,13 +106,13 @@ public abstract class AbstractSuite {
             if (++AbstractSuite.counter > 1)
                 return;
     
-            AbstractSuite.systemOut = System.out;
-            AbstractSuite.systemOutTail = new OutputStreamTail();
-            System.setOut(new PrintStream(new OutputStreams(AbstractSuite.systemOut, AbstractSuite.systemOutTail)));
+            AbstractSuite.systemOutput = System.out;
+            AbstractSuite.systemOutputTail = new OutputStreamTail();
+            System.setOut(new PrintStream(new OutputStreams(AbstractSuite.systemOutput, AbstractSuite.systemOutputTail)));
     
-            AbstractSuite.systemErr = System.err;
-            AbstractSuite.systemErrTail = new OutputStreamTail();
-            System.setErr(new PrintStream(new OutputStreams(AbstractSuite.systemErr, AbstractSuite.systemErrTail)));
+            AbstractSuite.systemError = System.err;
+            AbstractSuite.systemErrorTail = new OutputStreamTail();
+            System.setErr(new PrintStream(new OutputStreams(AbstractSuite.systemError, AbstractSuite.systemErrorTail)));
 
             final File root = new File(".").getCanonicalFile();
             final File rootStage = new File(root, AbstractSuite.PATH_STAGE).getCanonicalFile();
@@ -157,8 +157,8 @@ public abstract class AbstractSuite {
                 }
             });
             
-            AbstractSuite.systemOutLog = new FileOutputStream(new File(root, AbstractSuite.PATH_STAGE + "/output.log")); 
-            System.setOut(new PrintStream(new OutputStreams(AbstractSuite.systemOut, AbstractSuite.systemOutTail, AbstractSuite.systemOutLog)));
+            AbstractSuite.systemOutputLog = new FileOutputStream(new File(root, AbstractSuite.PATH_STAGE + "/output.log")); 
+            System.setOut(new PrintStream(new OutputStreams(AbstractSuite.systemOutput, AbstractSuite.systemOutputTail, AbstractSuite.systemOutputLog)));
     
             if (Files.exists(rootResourcesProgram.toPath()))
                 Files.walkFileTree(rootResourcesProgram.toPath(), new SimpleFileVisitor<Path>() {
@@ -215,36 +215,50 @@ public abstract class AbstractSuite {
             
             if (--AbstractSuite.counter > 0)
                 return;
-            System.setOut(AbstractSuite.systemOut);
-            System.setErr(AbstractSuite.systemErr);
+            System.setOut(AbstractSuite.systemOutput);
+            System.setErr(AbstractSuite.systemError);
         }
     };
     
-    @Before
-    public void printOutSection() {
+    /**
+     *  Writes a trace information to the system output stream.
+     *  @param source
+     */
+    static void traceOutput(Class<? extends AbstractTest> source) {
+        AbstractSuite.traceOutput(source, null);
+    }
+
+    /**
+     *  Writes a trace information to the system output stream.
+     *  @param source
+     *  @param method
+     */
+    static void traceOutput(Class<? extends AbstractTest> source, Method method) {
         
         if (AbstractSuite.trace == null)
             AbstractSuite.trace = new LinkedList<>();
-        if (AbstractSuite.trace.contains(this.getClass().getName()))
-            return;
-        AbstractSuite.trace.add(this.getClass().getName());
-        Service.print("[" + this.getClass().getName() + "]", false);
+        if (!AbstractSuite.trace.contains(source.getName())) {
+            Service.print("[" + source.getName() + "]", false);
+            AbstractSuite.trace.add(source.getName());
+        }
+        if (method != null)
+            Service.print("[" + source.getName() + "] -> " + method.getName(), false);
     }
     
     /**
      *  Returns the tail of system output stream.
      *  @return the tail of system output stream
      */
-    static String getOutTail() {
-        return AbstractSuite.systemOutTail.toString();
+    static String getOutputTail() {
+        return AbstractSuite.systemOutputTail.toString();
     }
 
     /**
      *  Returns the tail of error output stream.
      *  @return the tail of error output stream
      */
-    static String getErrTail() {
-        return AbstractSuite.systemErrTail.toString();
+    static String getErrorTail() {
+        return AbstractSuite.systemErrorTail.toString();
     }
     
     /**
@@ -277,12 +291,25 @@ public abstract class AbstractSuite {
      *  @return the content for a test class (section) in the output log or
      *          {@code null}, if the section can not be found
      */    
-    static String getOutputLog(Class<? extends AbstractTest> section) throws IOException {
+    static String getOutputLog(Class<? extends AbstractTest> source) throws IOException {
+        return AbstractSuite.getOutputLog(source, null);
+    }
+    
+    /**
+     *  Returns the content for a test class (section) in the output log.
+     *  If the section can not be found, {@code null} is returned.
+     *  @return the content for a test class (section) in the output log or
+     *          {@code null}, if the section can not be found
+     */    
+    static String getOutputLog(Class<? extends AbstractTest> source, Method method) throws IOException {
 
         String string = AbstractSuite.getOutputLog();
-        if (section == null)
+        if (source == null)
             return string;
-        String pattern = "(?s)^.*[\r\n]+\\Q[" + section.getName() + "]\\E[\r\n]+(.*?)(?:(?:[\r\n]+\\[.*$)|(?:$))";
+        String pattern = "[" + source.getName() + "]";
+        if (method != null)
+            pattern += " -> " + method.getName();
+        pattern = "(?s)^.*[\r\n]+\\Q[" + pattern + "]\\E[\r\n]+(.*?)(?:(?:[\r\n]+\\[.*$)|(?:$))";
         if (string.matches(pattern))
             return string.replaceAll(pattern, "$1");
         return null;

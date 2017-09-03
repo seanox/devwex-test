@@ -41,7 +41,7 @@ import com.seanox.test.utils.Accession;
     InitializeTest_Set.class,
     InitializeTest_ToString.class
 })
-public class InitializeTest {
+public class InitializeTest extends AbstractSuite {
     
     /**
      *  R&uuml;ckgabe der formatierten Sektion als String. Der Zeilenumbruch

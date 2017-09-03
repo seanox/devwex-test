@@ -39,13 +39,13 @@ public class RemoteTest_Restart extends AbstractTest {
     @Test
     public void testRestart() throws Exception {
 
-        String tail1 = AbstractSuite.getOutTail().replaceAll("(?s).*[\r\n]+([\\d\\- :]+.*?)$", "$1");
+        String tail1 = AbstractSuite.getOutputTail().replaceAll("(?s).*[\r\n]+([\\d\\- :]+.*?)$", "$1");
         
         String response = new String(HttpUtils.sendRequest("127.0.0.1:25001", "RESTaRT\r\n"));
 
         Thread.sleep(1000);
         
-        String tail2 = AbstractSuite.getOutTail();
+        String tail2 = AbstractSuite.getOutputTail();
         int offset = tail2.lastIndexOf(tail1);
         if (offset >= 0)
             tail2 = tail2.substring(offset);

@@ -42,7 +42,7 @@ import com.seanox.test.utils.Accession;
     SectionTest_Contains.class,
     SectionTest_ToString.class
 })
-public class SectionTest {
+public class SectionTest extends AbstractSuite {
     
     /**
      *  R&uuml;ckgabe der formatierten Struktur als String.

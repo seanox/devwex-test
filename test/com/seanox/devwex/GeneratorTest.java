@@ -338,4 +338,19 @@ public class GeneratorTest extends AbstractTest {
         generator.set("a", values);
         Assert.assertEquals(ResourceUtils.getContextContent(), new String(generator.extract()));
     } 
+    
+    /** TestCase for nullable. */
+    @Test
+    public void testNullable_1() {
+      
+        Generator generator = Generator.parse(null);
+        generator.extract(null);
+        generator.extract("");
+        generator.extract(null, null);
+        generator.extract("", new Hashtable<>());
+        generator.set(null);
+        generator.set(new Hashtable<>());
+        generator.set(null, null);
+        generator.set("", new Hashtable<>());
+    }     
 }
