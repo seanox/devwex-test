@@ -198,7 +198,7 @@ public class ServiceTest_Server extends AbstractTest {
     @Test
     public void testAcceptance_08() throws Exception {
         
-        String output = AbstractSuite.getOutputLog(this.getClass());
+        String output = AbstractSuite.getOutputLog(Trace.create(Trace.Type.CLASS));
         
         //Server 11 has no logic, but the API is implemented correctly
         Assert.assertFalse(output.contains("Exception: server.Acceptance_11"));
@@ -242,6 +242,6 @@ public class ServiceTest_Server extends AbstractTest {
         //Server 21 the implementation of the explain-method is optional, errors in the signature are tolerated
         //          optionally the derstroy-method can have a return value/type, this is ignored
         Assert.assertFalse(output.contains("Exception: server.Acceptance_22"));        
-        Assert.assertTrue(output.contains("SERVICE INITIATE SERVER server.Acceptance_22"));         
+        Assert.assertTrue(output.contains("SERVICE INITIATE SERVER server.Acceptance_22")); 
     }
 }

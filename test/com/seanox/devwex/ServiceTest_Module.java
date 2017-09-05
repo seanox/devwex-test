@@ -24,7 +24,7 @@ package com.seanox.devwex;
 /**
  *  TestCases for {@link com.seanox.devwex.Service}.
  */
-public class ServiceTest_Extension extends AbstractTest {
+public class ServiceTest_Module extends AbstractTest {
     
     //TODO: Beispiel für fehlerhaft implementierte Extension API
     //TODO: Beispiel für Fehler beim Initialisieren
