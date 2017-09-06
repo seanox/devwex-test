@@ -42,25 +42,31 @@ public class ServiceTest_Server extends AbstractTest {
     
     /** 
      *  Preparation of the runtime environment.
-     *  @throws IOException
+     *  @throws Exception
      */
     @BeforeClass
-    public static void oneBeforeClass() throws IOException {
+    public static void oneBeforeClass() throws Exception {
         
         Files.copy(Paths.get("./devwex.ini"), Paths.get("./devwex.ini_"), StandardCopyOption.REPLACE_EXISTING); 
         Files.copy(Paths.get("./devwex.sapi"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING);
+        
+        Thread.sleep(250);
+        AbstractSuite.waitOutputReady();
     }
     
     /** 
      *  Restoration of the runtime environment.
-     *  @throws IOException
+     *  @throws Exception
      */
     @AfterClass
-    public static void oneAfterClass() throws IOException {
+    public static void oneAfterClass() throws Exception {
         
         Files.copy(Paths.get("./devwex.ini_"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING); 
         Files.delete(Paths.get("./devwex.ini_"));
-    }
+        
+        Thread.sleep(250);
+        AbstractSuite.waitOutputReady();
+    } 
 
     /** 
      *  TestCase for acceptance.
@@ -197,6 +203,10 @@ public class ServiceTest_Server extends AbstractTest {
      */      
     @Test
     public void testAcceptance_08() throws Exception {
+        
+        Service.restart();
+        Thread.sleep(250);
+        AbstractSuite.waitOutputReady();
         
         String output = AbstractSuite.getOutputLog(Trace.create(Trace.Type.CLASS));
         
