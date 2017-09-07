@@ -19,25 +19,15 @@
  *  with this program; if not, write to the Free Software Foundation, Inc.,
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-package extension;
+package module;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+class AbstractModule {
+    
+    public String explain() {
+        return null;
+    }
 
-public class ExtensionE extends AbstractWorkerExtension {
-    
-    public ExtensionE(String options) {
-    }    
-    
-    public void filter(Worker worker, String options) throws Exception {
-        
-        String docRoot = worker.environmentMap.get("DOCUMENT_ROOT");
-        
-        int value = 1;
-        Path testFile = Paths.get(docRoot, "test.txt");
-        if (Files.exists(testFile))
-            value = Integer.valueOf(new String(Files.readAllBytes(testFile))).intValue() +1;
-        Files.write(testFile, String.valueOf(value).getBytes());
+    public void destroy() {
+        return;
     }
 }

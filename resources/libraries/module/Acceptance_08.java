@@ -19,15 +19,25 @@
  *  with this program; if not, write to the Free Software Foundation, Inc.,
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-package extension;
+package module;
 
-class AbstractExtension {
+import com.seanox.devwex.Service;
+
+public class Acceptance_08 {
+    
+    public Acceptance_08(String config) throws Throwable {
+        throw new Throwable(this.getClass().getName());
+    }
     
     public String explain() {
-        return null;
+        RuntimeException exception = new RuntimeException("Not expected!!!");
+        Service.print(exception);
+        throw exception;
     }
 
     public void destroy() {
-        return;
+        RuntimeException exception = new RuntimeException("Not expected!!!");
+        Service.print(exception);
+        throw exception;
     }
 }

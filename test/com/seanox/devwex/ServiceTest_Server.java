@@ -21,7 +21,6 @@
  */
 package com.seanox.devwex;
 
-import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.nio.file.Files;

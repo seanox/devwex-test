@@ -1,0 +1,23 @@
+#### testAcceptance_01
+at module.Acceptance_15.destroy(Acceptance_15.java
+SERVICE INITIATE MODULE module.Acceptance_01
+java.lang.NoSuchMethodException: module.Acceptance_01.destroy()
+SERVICE INITIATE MODULE module.Acceptance_02
+java.lang.NoSuchMethodException: module.Acceptance_02.destroy()
+SERVICE INITIATE MODULE module.Acceptance_03
+java.lang.NoSuchMethodException: module.Acceptance_03.destroy()
+SERVICE INITIATE MODULE module.Acceptance_04
+java.lang.NoSuchMethodException: module.Acceptance_04.destroy()
+SERVICE INITIATE MODULE module.Acceptance_05
+SERVICE INITIATE MODULE module.Acceptance_06
+SERVICE INITIATE MODULE module.Acceptance_07
+SERVICE INITIATE MODULE module.Acceptance_08
+at module.Acceptance_08.<init>(Acceptance_08.java:29)
+SERVICE INITIATE MODULE module.Acceptance_09
+SERVICE INITIATE MODULE module.Acceptance_10
+SERVICE INITIATE MODULE module.Acceptance_11
+SERVICE INITIATE MODULE module.Acceptance_12
+SERVICE INITIATE MODULE module.Acceptance_13
+java.lang.NoSuchMethodException: module.Acceptance_13.destroy()
+SERVICE INITIATE MODULE module.Acceptance_14
+SERVICE INITIATE MODULE module.Acceptance_15

@@ -19,17 +19,14 @@
  *  with this program; if not, write to the Free Software Foundation, Inc.,
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-package extension;
+package module;
 
-public class ExtensionD extends AbstractWorkerExtension {
+public class WorkerModule_B extends AbstractWorkerModule {
     
-    public ExtensionD(String options) {
-    }    
-    
-    public void service(Worker worker, String options) throws Exception {
-        throw new Exception();
+    public WorkerModule_B(String options) {
     }
-    
-    static class Exception extends java.lang.Exception {
+
+    public void filter(Worker worker, String options) throws Exception {
+        worker.status = 404;
     }
 }

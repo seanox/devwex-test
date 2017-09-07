@@ -20,29 +20,24 @@
       classpath="${workspace.developing}/devwex.jar"
       includeantruntime="false" debug="true"/>
     
-    <jar destfile="${workspace.resources.libraries}/extension_A.jar"
+    <jar destfile="${workspace.resources.libraries}/workerModule_A.jar"
       basedir="${workspace.resources.libraries}"
-      includes="extension/ExtensionA*.class Abstract*Extension*.class"/>
-    
-    <jar destfile="${workspace.resources.libraries}/extension_B.jar"
+      includes="module/WorkerModule_A*.class module/Abstract*Module*.class"/>
+    <jar destfile="${workspace.resources.libraries}/workerModule_B.jar"
       basedir="${workspace.resources.libraries}"
-      includes="extension/ExtensionB*.class Abstract*Extension*.class"/> 
-    
-    <jar destfile="${workspace.resources.libraries}/extension_C.jar"
+      includes="module/WorkerModule_B*.class module/Abstract*Module*.class"/> 
+    <jar destfile="${workspace.resources.libraries}/workerModule_C.jar"
       basedir="${workspace.resources.libraries}"
-      includes="extension/ExtensionC*.class Abstract*Extension*.class"/>      
-    
-    <jar destfile="${workspace.resources.libraries}/extension_D.jar"
+      includes="module/WorkerModule_C*.class module/Abstract*Module*.class"/>      
+    <jar destfile="${workspace.resources.libraries}/workerModule_D.jar"
       basedir="${workspace.resources.libraries}"
-      includes="extension/ExtensionD*.class Abstract*Extension*.class"/>
-
-    <jar destfile="${workspace.resources.libraries}/extension_E.jar"
+      includes="module/WorkerModule_D*.class module/Abstract*Module*.class"/>
+    <jar destfile="${workspace.resources.libraries}/workerModule_E.jar"
       basedir="${workspace.resources.libraries}"
-      includes="extension/ExtensionE*.class Abstract*Extension*.class"/>
-    
-    <jar destfile="${workspace.resources.libraries}/extension_F.jar"
+      includes="module/WorkerModule_E*.class module/Abstract*Module*.class"/>
+    <jar destfile="${workspace.resources.libraries}/workerModule_F.jar"
       basedir="${workspace.resources.libraries}"
-      includes="extension/ExtensionF*.class Abstract*Extension*.class"/>
+      includes="module/WorkerModule_B*.class module/Abstract*Module*.class"/>
     
     <jar destfile="${workspace.resources.libraries}/server-count_A.jar"
       basedir="${workspace.resources.libraries}"
@@ -54,63 +49,95 @@
     
     <jar destfile="${workspace.resources.libraries}/server-acceptance_01.jar"
       basedir="${workspace.resources.libraries}"
-      includes="server/Error*01*.class"/> 
-    
+      includes="server/Acceptance*01*.class"/> 
     <jar destfile="${workspace.resources.libraries}/server-acceptance_02.jar"
       basedir="${workspace.resources.libraries}"
-      includes="server/Error*02*.class"/>     
-    
+      includes="server/Acceptance*02*.class"/>     
     <jar destfile="${workspace.resources.libraries}/server-acceptance_03.jar"
       basedir="${workspace.resources.libraries}"
-      includes="server/Error*03*.class"/> 
-    
+      includes="server/Acceptance*03*.class"/> 
     <jar destfile="${workspace.resources.libraries}/server-acceptance_11.jar"
       basedir="${workspace.resources.libraries}"
-      includes="server/Error*11*.class"/>     
-
+      includes="server/Acceptance*11*.class"/>     
     <jar destfile="${workspace.resources.libraries}/server-acceptance_12.jar"
       basedir="${workspace.resources.libraries}"
-      includes="server/Error*12*.class"/>     
-
+      includes="server/Acceptance*12*.class"/>     
     <jar destfile="${workspace.resources.libraries}/server-acceptance_13.jar"
       basedir="${workspace.resources.libraries}"
-      includes="server/Error*13*.class"/>
-    
+      includes="server/Acceptance*13*.class"/>
     <jar destfile="${workspace.resources.libraries}/server-acceptance_14.jar"
       basedir="${workspace.resources.libraries}"
-      includes="server/Error*14*.class"/>     
-    
+      includes="server/Acceptance*14*.class"/>     
     <jar destfile="${workspace.resources.libraries}/server-acceptance_15.jar"
       basedir="${workspace.resources.libraries}"
-      includes="server/Error*15*.class"/>     
-    
+      includes="server/Acceptance*15*.class"/>     
     <jar destfile="${workspace.resources.libraries}/server-acceptance_16.jar"
       basedir="${workspace.resources.libraries}"
-      includes="server/Error*16*.class"/>
-    
+      includes="server/Acceptance*16*.class"/>
     <jar destfile="${workspace.resources.libraries}/server-acceptance_17.jar"
       basedir="${workspace.resources.libraries}"
-      includes="server/Error*17*.class"/> 
-    
+      includes="server/Acceptance*17*.class"/> 
     <jar destfile="${workspace.resources.libraries}/server-acceptance_18.jar"
       basedir="${workspace.resources.libraries}"
-      includes="server/Error*18*.class"/>     
-    
+      includes="server/Acceptance*18*.class"/>     
     <jar destfile="${workspace.resources.libraries}/server-acceptance_19.jar"
       basedir="${workspace.resources.libraries}"
-      includes="server/Error*19*.class"/>     
-    
+      includes="server/Acceptance*19*.class"/>     
     <jar destfile="${workspace.resources.libraries}/server-acceptance_20.jar"
       basedir="${workspace.resources.libraries}"
-      includes="server/Error*20*.class"/>     
-    
+      includes="server/Acceptance*20*.class"/>     
     <jar destfile="${workspace.resources.libraries}/server-acceptance_21.jar"
       basedir="${workspace.resources.libraries}"
-      includes="server/Error*21*.class"/>     
-    
+      includes="server/Acceptance*21*.class"/>     
     <jar destfile="${workspace.resources.libraries}/server-acceptance_22.jar"
       basedir="${workspace.resources.libraries}"
-      includes="server/Error*22*.class"/>           
+      includes="server/Acceptance*22*.class"/>
+    
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_01.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*01.class"/>      
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_02.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*02.class"/>      
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_03.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*03.class"/>      
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_04.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*04.class"/>      
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_05.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*05.class"/>      
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_06.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*06.class"/>      
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_07.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*07.class"/>      
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_08.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*08.class"/>      
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_09.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*09.class"/>      
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_10.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*10.class"/>      
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_11.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*11.class"/>      
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_12.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*12.class"/>      
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_13.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*13.class"/>      
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_14.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*14.class"/>      
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_15.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*15.class"/>      
     
     <jar destfile="${workspace.resources.libraries}/scripting.jar"
       basedir="${workspace.resources.libraries}"

@@ -19,14 +19,10 @@
  *  with this program; if not, write to the Free Software Foundation, Inc.,
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-package extension;
+package module;
 
-public class ExtensionF extends AbstractWorkerExtension {
+public class Acceptance_03 {
     
-    public ExtensionF(String options) {
-    }
-
-    public void filter(Worker worker, String options) throws Exception {
-        worker.status = 404;
+    public Acceptance_03(int ignore) {
     }
 }

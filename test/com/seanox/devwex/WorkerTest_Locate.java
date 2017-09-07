@@ -545,7 +545,7 @@ public class WorkerTest_Locate extends AbstractTest {
     /** 
      *  TestCase for acceptance.
      *  The virtual path {@code /test.modul} is defined as module. The request
-     *  must be responded by ExtensionA with status 001.
+     *  must be responded by WorkerModule_A with status 001.
      *  @throws Exception
      */
     @Test
@@ -557,8 +557,8 @@ public class WorkerTest_Locate extends AbstractTest {
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1") + "\r\n";
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
-        Assert.assertTrue(header.matches("(?s)^.*\r\nModul: extension.ExtensionA::Service\r\n.*$"));
-        Assert.assertTrue(header.matches("(?s)^.*\r\nOpts: extension.ExtensionA \\[v:xx=123\\] \\[m\\]\r\n.*$"));
+        Assert.assertTrue(header.matches("(?s)^.*\r\nModul: module.WorkerModule_A::Service\r\n.*$"));
+        Assert.assertTrue(header.matches("(?s)^.*\r\nOpts: module.WorkerModule_A \\[v:xx=123\\] \\[m\\]\r\n.*$"));
         
         Thread.sleep(50);
         String accessLog = AbstractSuite.getAccessLogTail();
@@ -569,7 +569,7 @@ public class WorkerTest_Locate extends AbstractTest {
      *  TestCase for acceptance.
      *  The virtual path {@code /test.modul} is defined as module. Virtual
      *  paths of modusl are absolute. Even this request must be responded by
-     *  ExtensionA with status 001.
+     *  WorkerModule_A with status 001.
      *  @throws Exception
      */    
     @Test
@@ -580,8 +580,8 @@ public class WorkerTest_Locate extends AbstractTest {
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: extension.ExtensionA::Service\r\n.*$"));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: extension.ExtensionA \\[v:xx=123\\] \\[m\\]\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: module.WorkerModule_A::Service\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: module.WorkerModule_A \\[v:xx=123\\] \\[m\\]\r\n.*$"));
         
         Thread.sleep(50);
         String accessLog = AbstractSuite.getAccessLogTail();
@@ -1265,7 +1265,7 @@ public class WorkerTest_Locate extends AbstractTest {
         
         Thread.sleep(50);
         String ouputLog = AbstractSuite.getOutputLogTail();
-        Assert.assertTrue(ouputLog.contains("ExtensionD$Exception"));
+        Assert.assertTrue(ouputLog.contains("WorkerModule_D$Exception"));
     }    
     
     /** 

@@ -19,14 +19,14 @@
  *  with this program; if not, write to the Free Software Foundation, Inc.,
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-package extension;
+package module;
 
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.Socket;
 import java.util.Map;
 
-class AbstractWorkerExtension extends AbstractExtension {
+class AbstractWorkerModule extends AbstractModule {
     
     public void filter(Object facade, String options) throws Exception {
 

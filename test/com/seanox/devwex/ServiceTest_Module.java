@@ -21,11 +21,69 @@
  */
 package com.seanox.devwex;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import com.seanox.test.utils.ResourceUtils;
+
 /**
  *  TestCases for {@link com.seanox.devwex.Service}.
  */
 public class ServiceTest_Module extends AbstractTest {
     
-    //TODO: Beispiel für fehlerhaft implementierte Extension API
-    //TODO: Beispiel für Fehler beim Initialisieren
+    /** 
+     *  Preparation of the runtime environment.
+     *  @throws Exception
+     */
+    @BeforeClass
+    public static void oneBeforeClass() throws Exception {
+        
+        Files.copy(Paths.get("./devwex.ini"), Paths.get("./devwex.ini_"), StandardCopyOption.REPLACE_EXISTING); 
+        Files.copy(Paths.get("./devwex.xapi"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING);
+        
+        Thread.sleep(250);
+        AbstractSuite.waitOutputReady();
+    }
+    
+    /** 
+     *  Restoration of the runtime environment.
+     *  @throws Exception
+     */
+    @AfterClass
+    public static void oneAfterClass() throws Exception {
+        
+        Files.copy(Paths.get("./devwex.ini_"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING); 
+        Files.delete(Paths.get("./devwex.ini_"));
+        
+        Thread.sleep(250);
+        AbstractSuite.waitOutputReady();
+    }
+    
+    /** 
+     *  TestCase for acceptance.
+     *  Checks various variants of valid and invalid modules.
+     *  @throws Exception
+     */     
+    @Test
+    public void testAcceptance_01() throws Exception {
+        
+        Service.restart();
+        Thread.sleep(250);
+        AbstractSuite.waitOutputReady();
+        
+        String output = AbstractSuite.getOutputLog(Trace.create(Trace.Type.CLASS));
+        for (int loop : new int[] {5, 6, 7, 9, 10, 11, 12, 14, 15}) {
+            String pattern = String.format("(?si).*Exception:[^\r\n]+_%02d.*", Integer.valueOf(loop));
+            Assert.assertFalse(pattern, output.matches(pattern));
+        }
+
+        for (String pattern : ResourceUtils.getContextContent().split("[\r\n]+"))
+            Assert.assertTrue(pattern, output.contains(pattern));
+    }
 }

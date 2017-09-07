@@ -77,9 +77,9 @@ public class ServiceTest_Remote extends AbstractTest {
         Thread.sleep(50);
         String output = AbstractSuite.getOutputLog(Trace.create(Trace.Type.CLASS, Trace.Type.METHOD));
         Assert.assertTrue(output.contains("REMOTE ACCESS FAILED"));
-        Assert.assertTrue(output.contains("Network is unreachable: connect"));
+        Assert.assertTrue(output.contains("Connection refused: connect"));
+        Assert.assertFalse(output.contains("Network is unreachable: connect"));
         Assert.assertFalse(output.contains("unknow_host")); 
-        Assert.assertFalse(output.contains("Connection refused: connect"));
         Assert.assertFalse(output.contains("SAPI"));
     } 
     
