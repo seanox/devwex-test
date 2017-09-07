@@ -34,7 +34,6 @@ import org.junit.runners.Suite;
     WorkerTest_Authentication.class,
     WorkerTest_Configuration.class,
     WorkerTest_Delete.class,
-    WorkerTest_Module.class,
     WorkerTest_File.class,
     WorkerTest_FileIndex.class,
     WorkerTest_Filter.class,
