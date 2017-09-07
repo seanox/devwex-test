@@ -291,28 +291,68 @@ public abstract class AbstractSuite {
      *  @return the content for a test class (section) in the output log or
      *          {@code null}, if the section can not be found
      */    
-    static String getOutputLog(Class<? extends AbstractTest> source) throws IOException {
-        return AbstractSuite.getOutputLog(source, null);
-    }
-    
-    /**
-     *  Returns the content for a test class (section) in the output log.
-     *  If the section can not be found, {@code null} is returned.
-     *  @return the content for a test class (section) in the output log or
-     *          {@code null}, if the section can not be found
-     */    
-    static String getOutputLog(Class<? extends AbstractTest> source, Method method) throws IOException {
+    static String getOutputLog(Trace trace) throws IOException {
 
         String string = AbstractSuite.getOutputLog();
-        if (source == null)
+        if (trace.source == null)
             return string;
-        String pattern = "[" + source.getName() + "]";
-        if (method != null)
-            pattern += " -> " + method.getName();
-        pattern = "(?s)^.*[\r\n]+\\Q[" + pattern + "]\\E[\r\n]+(.*?)(?:(?:[\r\n]+\\[.*$)|(?:$))";
+        String pattern = "[" + trace.source + "]";
+        if (trace.method != null) {
+            pattern += " -> " + trace.method;
+            pattern = "(?s)^.*[\\r\\n]+\\Q" + pattern + "\\E[\\r\\n]+(.*?)(?:(?:[\\r\\n]+\\[.*$)|(?:$))";
+        } else pattern = "(?s)^.*[\\r\\n]+\\Q" + pattern + "\\E[\\r\\n]+(.*?)(?:(?:[\\r\\n]+\\[[^\\]]+\\](?!\\s+->).*$)|(?:$))";
         if (string.matches(pattern))
             return string.replaceAll(pattern, "$1");
         return null;
+    }
+    
+    /** Trace Scope */
+    public static class Trace {
+        
+        /** Class */
+        private String source;
+        
+        /** Method */
+        private String method;
+
+        /**
+         *  Constructor, creates a new Trace object.
+         *  @param types
+         */
+        private Trace(Type... types) {
+            
+            List<Type> typeList = Arrays.asList(types);
+            StackTraceElement trace = new Throwable().getStackTrace()[2];
+            if (typeList.contains(Type.CLASS)
+                    || typeList.contains(Type.METHOD))
+                this.source = trace.getClassName();
+            if (typeList.contains(Type.METHOD))
+                this.method = trace.getMethodName();
+        }
+        
+        /**
+         *  Creates a new Trace object.
+         *  @param  types
+         *  @return the create Trace object
+         */
+        public static Trace create(Type... types) {
+            return new Trace(types);
+        }
+        
+        @Override
+        public String toString() {
+            return "Section [source=" + this.source + ", method=" + this.method + "]";
+        }
+        
+        /** Enum with Trace elements */
+        public static enum Type {
+            
+            /** Class */
+            CLASS,
+            
+            /** Method (incl. {@link #CLASS} */
+            METHOD
+        }
     }
     
     /**
