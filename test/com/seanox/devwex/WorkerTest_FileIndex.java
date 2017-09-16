@@ -21,7 +21,17 @@
  */
 package com.seanox.devwex;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.seanox.test.utils.HttpUtils;
@@ -33,12 +43,33 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_FileIndex extends AbstractTest {
     
     /** 
+     *  Preparation of the runtime environment.
+     *  @throws Exception
+     */
+    @BeforeClass
+    public static void oneBeforeClass() throws Exception {
+        
+        final File rootStage = new File(AbstractSuite.getRootStage(), "/documents/empty").getCanonicalFile();
+        Files.walkFileTree(rootStage.toPath(), new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path path, BasicFileAttributes attributes)
+                    throws IOException {
+                if (path.toFile().getName().contains("ignore"))
+                        path.toFile().delete();
+                else if (path.toFile().getName().contains("hidden"))
+                        Files.setAttribute(path, "dos:hidden", Boolean.TRUE, LinkOption.NOFOLLOW_LINKS);
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
+    
+    /** 
      *  TestCase for acceptance.
      *  Without sorting, the file index of directories must not contain '?'.
      *  @throws Exception
      */
     @Test
-    public void testAcceptance_1() throws Exception {
+    public void testAcceptance_01() throws Exception {
         
         String request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
@@ -66,7 +97,7 @@ public class WorkerTest_FileIndex extends AbstractTest {
      *  @throws Exception
      */    
     @Test
-    public void testAcceptance_2() throws Exception {
+    public void testAcceptance_02() throws Exception {
         
         String request = "GET /?d HTTP/1.0\r\n"
                 + "\r\n";
@@ -94,7 +125,7 @@ public class WorkerTest_FileIndex extends AbstractTest {
      *  @throws Exception
      */
     @Test
-    public void testAcceptance_3() throws Exception {
+    public void testAcceptance_03() throws Exception {
         
         String request = "GET /test_a/test/ HTTP/1.0\r\n"
                 + "Host: vHb\r\n"
@@ -116,4 +147,70 @@ public class WorkerTest_FileIndex extends AbstractTest {
         String accessLog = AbstractSuite.getAccessLogTail();
         Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
     }
+    
+    /** 
+     *  TestCase for acceptance.
+     *  Configuration: {@code [SERVER/VIRTUAL:BAS] INDEX = ON}
+     *  Hidden files must be included in the index.
+     *  The flag {@code void} must be 1 for empty directories, otherwise 0.
+     *  @throws Exception
+     */      
+    @Test
+    public void testAcceptance_04() throws Exception {
+        
+        for (int loop = 1; loop <= 3; loop++) {
+            String request = "GET /empty/" + loop + "/ HTTP/1.0\r\n"
+                    + "\r\n";
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
+            if (loop == 1) {
+                Assert.assertTrue(response.contains("void: 1"));
+                Assert.assertFalse(response.contains("void: 0"));
+                Assert.assertFalse(response.contains("case:file"));
+                
+            }
+            if (loop == 2) {
+                Assert.assertFalse(response.contains("void: 1"));
+                Assert.assertTrue(response.contains("void: 0"));
+                Assert.assertTrue(response.contains("case:file"));
+            }
+            if (loop == 3) {
+                Assert.assertFalse(response.contains("void: 1"));
+                Assert.assertTrue(response.contains("void: 0"));
+                Assert.assertTrue(response.contains("case:file"));
+            }
+        }
+    }
+    
+    /** 
+     *  TestCase for acceptance.
+     *  Configuration: {@code [SERVER/VIRTUAL:BAS] INDEX = ON [S]}
+     *  The index must not contain hidden files.
+     *  The flag {@code void} must be 1 for empty directories, otherwise 0.
+     *  @throws Exception
+     */      
+    @Test
+    public void testAcceptance_05() throws Exception {
+        
+        for (int loop = 1; loop <= 3; loop++) {
+            String request = "GET /empty/" + loop + "/ HTTP/1.0\r\n"
+                    + "\r\n";
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:8082", request));
+            if (loop == 1) {
+                Assert.assertTrue(response.contains("void: 1"));
+                Assert.assertFalse(response.contains("void: 0"));
+                Assert.assertFalse(response.contains("case:file"));
+                
+            }
+            if (loop == 2) {
+                Assert.assertTrue(response.contains("void: 1"));
+                Assert.assertFalse(response.contains("void: 0"));
+                Assert.assertFalse(response.contains("case:file"));
+            }
+            if (loop == 3) {
+                Assert.assertFalse(response.contains("void: 1"));
+                Assert.assertTrue(response.contains("void: 0"));
+                Assert.assertTrue(response.contains("case:file"));
+            }
+        }
+    }    
 }
