@@ -140,7 +140,7 @@ public class WorkerTest_FileIndex extends AbstractTest {
         
         String body = "\r\n" + response.replaceAll(Pattern.HTTP_RESPONSE, "$2") + "\r\n";
         Assert.assertTrue(body.contains("\r\nindex of: /test_a/test\r\n"));
-        Assert.assertTrue(body.contains("\r\norder by: na\r\n"));
+        Assert.assertTrue(body.contains("\r\norder by: na x\r\n"));
         Assert.assertFalse(body.contains("?"));
         
         Thread.sleep(50);
@@ -152,7 +152,7 @@ public class WorkerTest_FileIndex extends AbstractTest {
      *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] INDEX = ON}
      *  Hidden files must be included in the index.
-     *  The flag {@code void} must be 1 for empty directories, otherwise 0.
+     *  The flag {@code x} must be set for an enpty directory.
      *  @throws Exception
      */      
     @Test
@@ -163,19 +163,15 @@ public class WorkerTest_FileIndex extends AbstractTest {
                     + "\r\n";
             String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
             if (loop == 1) {
-                Assert.assertTrue(response.contains("void: 1"));
-                Assert.assertFalse(response.contains("void: 0"));
+                Assert.assertTrue(response.contains("\r\norder by: na x\r\n"));
                 Assert.assertFalse(response.contains("case:file"));
-                
             }
             if (loop == 2) {
-                Assert.assertFalse(response.contains("void: 1"));
-                Assert.assertTrue(response.contains("void: 0"));
+                Assert.assertTrue(response.contains("\r\norder by: na\r\n"));
                 Assert.assertTrue(response.contains("case:file"));
             }
             if (loop == 3) {
-                Assert.assertFalse(response.contains("void: 1"));
-                Assert.assertTrue(response.contains("void: 0"));
+                Assert.assertTrue(response.contains("\r\norder by: na\r\n"));
                 Assert.assertTrue(response.contains("case:file"));
             }
         }
@@ -185,7 +181,7 @@ public class WorkerTest_FileIndex extends AbstractTest {
      *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] INDEX = ON [S]}
      *  The index must not contain hidden files.
-     *  The flag {@code void} must be 1 for empty directories, otherwise 0.
+     *  The flag {@code x} must be set for an enpty directory.
      *  @throws Exception
      */      
     @Test
@@ -196,19 +192,15 @@ public class WorkerTest_FileIndex extends AbstractTest {
                     + "\r\n";
             String response = new String(HttpUtils.sendRequest("127.0.0.1:8082", request));
             if (loop == 1) {
-                Assert.assertTrue(response.contains("void: 1"));
-                Assert.assertFalse(response.contains("void: 0"));
+                Assert.assertTrue(response.contains("\r\norder by: na x\r\n"));
                 Assert.assertFalse(response.contains("case:file"));
-                
             }
             if (loop == 2) {
-                Assert.assertTrue(response.contains("void: 1"));
-                Assert.assertFalse(response.contains("void: 0"));
+                Assert.assertTrue(response.contains("\r\norder by: na x\r\n"));
                 Assert.assertFalse(response.contains("case:file"));
             }
             if (loop == 3) {
-                Assert.assertFalse(response.contains("void: 1"));
-                Assert.assertTrue(response.contains("void: 0"));
+                Assert.assertTrue(response.contains("\r\norder by: na\r\n"));
                 Assert.assertTrue(response.contains("case:file"));
             }
         }

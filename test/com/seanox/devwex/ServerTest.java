@@ -29,6 +29,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+    ServerTest_Connection.class,
     ServerTest_Connection.class
 })
 public class ServerTest extends AbstractSuite {

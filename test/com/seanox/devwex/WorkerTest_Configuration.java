@@ -1015,10 +1015,8 @@ public class WorkerTest_Configuration extends AbstractTest {
                 + "\r\n";
         response = new String(HttpUtils.sendRequest("127.0.0.1:8999", request));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
-    }   
-    
-    //TODO: Testfall mit leerer + ungueltiger Konfiguration, der Server muss durchstarten aber mit der letzten geladenen Konfiguration o.ae.
-    
+    }
+
     /** 
      *  TestCase for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ACCESS = OFF}

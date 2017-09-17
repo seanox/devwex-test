@@ -74,7 +74,7 @@ public class Codec {
         if (bytes == null)
             return null;
         StringBuilder builder = new StringBuilder(bytes.length *2);
-        for(byte digit : bytes)
+        for (byte digit : bytes)
             builder.append(String.format("%02x", Byte.valueOf(digit)));
         return builder.toString();
     }
