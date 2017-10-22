@@ -128,7 +128,13 @@ public class FileUtils {
             pattern = "(?i)" + pattern;
             this.pattern = Pattern.compile(pattern);
         }
-        
+
+        /**
+         *  Tests if a specified file should be included in a file list.
+         *  @param  file file this was found
+         *  @return {@code true} if and only if the name should be included in
+         *          the file list; {@code false} otherwise.
+         */
         public boolean accept(File file) {
             return this.accept(file.getParentFile(), file.getName());
         }
@@ -139,7 +145,6 @@ public class FileUtils {
             name = dir + "/" + name;
             name = name.replaceAll("\\\\+", "/");
             
-            System.out.println("[INF] " + name);
             return this.pattern.matcher(name).matches();
         }
     }
