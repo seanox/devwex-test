@@ -21,6 +21,8 @@
  */
 package com.seanox.devwex;
 
+import java.io.File;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -1266,7 +1268,74 @@ public class WorkerTest_Locate extends AbstractTest {
         Thread.sleep(50);
         String ouputLog = AbstractSuite.getOutputLogTail();
         Assert.assertTrue(ouputLog.contains("WorkerModule_D$Exception"));
+    }  
+    
+    private static void assertAcceptance_58_1(String path, String status) throws Exception {
+        
+        File file = new File(AbstractSuite.getRootStage(), "/documents/" + path);
+        Assert.assertTrue(file.exists());
+
+        String request = "GET " + path + " HTTP/1.0\r\n";
+        request += "\r\n";        
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
+        Assert.assertTrue(path + " -> " + response.split("[\r\n]+")[0], response.matches(Pattern.HTTP_RESPONSE_STATUS(status)));
+        
+        Thread.sleep(50);
+        String accessLog = AbstractSuite.getAccessLogTail();
+        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS(status)));
     }    
+    
+    /** 
+     *  TestCase for acceptance.
+     *  Breaking out for a path condition with a dot at the end must not happen.
+     *  The problem only occurs in Windows.
+     *  @throws Exception
+     */    
+    @Test
+    public void testAcceptance_58() throws Exception {
+        
+        WorkerTest_Locate.assertAcceptance_58_1("/forbidden/", "200");
+        WorkerTest_Locate.assertAcceptance_58_1("/forbidden/a/", "403");
+        WorkerTest_Locate.assertAcceptance_58_1("/forbidden/a/1.txt", "403");
+        WorkerTest_Locate.assertAcceptance_58_1("/forbidden/a/2.txt", "403");
+        WorkerTest_Locate.assertAcceptance_58_1("/forbidden/1.txt", "403");
+        WorkerTest_Locate.assertAcceptance_58_1("/forbidden/2.txt", "200");
+
+        WorkerTest_Locate.assertAcceptance_58_1("/forbidden./", "404");
+        WorkerTest_Locate.assertAcceptance_58_1("/forbidden./a/", "404");
+        WorkerTest_Locate.assertAcceptance_58_1("/forbidden./a/1.txt", "404");
+        WorkerTest_Locate.assertAcceptance_58_1("/forbidden./a/2.txt", "404");
+        WorkerTest_Locate.assertAcceptance_58_1("/forbidden./1.txt", "404");
+        WorkerTest_Locate.assertAcceptance_58_1("/forbidden./2.txt", "404");
+
+        WorkerTest_Locate.assertAcceptance_58_1("/forbidden/a./", "404");
+        WorkerTest_Locate.assertAcceptance_58_1("/forbidden/a./1.txt", "404");
+        WorkerTest_Locate.assertAcceptance_58_1("/forbidden/a./2.txt", "404");
+
+        WorkerTest_Locate.assertAcceptance_58_1("/forbidden/a/1.txt.", "403");
+        WorkerTest_Locate.assertAcceptance_58_1("/forbidden/a/2.txt.", "403");
+        
+        WorkerTest_Locate.assertAcceptance_58_1("/authentication/", "200");
+        WorkerTest_Locate.assertAcceptance_58_1("/authentication/a/", "401");
+        WorkerTest_Locate.assertAcceptance_58_1("/authentication/a/1.txt", "401");
+        WorkerTest_Locate.assertAcceptance_58_1("/authentication/a/2.txt", "401");
+        WorkerTest_Locate.assertAcceptance_58_1("/authentication/1.txt", "401");
+        WorkerTest_Locate.assertAcceptance_58_1("/authentication/2.txt", "200");
+
+        WorkerTest_Locate.assertAcceptance_58_1("/authentication./", "404");
+        WorkerTest_Locate.assertAcceptance_58_1("/authentication./a/", "404");
+        WorkerTest_Locate.assertAcceptance_58_1("/authentication./a/1.txt", "404");
+        WorkerTest_Locate.assertAcceptance_58_1("/authentication./a/2.txt", "404");
+        WorkerTest_Locate.assertAcceptance_58_1("/authentication./1.txt", "404");
+        WorkerTest_Locate.assertAcceptance_58_1("/authentication./2.txt", "404");
+
+        WorkerTest_Locate.assertAcceptance_58_1("/authentication/a./", "404");
+        WorkerTest_Locate.assertAcceptance_58_1("/authentication/a./1.txt", "404");
+        WorkerTest_Locate.assertAcceptance_58_1("/authentication/a./2.txt", "404");
+
+        WorkerTest_Locate.assertAcceptance_58_1("/authentication/a/1.txt.", "401");
+        WorkerTest_Locate.assertAcceptance_58_1("/authentication/a/2.txt.", "401");        
+    }
     
     /** 
      *  TestCase for acceptance.
@@ -1418,5 +1487,5 @@ public class WorkerTest_Locate extends AbstractTest {
             response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
             Assert.assertTrue(request, response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         }        
-    }      
+    } 
 }
