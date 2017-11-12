@@ -103,10 +103,10 @@ PARAM-E = 5
 #### testAcceptance_7_1
 #### testAcceptance_8
   ReDIRECT = /redirect > http://www.xXx.zzz/?a=2 [r]        ;test comment
-  MoDUL    = /test.modul > test.Connector001 [v:xx=123] [m] ;test comment
+  MoDULE   = /test.module > test.Connector001 [v:xx=123] [m] ;test comment
 #### testAcceptance_8_1  
 REDIRECT = /redirect > http://www.xXx.zzz/?a=2 [r]
-MODUL    = /test.modul > test.Connector001 [v:xx=123] [m]
+MODULE   = /test.module > test.Connector001 [v:xx=123] [m]
 
 #### testOverride_1
 A            = a1

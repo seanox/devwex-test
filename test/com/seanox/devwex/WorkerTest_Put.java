@@ -484,20 +484,20 @@ public class WorkerTest_Put extends AbstractTest {
     
     /** 
      *  TestCase for acceptance.
-     *  PUT-requests to a module, are executed by the module (/test.modul).
-     *  The path is absolute, therefore also /test.modul123 is accepted.
+     *  PUT-requests to a module, are executed by the module (/test.module).
+     *  The path is absolute, therefore also /test.module123 is accepted.
      *  @throws Exception
      */      
     @Test
     public void testAcceptance_17() throws Exception {
         
-        String request = "Put /test.modul123 HTTP/1.0\r\n"
+        String request = "Put /test.module123 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: module.WorkerModule_A::Service\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nModule: module.WorkerModule_A::Service\r\n.*$"));
         
         Thread.sleep(50);
         String accessLog = AbstractSuite.getAccessLogTail();

@@ -80,7 +80,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: module.WorkerModule_A::Service\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nModule: module.WorkerModule_A::Service\r\n.*$"));
         Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: module.WorkerModule_A \\[pa=1\\] \\[M\\]\r\n.*$"));
         
         Thread.sleep(50);

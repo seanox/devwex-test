@@ -45,7 +45,7 @@ public class WorkerModule_C extends AbstractWorkerModule {
         string = string.concat("Server: ").concat(worker.environmentMap.get("SERVER_SOFTWARE")).concat("\r\n");
         String method = new Throwable().getStackTrace()[1].getMethodName();
         method = method.substring(0, 1).toUpperCase().concat(method.substring(1).toLowerCase());
-        string = string.concat("Modul: ").concat(this.getClass().getName() + "::" + method).concat("\r\n\r\n");
+        string = string.concat("Module: ").concat(this.getClass().getName() + "::" + method).concat("\r\n\r\n");
         
         String value = null;
         String param = null;

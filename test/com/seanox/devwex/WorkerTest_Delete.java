@@ -346,22 +346,22 @@ public class WorkerTest_Delete extends AbstractTest {
     
     /** 
      *  TestCase for acceptance.
-     *  DELETE is executed by a moduls.
+     *  DELETE is executed by a module.
      *  The path of the uri is for a module is absolute and so the module with
-     *  the path {@code /test.modul} will also responses an uri with the path
-     *  {@code /test.modul123}. 
+     *  the path {@code /test.module} will also responses an uri with the path
+     *  {@code /test.module123}. 
      *  @throws Exception
      */
     @Test
     public void testAcceptance_11() throws Exception {
         
-        String request = "Delete /test.modul123 HTTP/1.0\r\n"
+        String request = "Delete /test.module123 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: module.WorkerModule_A::Service\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nModule: module.WorkerModule_A::Service\r\n.*$"));
         Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: module.WorkerModule_A \\[v:xx=123\\] \\[m\\]\r\n.*$"));
         
         Thread.sleep(50);

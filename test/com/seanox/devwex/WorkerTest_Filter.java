@@ -521,7 +521,7 @@ public class WorkerTest_Filter extends AbstractTest {
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8086", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: module.WorkerModule_A::Filter\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nModule: module.WorkerModule_A::Filter\r\n.*$"));
         Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: module.WorkerModule_A \\[pA=3\\] \\[m\\]\r\n.*$"));
         
         Thread.sleep(50);

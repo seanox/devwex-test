@@ -45,7 +45,7 @@ public class WorkerModule_A extends AbstractWorkerModule {
             string = string.concat("Opts: ").concat(worker.environmentMap.get("MODULE_OPTS")).concat("\r\n");
         String method = new Throwable().getStackTrace()[1].getMethodName();
         method = method.substring(0, 1).toUpperCase().concat(method.substring(1).toLowerCase());
-        string = string.concat("Modul: ").concat(this.getClass().getName() + "::" + method).concat("\r\n\r\n");
+        string = string.concat("Module: ").concat(this.getClass().getName() + "::" + method).concat("\r\n\r\n");
 
         //the connection is marked as closed
         worker.control = false;

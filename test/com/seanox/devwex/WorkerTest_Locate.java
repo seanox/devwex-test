@@ -546,20 +546,20 @@ public class WorkerTest_Locate extends AbstractTest {
     
     /** 
      *  TestCase for acceptance.
-     *  The virtual path {@code /test.modul} is defined as module. The request
+     *  The virtual path {@code /test.module} is defined as module. The request
      *  must be responded by WorkerModule_A with status 001.
      *  @throws Exception
      */
     @Test
     public void testAcceptance_23() throws Exception {
         
-        String request = "GET /test.modul HTTP/1.0\r\n"
+        String request = "GET /test.module HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1") + "\r\n";
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
-        Assert.assertTrue(header.matches("(?s)^.*\r\nModul: module.WorkerModule_A::Service\r\n.*$"));
+        Assert.assertTrue(header.matches("(?s)^.*\r\nModule: module.WorkerModule_A::Service\r\n.*$"));
         Assert.assertTrue(header.matches("(?s)^.*\r\nOpts: module.WorkerModule_A \\[v:xx=123\\] \\[m\\]\r\n.*$"));
         
         Thread.sleep(50);
@@ -569,7 +569,7 @@ public class WorkerTest_Locate extends AbstractTest {
     
     /** 
      *  TestCase for acceptance.
-     *  The virtual path {@code /test.modul} is defined as module. Virtual
+     *  The virtual path {@code /test.module} is defined as module. Virtual
      *  paths of modusl are absolute. Even this request must be responded by
      *  WorkerModule_A with status 001.
      *  @throws Exception
@@ -577,12 +577,12 @@ public class WorkerTest_Locate extends AbstractTest {
     @Test
     public void testAcceptance_24() throws Exception {
         
-        String request = "GET /test.modul123 HTTP/1.0\r\n"
+        String request = "GET /test.module123 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
-        Assert.assertTrue(response.matches("(?s)^.*\r\nModul: module.WorkerModule_A::Service\r\n.*$"));
+        Assert.assertTrue(response.matches("(?s)^.*\r\nModule: module.WorkerModule_A::Service\r\n.*$"));
         Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: module.WorkerModule_A \\[v:xx=123\\] \\[m\\]\r\n.*$"));
         
         Thread.sleep(50);

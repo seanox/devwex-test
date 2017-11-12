@@ -1198,7 +1198,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
      *  TestCase for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/dvm > module.WorkerModule_A [v:xx=123] [m] [Acc:group:c] [realm:sb] [D]}
-     *  The URI requires an authorization and referenced a modul. The requests 
+     *  The URI requires an authorization and reference a module. The requests 
      *  must be responded with status 401 and 001.
      *  @throws Exception
      */      
