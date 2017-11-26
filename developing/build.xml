@@ -7,6 +7,118 @@
   <property name="workspace.resources.program" value="${workspace.resources}/program"/>
   <property name="workspace.resources.certificates" value="${workspace.resources}/certificates"/>
   <property name="workspace.developing" value="${workspace}/developing"/>
+  
+  <property name="build" value="${workspace}/build"/>
+  <property name="build.project" value="${build}/${ant.project.name}"/>
+  
+  <property name="release" value="${workspace}/release"/>
+    
+  <property name="releases" value="${workspace}/releases"/>
+  
+  <fileset id="fileset.project" dir="${workspace}">
+    <include name=".settings/**/*"/>
+    <include name="classes"/>
+    <include name="developing/build.xml"/>
+    <include name="developing/devwex.jar"/>
+    <include name="developing/release.txt"/>
+    <include name="libraries/*"/>
+    <include name="test/**/*"/>
+    <include name="resources/**/*"/>
+    <include name="stage"/>
+    <include name=".*"/>
+  </fileset>
+  
+  <fileset id="fileset.project.extras" dir="${workspace}" defaultexcludes="false">
+    <include name=".git/**/*"/>
+    <include name=".*"/>
+    <include name="*.md"/>
+  </fileset>  
+  
+  <macrodef name="release-locate">
+    <sequential>
+      <copy file="${workspace.developing}/release.txt" tofile="${workspace.developing}/release.tmp" overwrite="true"/>
+      <replaceregexp file="${workspace.developing}/release.tmp"
+        match="(?s)^\s*([\d\.x]+) (\d{4})([\dx]+).*$" flags="g" byline="false"
+        replace="release.version=\1&#x000D;release.year=\2&#x000D;release.date=\2\3&#x000D;"/>
+      <replaceregexp file="${workspace.developing}/release.tmp" match="x+" replace="0000" flags="g" byline="false"/>
+      <loadproperties>
+        <file file="${workspace.developing}/release.tmp"/>
+      </loadproperties>
+      <delete file="${workspace.developing}/release.tmp"/>
+    </sequential>
+  </macrodef>  
+  
+  <target name="archive">
+    <delete dir="${build}"/>
+    <mkdir dir="${build}"/>
+    <mkdir dir="${build.project}"/>
+    <release-locate/>
+    <copy todir="${build.project}">
+      <fileset refid="fileset.project"/>
+    </copy>
+    <touch datetime="${release.date}" pattern="yyyyMMdd">
+      <fileset dir="${build}"/>
+    </touch>
+    <delete file="${releases}/seanox-${ant.project.name}-${release.version}.zip"/>
+    <zip destfile="${releases}/seanox-${ant.project.name}-${release.version}.zip"
+      basedir="${build}" compress="true" filesonly="false" defaultexcludes="false"/>
+    <touch datetime="${release.date}" pattern="yyyyMMdd"
+      file="${releases}/seanox-${ant.project.name}-${release.version}.zip"/>
+    <delete dir="${build}"/>
+  </target>
+  
+  <scriptdef name="clean" language="javascript">
+    <attribute name="dir"/>
+    <element name="fileset" classname="org.apache.tools.ant.types.FileSet"/>
+    <![CDATA[
+      var basedir = new java.io.File(attributes.get("dir"));
+      var excludes = new Array(String(basedir));
+      var fileset = elements.get("fileset");
+      fileset.forEach(function(fileset, index, array) {
+        var iterator = fileset.iterator();
+        while (iterator.hasNext()) {
+          var file = iterator.next().getFile();
+          excludes.push(String(file));
+          while (file != null
+              && String(file) != String(basedir)) {
+            if (excludes.indexOf(String(file)) < 0)
+              excludes.push(String(file));
+            file = new java.io.File(file.getParent());
+          }
+        } 
+      });
+      var clear = function(file, excludes) {
+        if (file.isFile()) {
+          if (excludes.indexOf(String(file)) < 0)
+            file.delete();
+        } else if (file.isDirectory()) {
+          var files = Array.prototype.slice.call(file.listFiles(), 0);
+          files.forEach(function(file, index, array) {
+            clear(file, excludes);
+          });
+          var keep = false;
+          var deep = file;
+          while (!keep
+              && deep != null
+              && String(deep) != String(basedir)) {
+            keep = excludes.indexOf(String(deep)) >= 0;
+            deep = new java.io.File(deep.getParent());  
+          }
+          keep = keep || String(file) == String(basedir);
+          if (!keep)
+           file.delete();
+        }
+      };
+      clear(basedir, excludes);
+    ]]>
+  </scriptdef>
+  
+  <target name="clean">
+    <clean dir="${basedir}">
+      <fileset refid="fileset.project"/>
+      <fileset refid="fileset.project.extras"/>
+    </clean>
+  </target>
     
   <target name="compile">
     <delete>
@@ -258,5 +370,5 @@
         -srckeystore ${workspace.resources.certificates}/client.jks -srcstorepass changeIt
         -destkeystore ${workspace.resources.certificates}/client_x.p12 -deststoretype PKCS12 -keypass changeIt -storepass changeIt -noprompt"/>
     </exec>
-  </target>   
+  </target>
 </project>
