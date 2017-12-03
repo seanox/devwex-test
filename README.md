@@ -1,6 +1,7 @@
 # Description
 Test environment for Seanox Devwex.
 
+
 # Licence Agreement
 Seanox Software Solutions ist ein Open-Source-Projekt, im Folgenden
 Seanox Software Solutions oder kurz Seanox genannt.
@@ -21,5 +22,13 @@ You should have received a copy of the GNU General Public License along with
 this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
+
 # Downloads
 ...
+
+
+# Changes (Change Log)
+## 5.0.0 20171206 (summary of the current version)  
+NT: Initial Release  
+
+[Read more](https://raw.githubusercontent.com/seanox/devwex/master/CHANGES)

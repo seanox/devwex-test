@@ -42,6 +42,33 @@
     </sequential>
   </macrodef>  
   
+  <target name="changes">
+    <copy file="${workspace.developing}/release.txt" tofile="${workspace}/CHANGES" overwrite="true"/>
+    <replaceregexp file="${workspace}/CHANGES" match="&#x00E4;" replace="ae" flags="g"/>
+    <replaceregexp file="${workspace}/CHANGES" match="&#x00C4;" replace="Ae" flags="g"/>
+    <replaceregexp file="${workspace}/CHANGES" match="&#x00F6;" replace="oe" flags="g"/>
+    <replaceregexp file="${workspace}/CHANGES" match="&#x00D6;" replace="Oe" flags="g"/>
+    <replaceregexp file="${workspace}/CHANGES" match="&#x00FC;" replace="ue" flags="g"/>
+    <replaceregexp file="${workspace}/CHANGES" match="&#x00DC;" replace="Ue" flags="g"/>
+      
+    <copy file="${workspace.developing}/release.txt" tofile="${workspace.developing}/release.tmp" overwrite="true"/>
+    <replaceregexp file="${workspace.developing}/release.tmp" match="^\s+" replace="" byline="false"/>
+    <replaceregexp file="${workspace.developing}/release.tmp" match="(?s)^(.*?)[\r\n]+\d[\d\. x]+.*$" replace="\1" byline="false"/>
+    <replaceregexp file="${workspace.developing}/release.tmp" match="^(.*?)\s*$" replace="\1  " flags="g" byline="true"/>
+    <replaceregexp file="${workspace.developing}/release.tmp" match="^(\d[\.\d x]+)[^\r\n]*" replace="## \1" byline="false"/>
+    <replaceregexp file="${workspace.developing}/release.tmp" match="^ +([A-Z]+:.*)\s*$" replace="\1" byline="true"/>
+    <replaceregexp file="${workspace.developing}/release.tmp" match="(?s)[\r\n]+ [^\r\n]+" replace="" flags="g" byline="false"/>  
+    <replaceregexp file="${workspace.developing}/release.tmp" match="^(## \d[\.\d]+ \d+)(  )" replace="\1 (summary of the current version)\2" flags="g" byline="true"/>
+    <replaceregexp file="${workspace.developing}/release.tmp" match="^(## \d[\.\d]+ [\dx]+)(  )" replace="\1 (summary of the next version)\2" flags="g" byline="true"/>
+    <loadresource property="changes">
+      <file file="${workspace.developing}/release.tmp"/>
+    </loadresource>
+    <delete file="${workspace.developing}/release.tmp"/>
+    <replaceregexp file="${workspace}/README.md"
+      match="(?si)(# Changes \(Change Log\)\s+).*?(\[Read more\])" flags="g" byline="false"
+      replace="\1${changes}${line.separator}${line.separator}\2"/>
+  </target>  
+  
   <target name="archive">
     <delete dir="${build}"/>
     <mkdir dir="${build}"/>
