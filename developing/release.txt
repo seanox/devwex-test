@@ -1,2 +1,2 @@
-5.0.0 2017xxxx
+5.0.0 20171206
   NT: Initial Release

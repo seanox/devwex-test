@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <project name="devwex-test" default="compile" basedir="..">
   
-  <property name="workspace" value="."/>
+  <property name="workspace" value="${basedir}"/>
   <property name="workspace.resources" value="${workspace}/resources"/>  
   <property name="workspace.resources.libraries" value="${workspace.resources}/libraries"/>
   <property name="workspace.resources.program" value="${workspace.resources}/program"/>
@@ -27,12 +27,6 @@
     <include name="stage"/>
     <include name=".*"/>
   </fileset>
-  
-  <fileset id="fileset.project.extras" dir="${workspace}" defaultexcludes="false">
-    <include name=".git/**/*"/>
-    <include name=".*"/>
-    <include name="*.md"/>
-  </fileset>  
   
   <macrodef name="release-locate">
     <sequential>
@@ -61,65 +55,12 @@
     </touch>
     <delete file="${releases}/seanox-${ant.project.name}-${release.version}.zip"/>
     <zip destfile="${releases}/seanox-${ant.project.name}-${release.version}.zip"
-      basedir="${build}" compress="true" filesonly="false" defaultexcludes="false"/>
+      basedir="${build}" defaultexcludes="false" encoding="ISO-8859-1"/>
     <touch datetime="${release.date}" pattern="yyyyMMdd"
       file="${releases}/seanox-${ant.project.name}-${release.version}.zip"/>
     <delete dir="${build}"/>
   </target>
   
-  <scriptdef name="clean" language="javascript">
-    <attribute name="dir"/>
-    <element name="fileset" classname="org.apache.tools.ant.types.FileSet"/>
-    <![CDATA[
-      var basedir = new java.io.File(attributes.get("dir"));
-      var excludes = new Array(String(basedir));
-      var fileset = elements.get("fileset");
-      fileset.forEach(function(fileset, index, array) {
-        var iterator = fileset.iterator();
-        while (iterator.hasNext()) {
-          var file = iterator.next().getFile();
-          excludes.push(String(file));
-          while (file != null
-              && String(file) != String(basedir)) {
-            if (excludes.indexOf(String(file)) < 0)
-              excludes.push(String(file));
-            file = new java.io.File(file.getParent());
-          }
-        } 
-      });
-      var clear = function(file, excludes) {
-        if (file.isFile()) {
-          if (excludes.indexOf(String(file)) < 0)
-            file.delete();
-        } else if (file.isDirectory()) {
-          var files = Array.prototype.slice.call(file.listFiles(), 0);
-          files.forEach(function(file, index, array) {
-            clear(file, excludes);
-          });
-          var keep = false;
-          var deep = file;
-          while (!keep
-              && deep != null
-              && String(deep) != String(basedir)) {
-            keep = excludes.indexOf(String(deep)) >= 0;
-            deep = new java.io.File(deep.getParent());  
-          }
-          keep = keep || String(file) == String(basedir);
-          if (!keep)
-           file.delete();
-        }
-      };
-      clear(basedir, excludes);
-    ]]>
-  </scriptdef>
-  
-  <target name="clean">
-    <clean dir="${basedir}">
-      <fileset refid="fileset.project"/>
-      <fileset refid="fileset.project.extras"/>
-    </clean>
-  </target>
-    
   <target name="compile">
     <delete>
       <fileset dir="${workspace.resources.libraries}">
