@@ -6,7 +6,8 @@
   <property name="workspace.resources.libraries" value="${workspace.resources}/libraries"/>
   <property name="workspace.resources.program" value="${workspace.resources}/program"/>
   <property name="workspace.resources.certificates" value="${workspace.resources}/certificates"/>
-  <property name="workspace.developing" value="${workspace}/developing"/>
+  <property name="workspace.development" value="${workspace}/development"/>
+  <property name="workspace.extras" value="${workspace.development}/extras"/>
   
   <property name="build" value="${workspace}/build"/>
   <property name="build.project" value="${build}/${ant.project.name}"/>
@@ -18,9 +19,9 @@
   <fileset id="fileset.project" dir="${workspace}">
     <include name=".settings/**/*"/>
     <include name="classes"/>
-    <include name="developing/build.xml"/>
-    <include name="developing/devwex.jar"/>
-    <include name="developing/release.txt"/>
+    <include name="development/build.xml"/>
+    <include name="development/devwex.jar"/>
+    <include name="development/release.txt"/>
     <include name="libraries/*"/>
     <include name="test/**/*"/>
     <include name="resources/**/*"/>
@@ -30,20 +31,20 @@
   
   <macrodef name="release-locate">
     <sequential>
-      <copy file="${workspace.developing}/release.txt" tofile="${workspace.developing}/release.tmp" overwrite="true"/>
-      <replaceregexp file="${workspace.developing}/release.tmp"
+      <copy file="${workspace.development}/release.txt" tofile="${workspace.development}/release.tmp" overwrite="true"/>
+      <replaceregexp file="${workspace.development}/release.tmp"
         match="(?s)^\s*([\d\.x]+) (\d{4})([\dx]+).*$" flags="g" byline="false"
         replace="release.version=\1&#x000D;release.year=\2&#x000D;release.date=\2\3&#x000D;"/>
-      <replaceregexp file="${workspace.developing}/release.tmp" match="x+" replace="0000" flags="g" byline="false"/>
+      <replaceregexp file="${workspace.development}/release.tmp" match="x+" replace="0000" flags="g" byline="false"/>
       <loadproperties>
-        <file file="${workspace.developing}/release.tmp"/>
+        <file file="${workspace.development}/release.tmp"/>
       </loadproperties>
-      <delete file="${workspace.developing}/release.tmp"/>
+      <delete file="${workspace.development}/release.tmp"/>
     </sequential>
   </macrodef>  
   
   <target name="changes">
-    <copy file="${workspace.developing}/release.txt" tofile="${workspace}/CHANGES" overwrite="true"/>
+    <copy file="${workspace.development}/release.txt" tofile="${workspace}/CHANGES" overwrite="true"/>
     <replaceregexp file="${workspace}/CHANGES" match="&#x00E4;" replace="ae" flags="g"/>
     <replaceregexp file="${workspace}/CHANGES" match="&#x00C4;" replace="Ae" flags="g"/>
     <replaceregexp file="${workspace}/CHANGES" match="&#x00F6;" replace="oe" flags="g"/>
@@ -51,22 +52,33 @@
     <replaceregexp file="${workspace}/CHANGES" match="&#x00FC;" replace="ue" flags="g"/>
     <replaceregexp file="${workspace}/CHANGES" match="&#x00DC;" replace="Ue" flags="g"/>
       
-    <copy file="${workspace.developing}/release.txt" tofile="${workspace.developing}/release.tmp" overwrite="true"/>
-    <replaceregexp file="${workspace.developing}/release.tmp" match="^\s+" replace="" byline="false"/>
-    <replaceregexp file="${workspace.developing}/release.tmp" match="(?s)^(.*?)[\r\n]+\d[\d\. x]+.*$" replace="\1" byline="false"/>
-    <replaceregexp file="${workspace.developing}/release.tmp" match="^(.*?)\s*$" replace="\1  " flags="g" byline="true"/>
-    <replaceregexp file="${workspace.developing}/release.tmp" match="^(\d[\.\d x]+)[^\r\n]*" replace="## \1" byline="false"/>
-    <replaceregexp file="${workspace.developing}/release.tmp" match="^ +([A-Z]+:.*)\s*$" replace="\1" byline="true"/>
-    <replaceregexp file="${workspace.developing}/release.tmp" match="(?s)[\r\n]+ [^\r\n]+" replace="" flags="g" byline="false"/>  
-    <replaceregexp file="${workspace.developing}/release.tmp" match="^(## \d[\.\d]+ \d+)(  )" replace="\1 (summary of the current version)\2" flags="g" byline="true"/>
-    <replaceregexp file="${workspace.developing}/release.tmp" match="^(## \d[\.\d]+ [\dx]+)(  )" replace="\1 (summary of the next version)\2" flags="g" byline="true"/>
+    <copy file="${workspace.development}/release.txt" tofile="${workspace.development}/release.tmp" overwrite="true"/>
+    <replaceregexp file="${workspace.development}/release.tmp" match="^\s+" replace="" byline="false"/>
+    <replaceregexp file="${workspace.development}/release.tmp" match="(?s)^(.*?)[\r\n]+\d[\d\. x]+.*$" replace="\1" byline="false"/>
+    <replaceregexp file="${workspace.development}/release.tmp" match="^(.*?)\s*$" replace="\1  " flags="g" byline="true"/>
+    <replaceregexp file="${workspace.development}/release.tmp" match="^(\d[\.\d x]+)[^\r\n]*" replace="## \1" byline="false"/>
+    <replaceregexp file="${workspace.development}/release.tmp" match="^ +([A-Z]+:.*)\s*$" replace="\1" byline="true"/>
+    <replaceregexp file="${workspace.development}/release.tmp" match="(?s)[\r\n]+ [^\r\n]+" replace="" flags="g" byline="false"/>  
+    <replaceregexp file="${workspace.development}/release.tmp" match="^(## \d[\.\d]+ \d+)(  )" replace="\1 (summary of the current version)\2" flags="g" byline="true"/>
+    <replaceregexp file="${workspace.development}/release.tmp" match="^(## \d[\.\d]+ [\dx]+)(  )" replace="\1 (summary of the next version)\2" flags="g" byline="true"/>
     <loadresource property="changes">
-      <file file="${workspace.developing}/release.tmp"/>
+      <file file="${workspace.development}/release.tmp"/>
     </loadresource>
-    <delete file="${workspace.developing}/release.tmp"/>
+    <delete file="${workspace.development}/release.tmp"/>
     <replaceregexp file="${workspace}/README.md"
       match="(?si)(# Changes \(Change Log\)\s+).*?(\[Read more\])" flags="g" byline="false"
       replace="\1${changes}${line.separator}${line.separator}\2"/>
+  </target>
+  
+  <target name="compress" if="windows">
+    <delete file="${releases}/seanox-${ant.project.name}-${release.version}.zip"/>
+    <unzip src="${workspace.extras}/compress.zip" dest="${build}"/>
+    <property name="compress1" value="a ${releases}/seanox-${ant.project.name}-${release.version}.zip"/>
+    <property name="compress2" value="-tzip -mm=Deflate -mx9 -md=64k -mfb=128 -mpass=10"/>
+    <property name="compress3" value="${build.project}"/>
+    <exec executable="${build}/7z/7za.exe">
+      <arg line="${compress1} ${compress2} ${compress3}"/>
+    </exec>
   </target>  
   
   <target name="archive">
@@ -82,7 +94,14 @@
     </touch>
     <delete file="${releases}/seanox-${ant.project.name}-${release.version}.zip"/>
     <zip destfile="${releases}/seanox-${ant.project.name}-${release.version}.zip"
-      basedir="${build}" defaultexcludes="false" encoding="ISO-8859-1"/>
+      basedir="${build}" defaultexcludes="false"/>
+    <condition property="windows" value="true">
+      <os family="windows"/>
+    </condition>
+    <condition property="windows" value="true">
+      <os family="unix"/>
+    </condition>   
+    <antcall target="compress"/>
     <touch datetime="${release.date}" pattern="yyyyMMdd"
       file="${releases}/seanox-${ant.project.name}-${release.version}.zip"/>
     <delete dir="${build}"/>
@@ -97,7 +116,7 @@
     </delete>    
     
     <javac srcdir="${workspace.resources.libraries}" destdir="${workspace.resources.libraries}"
-      classpath="${workspace.developing}/devwex.jar"
+      classpath="${workspace.development}/devwex.jar"
       includeantruntime="false" debug="true"/>
     
     <jar destfile="${workspace.resources.libraries}/workerModule_A.jar"
