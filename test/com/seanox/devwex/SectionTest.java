@@ -39,6 +39,7 @@ import com.seanox.test.utils.Accession;
 @Suite.SuiteClasses({
     SectionTest_Parse.class,
     SectionTest_Set.class,
+    SectionTest_Get.class,
     SectionTest_Contains.class,
     SectionTest_ToString.class
 })
