@@ -31,8 +31,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
     GeneratorTest.class,
     InitializeTest.class,
-    RemoteTest.class,
     SectionTest.class,
+    RemoteTest.class,
     ServerTest.class,
     ServiceTest.class,
     WorkerTest.class
