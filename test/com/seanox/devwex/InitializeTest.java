@@ -50,7 +50,7 @@ public class InitializeTest extends AbstractSuite {
      *  @return die formatierte Sektion als String
      */
     @SuppressWarnings("unchecked")
-    static String toString(Initialize initialize) {
+    static String toString(com.seanox.devwex.Initialize initialize) {
         
         ByteArrayOutputStream buffer;
         PrintStream           writer;

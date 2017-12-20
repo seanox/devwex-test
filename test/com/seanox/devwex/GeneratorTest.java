@@ -28,6 +28,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.seanox.test.utils.ResourceUtils;
+import com.seanox.test.utils.Timing;
 
 /**
  *  TestCases for {@link com.seanox.devwex.Generator}.
