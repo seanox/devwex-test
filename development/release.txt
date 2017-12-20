@@ -1,2 +1,6 @@
+5.1.0 2018xxx
+  CR: Project
+      - updated to Seanox Test API 1.2
+
 5.0.0 20171206
   NT: Initial Release
