@@ -39,18 +39,11 @@ public class RemoteTest_Restart extends AbstractTest {
     @Test
     public void testRestart() throws Exception {
 
-        String tail1 = AbstractSuite.getOutputTail().replaceAll("(?s).*[\r\n]+([\\d\\- :]+.*?)$", "$1");
-        
         String response = new String(HttpUtils.sendRequest("127.0.0.1:25001", "RESTaRT\r\n"));
-
-        Thread.sleep(1000);
         
-        String tail2 = AbstractSuite.getOutputTail();
-        int offset = tail2.lastIndexOf(tail1);
-        if (offset >= 0)
-            tail2 = tail2.substring(offset);
-
-        Assert.assertTrue(tail2.matches("(?si)^.*[\r\n]+[\\d\\- :]+\\s+SERVICE RESTARTED\\s+\\([\\d\\.]+\\s+SEC\\)([\r\n]+|$)"));
+        Thread.sleep(1000);
+        String outputLog = this.outputStreamCapture.toString().trim();
+        Assert.assertTrue(outputLog.matches("(?si)^.*[\r\n]+[\\d\\- :]+\\s+SERVICE RESTARTED\\s+\\([\\d\\.]+\\s+SEC\\)([\r\n]+|$)"));
         Assert.assertEquals("SERVICE RESTARTED\r\n", response);
     }
 }
