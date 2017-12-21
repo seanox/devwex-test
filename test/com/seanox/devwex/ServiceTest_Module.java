@@ -48,7 +48,7 @@ public class ServiceTest_Module extends AbstractTest {
         Files.copy(Paths.get("./devwex.xapi"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING);
         
         Thread.sleep(250);
-        AbstractSuite.waitOutputReady();
+        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
     }
     
     /** 
@@ -62,7 +62,7 @@ public class ServiceTest_Module extends AbstractTest {
         Files.delete(Paths.get("./devwex.ini_"));
         
         Thread.sleep(250);
-        AbstractSuite.waitOutputReady();
+        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
     }
     
     /** 
@@ -75,9 +75,9 @@ public class ServiceTest_Module extends AbstractTest {
         
         Service.restart();
         Thread.sleep(250);
-        AbstractSuite.waitOutputReady();
+        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
         
-        String output = AbstractSuite.getOutputLog(Trace.create(Trace.Type.CLASS));
+        String output = this.outputStreamCapture.toString();
         for (int loop : new int[] {5, 6, 7, 9, 10, 11, 12, 14, 15}) {
             String pattern = String.format("(?si).*Exception:[^\r\n]+_%02d.*", Integer.valueOf(loop));
             Assert.assertFalse(pattern, output.matches(pattern));

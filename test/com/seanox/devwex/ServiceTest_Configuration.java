@@ -41,7 +41,7 @@ public class ServiceTest_Configuration extends AbstractTest {
         Files.move(Paths.get("./devwex.ini"), Paths.get("./devwex.ini_"), StandardCopyOption.REPLACE_EXISTING); 
         Service.restart();
         Thread.sleep(250);
-        AbstractSuite.waitOutputReady();
+        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
     }    
     
     /** 
@@ -65,6 +65,6 @@ public class ServiceTest_Configuration extends AbstractTest {
         Files.move(Paths.get("./devwex.ini_"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING); 
         Service.restart();
         Thread.sleep(250);
-        AbstractSuite.waitOutputReady();
+        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
     }    
 }

@@ -75,7 +75,8 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
     
     @Initiate
     @SuppressWarnings("unchecked")
-    private static void initiate() throws Exception {
+    private static void initiate()
+            throws Exception {
         
         final File root = new File(".").getCanonicalFile();
         final File rootStage = new File(root, AbstractSuite.PATH_STAGE).getCanonicalFile();
@@ -181,7 +182,8 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
     }
 
     @Complete
-    private static void complete() throws Exception {
+    private static void complete()
+            throws Exception {
         
         AbstractSuite.outputStream.unmount(System.out);
         AbstractSuite.outputStream.close();
@@ -190,13 +192,37 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
         AbstractSuite.accessReader.close();
         AbstractSuite.accessStream.close();
     }
+
+    protected static void waitOutputFacadeStream(OutputFacadeStream output)
+            throws IOException, InterruptedException {
+        AbstractSuite.waitOutputFacadeStream(output, 3000);
+    }
+
+    protected static void waitOutputFacadeStream(OutputFacadeStream output, long timeout)
+            throws IOException, InterruptedException {
+        
+        if (timeout < 0)
+            throw new IllegalArgumentException("Invalid timeout");
+        try (OutputFacadeStream.Capture capture = output.capture()) {
+            String shadow = null;
+            long timing = System.currentTimeMillis();
+            while (System.currentTimeMillis() -timing < timeout) {
+                Thread.sleep(50);
+                String string = capture.toString();
+                if (!string.equals(shadow))
+                    timing = System.currentTimeMillis(); 
+                shadow = string;
+            }
+        }
+    }
     
     /**
      *  Returns the root stage as file.
      *  @return the root stage as file
      *  @throws IOException
      */
-    static File getRoot() throws IOException {
+    static File getRoot()
+            throws IOException {
         return new File(".").getCanonicalFile();
     }
     
@@ -205,7 +231,8 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
      *  @return the root stage as file
      *  @throws IOException
      */
-    static File getRootStage() throws IOException {
+    static File getRootStage()
+            throws IOException {
         return new File(AbstractSuite.getRoot(), PATH_STAGE).getCanonicalFile();
     }
 
@@ -214,7 +241,8 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
      *  @return the root stage access log as file
      *  @throws IOException
      */
-    static File getRootStageAccessLog() throws IOException {
+    static File getRootStageAccessLog()
+            throws IOException {
         return new File(AbstractSuite.getRootStage(), "access.log");
     }
 
@@ -223,7 +251,8 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
      *  @return the root stage output log as file
      *  @throws IOException
      */
-    static File getRootStageOutputLog() throws IOException {
+    static File getRootStageOutputLog()
+            throws IOException {
         return new File(AbstractSuite.getRootStage(), "output.log");
     }
     
@@ -232,7 +261,8 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
      *  @return the root stage certificates directory as file
      *  @throws IOException
      */
-    static File getRootStageCertificates() throws IOException {
+    static File getRootStageCertificates()
+            throws IOException {
         return new File(AbstractSuite.getRoot(), PATH_STAGE_CERTIFICATES);
     }
 

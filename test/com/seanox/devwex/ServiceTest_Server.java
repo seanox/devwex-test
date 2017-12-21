@@ -50,7 +50,7 @@ public class ServiceTest_Server extends AbstractTest {
         Files.copy(Paths.get("./devwex.sapi"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING);
         
         Thread.sleep(250);
-        AbstractSuite.waitOutputReady();
+        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
     }
     
     /** 
@@ -64,7 +64,7 @@ public class ServiceTest_Server extends AbstractTest {
         Files.delete(Paths.get("./devwex.ini_"));
         
         Thread.sleep(250);
-        AbstractSuite.waitOutputReady();
+        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
     } 
 
     /** 
@@ -202,12 +202,12 @@ public class ServiceTest_Server extends AbstractTest {
      */      
     @Test
     public void testAcceptance_08() throws Exception {
-        
+
         Service.restart();
         Thread.sleep(250);
-        AbstractSuite.waitOutputReady();
+        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
         
-        String output = AbstractSuite.getOutputLog(Trace.create(Trace.Type.CLASS));
+        String output = this.outputStreamCapture.toString();
         
         //Server 11 has no logic, but the API is implemented correctly
         Assert.assertFalse(output.contains("Exception: server.Acceptance_11"));

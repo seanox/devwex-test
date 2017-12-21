@@ -39,10 +39,9 @@ public class ServiceTest_Restart extends AbstractTest {
      */    
     @Test
     public void testAcceptance_01() throws Exception {
-        
-        long offset = AbstractSuite.getRootStageOutputLog().length();
-        
-        Executor executor = Executor.create(50, new Worker() {
+
+        int loops = 50;
+        Executor executor = Executor.create(loops, new Worker() {
             @Override
             protected void execute() {
                 Assert.assertTrue(Service.restart());
@@ -52,10 +51,10 @@ public class ServiceTest_Restart extends AbstractTest {
         executor.execute();
         Assert.assertTrue(executor.await(60000));
         
-        String output = AbstractSuite.getOutputLog();
-        output = output.substring((int)offset);
-        Assert.assertFalse(output.contains(".Exception"));
-        Assert.assertFalse(output.contains(".Error"));
-        Assert.assertFalse(output.contains(".Throwable"));
+        String outputLog = this.outputStreamCapture.toString();
+        Assert.assertFalse(outputLog.contains(".Exception"));
+        Assert.assertFalse(outputLog.contains(".Error"));
+        Assert.assertFalse(outputLog.contains(".Throwable"));
+        Assert.assertEquals(loops +1, outputLog.split("SERVICE RESTARTED").length);
     } 
 }

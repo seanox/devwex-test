@@ -29,6 +29,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+    ServiceTest_Configuration.class,
     ServiceTest_Module.class,
     ServiceTest_Print.class,
     ServiceTest_Remote.class,

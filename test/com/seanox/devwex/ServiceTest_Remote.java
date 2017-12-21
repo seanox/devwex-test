@@ -46,7 +46,7 @@ public class ServiceTest_Remote extends AbstractTest {
         Files.copy(Paths.get("./devwex.sapi"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING);
         
         Thread.sleep(250);
-        AbstractSuite.waitOutputReady();
+        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
     }
     
     /** 
@@ -60,7 +60,7 @@ public class ServiceTest_Remote extends AbstractTest {
         Files.delete(Paths.get("./devwex.ini_"));
         
         Thread.sleep(250);
-        AbstractSuite.waitOutputReady();
+        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
     } 
     
     /** 
@@ -75,7 +75,7 @@ public class ServiceTest_Remote extends AbstractTest {
         Service.main(new String[] {"status"});
         
         Thread.sleep(50);
-        String output = AbstractSuite.getOutputLog(Trace.create(Trace.Type.CLASS, Trace.Type.METHOD));
+        String output = this.outputStreamCapture.toString();
         Assert.assertTrue(output.contains("REMOTE ACCESS FAILED"));
         Assert.assertTrue(output.contains("Connection refused: connect"));
         Assert.assertFalse(output.contains("Network is unreachable: connect"));
@@ -94,12 +94,12 @@ public class ServiceTest_Remote extends AbstractTest {
         Service.main(new String[] {"status", "unknow_host"});
         
         Thread.sleep(50);
-        String output = AbstractSuite.getOutputLog(Trace.create(Trace.Type.CLASS, Trace.Type.METHOD));
+        String output = this.outputStreamCapture.toString();
         Assert.assertTrue(output.contains("REMOTE ACCESS FAILED"));
         Assert.assertTrue(output.contains("unknow_host")); 
         Assert.assertFalse(output.contains("Network is unreachable: connect"));
         Assert.assertFalse(output.contains("Connection refused: connect"));
-        Assert.assertFalse(output.contains("SAPI"));        
+        Assert.assertFalse(output.contains("SAPI"));       
     } 
     
     /** 
@@ -111,14 +111,14 @@ public class ServiceTest_Remote extends AbstractTest {
     public void testAcceptance_03() throws Exception {
         
         Service.main(new String[] {"status", "1234"});
-        
+
         Thread.sleep(50);
-        String output = AbstractSuite.getOutputLog(Trace.create(Trace.Type.CLASS, Trace.Type.METHOD));
+        String output = this.outputStreamCapture.toString();
         Assert.assertTrue(output.contains("REMOTE ACCESS FAILED"));
         Assert.assertTrue(output.contains("Network is unreachable: connect"));
         Assert.assertFalse(output.contains("Connection refused: connect"));
         Assert.assertFalse(output.contains("unknow_host")); 
-        Assert.assertFalse(output.contains("SAPI"));   
+        Assert.assertFalse(output.contains("SAPI"));
     }     
     
     /** 
@@ -128,11 +128,11 @@ public class ServiceTest_Remote extends AbstractTest {
      */      
     @Test
     public void testAcceptance_04() throws Exception {
-        
+
         Service.main(new String[] {"status", "127.0.0.1:25000"});
 
         Thread.sleep(50);
-        String output = AbstractSuite.getOutputLog(Trace.create(Trace.Type.CLASS, Trace.Type.METHOD));
+        String output = this.outputStreamCapture.toString();
         Assert.assertTrue(output.contains("REMOTE ACCESS FAILED"));
         Assert.assertTrue(output.contains("Connection refused: connect"));
         Assert.assertFalse(output.contains("Network is unreachable: connect"));
@@ -147,15 +147,15 @@ public class ServiceTest_Remote extends AbstractTest {
      */      
     @Test
     public void testAcceptance_05() throws Exception {
-        
+
         Service.main(new String[] {"status", "127.0.0.1:25001"});
         
         Thread.sleep(50);
-        String output = AbstractSuite.getOutputLog(Trace.create(Trace.Type.CLASS, Trace.Type.METHOD));
+        String output = this.outputStreamCapture.toString();
         Assert.assertFalse(output.contains("REMOTE ACCESS FAILED"));
         Assert.assertFalse(output.contains("Connection refused: connect"));
         Assert.assertFalse(output.contains("Network is unreachable: connect"));
         Assert.assertFalse(output.contains("unknow_host"));
-        Assert.assertTrue(output.contains("SAPI"));        
+        Assert.assertTrue(output.contains("SAPI"));
     }     
 }
