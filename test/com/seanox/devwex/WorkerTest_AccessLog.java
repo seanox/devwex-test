@@ -56,7 +56,7 @@ public class WorkerTest_AccessLog extends AbstractTest {
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         Assert.assertTrue(accessLogFile.exists());
     }
     
@@ -69,11 +69,10 @@ public class WorkerTest_AccessLog extends AbstractTest {
     public void testAcceptance_2() throws Exception {
         
         HttpUtils.sendRequest("127.0.0.1:80", "GET / HTTP/1.0\r\n\r\n");
-        
         String pattern = new SimpleDateFormat("Z", Locale.US).format(new Date());
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches("^.*?\\[\\d{2}/\\w{3}/\\d{4}(:\\d{2}){3} \\" + pattern + "\\]\\s.*$"));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches("^.*?\\[\\d{2}/\\w{3}/\\d{4}(:\\d{2}){3} \\" + pattern + "\\]\\s.*$"));
     }   
 
     /** 
@@ -88,10 +87,10 @@ public class WorkerTest_AccessLog extends AbstractTest {
                 + "User-Agent: Nix\"123\"\r\n";
         HttpUtils.sendRequest("127.0.0.1:80", request + "\r\n");
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.contains(" \"G\\\"ET /nix\\\"xxx\\\"_zzz\\ff HTTP/1.0\" "));
-        Assert.assertTrue(accessLog.contains(" \"Nix\\\"123\\\""));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.contains(" \"G\\\"ET /nix\\\"xxx\\\"_zzz\\ff HTTP/1.0\" "));
+        Assert.assertTrue(accessLog, accessLog.contains(" \"Nix\\\"123\\\""));
     }
     
     /** 
@@ -113,7 +112,7 @@ public class WorkerTest_AccessLog extends AbstractTest {
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         Assert.assertTrue(accessLogFile.exists());
     }
 }

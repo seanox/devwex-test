@@ -37,10 +37,10 @@ import com.seanox.test.utils.Accession;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+    SectionTest_Contains.class,
     SectionTest_Parse.class,
     SectionTest_Set.class,
     SectionTest_Get.class,
-    SectionTest_Contains.class,
     SectionTest_ToString.class
 })
 public class SectionTest extends AbstractSuite {

@@ -42,13 +42,13 @@ public class ServiceTest_Module extends AbstractTest {
      *  @throws Exception
      */
     @BeforeClass
-    public static void oneBeforeClass() throws Exception {
+    public static void onBeforeClass() throws Exception {
         
         Files.copy(Paths.get("./devwex.ini"), Paths.get("./devwex.ini_"), StandardCopyOption.REPLACE_EXISTING); 
         Files.copy(Paths.get("./devwex.xapi"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING);
         
         Thread.sleep(250);
-        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
+        AbstractTestUtils.waitOutputFacadeStream(AbstractSuite.outputStream);
     }
     
     /** 
@@ -56,13 +56,13 @@ public class ServiceTest_Module extends AbstractTest {
      *  @throws Exception
      */
     @AfterClass
-    public static void oneAfterClass() throws Exception {
+    public static void onAfterClass() throws Exception {
         
         Files.copy(Paths.get("./devwex.ini_"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING); 
         Files.delete(Paths.get("./devwex.ini_"));
         
         Thread.sleep(250);
-        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
+        AbstractTestUtils.waitOutputFacadeStream(AbstractSuite.outputStream);
     }
     
     /** 
@@ -75,7 +75,7 @@ public class ServiceTest_Module extends AbstractTest {
         
         Service.restart();
         Thread.sleep(250);
-        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
+        AbstractTestUtils.waitOutputFacadeStream(AbstractSuite.outputStream);
         
         String output = this.outputStreamCapture.toString();
         for (int loop : new int[] {5, 6, 7, 9, 10, 11, 12, 14, 15}) {

@@ -47,7 +47,7 @@ public class WorkerTest_FileIndex extends AbstractTest {
      *  @throws Exception
      */
     @BeforeClass
-    public static void oneBeforeClass() throws Exception {
+    public static void onBeforeClass() throws Exception {
         
         final File rootStage = new File(AbstractSuite.getRootStage(), "/documents/empty").getCanonicalFile();
         Files.walkFileTree(rootStage.toPath(), new SimpleFileVisitor<Path>() {
@@ -86,9 +86,9 @@ public class WorkerTest_FileIndex extends AbstractTest {
         Assert.assertTrue(body.contains("\r\norder by: na\r\n"));
         Assert.assertFalse(body.contains("?"));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
     }
     
     /** 
@@ -114,9 +114,9 @@ public class WorkerTest_FileIndex extends AbstractTest {
         Assert.assertTrue(body.contains("\r\norder by: da\r\n"));
         Assert.assertFalse(body.contains("?"));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
     }
     
     /** 
@@ -143,9 +143,9 @@ public class WorkerTest_FileIndex extends AbstractTest {
         Assert.assertTrue(body.contains("\r\norder by: na x\r\n"));
         Assert.assertFalse(body.contains("?"));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
     }
     
     /** 

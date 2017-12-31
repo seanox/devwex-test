@@ -44,16 +44,16 @@ public class ServiceTest_Print extends AbstractTest {
         outputPattern = ResourceUtils.getContextContent("testAcceptance_01_1");
         
         Service.print(ResourceUtils.getContextContent());
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog1 = this.outputStreamCapture.toString().trim();
         outputLog1 = outputLog1.replaceAll("^[\\d-]+ [\\d:]+", "2000-01-01 14:00:00");
         Assert.assertEquals(outputPattern, outputLog1);
         
         Service.print("----------");
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog2 = this.outputStreamCapture.toString().trim(); 
         Service.print(ResourceUtils.getContextContent(), false);
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog3 = this.outputStreamCapture.toString().trim();
         Assert.assertEquals(outputLog2 + System.lineSeparator() + outputPattern.substring(20), outputLog3);
     } 
@@ -71,16 +71,16 @@ public class ServiceTest_Print extends AbstractTest {
         outputPattern = ResourceUtils.getContextContent("testAcceptance_02_1");
         
         Service.print(ResourceUtils.getContextContent());
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog1 = this.outputStreamCapture.toString().trim();
         outputLog1 = outputLog1.replaceAll("^[\\d-]+ [\\d:]+", "2000-01-01 14:00:00");
         Assert.assertEquals(outputPattern, outputLog1);
         
         Service.print("----------");
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog2 = this.outputStreamCapture.toString().trim(); 
         Service.print(ResourceUtils.getContextContent(), false);
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog3 = this.outputStreamCapture.toString().trim();
         Assert.assertEquals(outputLog2 + System.lineSeparator() + outputPattern.substring(20), outputLog3);
     }  
@@ -98,16 +98,16 @@ public class ServiceTest_Print extends AbstractTest {
         outputPattern = ResourceUtils.getContextContent("testAcceptance_03_1");
         
         Service.print(ResourceUtils.getContextContent());
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog1 = this.outputStreamCapture.toString().trim();
         outputLog1 = outputLog1.replaceAll("^[\\d-]+ [\\d:]+", "2000-01-01 14:00:00");
         Assert.assertEquals(outputPattern, outputLog1);
         
         Service.print("----------");
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog2 = this.outputStreamCapture.toString().trim(); 
         Service.print(ResourceUtils.getContextContent(), false);
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog3 = this.outputStreamCapture.toString().trim();
         Assert.assertEquals(outputLog2 + System.lineSeparator() + outputPattern.substring(20), outputLog3);
     } 
@@ -125,16 +125,16 @@ public class ServiceTest_Print extends AbstractTest {
         outputPattern = ResourceUtils.getContextContent("testAcceptance_04_1");
         
         Service.print(ResourceUtils.getContextContent());
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog1 = this.outputStreamCapture.toString().trim();
         outputLog1 = outputLog1.replaceAll("^[\\d-]+ [\\d:]+", "2000-01-01 14:00:00");
         Assert.assertEquals(outputPattern, outputLog1);
         
         Service.print("----------");
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog2 = this.outputStreamCapture.toString().trim(); 
         Service.print(ResourceUtils.getContextContent(), false);
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog3 = this.outputStreamCapture.toString().trim();
         Assert.assertEquals(outputLog2 + System.lineSeparator() + outputPattern.substring(20), outputLog3);
     }
@@ -148,7 +148,7 @@ public class ServiceTest_Print extends AbstractTest {
     public void testAcceptance_05() throws Exception {
 
         Service.print(new Throwable("###1"));
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog = this.outputStreamCapture.toString().trim();
         outputLog = outputLog.replaceAll("^[\\d-]+ [\\d:]+", "2000-01-01 14:00:00");
         Assert.assertTrue(outputLog.startsWith("2000-01-01 14:00:00 java.lang.Throwable: ###1"));
@@ -165,7 +165,7 @@ public class ServiceTest_Print extends AbstractTest {
     public void testAcceptance_06() throws Exception {
 
         Service.print(new Throwable("###1", new Throwable("###2")));
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog = this.outputStreamCapture.toString().trim();
         outputLog = outputLog.replaceAll("^[\\d-]+ [\\d:]+", "2000-01-01 14:00:00");
         Assert.assertTrue(outputLog.startsWith("2000-01-01 14:00:00 java.lang.Throwable: ###1"));
@@ -181,7 +181,7 @@ public class ServiceTest_Print extends AbstractTest {
     public void testAcceptance_07() throws Exception {
 
         Service.print(new Throwable("###1", new Throwable("###2", new Throwable("###3"))));
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog = this.outputStreamCapture.toString().trim();
         outputLog = outputLog.replaceAll("^[\\d-]+ [\\d:]+", "2000-01-01 14:00:00");
         Assert.assertTrue(outputLog.startsWith("2000-01-01 14:00:00 java.lang.Throwable: ###1"));
@@ -198,21 +198,21 @@ public class ServiceTest_Print extends AbstractTest {
     public void testAcceptance_08() throws Exception {
         
         Service.print("----------");
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog1 = this.outputStreamCapture.toString().trim();        
         for (String text : new String[] {"", " ", "  ", null}) {
             Service.print(text);
-            Thread.sleep(50);
+            Thread.sleep(AbstractTest.SLEEP);
             String outputLog = this.outputStreamCapture.toString().trim();
             Assert.assertEquals(outputLog1, outputLog);
         }
 
         Service.print("----------");
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog2 = this.outputStreamCapture.toString().trim();       
         for (String text : new String[] {"", " ", "  ", null}) {
             Service.print(text, false);
-            Thread.sleep(50);
+            Thread.sleep(AbstractTest.SLEEP);
             String outputLog = this.outputStreamCapture.toString().trim();
             Assert.assertEquals(outputLog2, outputLog);
         }
@@ -229,21 +229,21 @@ public class ServiceTest_Print extends AbstractTest {
     public void testAcceptance_09() throws Exception {
         
         Service.print("----------");
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String outputLog1 = this.outputStreamCapture.toString().trim();
         for (String text : new String[] {"\r", "\n", "\r\n", "\n\r", "\r\r", "\n\n", "\r\n\r\n", "\n\r\n\r"}) {
             Service.print(text);
-            Thread.sleep(50);
+            Thread.sleep(AbstractTest.SLEEP);
             String outputLog2 = this.outputStreamCapture.toString().trim();
             Assert.assertEquals(outputLog1, outputLog2);
         }
 
         for (String text : new String[] {"\r", "\n", "\r\n", "\n\r", "\r\r", "\n\n", "\r\n\r\n", "\n\r\n\r"}) {
             Service.print("----------");
-            Thread.sleep(50);
+            Thread.sleep(AbstractTest.SLEEP);
             String outputLog3 = this.outputStreamCapture.toString().trim();         
             Service.print(text, false);
-            Thread.sleep(50);
+            Thread.sleep(AbstractTest.SLEEP);
             String outputLog4 = this.outputStreamCapture.toString().trim();       
             Assert.assertEquals(outputLog3, outputLog4); 
         }

@@ -29,7 +29,6 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    WorkerTest_Performance.class,
     WorkerTest_AccessLog.class,
     WorkerTest_Authentication.class,
     WorkerTest_Configuration.class,
@@ -43,6 +42,7 @@ import org.junit.runners.Suite;
     WorkerTest_Locate.class,
     WorkerTest_MimeType.class,
     WorkerTest_Options.class,
+    WorkerTest_Performance.class,
     WorkerTest_Put.class,
     WorkerTest_Request.class,
     WorkerTest_Status.class,

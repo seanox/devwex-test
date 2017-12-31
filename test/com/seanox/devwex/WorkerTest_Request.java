@@ -49,7 +49,7 @@ public class WorkerTest_Request extends AbstractTest {
      */  
     @Test(timeout=16000)
     public void testTimeout_1() throws Exception {
-       
+        
         String response = new String(HttpUtils.sendRequest("127.0.0.1:80"));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_408));
@@ -57,9 +57,9 @@ public class WorkerTest_Request extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_408));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_408));
     }
     
     /** 
@@ -99,9 +99,9 @@ public class WorkerTest_Request extends AbstractTest {
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
             Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
             
-            Thread.sleep(50);
-            String accessLog = AbstractSuite.getAccessLogTail();
-            Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", "GET / HTTP/1.0")));
+            Thread.sleep(AbstractTest.SLEEP);
+            String accessLog = this.accessStreamCapture.toString().trim();
+            Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", "GET / HTTP/1.0")));
         }
     }    
     
@@ -118,7 +118,7 @@ public class WorkerTest_Request extends AbstractTest {
     public void testTimeout_3() throws Exception {
         
         try (Socket socket = new Socket("127.0.0.1", 8085)) {
-            
+
             InputStream input = new BufferedInputStream(socket.getInputStream(), 65535);
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
             writer.print("GET / HTTP/1.0");
@@ -144,9 +144,9 @@ public class WorkerTest_Request extends AbstractTest {
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
             Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
             
-            Thread.sleep(50);
-            String accessLog = AbstractSuite.getAccessLogTail();
-            Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("408", "GET / HTTP/1.0")));
+            Thread.sleep(AbstractTest.SLEEP);
+            String accessLog = this.accessStreamCapture.toString().trim();
+            Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("408", "GET / HTTP/1.0")));
         }
     }  
     
@@ -157,7 +157,7 @@ public class WorkerTest_Request extends AbstractTest {
      */
     @Test
     public void testAcceptance_1() throws Exception {
-        
+            
         String request = "GET\r\n\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
         
@@ -166,9 +166,9 @@ public class WorkerTest_Request extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("400", request)));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("400", request)));
     }
     
     /** 
@@ -188,9 +188,9 @@ public class WorkerTest_Request extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("400", request)));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("400", request)));
     }
     
     /** 
@@ -210,9 +210,9 @@ public class WorkerTest_Request extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
     }
     
     /** 
@@ -235,9 +235,9 @@ public class WorkerTest_Request extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("413", request)));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("413", request)));
     }    
     
     /** 
@@ -265,9 +265,9 @@ public class WorkerTest_Request extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("413", request)));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("413", request)));
     }    
     
     /** 
@@ -295,9 +295,9 @@ public class WorkerTest_Request extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
     }
     
     /** 
@@ -316,9 +316,9 @@ public class WorkerTest_Request extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_400));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_400));
     } 
     
     /** 
@@ -363,9 +363,8 @@ public class WorkerTest_Request extends AbstractTest {
             Assert.assertTrue(socketClosed > 20);
             
             while (Thread.activeCount() > threadCount)
-                Thread.sleep(50);
-            
-            AbstractSuite.waitOutputReady();
+                Thread.sleep(AbstractTest.SLEEP);
+            AbstractTestUtils.waitOutputFacadeStream(AbstractSuite.outputStream);
         }
     }     
 }

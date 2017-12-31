@@ -58,7 +58,7 @@ public class InitializeTest_Get extends AbstractTest {
         Initialize initialize = new Initialize(true);
         for (String key : new String[] {null, "", " ", " \t ", " \r ", " \n ", " \7 "}) {
             Section section = initialize.get(key);
-            Assert.assertNull(section);
+            Assert.assertNotNull(section);
         }
     }
     

@@ -40,13 +40,13 @@ public class ServiceTest_Remote extends AbstractTest {
      *  @throws Exception
      */
     @BeforeClass
-    public static void oneBeforeClass() throws Exception {
+    public static void onBeforeClass() throws Exception {
         
         Files.copy(Paths.get("./devwex.ini"), Paths.get("./devwex.ini_"), StandardCopyOption.REPLACE_EXISTING); 
         Files.copy(Paths.get("./devwex.sapi"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING);
         
         Thread.sleep(250);
-        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
+        AbstractTestUtils.waitOutputFacadeStream(AbstractSuite.outputStream);
     }
     
     /** 
@@ -54,13 +54,13 @@ public class ServiceTest_Remote extends AbstractTest {
      *  @throws Exception
      */
     @AfterClass
-    public static void oneAfterClass() throws Exception {
+    public static void onAfterClass() throws Exception {
         
         Files.copy(Paths.get("./devwex.ini_"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING); 
         Files.delete(Paths.get("./devwex.ini_"));
         
         Thread.sleep(250);
-        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
+        AbstractTestUtils.waitOutputFacadeStream(AbstractSuite.outputStream);
     } 
     
     /** 
@@ -74,7 +74,7 @@ public class ServiceTest_Remote extends AbstractTest {
         
         Service.main(new String[] {"status"});
         
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String output = this.outputStreamCapture.toString();
         Assert.assertTrue(output.contains("REMOTE ACCESS FAILED"));
         Assert.assertTrue(output.contains("Connection refused: connect"));
@@ -93,7 +93,7 @@ public class ServiceTest_Remote extends AbstractTest {
         
         Service.main(new String[] {"status", "unknow_host"});
         
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String output = this.outputStreamCapture.toString();
         Assert.assertTrue(output.contains("REMOTE ACCESS FAILED"));
         Assert.assertTrue(output.contains("unknow_host")); 
@@ -112,7 +112,7 @@ public class ServiceTest_Remote extends AbstractTest {
         
         Service.main(new String[] {"status", "1234"});
 
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String output = this.outputStreamCapture.toString();
         Assert.assertTrue(output.contains("REMOTE ACCESS FAILED"));
         Assert.assertTrue(output.contains("Network is unreachable: connect"));
@@ -131,7 +131,7 @@ public class ServiceTest_Remote extends AbstractTest {
 
         Service.main(new String[] {"status", "127.0.0.1:25000"});
 
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String output = this.outputStreamCapture.toString();
         Assert.assertTrue(output.contains("REMOTE ACCESS FAILED"));
         Assert.assertTrue(output.contains("Connection refused: connect"));
@@ -150,7 +150,7 @@ public class ServiceTest_Remote extends AbstractTest {
 
         Service.main(new String[] {"status", "127.0.0.1:25001"});
         
-        Thread.sleep(50);
+        Thread.sleep(AbstractTest.SLEEP);
         String output = this.outputStreamCapture.toString();
         Assert.assertFalse(output.contains("REMOTE ACCESS FAILED"));
         Assert.assertFalse(output.contains("Connection refused: connect"));
