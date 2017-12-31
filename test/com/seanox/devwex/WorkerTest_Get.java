@@ -28,8 +28,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.seanox.test.utils.HttpUtils;
-import com.seanox.test.utils.Pattern;
 import com.seanox.test.utils.HttpUtils.HeaderField;
+import com.seanox.test.utils.OutputFacadeStream;
+import com.seanox.test.utils.Pattern;
 
 /**
  *  TestCases for {@link com.seanox.devwex.Worker}.
@@ -71,9 +72,9 @@ public class WorkerTest_Get extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
     }
     
     /** 
@@ -129,9 +130,9 @@ public class WorkerTest_Get extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
     }
     
     /** 
@@ -164,9 +165,9 @@ public class WorkerTest_Get extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_304));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_304));
     }
     
     /** 
@@ -219,9 +220,9 @@ public class WorkerTest_Get extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_304));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_304));
     }
     
     /** 
@@ -532,183 +533,186 @@ public class WorkerTest_Get extends AbstractTest {
     
     private static void assertAcceptance_26(int count, String path, String start, String end) throws Exception {
         
-        if (start != null
-                && start.contains("-")
-                && end == null)
-            end = "";
-        if (end != null
-                && end.contains("-")
-                && start == null)
-            start = "";
+        try (OutputFacadeStream.Capture capture = AbstractSuite.accessStream.capture()) {
+                  
+            if (start != null
+                    && start.contains("-")
+                    && end == null)
+                end = "";
+            if (end != null
+                    && end.contains("-")
+                    && start == null)
+                start = "";
 
-        String request = "GET " + path + " HTTP/1.0\r\n"
-                + "Host: vHa\r\n";
-        if (start != null || end != null) {
-            request += "Range: bYteS = " + (start != null ? start : "");
-            if (start != null && end != null)
-                request += count % 2 == 0 ? "-" : " - ";
-            request += end != null ? end : "";
-            request += "\r\n";
-        }
-        
-        if (start != null && start.contains(";"))
-            end = null;
-        
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n"));
-        
-        long code = 0;
-        long size = 0;
-        
-        long fileSize     = new File(AbstractSuite.getRootStage(), "documents_vh_A/" + path).length();
-        long responseSize = fileSize;
-        long startPos     = 0;
-        long endPos       = fileSize -1;
-        long fileEnd      = fileSize -1;
-        
-        if (path.contains("nix")) {
-        
-            code = 404;
-            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
-            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
-            Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));  
+            String request = "GET " + path + " HTTP/1.0\r\n"
+                    + "Host: vHa\r\n";
+            if (start != null || end != null) {
+                request += "Range: bYteS = " + (start != null ? start : "");
+                if (start != null && end != null)
+                    request += count % 2 == 0 ? "-" : " - ";
+                request += end != null ? end : "";
+                request += "\r\n";
+            }
             
-        } else if (path.equals("/")) {
+            if (start != null && start.contains(";"))
+                end = null;
             
-            code = 200;
-            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
-            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
-            Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));             
-        
-        } else {
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n"));
             
-            code = 206;
+            long code = 0;
+            long size = 0;
+            
+            long fileSize     = new File(AbstractSuite.getRootStage(), "documents_vh_A/" + path).length();
+            long responseSize = fileSize;
+            long startPos     = 0;
+            long endPos       = fileSize -1;
+            long fileEnd      = fileSize -1;
+            
+            if (path.contains("nix")) {
+            
+                code = 404;
+                Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
+                Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+                Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));  
+                
+            } else if (path.equals("/")) {
+                
+                code = 200;
+                Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+                Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
+                Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));             
+            
+            } else {
+                
+                code = 206;
 
-            String range = "";
-            if (start != null)
-                range += " " + start;
-            if (start != null && end != null)
-                range += "-";
-            if (end != null)
-                range += " " + end;
-            range = range.replaceAll(";.*$", "").trim();
-            
-            if (range.matches("^(\\d+)*\\s*-\\s*(\\d+)*$")) {
-                StringTokenizer tokenizer = new StringTokenizer(range, "-");
-                startPos = Long.parseLong(tokenizer.nextToken().trim());
-                if (tokenizer.hasMoreTokens()) {
-                    endPos = Long.parseLong(tokenizer.nextToken().trim());
-                } else if (range.startsWith("-")) {
-                    if (startPos > 0) {
-                        endPos   = fileSize -1;
-                        startPos = Math.max(0, fileSize -startPos);
-                    } else endPos = -1;
-                }
-                endPos = Math.min(endPos, fileSize -1);
-                if (startPos >= fileSize) {
-                    code = 416;
-                } else if (startPos < fileSize
-                        && startPos <= endPos) {
-                    endPos++;
-                } else {
-                    startPos = 0;
-                    endPos   = fileSize;
-                    code     = 200;
+                String range = "";
+                if (start != null)
+                    range += " " + start;
+                if (start != null && end != null)
+                    range += "-";
+                if (end != null)
+                    range += " " + end;
+                range = range.replaceAll(";.*$", "").trim();
+                
+                if (range.matches("^(\\d+)*\\s*-\\s*(\\d+)*$")) {
+                    StringTokenizer tokenizer = new StringTokenizer(range, "-");
+                    startPos = Long.parseLong(tokenizer.nextToken().trim());
+                    if (tokenizer.hasMoreTokens()) {
+                        endPos = Long.parseLong(tokenizer.nextToken().trim());
+                    } else if (range.startsWith("-")) {
+                        if (startPos > 0) {
+                            endPos   = fileSize -1;
+                            startPos = Math.max(0, fileSize -startPos);
+                        } else endPos = -1;
+                    }
+                    endPos = Math.min(endPos, fileSize -1);
+                    if (startPos >= fileSize) {
+                        code = 416;
+                    } else if (startPos < fileSize
+                            && startPos <= endPos) {
+                        endPos++;
+                    } else {
+                        startPos = 0;
+                        endPos   = fileSize;
+                        code     = 200;
+                    }
+                    
+                    responseSize = Math.min(fileSize, Math.max(0, endPos -startPos));
                 }
                 
-                responseSize = Math.min(fileSize, Math.max(0, endPos -startPos));
-            }
-            
-            if (start != null)
-                start = start.replaceAll("\\s*;.*$", "");
-            if (end != null)
-                end = end.replaceAll("\\s*;.*$", "");
+                if (start != null)
+                    start = start.replaceAll("\\s*;.*$", "");
+                if (end != null)
+                    end = end.replaceAll("\\s*;.*$", "");
 
-            if (start == null
-                    || end == null)
-                code = 200;
-            if (start != null
-                    && start.trim().isEmpty()
-                    && endPos == 0)
-                code = 200;
-            if (startPos > endPos)
-                code = 200; 
-            if (startPos >= fileSize
-                    && fileSize > 0
-                    && start != null
-                    && end != null)
-                code = 416;            
-            if (start != null
-                    && !start.matches("^\\d+$")
-                    && !start.trim().isEmpty())
-                code = 200;  
-            if (end != null
-                    && !end.matches("^\\d+$")
-                    && !end.trim().isEmpty())
-                code = 200;  
+                if (start == null
+                        || end == null)
+                    code = 200;
+                if (start != null
+                        && start.trim().isEmpty()
+                        && endPos == 0)
+                    code = 200;
+                if (startPos > endPos)
+                    code = 200; 
+                if (startPos >= fileSize
+                        && fileSize > 0
+                        && start != null
+                        && end != null)
+                    code = 416;            
+                if (start != null
+                        && !start.matches("^\\d+$")
+                        && !start.trim().isEmpty())
+                    code = 200;  
+                if (end != null
+                        && !end.matches("^\\d+$")
+                        && !end.trim().isEmpty())
+                    code = 200;  
 
-            if (code != 206)
-                responseSize = fileSize;  
-            
-            if (code == 206) {
-                Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_206));
-                Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(responseSize)));
-                Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE(startPos, endPos -1, fileSize)));
-                size = endPos -startPos; 
-            } else if (code == 416) {
-                Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_416));
-                Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));
-                size = Long.parseLong(HttpUtils.getResponseHeaderValue(response, HttpUtils.HeaderField.CONTENT_LENGTH));
-                Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(size)));
-            } else {
-                Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
-                Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(fileSize)));
-                Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));
-                size = fileSize; 
-            }
-            
-            if (code == 200
-                    || code == 206) {
+                if (code != 206)
+                    responseSize = fileSize;  
                 
                 if (code == 206) {
-                
-                    String pattern = null;
-                    if (startPos == 0 && endPos -1 == fileEnd) {
-                        pattern = "(?s)^>0001\\].*\\[1024\\] 1234567890 ABCDEFGHIJKLMNOPQRSTUVWXY<$";
-                    } else if (startPos == 0 && endPos -1 == 0) {
-                        pattern = "(?s)^>$";
-                    } else if (startPos == 0 && endPos -1 == 1) {
-                        pattern = "(?s)^>0$";;
-                    } else if (startPos == 0 && endPos -1 == 127) {
-                        pattern = "(?s)^>0001\\].*\\[0003\\] 1234567890 ABCDEFGHIJKLMNOPQR$";
-                    } else if (startPos == 1 && endPos -1 == 1) {
-                        pattern = "(?s)^0$";
-                    } else if (startPos == 1 && endPos -1 == 127) {
-                        pattern = "(?s)^0001\\].*\\[0003\\] 1234567890 ABCDEFGHIJKLMNOPQR$";
-                    } else if (startPos == 1 && endPos -1 == fileEnd) {                        
-                        pattern = "(?s)^0001\\].*\\[1024\\] 1234567890 ABCDEFGHIJKLMNOPQRSTUVWXY<$";
-                    } else if (startPos == 127 && endPos -1 == 256) {
-                        pattern = "(?s)^RSTUVWXYZ[\r\n]+\\[0004\\].*\\[0006\\] 1234567890 ABCDEFGHI$";
-                    } else if (startPos == 256 && endPos -1 == fileEnd) {
-                        pattern = "(?s)^IJKLMNOPQRSTUVWXYZ[\r\n]+\\[0007\\].*\\[1024\\] 1234567890 ABCDEFGHIJKLMNOPQRSTUVWXY<$";
-                    } else if (startPos == fileSize -1 && endPos -1 == fileEnd) {     
-                        pattern = "(?s)^<$";
-                    } else if (startPos == fileSize -256 && endPos -1 == fileEnd) {  
-                        pattern = "(?s)^ABCDEFGHIJKLMNOPQRSTUVWXYZ[\r\n]+\\[1020\\].*\\[1024\\] 1234567890 ABCDEFGHIJKLMNOPQRSTUVWXY<$";
-                    } else Assert.fail("Missing test case");
-                    
-                    String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
-                    Assert.assertTrue(body.matches(pattern));
+                    Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_206));
+                    Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(responseSize)));
+                    Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE(startPos, endPos -1, fileSize)));
+                    size = endPos -startPos; 
+                } else if (code == 416) {
+                    Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_416));
+                    Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));
+                    size = Long.parseLong(HttpUtils.getResponseHeaderValue(response, HttpUtils.HeaderField.CONTENT_LENGTH));
+                    Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(size)));
+                } else {
+                    Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+                    Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(fileSize)));
+                    Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));
+                    size = fileSize; 
                 }
                 
-                Thread.sleep(50);
-                String accessLog = AbstractSuite.getAccessLogTail();            
-                Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS(String.valueOf(code), request, (int)size)));  
+                if (code == 200
+                        || code == 206) {
+                    
+                    if (code == 206) {
+                    
+                        String pattern = null;
+                        if (startPos == 0 && endPos -1 == fileEnd) {
+                            pattern = "(?s)^>0001\\].*\\[1024\\] 1234567890 ABCDEFGHIJKLMNOPQRSTUVWXY<$";
+                        } else if (startPos == 0 && endPos -1 == 0) {
+                            pattern = "(?s)^>$";
+                        } else if (startPos == 0 && endPos -1 == 1) {
+                            pattern = "(?s)^>0$";
+                        } else if (startPos == 0 && endPos -1 == 127) {
+                            pattern = "(?s)^>0001\\].*\\[0003\\] 1234567890 ABCDEFGHIJKLMNOPQR$";
+                        } else if (startPos == 1 && endPos -1 == 1) {
+                            pattern = "(?s)^0$";
+                        } else if (startPos == 1 && endPos -1 == 127) {
+                            pattern = "(?s)^0001\\].*\\[0003\\] 1234567890 ABCDEFGHIJKLMNOPQR$";
+                        } else if (startPos == 1 && endPos -1 == fileEnd) {                        
+                            pattern = "(?s)^0001\\].*\\[1024\\] 1234567890 ABCDEFGHIJKLMNOPQRSTUVWXY<$";
+                        } else if (startPos == 127 && endPos -1 == 256) {
+                            pattern = "(?s)^RSTUVWXYZ[\r\n]+\\[0004\\].*\\[0006\\] 1234567890 ABCDEFGHI$";
+                        } else if (startPos == 256 && endPos -1 == fileEnd) {
+                            pattern = "(?s)^IJKLMNOPQRSTUVWXYZ[\r\n]+\\[0007\\].*\\[1024\\] 1234567890 ABCDEFGHIJKLMNOPQRSTUVWXY<$";
+                        } else if (startPos == fileSize -1 && endPos -1 == fileEnd) {     
+                            pattern = "(?s)^<$";
+                        } else if (startPos == fileSize -256 && endPos -1 == fileEnd) {  
+                            pattern = "(?s)^ABCDEFGHIJKLMNOPQRSTUVWXYZ[\r\n]+\\[1020\\].*\\[1024\\] 1234567890 ABCDEFGHIJKLMNOPQRSTUVWXY<$";
+                        } else Assert.fail("Missing test case");
+                        
+                        String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
+                        Assert.assertTrue(body.matches(pattern));
+                    }
+                    
+                    Thread.sleep(AbstractTest.SLEEP);
+                    String accessLog = AbstractTestUtils.tail(capture.toString());         
+                    Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS(String.valueOf(code), request, (int)size)));  
+                }
             }
-        }
-        
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS(String.valueOf(code), request)));  
+            
+            Thread.sleep(AbstractTest.SLEEP);
+            String accessLog = AbstractTestUtils.tail(capture.toString());     
+            Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS(String.valueOf(code), request)));              
+        }        
     }
     
     /** 
@@ -775,7 +779,7 @@ public class WorkerTest_Get extends AbstractTest {
             WorkerTest_Get.assertAcceptance_26(++count, path, null,     "256");
             WorkerTest_Get.assertAcceptance_26(++count, path, null,     "65535");
             WorkerTest_Get.assertAcceptance_26(++count, path, null,     "A");
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,      null);
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,     null);
             WorkerTest_Get.assertAcceptance_26(++count, path, "",       "0");
             WorkerTest_Get.assertAcceptance_26(++count, path, "",       "256");
             
@@ -790,19 +794,19 @@ public class WorkerTest_Get extends AbstractTest {
             WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  " ");
             WorkerTest_Get.assertAcceptance_26(++count, path, "-0",     " ");
             
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,       "-0");
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,       "-1");
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,       "-256");
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,       "-65535");
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "-0");
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "-1");
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "-256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "-65535");
             WorkerTest_Get.assertAcceptance_26(++count, path, "0",      null);
             WorkerTest_Get.assertAcceptance_26(++count, path, "1",      null);
             WorkerTest_Get.assertAcceptance_26(++count, path, "256",    null);
             WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  null);
             WorkerTest_Get.assertAcceptance_26(++count, path, "-0",     null);  
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,    "65535");
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "65535");
             
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,  "256");
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,   "127");            
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "256");
+            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "127");            
             WorkerTest_Get.assertAcceptance_26(++count, path, "-1",     " ");
             WorkerTest_Get.assertAcceptance_26(++count, path, "-256",   " ");
             WorkerTest_Get.assertAcceptance_26(++count, path, "-65535", " ");
@@ -836,10 +840,10 @@ public class WorkerTest_Get extends AbstractTest {
             
             WorkerTest_Get.assertAcceptance_26(++count, path, "256",    ";");
             WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  ";");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "0;",      null);
-            WorkerTest_Get.assertAcceptance_26(++count, path, "1;",      null);    
-            WorkerTest_Get.assertAcceptance_26(++count, path, "256;",    null);
-            WorkerTest_Get.assertAcceptance_26(++count, path, "65535;",  null);            
+            WorkerTest_Get.assertAcceptance_26(++count, path, "0;",     null);
+            WorkerTest_Get.assertAcceptance_26(++count, path, "1;",     null);    
+            WorkerTest_Get.assertAcceptance_26(++count, path, "256;",   null);
+            WorkerTest_Get.assertAcceptance_26(++count, path, "65535;", null);            
             WorkerTest_Get.assertAcceptance_26(++count, path, "-0",     ";");
             WorkerTest_Get.assertAcceptance_26(++count, path, "-1",     ";");
             WorkerTest_Get.assertAcceptance_26(++count, path, "-256",   ";");    

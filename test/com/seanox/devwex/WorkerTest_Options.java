@@ -25,8 +25,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.seanox.test.utils.HttpUtils;
-import com.seanox.test.utils.Pattern;
 import com.seanox.test.utils.HttpUtils.HeaderField;
+import com.seanox.test.utils.OutputFacadeStream;
+import com.seanox.test.utils.Pattern;
 
 /**
  *  TestCases for {@link com.seanox.devwex.Worker}.
@@ -55,10 +56,9 @@ public class WorkerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
     
     /** 
@@ -83,9 +83,9 @@ public class WorkerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
     
     /** 
@@ -110,9 +110,9 @@ public class WorkerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
 
     /** 
@@ -137,9 +137,9 @@ public class WorkerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     }
     
     /** 
@@ -164,9 +164,9 @@ public class WorkerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
     
     /** 
@@ -201,9 +201,9 @@ public class WorkerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));    
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));    
     } 
     
     /** 
@@ -229,9 +229,9 @@ public class WorkerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));     
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));     
     } 
     
     /** 
@@ -267,9 +267,9 @@ public class WorkerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));    
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));    
     } 
     
     /** 
@@ -305,9 +305,9 @@ public class WorkerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));     
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));     
     }
     
     /** 
@@ -335,9 +335,9 @@ public class WorkerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));     
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));     
     } 
     
     /** 
@@ -365,9 +365,9 @@ public class WorkerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));     
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));     
     } 
     
     /** 
@@ -391,9 +391,9 @@ public class WorkerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));     
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));     
     } 
     
     /** 
@@ -419,9 +419,9 @@ public class WorkerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
     
     /** 
@@ -447,9 +447,9 @@ public class WorkerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));      
     } 
     
     /**
@@ -474,9 +474,9 @@ public class WorkerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));     
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));     
     } 
     
     /**
@@ -505,9 +505,9 @@ public class WorkerTest_Options extends AbstractTest {
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertTrue(body.matches("(?si)^.*hallo.*$"));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));     
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));     
     }
     
     /**
@@ -531,47 +531,50 @@ public class WorkerTest_Options extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));    
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));    
     }
     
     private static void assertAcceptance_19(int count, String path, String start, String end) throws Exception {
         
-        if (start != null
-                && start.contains("-")
-                && end == null)
-            end = "";
-        if (end != null
-                && end.contains("-")
-                && start == null)
-            start = "";
-
-        String request = "Options " + path + " HTTP/1.0\r\n"
-                + "Host: vHa\r\n";
-        if (start != null || end != null) {
-            request += "Range: bYteS = " + (start != null ? start : "");
-            if (start != null && end != null)
-                request += count % 2 == 0 ? "-" : " - ";
-            request += end != null ? end : "";
-            request += "\r\n";
+        try (OutputFacadeStream.Capture capture = AbstractSuite.accessStream.capture()) {
+                    
+            if (start != null
+                    && start.contains("-")
+                    && end == null)
+                end = "";
+            if (end != null
+                    && end.contains("-")
+                    && start == null)
+                start = "";
+    
+            String request = "Options " + path + " HTTP/1.0\r\n"
+                    + "Host: vHa\r\n";
+            if (start != null || end != null) {
+                request += "Range: bYteS = " + (start != null ? start : "");
+                if (start != null && end != null)
+                    request += count % 2 == 0 ? "-" : " - ";
+                request += end != null ? end : "";
+                request += "\r\n";
+            }
+            
+            if (start != null && start.contains(";"))
+                end = null;
+            
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n"));
+            
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+            Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+            Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));
+            Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+            Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
+           
+            Thread.sleep(AbstractTest.SLEEP);
+            String accessLog = capture.toString().trim();
+            Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));
         }
-        
-        if (start != null && start.contains(";"))
-            end = null;
-        
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n"));
-        
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
-       
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));
     }
     
     /** 
@@ -642,7 +645,7 @@ public class WorkerTest_Options extends AbstractTest {
             WorkerTest_Options.assertAcceptance_19(++count, path, null,     "256");
             WorkerTest_Options.assertAcceptance_19(++count, path, null,     "65535");
             WorkerTest_Options.assertAcceptance_19(++count, path, null,     "A");
-            WorkerTest_Options.assertAcceptance_19(++count, path, null,      null);
+            WorkerTest_Options.assertAcceptance_19(++count, path, null,     null);
             WorkerTest_Options.assertAcceptance_19(++count, path, "",       "0");
             WorkerTest_Options.assertAcceptance_19(++count, path, "",       "256");
            
@@ -657,18 +660,18 @@ public class WorkerTest_Options extends AbstractTest {
             WorkerTest_Options.assertAcceptance_19(++count, path, "65535",  " ");
             WorkerTest_Options.assertAcceptance_19(++count, path, "-0",     " ");
             
-            WorkerTest_Options.assertAcceptance_19(++count, path, null,       "-0");
-            WorkerTest_Options.assertAcceptance_19(++count, path, null,       "-1");
-            WorkerTest_Options.assertAcceptance_19(++count, path, null,       "-256");
-            WorkerTest_Options.assertAcceptance_19(++count, path, null,       "-65535");
+            WorkerTest_Options.assertAcceptance_19(++count, path, null,     "-0");
+            WorkerTest_Options.assertAcceptance_19(++count, path, null,     "-1");
+            WorkerTest_Options.assertAcceptance_19(++count, path, null,     "-256");
+            WorkerTest_Options.assertAcceptance_19(++count, path, null,     "-65535");
             WorkerTest_Options.assertAcceptance_19(++count, path, "0",      null);
             WorkerTest_Options.assertAcceptance_19(++count, path, "1",      null);
             WorkerTest_Options.assertAcceptance_19(++count, path, "256",    null);
             WorkerTest_Options.assertAcceptance_19(++count, path, "65535",  null);
             WorkerTest_Options.assertAcceptance_19(++count, path, "-0",     null);  
-            WorkerTest_Options.assertAcceptance_19(++count, path, null,    "65535");
-            WorkerTest_Options.assertAcceptance_19(++count, path, null,  "256");
-            WorkerTest_Options.assertAcceptance_19(++count, path, null,   "127");            
+            WorkerTest_Options.assertAcceptance_19(++count, path, null,     "65535");
+            WorkerTest_Options.assertAcceptance_19(++count, path, null,     "256");
+            WorkerTest_Options.assertAcceptance_19(++count, path, null,     "127");            
             
             WorkerTest_Options.assertAcceptance_19(++count, path, "-1",     " ");
             WorkerTest_Options.assertAcceptance_19(++count, path, "-256",   " ");
@@ -702,10 +705,10 @@ public class WorkerTest_Options extends AbstractTest {
             WorkerTest_Options.assertAcceptance_19(++count, path, "1",      ";");    
             WorkerTest_Options.assertAcceptance_19(++count, path, "256",    ";");
             WorkerTest_Options.assertAcceptance_19(++count, path, "65535",  ";");
-            WorkerTest_Options.assertAcceptance_19(++count, path, "0;",      null);
-            WorkerTest_Options.assertAcceptance_19(++count, path, "1;",      null);    
-            WorkerTest_Options.assertAcceptance_19(++count, path, "256;",    null);
-            WorkerTest_Options.assertAcceptance_19(++count, path, "65535;",  null);            
+            WorkerTest_Options.assertAcceptance_19(++count, path, "0;",     null);
+            WorkerTest_Options.assertAcceptance_19(++count, path, "1;",     null);    
+            WorkerTest_Options.assertAcceptance_19(++count, path, "256;",   null);
+            WorkerTest_Options.assertAcceptance_19(++count, path, "65535;", null);            
     
             WorkerTest_Options.assertAcceptance_19(++count, path, "-0",     ";");
             WorkerTest_Options.assertAcceptance_19(++count, path, "-1",     ";");
@@ -726,19 +729,22 @@ public class WorkerTest_Options extends AbstractTest {
     }
     
     private static void assertAcceptance_22(String request) throws Exception {
-    
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
         
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
-        
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));  
+        try (OutputFacadeStream.Capture capture = AbstractSuite.accessStream.capture()) {
+            
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+            
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+            Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
+            Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_RANGE_DIFFUSE));
+            Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
+            Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW(("AAA, BBB, XXX, GET, POST, XPOST, CCCC, HEAD, DELETE, PUT, OPTIONS").split(",\\s+"))));
+            
+            Thread.sleep(AbstractTest.SLEEP);
+            String accessLog = capture.toString().trim();
+            Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 0)));  
+        }
     }
     
     /** 
@@ -770,6 +776,8 @@ public class WorkerTest_Options extends AbstractTest {
                     + "\r\n";
             response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));       
             String lastModified = HttpUtils.getResponseHeaderValue(response, HeaderField.LAST_MODIFIED);
+            
+            Thread.sleep(AbstractTest.SLEEP);
     
             request = "OPTIONS " + uri + " HTTP/1.0\r\n"
                     + "Host: vHa\r\n"

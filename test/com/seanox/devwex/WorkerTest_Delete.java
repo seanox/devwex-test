@@ -91,9 +91,9 @@ public class WorkerTest_Delete extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/delete_test_2/x1/file_test.2")));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request)));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request)));
     }
     
     /** 
@@ -116,9 +116,9 @@ public class WorkerTest_Delete extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/delete_test_2/x1/")));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request)));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request)));
     }
     
     /** 
@@ -145,9 +145,9 @@ public class WorkerTest_Delete extends AbstractTest {
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertTrue(body.length() <= 0);
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));        
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));        
     }
     
     /** 
@@ -168,9 +168,9 @@ public class WorkerTest_Delete extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }
     
     /** 
@@ -198,9 +198,9 @@ public class WorkerTest_Delete extends AbstractTest {
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertTrue(body.length() <= 0);
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
     }
     
     /** 
@@ -221,9 +221,9 @@ public class WorkerTest_Delete extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }
     
     /** 
@@ -258,9 +258,9 @@ public class WorkerTest_Delete extends AbstractTest {
         
         Assert.assertFalse(target.exists());
 
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
     /** 
@@ -295,9 +295,9 @@ public class WorkerTest_Delete extends AbstractTest {
         
         Assert.assertFalse(target.exists());
 
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }    
     
     /** 
@@ -318,9 +318,9 @@ public class WorkerTest_Delete extends AbstractTest {
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertTrue(body.matches("(?si)^\\s*hallo\\s*$"));
 
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
 
     /** 
@@ -339,9 +339,9 @@ public class WorkerTest_Delete extends AbstractTest {
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
 
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));
     }
     
     /** 
@@ -364,9 +364,9 @@ public class WorkerTest_Delete extends AbstractTest {
         Assert.assertTrue(response.matches("(?s)^.*\r\nModule: module.WorkerModule_A::Service\r\n.*$"));
         Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: module.WorkerModule_A \\[v:xx=123\\] \\[m\\]\r\n.*$"));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("1")));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("1")));
     }
     
     /** 
@@ -378,7 +378,7 @@ public class WorkerTest_Delete extends AbstractTest {
      */
     @Test
     public void testAcceptance_12() throws Exception {
-        
+
         String request;
         String response;
         String accessLog;
@@ -419,9 +419,9 @@ public class WorkerTest_Delete extends AbstractTest {
         Assert.assertTrue(body.length() <= 0);        
         Assert.assertFalse(target.exists());
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
         
         request = "Delete /test.xxx123 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -433,9 +433,9 @@ public class WorkerTest_Delete extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));      
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
         
         request = "Delete /test.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -447,9 +447,9 @@ public class WorkerTest_Delete extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));      
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }
     
     /** 
@@ -460,7 +460,7 @@ public class WorkerTest_Delete extends AbstractTest {
      */
     @Test
     public void testAcceptance_13() throws Exception {
-        
+
         String request;
         String response;
         String accessLog;
@@ -500,9 +500,9 @@ public class WorkerTest_Delete extends AbstractTest {
         Assert.assertTrue(body.length() <= 0);        
         Assert.assertFalse(target.exists());
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
         
         request = "Delete /test.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -514,9 +514,9 @@ public class WorkerTest_Delete extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));      
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }  
     
     /** 
@@ -539,9 +539,9 @@ public class WorkerTest_Delete extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://www.xXx.zzz/?a=2/a/b/c"))); 
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
     }    
 
     /** 
@@ -563,9 +563,9 @@ public class WorkerTest_Delete extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));
     }
     
     /** 
@@ -587,9 +587,9 @@ public class WorkerTest_Delete extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
