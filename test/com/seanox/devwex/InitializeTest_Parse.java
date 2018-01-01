@@ -27,7 +27,14 @@ import org.junit.Test;
 import com.seanox.test.utils.ResourceUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Initialize#parse(String)}.
+ *  TestCases for {@link com.seanox.devwex.Initialize#parse(String)}.<br>
+ *  <br>
+ *  InitializeTest_Parse 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 public class InitializeTest_Parse extends AbstractTest {
     

@@ -25,7 +25,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Initialize}.
+ *  TestCases for {@link com.seanox.devwex.Initialize}.<br>
+ *  <br>
+ *  InitializeTest_Get 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 public class InitializeTest_Get extends AbstractTest {
     

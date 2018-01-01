@@ -31,7 +31,14 @@ import com.seanox.test.utils.ResourceUtils;
 import com.seanox.test.utils.Timing;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Generator}.
+ *  TestCases for {@link com.seanox.devwex.Generator}.<br>
+ *  <br>
+ *  GeneratorTest 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 public class GeneratorTest extends AbstractTest {
     

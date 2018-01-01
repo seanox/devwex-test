@@ -29,12 +29,12 @@ import com.seanox.test.utils.Pattern;
 /**
  *  Utils for AbstractTest.<br>
  *  <br>
- *  AbstractTestUtils 5.0.1 20171231<br>
+ *  AbstractTestUtils 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 5.0.1 20171231
+ *  @version 5.1 20171231
  */
 class AbstractTestUtils {
     

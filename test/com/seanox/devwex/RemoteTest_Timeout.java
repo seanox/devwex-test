@@ -28,7 +28,14 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Timing;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Remote}.
+ *  TestCases for {@link com.seanox.devwex.Remote}.<br>
+ *  <br>
+ *  RemoteTest_Timeout 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 public class RemoteTest_Timeout extends AbstractTest {
 

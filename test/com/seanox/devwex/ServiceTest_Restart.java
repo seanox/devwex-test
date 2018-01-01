@@ -39,7 +39,7 @@ public class ServiceTest_Restart extends AbstractTest {
      */    
     @Test
     public void testAcceptance_01() throws Exception {
-
+        
         int loops = 50;
         Executor executor = Executor.create(loops, new Worker() {
             @Override

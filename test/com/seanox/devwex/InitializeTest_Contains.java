@@ -25,7 +25,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Initialize#contains(String)}.
+ *  TestCases for {@link com.seanox.devwex.Initialize#contains(String)}.<br>
+ *  <br>
+ *  InitializeTest_Contains 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 public class InitializeTest_Contains extends AbstractTest {
     

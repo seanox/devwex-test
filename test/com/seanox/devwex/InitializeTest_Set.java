@@ -25,7 +25,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Initialize#set(String, Section)}.
+ *  TestCases for {@link com.seanox.devwex.Initialize#set(String, Section)}.<br>
+ *  <br>
+ *  InitializeTest_Set 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 public class InitializeTest_Set extends AbstractTest {
     

@@ -44,13 +44,13 @@ public class ServiceTest_Server extends AbstractTest {
      *  @throws Exception
      */
     @BeforeClass
-    public static void oneBeforeClass() throws Exception {
+    public static void onBeforeClass() throws Exception {
         
         Files.copy(Paths.get("./devwex.ini"), Paths.get("./devwex.ini_"), StandardCopyOption.REPLACE_EXISTING); 
         Files.copy(Paths.get("./devwex.sapi"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING);
         
         Thread.sleep(250);
-        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
+        AbstractTestUtils.waitOutputFacadeStream(AbstractSuite.outputStream);
     }
     
     /** 
@@ -58,13 +58,13 @@ public class ServiceTest_Server extends AbstractTest {
      *  @throws Exception
      */
     @AfterClass
-    public static void oneAfterClass() throws Exception {
+    public static void onAfterClass() throws Exception {
         
         Files.copy(Paths.get("./devwex.ini_"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING); 
         Files.delete(Paths.get("./devwex.ini_"));
         
         Thread.sleep(250);
-        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
+        AbstractTestUtils.waitOutputFacadeStream(AbstractSuite.outputStream);
     } 
 
     /** 
@@ -205,7 +205,7 @@ public class ServiceTest_Server extends AbstractTest {
 
         Service.restart();
         Thread.sleep(250);
-        AbstractSuite.waitOutputFacadeStream(AbstractSuite.outputStream);
+        AbstractTestUtils.waitOutputFacadeStream(AbstractSuite.outputStream);
         
         String output = this.outputStreamCapture.toString();
         

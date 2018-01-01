@@ -27,7 +27,14 @@ import org.junit.Test;
 import com.seanox.test.utils.HttpUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Remote}.
+ *  TestCases for {@link com.seanox.devwex.Remote}.<br>
+ *  <br>
+ *  RemoteTest_Status 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 public class RemoteTest_Status extends AbstractTest {
     

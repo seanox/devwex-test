@@ -27,12 +27,18 @@ import org.junit.Test;
 import com.seanox.test.utils.ResourceUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Section#parse(String)}.
+ *  TestCases for {@link com.seanox.devwex.Section#parse(String)}.<br>
+ *  <br>
+ *  SectionTest_Parse 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 public class SectionTest_Parse extends AbstractTest {
     
     private void onBeforeTestAcceptance_1() {
-
         System.setProperty("param-c", "p_c");
     }
     
