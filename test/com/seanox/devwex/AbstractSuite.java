@@ -22,6 +22,7 @@
 package com.seanox.devwex;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -34,12 +35,18 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Collections;
 import java.util.List;
 
-import com.seanox.test.utils.FileContinuesReader;
 import com.seanox.test.utils.HttpUtils.Keystore;
 import com.seanox.test.utils.OutputFacadeStream;
 
 /**
- *  Abstract class to implements and use test suites.
+ *  Abstract class to implements and use test suites.<br>
+ *  <br>
+ *  AbstractSuite 5.0.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.0.1 20171231
  */
 public class AbstractSuite extends com.seanox.test.AbstractSuite {
     
@@ -59,19 +66,19 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
     private static final String PATH_RESOURCES_PROGRAM = "./resources/program";
     
     /** keystore for SSL connections */
-    private static volatile Keystore keystore;
+    private static Keystore keystore;
+    
+    /** synchronization of access file and acesss stream */
+    private static Thread accessSynchronize;
     
     /** continuation reader for the access log */
-    private static volatile FileContinuesReader accessReader;    
+    final static OutputFacadeStream accessStream = new OutputFacadeStream();  
     
     /** internal shared system output stream */
-    protected final static OutputFacadeStream outputStream = new OutputFacadeStream();
+    final static OutputFacadeStream outputStream = new OutputFacadeStream();
 
     /** internal shared error output stream */
-    protected final static OutputFacadeStream errorStream = new OutputFacadeStream();
-    
-    /** internal shared access output stream */
-    protected final static OutputFacadeStream accessStream = new OutputFacadeStream();
+    final static OutputFacadeStream errorStream = new OutputFacadeStream();
     
     @Initiate
     @SuppressWarnings("unchecked")
@@ -174,10 +181,31 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
 
         File accessLog = new File(rootStage, "access.log");
         accessLog.createNewFile();
-
-        AbstractSuite.accessReader = new FileContinuesReader(accessLog, AbstractSuite.accessStream);
-        AbstractSuite.accessStream.mount(System.out);
-
+        
+        AbstractSuite.accessSynchronize = new Thread() {
+            
+            @Override
+            public void run() {
+                try (FileInputStream input = new FileInputStream(accessLog)) {
+                    byte[] bytes = new byte[65535];
+                    while (true) {
+                        try {Thread.sleep(10);
+                        } catch (InterruptedException exception) {
+                            break;
+                        }
+                        int size = input.read(bytes);
+                        if (size > 0)
+                            AbstractSuite.accessStream.write(bytes, 0, size);
+                    }
+                } catch (IOException exception) {
+                    throw new RuntimeException(exception);
+                }
+            }
+        {
+            this.setDaemon(true);
+            this.start();
+        }};
+                
         Service.main(new String[] {"start"});   
     }
 
@@ -185,37 +213,15 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
     private static void complete()
             throws Exception {
         
+        AbstractSuite.accessSynchronize.interrupt();
+        
         AbstractSuite.outputStream.unmount(System.out);
         AbstractSuite.outputStream.close();
         AbstractSuite.errorStream.unmount(System.err);
         AbstractSuite.outputStream.close();
-        AbstractSuite.accessReader.close();
         AbstractSuite.accessStream.close();
     }
 
-    protected static void waitOutputFacadeStream(OutputFacadeStream output)
-            throws IOException, InterruptedException {
-        AbstractSuite.waitOutputFacadeStream(output, 3000);
-    }
-
-    protected static void waitOutputFacadeStream(OutputFacadeStream output, long timeout)
-            throws IOException, InterruptedException {
-        
-        if (timeout < 0)
-            throw new IllegalArgumentException("Invalid timeout");
-        try (OutputFacadeStream.Capture capture = output.capture()) {
-            String shadow = null;
-            long timing = System.currentTimeMillis();
-            while (System.currentTimeMillis() -timing < timeout) {
-                Thread.sleep(50);
-                String string = capture.toString();
-                if (!string.equals(shadow))
-                    timing = System.currentTimeMillis(); 
-                shadow = string;
-            }
-        }
-    }
-    
     /**
      *  Returns the root stage as file.
      *  @return the root stage as file
@@ -270,7 +276,7 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
      *  Returns the default keystore for SSL connections.
      *  @return the default keystore for SSL connections
      */    
-    public static Keystore getKeystore() {
+    static Keystore getKeystore() {
         return AbstractSuite.keystore;
     }
 }

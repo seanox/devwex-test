@@ -58,7 +58,7 @@ public class SectionTest_Get extends AbstractTest {
         Section section = new Section(true);
         for (String key : new String[] {null, "", " ", " \t ", " \r ", " \n ", " \7 "}) {
             String value = section.get(key);
-            Assert.assertNull(value);
+            Assert.assertNotNull(value);
         }
     }
 
