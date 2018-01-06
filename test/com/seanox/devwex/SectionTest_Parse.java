@@ -38,12 +38,13 @@ import com.seanox.test.utils.ResourceUtils;
  */
 public class SectionTest_Parse extends AbstractTest {
     
-    private void onBeforeTestAcceptance_1() {
+    private void testAcceptanceBefore_1() {
         System.setProperty("param-c", "p_c");
     }
     
     /** TestCase for acceptance. */
     @Test
+    @BeforeTest("testAcceptanceBefore_1")
     public void testAcceptance_1() {
 
         Section section = Section.parse(ResourceUtils.getContextContent());

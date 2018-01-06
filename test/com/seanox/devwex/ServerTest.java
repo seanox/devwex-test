@@ -25,7 +25,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- *  TestSuite for #{@link com.seanox.devwex.Server}.
+ *  TestSuite for #{@link com.seanox.devwex.Server}.<br>
+ *  <br>
+ *  ServerTest 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({

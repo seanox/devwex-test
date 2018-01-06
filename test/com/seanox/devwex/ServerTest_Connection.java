@@ -47,7 +47,14 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Server}.
+ *  TestCases for {@link com.seanox.devwex.Server}.<br>
+ *  <br>
+ *  ServerTest_Connection 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 public class ServerTest_Connection extends AbstractTest {
 
