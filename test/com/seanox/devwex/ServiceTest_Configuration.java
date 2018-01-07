@@ -32,11 +32,18 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.
+ *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  <br>
+ *  ServiceTest_Configuration 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 public class ServiceTest_Configuration extends AbstractTest {
     
-    private void onBeforeTestAcceptance_01() throws Exception {
+    private void testAcceptanceBefore_01() throws Exception {
 
         Files.move(Paths.get("./devwex.ini"), Paths.get("./devwex.ini_"), StandardCopyOption.REPLACE_EXISTING); 
         Service.restart();
@@ -51,6 +58,8 @@ public class ServiceTest_Configuration extends AbstractTest {
      *  @throws Exception
      */
     @Test
+    @BeforeTest("testAcceptanceBefore_01")
+    @AfterTest("testAcceptanceAfter_01")
     public void testAcceptance_01() throws Exception {
 
         String request = "Get / HTTP/1.0\r\n"
@@ -60,7 +69,7 @@ public class ServiceTest_Configuration extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
     }
     
-    private void onAfterTestAcceptance_01() throws Exception {
+    private void testAcceptanceAfter_01() throws Exception {
 
         Files.move(Paths.get("./devwex.ini_"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING); 
         Service.restart();

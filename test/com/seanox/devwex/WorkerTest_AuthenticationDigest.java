@@ -26,13 +26,21 @@ import org.junit.Test;
 
 import com.seanox.test.utils.Codec;
 import com.seanox.test.utils.HttpUtils;
-import com.seanox.test.utils.Pattern;
 import com.seanox.test.utils.HttpUtils.Authentication;
-import com.seanox.test.utils.HttpUtils.HeaderField;
 import com.seanox.test.utils.HttpUtils.Authentication.Digest;
+import com.seanox.test.utils.HttpUtils.HeaderField;
+import com.seanox.test.utils.OutputFacadeStream;
+import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.
+ *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  <br>
+ *  WorkerTest_AuthenticationDigest 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 public class WorkerTest_AuthenticationDigest extends AbstractTest {
     
@@ -58,9 +66,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(header.matches("^.*, opaque=\"\\w+\".*$"));
         Assert.assertTrue(header.matches("^.*, algorithm=\"MD5\".*$"));
 
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     } 
     
     /** 
@@ -81,9 +89,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     } 
     
     /** 
@@ -107,9 +115,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -119,9 +127,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
     } 
     
     /** 
@@ -145,9 +153,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -157,9 +165,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST("Section-A")));
          
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
@@ -183,18 +191,18 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
         HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-b", "pwd-b"));
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-b")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-b")));
     }
     
     /** 
@@ -220,9 +228,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -232,9 +240,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));   
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));   
     }
     
     /** 
@@ -260,9 +268,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/c/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -272,9 +280,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
     }
     
     /** 
@@ -301,9 +309,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(header.matches("^.*, opaque=\"\\w+\".*$"));
         Assert.assertTrue(header.matches("^.*, algorithm=\"MD5\".*$"));        
 
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
@@ -329,9 +337,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(header.matches("^.*, opaque=\"\\w+\".*$"));
         Assert.assertTrue(header.matches("^.*, algorithm=\"MD5\".*$"));  
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
 
     /** 
@@ -357,9 +365,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(header.matches("^.*, opaque=\"\\w+\".*$"));
         Assert.assertTrue(header.matches("^.*, algorithm=\"MD5\".*$"));  
 
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));        
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));        
     }
     
     /** 
@@ -384,9 +392,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -395,9 +403,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-e")));   
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-e")));   
     }
     
     /** 
@@ -422,9 +430,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -436,9 +444,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
 
         request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -450,9 +458,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_TEXT_HTML));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -461,9 +469,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-e")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-e")));
     }
     
     private static void assertAcceptance_13(String uri, String status, int auth) throws Exception {
@@ -614,9 +622,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/xxx HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -625,9 +633,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-a")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-a")));
     }
     
     /** 
@@ -648,9 +656,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
@@ -673,9 +681,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
@@ -701,9 +709,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -715,9 +723,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
 
         request = "HEAD /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -726,9 +734,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "HEAD /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -740,9 +748,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
     }
     
     /** 
@@ -767,9 +775,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -778,9 +786,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-e")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-e")));
 
         request = "HEAD /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -789,9 +797,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "HEAD /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -800,9 +808,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-e")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-e")));
     }
     
     /** 
@@ -827,9 +835,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -838,9 +846,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-e")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-e")));
 
         request = "HEAD /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -849,9 +857,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "HEAD /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -860,89 +868,95 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-e")));        
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-e")));        
     }
     
     private static void assertAcceptance_22_1(String... args) throws Exception {
         
-        String uri = null;
-        if (args.length > 0)
-            uri = args[0];
-        String authorisation = null;
-        if (args.length > 1)
-            authorisation = args[1];
-        String login = null;
-        if (args.length > 2)
-            login = args[2];
-
-        String request = "GET " + uri + " HTTP/1.0\r\n"
-                + "Host: vHa\r\n";
-        if (login != null)
-            request += "Authorization: Basic " + Codec.encodeBase64(login) + "\r\n";
-        request += "\r\n";
-
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-        if (authorisation != null)
-            Assert.assertTrue(HttpUtils.getResponseHeaderValue(response, HeaderField.WWW_AUTHENTICATE).startsWith(authorisation + " "));
-        else
-            Assert.assertFalse(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
-        
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        if (authorisation != null)
-            Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
-        else
-            Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
+        try (OutputFacadeStream.Capture capture = AbstractSuite.accessStream.capture()) {
+                        
+            String uri = null;
+            if (args.length > 0)
+                uri = args[0];
+            String authorisation = null;
+            if (args.length > 1)
+                authorisation = args[1];
+            String login = null;
+            if (args.length > 2)
+                login = args[2];
+    
+            String request = "GET " + uri + " HTTP/1.0\r\n"
+                    + "Host: vHa\r\n";
+            if (login != null)
+                request += "Authorization: Basic " + Codec.encodeBase64(login) + "\r\n";
+            request += "\r\n";
+    
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+            if (authorisation != null)
+                Assert.assertTrue(HttpUtils.getResponseHeaderValue(response, HeaderField.WWW_AUTHENTICATE).startsWith(authorisation + " "));
+            else
+                Assert.assertFalse(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
+            
+            Thread.sleep(AbstractTest.SLEEP);
+            String accessLog = capture.toString().trim();
+            if (authorisation != null)
+                Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+            else
+                Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
+        }
     }
 
     private static void assertAcceptance_22_2(String... args) throws Exception {
         
-        String uri = null;
-        if (args.length > 0)
-            uri = args[0];
-        String method = null;
-        if (args.length > 1)
-            method = args[1];
-        String user = null;
-        if (args.length > 2)
-            user = args[2];        
-        String password = null;
-        if (args.length > 3)
-            password = args[3]; 
-
-        String request;
-        String response;
+        try (OutputFacadeStream.Capture capture = AbstractSuite.accessStream.capture()) {
         
-        request  = null;
-        response = null;
-        if (method == null || method.trim().isEmpty()) {
-            request = "GET " + uri + " HTTP/1.0\r\n"
-                    + "Host: vHa\r\n"
-                    + "\r\n";
-            response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-        } else if (("Basic").equalsIgnoreCase(method)) {
-            request = "GET " + uri + " HTTP/1.0\r\n"
-                    + "Host: vHa\r\n"
-                    + "Authorization: Basic " + Codec.encodeBase64(user + ":" + password) + "\r\n"
-                    + "\r\n";
-            response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-        } else if (("Digest").equalsIgnoreCase(method)) {
-            request = "GET " + uri + " HTTP/1.0\r\n"
-                    + "Host: vHa\r\n"
-                    + "\r\n";
-            response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Digest(user, password)));
-        } else Assert.fail("Unsupported authentication method: '" + method + "'");
-        
-        Assert.assertNotNull(response);
-        Assert.assertFalse(response.trim().isEmpty());
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
-
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, user)));
+            String uri = null;
+            if (args.length > 0)
+                uri = args[0];
+            String method = null;
+            if (args.length > 1)
+                method = args[1];
+            String user = null;
+            if (args.length > 2)
+                user = args[2];        
+            String password = null;
+            if (args.length > 3)
+                password = args[3]; 
+    
+            String request;
+            String response;
+            
+            request  = null;
+            response = null;
+            if (method == null || method.trim().isEmpty()) {
+                request = "GET " + uri + " HTTP/1.0\r\n"
+                        + "Host: vHa\r\n"
+                        + "\r\n";
+                response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+            } else if (("Basic").equalsIgnoreCase(method)) {
+                request = "GET " + uri + " HTTP/1.0\r\n"
+                        + "Host: vHa\r\n"
+                        + "Authorization: Basic " + Codec.encodeBase64(user + ":" + password) + "\r\n"
+                        + "\r\n";
+                response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+            } else if (("Digest").equalsIgnoreCase(method)) {
+                request = "GET " + uri + " HTTP/1.0\r\n"
+                        + "Host: vHa\r\n"
+                        + "\r\n";
+                response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Digest(user, password)));
+            } else Assert.fail("Unsupported authentication method: '" + method + "'");
+            
+            Assert.assertNotNull(response);
+            Assert.assertFalse(response.trim().isEmpty());
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
+            Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
+    
+            Thread.sleep(AbstractTest.SLEEP);
+            String accessLog = AbstractTestUtils.tail(capture.toString());
+            Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, user)));
+        }
     }
     
     /** 
@@ -1004,9 +1018,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -1015,9 +1029,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
@@ -1042,9 +1056,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -1053,9 +1067,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
@@ -1080,9 +1094,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/dvc HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -1091,9 +1105,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-a")));  
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-a")));  
     }
     
     /** 
@@ -1118,9 +1132,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/dvr HTTP/1.0\r\n"
                + "Host: vHf\r\n"
@@ -1129,9 +1143,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-a")));  
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-a")));  
     }
     
     /** 
@@ -1156,9 +1170,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/dvv/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -1167,9 +1181,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
 
         request = "GET /authentication/dvv HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -1178,9 +1192,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/dvv/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -1189,9 +1203,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
        
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
@@ -1217,9 +1231,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/dvm/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -1228,9 +1242,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001")));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("1", request, "usr-a")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("1", request, "usr-a")));
 
         request = "GET /authentication/dvm/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -1239,29 +1253,32 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     private static void assertAcceptance_29(String uri, String user, String password, boolean authorisation) throws Exception {
         
-        String request = "GET " + uri + " HTTP/1.0\r\n"
-                + "Host: vHf\r\n"
-                + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest(user, password)));
-
-         if (authorisation)
-             Assert.assertTrue(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
-         else
-             Assert.assertFalse(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
-         
-         Thread.sleep(50);
-         String accessLog = AbstractSuite.getAccessLogTail();
-         if (authorisation)
-             Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
-         else
-             Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
+        try (OutputFacadeStream.Capture capture = AbstractSuite.accessStream.capture()) {
+                    
+            String request = "GET " + uri + " HTTP/1.0\r\n"
+                    + "Host: vHf\r\n"
+                    + "\r\n";
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest(user, password)));
+    
+             if (authorisation)
+                 Assert.assertTrue(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
+             else
+                 Assert.assertFalse(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
+             
+             Thread.sleep(AbstractTest.SLEEP);
+             String accessLog = AbstractTestUtils.tail(capture.toString());
+             if (authorisation)
+                 Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+             else
+                 Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
+        }
     }
     
     /** 
@@ -1338,16 +1355,19 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     
     private static void assertAcceptance_30(String uri, String method) throws Exception {
         
-        String request = "GET " + uri + " HTTP/1.0\r\n"
-                + "Host: vHf\r\n"
-                + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE(method)));  
-         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        try (OutputFacadeStream.Capture capture = AbstractSuite.accessStream.capture()) {
+                        
+            String request = "GET " + uri + " HTTP/1.0\r\n"
+                    + "Host: vHf\r\n"
+                    + "\r\n";
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE(method)));  
+             
+            Thread.sleep(AbstractTest.SLEEP);
+            String accessLog = capture.toString().trim();
+            Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        }
     }
     
     /** 
@@ -1362,7 +1382,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         
         WorkerTest_AuthenticationDigest.assertAcceptance_30("/authentication/dbd/a", "Digest");
         WorkerTest_AuthenticationDigest.assertAcceptance_30("/authentication/dbd/a/b", "Basic");
-        WorkerTest_AuthenticationDigest.assertAcceptance_30("/authentication/dbd/a/b/c", "Digest");        
+        WorkerTest_AuthenticationDigest.assertAcceptance_30("/authentication/dbd/a/b/c", "Digest"); 
     }     
     
     /** 
@@ -1384,9 +1404,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
     /** 
@@ -1408,8 +1428,8 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST("Section-BEC")));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     } 
 }

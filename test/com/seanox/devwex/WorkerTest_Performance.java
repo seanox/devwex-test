@@ -35,9 +35,18 @@ import com.seanox.test.utils.Executor;
 import com.seanox.test.utils.Executor.Worker;
 import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
+import com.seanox.test.utils.SystemInfo;
+import com.seanox.test.utils.Timing;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.
+ *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  <br>
+ *  WorkerTest_Performance 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 public class WorkerTest_Performance extends AbstractTest {
     
@@ -66,7 +75,7 @@ public class WorkerTest_Performance extends AbstractTest {
         Timing timing = Timing.create(true);
         executor.execute();
         boolean success = executor.await(3000);
-        timing.assertTimeRangeIn(1000, 2000);
+        timing.assertTimeIn(1000, 2000);
         String failedTestWorkerInfo = WorkerTest_Performance.createFailedTestWorkerInfo(executor);
         Assert.assertTrue(failedTestWorkerInfo, success);
         Assert.assertFalse(failedTestWorkerInfo, executor.isFailed());
@@ -103,22 +112,26 @@ public class WorkerTest_Performance extends AbstractTest {
         
         Service.restart();
         
+        Thread.sleep(3000);
+        
         Timing timing = Timing.create(true);
 
         Executor executor1 = Executor.create(40, TestWorker.class);
         executor1.execute();
         boolean success1 = executor1.await(3000);
-        timing.assertTimeRangeIn(1000, 2000);
+        timing.assertTimeIn(750, 1750);
         String failedTestWorkerInfo1 = WorkerTest_Performance.createFailedTestWorkerInfo(executor1);
         Assert.assertTrue(failedTestWorkerInfo1, success1);
         Assert.assertFalse(failedTestWorkerInfo1, executor1.isFailed());
         Assert.assertFalse(failedTestWorkerInfo1, executor1.isInterrupted());
         
+        Thread.sleep(3000);
+        
         Executor executor2 = Executor.create(40, TestWorker.class);
         timing.restart();
         executor2.execute();
         boolean success2 = executor2.await(3000); 
-        timing.assertTimeRangeIn(1000, 2000);
+        timing.assertTimeIn(750, 1750);
         String failedTestWorkerInfo2 = WorkerTest_Performance.createFailedTestWorkerInfo(executor2);
         Assert.assertTrue(failedTestWorkerInfo2, success2);
         Assert.assertFalse(failedTestWorkerInfo2, executor2.isFailed());
@@ -168,7 +181,7 @@ public class WorkerTest_Performance extends AbstractTest {
         while (timing.timeMillis() < 3000) {
             Thread.sleep(250);
             String v1 = String.format("%08d", Integer.valueOf(Thread.activeCount() /10));
-            String v2 = String.format("%08d", Integer.valueOf((int)(AbstractSuite.getMemoryUsage() /1024 /1024)));
+            String v2 = String.format("%08d", Integer.valueOf((int)(SystemInfo.getSystemMemoryLoad() /1024 /1024)));
             if (shadow == null || (v1 + "\0" + v2).compareTo(shadow) < 0) {
                 timing.restart();
                 shadow = (v1 + "\0" + v2);
@@ -187,29 +200,31 @@ public class WorkerTest_Performance extends AbstractTest {
         
         Service.restart();
         
+        Thread.sleep(3000);
+        
         long threadCount1 = Thread.activeCount() /10;
-        long memoryUsage1 = AbstractSuite.getMemoryUsage() /1024 /1024;
+        long memoryUsage1 = SystemInfo.getSystemMemoryLoad() /1024 /1024;
         
         Executor executor = Executor.create(40, TestWorker.class);
         long threadCount2 = Thread.activeCount() /10;
-        long memoryUsage2 = AbstractSuite.getMemoryUsage() /1024 /1024;     
+        long memoryUsage2 = SystemInfo.getSystemMemoryLoad() /1024 /1024;     
         
         Timing timing = Timing.create(true);
         executor.execute();
         boolean success = executor.await(3000);
-        timing.assertTimeRangeIn(1000, 2000);
+        timing.assertTimeIn(750, 1750);
         String failedTestWorkerInfo = WorkerTest_Performance.createFailedTestWorkerInfo(executor);
         Assert.assertTrue(failedTestWorkerInfo, success);
         Assert.assertFalse(failedTestWorkerInfo, executor.isFailed());
         Assert.assertFalse(failedTestWorkerInfo, executor.isInterrupted());
         
         long threadCount3 = Thread.activeCount() /10;
-        long memoryUsage3 = AbstractSuite.getMemoryUsage() /1024 /1024;
+        long memoryUsage3 = SystemInfo.getSystemMemoryLoad() /1024 /1024;
         
         WorkerTest_Performance.waitRuntimeReady();
 
         long threadCount4 = Thread.activeCount() /10;
-        long memoryUsage4 = AbstractSuite.getMemoryUsage() /1024 /1024;
+        long memoryUsage4 = SystemInfo.getSystemMemoryLoad() /1024 /1024;
 
         for (Worker worker : executor.getWorkers()) {
             Assert.assertTrue(worker.isExecuted());
@@ -241,7 +256,7 @@ public class WorkerTest_Performance extends AbstractTest {
     }
     
     @After
-    public void onAfter() throws Exception {
+    public void terminate() {
         Service.restart();
     }
     
