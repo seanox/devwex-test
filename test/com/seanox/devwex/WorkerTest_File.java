@@ -25,11 +25,19 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.seanox.test.utils.Accession;
+import com.seanox.test.utils.Pattern;
 import com.seanox.test.utils.ResourceUtils;
 import com.seanox.test.utils.TextUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.
+ *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  <br>
+ *  WorkerTest_File 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 public class WorkerTest_File extends AbstractTest {
     
@@ -47,8 +55,8 @@ public class WorkerTest_File extends AbstractTest {
     @Test
     public void testAcceptance_01() throws Exception {
         
-        String content = ResourceUtils.getContextContent();
-        String[] lines = TextUtils.extractLines(content); 
+        String content = ResourceUtils.getContent();
+        String[] lines = TextUtils.split(content, Pattern.LINE_BREAK); 
         for (int loop = 0; loop < lines.length; loop += 2)
             Assert.assertEquals("#" + (loop +1) + ": " + lines[loop], lines[loop +1],
                     WorkerTest_File.fileNormalize(lines[loop]));

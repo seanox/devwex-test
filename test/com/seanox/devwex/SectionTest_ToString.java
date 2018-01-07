@@ -54,7 +54,7 @@ public class SectionTest_ToString extends AbstractTest {
         section.set(" \7\7b2 ", "xxx");
         section.set(" \00A7\00A7 ", "xxx");
         section.set(" a1\7\7b2 ", "xxx");
-        Assert.assertEquals(ResourceUtils.getContextContent(), SectionTest.toString(section));
+        Assert.assertEquals(ResourceUtils.getContent(), SectionTest.toString(section));
     }
     
     /** TestCase for key encoding. */
@@ -75,7 +75,7 @@ public class SectionTest_ToString extends AbstractTest {
         section.set(" + 2b ", "xxx"); 
         section.set(" 2c = ", "xxx");
         section.set(" 2d + ", "xxx");
-        Assert.assertEquals(ResourceUtils.getContextContent(), SectionTest.toString(section));
+        Assert.assertEquals(ResourceUtils.getContent(), SectionTest.toString(section));
     }
     
     /** TestCase for key encoding. */
@@ -94,7 +94,7 @@ public class SectionTest_ToString extends AbstractTest {
         section.set(" \7\7b2 ", "xx9");
         section.set(" \00A7\00A7 ", "xxA");
         section.set(" a1\7\7b2 ", "xxB");
-        Assert.assertEquals(ResourceUtils.getContextContent(), SectionTest.toString(section));
+        Assert.assertEquals(ResourceUtils.getContent(), SectionTest.toString(section));
     }
     
     /** TestCase for value encoding. */
@@ -107,7 +107,7 @@ public class SectionTest_ToString extends AbstractTest {
         section.set("c3", "xxxx\0xxxx");
         section.set("c4", "xxxx;xxxx");
         section.set("c5", "xxxx;\0xxxx");
-        Assert.assertEquals(ResourceUtils.getContextContent(), SectionTest.toString(section));
+        Assert.assertEquals(ResourceUtils.getContent(), SectionTest.toString(section));
     }
     
     /** TestCase for value encoding. */
@@ -120,7 +120,7 @@ public class SectionTest_ToString extends AbstractTest {
         section.set("d3", "= xxxx");
         section.set("d4", "~ xxxx");
         section.set("d5", " 12345 ");
-        Assert.assertEquals(ResourceUtils.getContextContent(), SectionTest.toString(section));
+        Assert.assertEquals(ResourceUtils.getContent(), SectionTest.toString(section));
     }    
 
     /** TestCase for indenting. */
@@ -135,6 +135,6 @@ public class SectionTest_ToString extends AbstractTest {
         section.set("xxxx xxxx xxxx", "   xxxx;xxxx   ");
         section.set("zzzz", null);
         section.set("zzzz zzzz", "    zzzz zzzz zzzz    ");
-        Assert.assertEquals(ResourceUtils.getContextContent(), SectionTest.toString(section));
+        Assert.assertEquals(ResourceUtils.getContent(), SectionTest.toString(section));
     }
 }

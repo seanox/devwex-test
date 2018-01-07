@@ -47,79 +47,79 @@ public class SectionTest_Parse extends AbstractTest {
     @BeforeTest("testAcceptanceBefore_1")
     public void testAcceptance_1() {
 
-        Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_1_1"), SectionTest.toString(section));
+        Section section = Section.parse(ResourceUtils.getContent());
+        Assert.assertEquals(ResourceUtils.getContent("testAcceptance_1_1"), SectionTest.toString(section));
     }
 
     /** TestCase for acceptance. */
     @Test
     public void testAcceptance_2() {
         
-        Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_2_1"), SectionTest.toString(section));
+        Section section = Section.parse(ResourceUtils.getContent());
+        Assert.assertEquals(ResourceUtils.getContent("testAcceptance_2_1"), SectionTest.toString(section));
     }
     
     /** TestCase for acceptance. */
     @Test
     public void testAcceptance_3() {
         
-        Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_3_1"), SectionTest.toString(section));
+        Section section = Section.parse(ResourceUtils.getContent());
+        Assert.assertEquals(ResourceUtils.getContent("testAcceptance_3_1"), SectionTest.toString(section));
     }    
     
     /** TestCase for acceptance. */
     @Test
     public void testAcceptance_4() {
         
-        Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_4_1"), SectionTest.toString(section));
+        Section section = Section.parse(ResourceUtils.getContent());
+        Assert.assertEquals(ResourceUtils.getContent("testAcceptance_4_1"), SectionTest.toString(section));
     } 
     
     /** TestCase for acceptance. */
     @Test
     public void testAcceptance_5() {
         
-        Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_5_1"), SectionTest.toString(section));
+        Section section = Section.parse(ResourceUtils.getContent());
+        Assert.assertEquals(ResourceUtils.getContent("testAcceptance_5_1"), SectionTest.toString(section));
     }
 
     /** TestCase for acceptance. */
     @Test
     public void testAcceptance_6() {
         
-        Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_6_1"), SectionTest.toString(section));
+        Section section = Section.parse(ResourceUtils.getContent());
+        Assert.assertEquals(ResourceUtils.getContent("testAcceptance_6_1"), SectionTest.toString(section));
     }
 
     /** TestCase for acceptance. */
     @Test
     public void testAcceptance_7() {
         
-        Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_7_1"), SectionTest.toString(section));
+        Section section = Section.parse(ResourceUtils.getContent());
+        Assert.assertEquals(ResourceUtils.getContent("testAcceptance_7_1"), SectionTest.toString(section));
     }
     
     /** TestCase for acceptance. */
     @Test
     public void testAcceptance_8() {
         
-        Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testAcceptance_8_1"), SectionTest.toString(section));
+        Section section = Section.parse(ResourceUtils.getContent());
+        Assert.assertEquals(ResourceUtils.getContent("testAcceptance_8_1"), SectionTest.toString(section));
     }    
     
     /** TestCase for override keys. */
     @Test
     public void testOverride_1() {
         
-        Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testOverride_1_1"), SectionTest.toString(section));
+        Section section = Section.parse(ResourceUtils.getContent());
+        Assert.assertEquals(ResourceUtils.getContent("testOverride_1_1"), SectionTest.toString(section));
     }
 
     /** TestCase for dynamic keys. */
     @Test
     public void testDynamic_1() {
         
-        Section section = Section.parse(ResourceUtils.getContextContent());
-        Assert.assertEquals(ResourceUtils.getContextContent("testDynamic_1_1").toLowerCase(), SectionTest.toString(section).toLowerCase());
+        Section section = Section.parse(ResourceUtils.getContent());
+        Assert.assertEquals(ResourceUtils.getContent("testDynamic_1_1").toLowerCase(), SectionTest.toString(section).toLowerCase());
     }
 }

@@ -33,7 +33,14 @@ import org.junit.Test;
 import com.seanox.test.utils.ResourceUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Service}.
+ *  TestCases for {@link com.seanox.devwex.Service}.<br>
+ *  <br>
+ *  ServiceTest_Module 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 public class ServiceTest_Module extends AbstractTest {
     
@@ -42,7 +49,7 @@ public class ServiceTest_Module extends AbstractTest {
      *  @throws Exception
      */
     @BeforeClass
-    public static void onBeforeClass() throws Exception {
+    public static void initiate() throws Exception {
         
         Files.copy(Paths.get("./devwex.ini"), Paths.get("./devwex.ini_"), StandardCopyOption.REPLACE_EXISTING); 
         Files.copy(Paths.get("./devwex.xapi"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING);
@@ -56,7 +63,7 @@ public class ServiceTest_Module extends AbstractTest {
      *  @throws Exception
      */
     @AfterClass
-    public static void onAfterClass() throws Exception {
+    public static void terminate() throws Exception {
         
         Files.copy(Paths.get("./devwex.ini_"), Paths.get("./devwex.ini"), StandardCopyOption.REPLACE_EXISTING); 
         Files.delete(Paths.get("./devwex.ini_"));
@@ -83,7 +90,7 @@ public class ServiceTest_Module extends AbstractTest {
             Assert.assertFalse(pattern, output.matches(pattern));
         }
 
-        for (String pattern : ResourceUtils.getContextContent().split("[\r\n]+"))
+        for (String pattern : ResourceUtils.getContent().split("[\r\n]+"))
             Assert.assertTrue(pattern, output.contains(pattern));
     }
 }

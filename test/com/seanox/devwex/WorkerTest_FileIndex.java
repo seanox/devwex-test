@@ -38,7 +38,14 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.
+ *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  <br>
+ *  WorkerTest_FileIndex 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 public class WorkerTest_FileIndex extends AbstractTest {
     
@@ -47,7 +54,7 @@ public class WorkerTest_FileIndex extends AbstractTest {
      *  @throws Exception
      */
     @BeforeClass
-    public static void onBeforeClass() throws Exception {
+    public static void initiate() throws Exception {
         
         final File rootStage = new File(AbstractSuite.getRootStage(), "/documents/empty").getCanonicalFile();
         Files.walkFileTree(rootStage.toPath(), new SimpleFileVisitor<Path>() {

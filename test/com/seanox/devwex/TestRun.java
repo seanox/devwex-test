@@ -24,7 +24,14 @@ package com.seanox.devwex;
 import org.junit.Test;
 
 /**
- *  TestSuite for com.seanox.devwex.
+ *  TestSuite for com.seanox.devwex.<br>
+ *  <br>
+ *  TestRun 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 public class TestRun extends AbstractTest {
     
