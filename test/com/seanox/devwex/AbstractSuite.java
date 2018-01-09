@@ -4,7 +4,7 @@
  *  Diese Software unterliegt der Version 2 der GNU General Public License.
  *
  *  Devwex, Advanced Server Development
- *  Copyright (C) 2017 Seanox Software Solutions
+ *  Copyright (C) 2018 Seanox Software Solutions
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as published
@@ -41,12 +41,12 @@ import com.seanox.test.utils.OutputFacadeStream;
 /**
  *  Abstract class to implements and use test suites.<br>
  *  <br>
- *  AbstractSuite 5.1 20171231<br>
- *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  AbstractSuite 5.1 20180109<br>
+ *  Copyright (C) 2018 Seanox Software Solutions<br>
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 5.1 20171231
+ *  @version 5.1 20180109
  */
 public class AbstractSuite extends com.seanox.test.AbstractSuite {
     
@@ -209,8 +209,8 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
         Service.main(new String[] {"start"});   
     }
 
-    @Complete
-    private static void complete()
+    @Terminate
+    private static void terminate()
             throws Exception {
         
         AbstractSuite.accessSynchronize.interrupt();

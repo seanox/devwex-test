@@ -88,9 +88,8 @@ public abstract class AbstractTest extends AbstractSuite {
     }    
     
     /**
-     *  TestWatcher to execute onBefore and onAfter methods before and after of
-     *  a test unit. These methods can be used to prepare and finalize
-     *  severally test units. 
+     *  Rule for general preparation and postprocessing of the individual tests
+     *  during execution.
      */
     @Rule
     public TestRule testWatcher = new TestWatcher() {
