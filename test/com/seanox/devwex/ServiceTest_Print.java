@@ -27,7 +27,7 @@ import org.junit.Test;
 import com.seanox.test.utils.ResourceUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Service#print(Object)}.<br>
+ *  Test cases for {@link com.seanox.devwex.Service#print(Object)}.<br>
  *  <br>
  *  ServiceTest_Print 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -39,7 +39,7 @@ import com.seanox.test.utils.ResourceUtils;
 public class ServiceTest_Print extends AbstractTest {
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Optional insertion of an indentation.
      *  @throws Exception
      */    
@@ -66,7 +66,7 @@ public class ServiceTest_Print extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Optional insertion of an indentation.
      *  @throws Exception
      */    
@@ -93,7 +93,7 @@ public class ServiceTest_Print extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Optional insertion of an indentation.
      *  @throws Exception
      */    
@@ -120,7 +120,7 @@ public class ServiceTest_Print extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Optional insertion of an indentation.
      *  @throws Exception
      */    
@@ -147,7 +147,7 @@ public class ServiceTest_Print extends AbstractTest {
     }
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  In case of Throwable/Error/Exception, there is no compulsory indentation.
      *  @throws Exception
      */    
@@ -163,7 +163,7 @@ public class ServiceTest_Print extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  In case of Throwable/Error/Exception, there is no compulsory indentation.
      *  Optional insertion of an indentation.
      *  @throws Exception
@@ -180,7 +180,7 @@ public class ServiceTest_Print extends AbstractTest {
     }    
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Optional insertion of an indentation.
      *  @throws Exception
      */    
@@ -197,7 +197,7 @@ public class ServiceTest_Print extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Empty contents are not output.
      *  @throws Exception
      */    
@@ -226,7 +226,7 @@ public class ServiceTest_Print extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  With option 'strict' line breaks are handled as white spaces and not
      *  written out. Without option 'strict' line breaks will be write as a
      *  single line break.

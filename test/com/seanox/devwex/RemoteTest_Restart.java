@@ -27,7 +27,7 @@ import org.junit.Test;
 import com.seanox.test.utils.HttpUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Remote}.<br>
+ *  Test cases for {@link com.seanox.devwex.Remote}.<br>
  *  <br>
  *  RemoteTest_Restart 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -39,7 +39,7 @@ import com.seanox.test.utils.HttpUtils;
 public class RemoteTest_Restart extends AbstractTest {
     
     /** 
-     *  TestCase for RESTART.
+     *  Test case for RESTART.
      *  Commando @{code RESTART} must restart the server.
      *  @throws Exception
      */

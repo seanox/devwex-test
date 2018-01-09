@@ -25,7 +25,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Initialize}.<br>
+ *  Test cases for {@link com.seanox.devwex.Initialize}.<br>
  *  <br>
  *  InitializeTest_Get 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -36,7 +36,7 @@ import org.junit.Test;
  */
 public class InitializeTest_Get extends AbstractTest {
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_01() {
         
@@ -47,7 +47,7 @@ public class InitializeTest_Get extends AbstractTest {
         }
     }
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_02() {
         
@@ -58,7 +58,7 @@ public class InitializeTest_Get extends AbstractTest {
         }
     }    
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_03() {
         
@@ -69,7 +69,7 @@ public class InitializeTest_Get extends AbstractTest {
         }
     }
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_04() {
         
@@ -78,7 +78,7 @@ public class InitializeTest_Get extends AbstractTest {
         Assert.assertNull(section);
     }
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_05() {
         
@@ -87,7 +87,7 @@ public class InitializeTest_Get extends AbstractTest {
         Assert.assertNull(section);
     }    
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_06() {
         

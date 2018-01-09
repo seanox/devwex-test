@@ -33,7 +33,7 @@ import com.seanox.test.utils.OutputFacadeStream;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
  *  WorkerTest_Head 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -45,7 +45,7 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_Head extends AbstractTest {
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Directories are responded with status 200 and without Content-Length.
      *  @throws Exception
      */     
@@ -62,7 +62,7 @@ public class WorkerTest_Head extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Directories without a slah at the end, are responded with status 302
      *  and a redirect.
      *  @throws Exception
@@ -87,7 +87,7 @@ public class WorkerTest_Head extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Directories these not exists, are responded with status 404.
      *  @throws Exception
      */   
@@ -103,7 +103,7 @@ public class WorkerTest_Head extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Files are responded with status 200, Content-Length, Content-Type and
      *  LastModified.
      *  @throws Exception
@@ -123,7 +123,7 @@ public class WorkerTest_Head extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Files with a slah at the end, are responded with status 302 and a
      *  redirect.
      *  @throws Exception
@@ -149,7 +149,7 @@ public class WorkerTest_Head extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Requests with a correct If-Modified-Since are responded with status
      *  304.
      *  @throws Exception
@@ -184,7 +184,7 @@ public class WorkerTest_Head extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Requests with a incorrect If-Modified-Since are responded with status
      *  200.
      *  @throws Exception
@@ -205,7 +205,7 @@ public class WorkerTest_Head extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Requests with a correct If-Modified-Since (incl. length) are responded
      *  with status 304.
      *  @throws Exception
@@ -240,7 +240,7 @@ public class WorkerTest_Head extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Requests with a If-Modified-Since (correct date, invalid length) are
      *  responded with status 200.
      *  @throws Exception
@@ -270,7 +270,7 @@ public class WorkerTest_Head extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Requests with an other If-Modified-Since are responded with status 200.
      *  @throws Exception
      */      
@@ -290,7 +290,7 @@ public class WorkerTest_Head extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Requested directories with a default page are responded with status 200
      *  and the details of the default page.
      *  @throws Exception
@@ -310,7 +310,7 @@ public class WorkerTest_Head extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The If-Modified-Since is ignored for directories.
      *  The request are responded with status 200.
      *  @throws Exception
@@ -340,7 +340,7 @@ public class WorkerTest_Head extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The If-Modified-Since is ignored for directories.
      *  The request are responded with status 403, because the access is
      *  forbidden.
@@ -361,7 +361,7 @@ public class WorkerTest_Head extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The If-Modified-Since is ignored for absolutes paths.
      *  The request are responded with status 200.
      *  @throws Exception
@@ -382,7 +382,7 @@ public class WorkerTest_Head extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The If-Modified-Since is ignored for absolutes paths.
      *  The request are responded with status 200.
      *  @throws Exception
@@ -403,7 +403,7 @@ public class WorkerTest_Head extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The If-Modified-Since is ignored for the CGI.
      *  The request are responded with status 403, because the CGI does not
      *  exists.
@@ -425,7 +425,7 @@ public class WorkerTest_Head extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The request are responded with status 200 by the CGI self, if the HEAD
      *  method allowed.
      *  @throws Exception
@@ -583,7 +583,7 @@ public class WorkerTest_Head extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The correct response for HEAD request with a Range header is checked.
      *  @throws Exception
      */      
@@ -730,7 +730,7 @@ public class WorkerTest_Head extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The correct response for HEAD request with a Range,
      *  If-Modified-Since and If-UnModified-Since header is checked.
      *  @throws Exception

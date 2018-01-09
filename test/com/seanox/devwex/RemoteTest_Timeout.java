@@ -28,7 +28,7 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Timing;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Remote}.<br>
+ *  Test cases for {@link com.seanox.devwex.Remote}.<br>
  *  <br>
  *  RemoteTest_Timeout 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -40,7 +40,7 @@ import com.seanox.test.utils.Timing;
 public class RemoteTest_Timeout extends AbstractTest {
 
     /** 
-     *  TestCase for timeout.
+     *  Test case for timeout.
      *  The data access from remote access is limited to 10 seconds.
      *  The request has to be aborted after ca. 10 seconds.
      *  A response is not expected.
@@ -56,7 +56,7 @@ public class RemoteTest_Timeout extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for timeout.
+     *  Test case for timeout.
      *  The data access from remote access is limited to 10 seconds.
      *  The request has to be aborted after ca. 10 seconds, even if a request
      *  is started. A response is not expected.

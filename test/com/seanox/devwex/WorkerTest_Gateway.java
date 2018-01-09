@@ -36,7 +36,7 @@ import com.seanox.test.utils.Pattern;
 import com.seanox.test.utils.Timing;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
  *  WorkerTest_Gateway 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -48,7 +48,7 @@ import com.seanox.test.utils.Timing;
 public class WorkerTest_Gateway extends AbstractTest {
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Method {@code HEAD} was not defined for the CGI and the request is
      *  responded with status 403. For a method {@code HEAD} the server status
      *  is without content.
@@ -73,7 +73,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The file extension {@code *.con }" was defined as CGI with the module
      *  {@code module.WorkerModule_A}. Thus the module respponded the request with status
      *  001.
@@ -97,7 +97,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The file extension {@code *.con }" was defined as CGI with the module
      *  {@code module.WorkerModule_A}. Thus the module respponded the request
      *  with status 001.
@@ -122,7 +122,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Content-Length is 25 but be sent 28 bytes but only 25 bytes must be
      *  sent to the CGI. The request is responded with status 200 and an echo
      *  of the request.
@@ -155,7 +155,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The CGI script responds the request with {@code HTTP/1.1 123 Test ...}.
      *  So must also the response header contain {@code HTTP/1.0 123 Test ...}
      *  and be logged with status 123.
@@ -181,7 +181,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For VHD a CGI application was defined which does not exist.
      *  The request is responded with status 502.
      *  The error must be logged in the std_out/outputl.log.
@@ -211,7 +211,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The environment variables {@code SERVER_PORT}, {@code SERVER_PROTOCOL},
      *  {@code GATEWAY_INTERFACE}, {@code CONTENT_LENGTH},
      *  {@code CONTENT_TYPE}, {@code QUERY_STRING}, {@code REQUEST_METHOD} and
@@ -269,7 +269,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The environment variable {@code DOCUMENT_ROOT} must contain the value
      *  of {@code DOCROOT} and refer to the current work directory.
      *  @throws Exception
@@ -294,7 +294,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Only for modules will set the environment variable {@code MODULE_OPTS}.
      *  @throws Exception
      */     
@@ -318,7 +318,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For the CGI typical environment variables {@code SCRIPT_FILENAME},
      *  {@code PATH_TRANSLATED}, {@code DOCUMENT_ROOT}, {@code REQUEST_URI},
      *  {@code SCRIPT_URL}, {@code SCRIPT_URI}, {@code QUERY_STRING} and
@@ -361,7 +361,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The CGI script responds the request with {@code HTTP/1.1 401 Test ...}.
      *  The first line with the HTTP status must be built by the server.
      *  The custom HTTP status must not be included in the response.
@@ -389,7 +389,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The CGI script responds the request with {@code HTTP/1.1 401 Test ...}.
      *  The status text is individual but is respondedd with the server
      *  standard {@code HTTP/1.0 401 Authorization Required}.
@@ -415,7 +415,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For the CGI all request-header-parameters will be passed with the
      *  prefix 'HTTP_...'. Duplicates are overwritten.
      *  @throws Exception
@@ -468,7 +468,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The environment variables {@code HTTP_HOST} is always set.
      *  For a virtual host with the name and for a server with the IP.
      *  @throws Exception
@@ -514,7 +514,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The CGI reads the data very slowly.
      *  The request is canceled with status 502.
      *  @throws Exception
@@ -545,7 +545,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  An invalid {@code DOCROOT} has been configured for VHC.
      *  The server uses an alternative working directory as {@code DOCROOT}.
      *  @throws Exception
@@ -572,7 +572,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  If the CGI response starts with {@code HTTP/STATUS}, then the server
      *  responds to the request. The CGI outstream is read completely, but not
      *  sent to the client.
@@ -717,7 +717,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For the CGI a timeout of 30 seconds was defined.
      *  The request is responded with status 200 and is logged with status 504.
      *  Reason, the header has already begun.
@@ -741,7 +741,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For the CGI a timeout of 30 seconds was defined.
      *  The request is responded with status 504 and is logged with status 504.
      *  Reason, the header has not yet started.
@@ -765,7 +765,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     }   
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The CGI response header is limited to 65535 bytes.
      *  In the case of an overlength, the request is responded with status 502.
      *  @throws Exception
@@ -797,7 +797,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     } 
     
     /**
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  If the server is stopped or restarted, running CGI processes must be
      *  terminated. In this example, a CGI counter is started. The CGI process
      *  is running and the server is restared. The counter must stop!
@@ -829,7 +829,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     }
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For {@code SERVER:X}, JSX was configured as XCGI.
      *  The environment variables must be transferred via Std_IO.
      *  For the CGI all request-header-parameters will be passed with the
@@ -860,7 +860,7 @@ public class WorkerTest_Gateway extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Method {@code ALL} was defined for the CGI but {@code METHODS} does
      *  this not allow and the request is responded with status 403.
      *  is without content.

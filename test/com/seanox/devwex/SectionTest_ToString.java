@@ -27,7 +27,7 @@ import org.junit.Test;
 import com.seanox.test.utils.ResourceUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Section}.<br>
+ *  Test cases for {@link com.seanox.devwex.Section}.<br>
  *  <br>
  *  SectionTest_ToString 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -38,7 +38,7 @@ import com.seanox.test.utils.ResourceUtils;
  */
 public class SectionTest_ToString extends AbstractTest {
     
-    /** TestCase for key encoding. */
+    /** Test case for key encoding. */
     @Test
     public void testEncodingKey_1() {
         
@@ -57,7 +57,7 @@ public class SectionTest_ToString extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContent(), SectionTest.toString(section));
     }
     
-    /** TestCase for key encoding. */
+    /** Test case for key encoding. */
     @Test
     public void testEncodingKey_2() {
         
@@ -78,7 +78,7 @@ public class SectionTest_ToString extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContent(), SectionTest.toString(section));
     }
     
-    /** TestCase for key encoding. */
+    /** Test case for key encoding. */
     @Test
     public void testEncodingKey_3() {
         
@@ -97,7 +97,7 @@ public class SectionTest_ToString extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContent(), SectionTest.toString(section));
     }
     
-    /** TestCase for value encoding. */
+    /** Test case for value encoding. */
     @Test
     public void testEncodingValue_1() {
         
@@ -110,7 +110,7 @@ public class SectionTest_ToString extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContent(), SectionTest.toString(section));
     }
     
-    /** TestCase for value encoding. */
+    /** Test case for value encoding. */
     @Test
     public void testEncodingValue_2() {
         
@@ -123,7 +123,7 @@ public class SectionTest_ToString extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContent(), SectionTest.toString(section));
     }    
 
-    /** TestCase for indenting. */
+    /** Test case for indenting. */
     @Test
     public void testIndenting_1() {
         

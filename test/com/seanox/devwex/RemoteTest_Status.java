@@ -27,7 +27,7 @@ import org.junit.Test;
 import com.seanox.test.utils.HttpUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Remote}.<br>
+ *  Test cases for {@link com.seanox.devwex.Remote}.<br>
  *  <br>
  *  RemoteTest_Status 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -39,7 +39,7 @@ import com.seanox.test.utils.HttpUtils;
 public class RemoteTest_Status extends AbstractTest {
     
     /** 
-     *  TestCase for command: STATUS.
+     *  Test case for command: STATUS.
      *  The command {@code STATUS[CR]} must return {@code VERS}, {@code TIME},
      *  {@code TIUP} and {@code SAPI}.
      *  @throws Exception
@@ -56,7 +56,7 @@ public class RemoteTest_Status extends AbstractTest {
     }
     
     /** 
-     *  TestCase for command: STATUS.
+     *  Test case for command: STATUS.
      *  The command {@code STATUS[LF]} must return {@code VERS}, {@code TIME},
      *  {@code TIUP} and {@code SAPI}.
      *  @throws Exception
@@ -73,7 +73,7 @@ public class RemoteTest_Status extends AbstractTest {
     }
     
     /** 
-     *  TestCase for command: STATUS.
+     *  Test case for command: STATUS.
      *  The command {@code STATUS[CRLF]} must return {@code VERS}, {@code TIME},
      *  {@code TIUP} and {@code SAPI}.
      *  @throws Exception

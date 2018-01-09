@@ -47,7 +47,7 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Server}.<br>
+ *  Test cases for {@link com.seanox.devwex.Server}.<br>
  *  <br>
  *  ServerTest_Connection 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -59,7 +59,7 @@ import com.seanox.test.utils.Pattern;
 public class ServerTest_Connection extends AbstractTest {
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Connections with SSL/TLS must works.
      *  Cross connections does not work.
      *  @throws Exception
@@ -79,7 +79,7 @@ public class ServerTest_Connection extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Connections with SSL/TLS must works.
      *  Cross connections does not work.
      *  @throws Exception
@@ -158,7 +158,7 @@ public class ServerTest_Connection extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code CLIENTAUTH = OFF} 
      *  Connection without client certificate must works.
      *  @throws Exception
@@ -173,7 +173,7 @@ public class ServerTest_Connection extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code CLIENTAUTH = OFF} 
      *  Connection with client certificate must ignore.
      *  @throws Exception
@@ -188,7 +188,7 @@ public class ServerTest_Connection extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code CLIENTAUTH = OFF} 
      *  Connection with a unknown client certificate must ignore.
      *  @throws Exception
@@ -203,7 +203,7 @@ public class ServerTest_Connection extends AbstractTest {
     }      
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code CLIENTAUTH = ON} 
      *  Connection without client certificate must fail.
      *  @throws Exception
@@ -218,7 +218,7 @@ public class ServerTest_Connection extends AbstractTest {
     }       
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code CLIENTAUTH = ON} 
      *  Connection with client certificate must works.
      *  @throws Exception
@@ -234,7 +234,7 @@ public class ServerTest_Connection extends AbstractTest {
     }   
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code CLIENTAUTH = AUTO} 
      *  Connection without client certificate must works.
      *  @throws Exception
@@ -249,7 +249,7 @@ public class ServerTest_Connection extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code CLIENTAUTH = AUTO} 
      *  Connection with client certificate must works.
      *  @throws Exception
@@ -265,7 +265,7 @@ public class ServerTest_Connection extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code CLIENTAUTH = OFF} 
      *  Connection with known and unknown client certificates must works.
      *  @throws Exception
@@ -283,7 +283,7 @@ public class ServerTest_Connection extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code CLIENTAUTH = ON} 
      *  Connection with known client certificates must works.
      *  @throws Exception
@@ -301,7 +301,7 @@ public class ServerTest_Connection extends AbstractTest {
     }     
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code CLIENTAUTH = ON} 
      *  Connection with unknown client certificate must fail.
      *  @throws Exception
@@ -317,7 +317,7 @@ public class ServerTest_Connection extends AbstractTest {
     }     
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code CLIENTAUTH = AUTO}
      *  Connection with known and unknow client certificates must work.
      *  @throws Exception
@@ -335,7 +335,7 @@ public class ServerTest_Connection extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code CLIENTAUTH = AUTO} + {@code MUTUAL AUTH = ALL IS EMPTY auth_cert} 
      *  Connection with client certificate must works.
      *  @throws Exception
@@ -353,7 +353,7 @@ public class ServerTest_Connection extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code CLIENTAUTH = AUTO} + {@code MUTUAL AUTH = ALL IS EMPTY auth_cert} 
      *  Connection with a unknown client certificate must be denied with status
      *  403.
@@ -369,7 +369,7 @@ public class ServerTest_Connection extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code CLIENTAUTH = AUTO} + {@code MUTUAL AUTH = ALL IS EMPTY auth_cert} 
      *  Connection without a client certificate must works.
      *  @throws Exception

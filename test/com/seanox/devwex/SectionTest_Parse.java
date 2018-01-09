@@ -27,7 +27,7 @@ import org.junit.Test;
 import com.seanox.test.utils.ResourceUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Section#parse(String)}.<br>
+ *  Test cases for {@link com.seanox.devwex.Section#parse(String)}.<br>
  *  <br>
  *  SectionTest_Parse 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -42,7 +42,7 @@ public class SectionTest_Parse extends AbstractTest {
         System.setProperty("param-c", "p_c");
     }
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     @BeforeTest("testAcceptanceBefore_1")
     public void testAcceptance_1() {
@@ -51,7 +51,7 @@ public class SectionTest_Parse extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContent("testAcceptance_1_1"), SectionTest.toString(section));
     }
 
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_2() {
         
@@ -59,7 +59,7 @@ public class SectionTest_Parse extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContent("testAcceptance_2_1"), SectionTest.toString(section));
     }
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_3() {
         
@@ -67,7 +67,7 @@ public class SectionTest_Parse extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContent("testAcceptance_3_1"), SectionTest.toString(section));
     }    
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_4() {
         
@@ -75,7 +75,7 @@ public class SectionTest_Parse extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContent("testAcceptance_4_1"), SectionTest.toString(section));
     } 
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_5() {
         
@@ -83,7 +83,7 @@ public class SectionTest_Parse extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContent("testAcceptance_5_1"), SectionTest.toString(section));
     }
 
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_6() {
         
@@ -91,7 +91,7 @@ public class SectionTest_Parse extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContent("testAcceptance_6_1"), SectionTest.toString(section));
     }
 
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_7() {
         
@@ -99,7 +99,7 @@ public class SectionTest_Parse extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContent("testAcceptance_7_1"), SectionTest.toString(section));
     }
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_8() {
         
@@ -107,7 +107,7 @@ public class SectionTest_Parse extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContent("testAcceptance_8_1"), SectionTest.toString(section));
     }    
     
-    /** TestCase for override keys. */
+    /** Test case for override keys. */
     @Test
     public void testOverride_1() {
         
@@ -115,7 +115,7 @@ public class SectionTest_Parse extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContent("testOverride_1_1"), SectionTest.toString(section));
     }
 
-    /** TestCase for dynamic keys. */
+    /** Test case for dynamic keys. */
     @Test
     public void testDynamic_1() {
         

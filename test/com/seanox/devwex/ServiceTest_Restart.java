@@ -28,7 +28,7 @@ import com.seanox.test.utils.Executor;
 import com.seanox.test.utils.Executor.Worker;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Service}.<br>
+ *  Test cases for {@link com.seanox.devwex.Service}.<br>
  *  <br>
  *  ServiceTest_Restart 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -40,7 +40,7 @@ import com.seanox.test.utils.Executor.Worker;
 public class ServiceTest_Restart extends AbstractTest {
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Asynchronous restart must work.
      *  @throws Exception
      */    

@@ -36,7 +36,7 @@ import com.seanox.test.utils.Pattern;
 import com.seanox.test.utils.StreamUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
  *  WorkerTest_Request 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -48,7 +48,7 @@ import com.seanox.test.utils.StreamUtils;
 public class WorkerTest_Request extends AbstractTest {
     
     /** 
-     *  TestCase for timeout.
+     *  Test case for timeout.
      *  The timeout is defined to 15 seconds. Because the request is not
      *  terminated, the server waits for the request end. Therefore the
      *  request must be responded with status 408.
@@ -70,7 +70,7 @@ public class WorkerTest_Request extends AbstractTest {
     }
     
     /** 
-     *  TestCase for timeout.
+     *  Test case for timeout.
      *  The timeout is defined to 15 seconds and the request is transmitted
      *  slowly. The total duration is over 15 seconds, but the individual parts
      *  of the request are transmitted less than 15 seconds. The request must
@@ -113,7 +113,7 @@ public class WorkerTest_Request extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for timeout.
+     *  Test case for timeout.
      *  The timeout is defined to 15 seconds and the request is transmitted
      *  slowly. The total duration is over 15 seconds, but the individual parts
      *  of the request are transmitted less than 15 seconds. Because the
@@ -158,7 +158,7 @@ public class WorkerTest_Request extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Without a path, then terminates the request with status 400.
      *  @throws Exception
      */
@@ -179,7 +179,7 @@ public class WorkerTest_Request extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The path starts without a slash, then terminates the request with
      *  status 400.
      *  @throws Exception
@@ -201,7 +201,7 @@ public class WorkerTest_Request extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  If the path starts with backslash, the server will change it to slash
      *  and respond to it with status 200.
      *  @throws Exception
@@ -223,7 +223,7 @@ public class WorkerTest_Request extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Each request line is limited to 32768 characters and will be terminated
      *  with status 413 if it is overlength.
      *  @throws Exception
@@ -248,7 +248,7 @@ public class WorkerTest_Request extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The request is limited to 65535 characters and will be terminated with
      *  status 200 if it is big but not overlength.
      *  @throws Exception
@@ -278,7 +278,7 @@ public class WorkerTest_Request extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The request is limited to 65535 characters and will be terminated with
      *  status 200 if big but it is not overlength.
      *  @throws Exception
@@ -308,7 +308,7 @@ public class WorkerTest_Request extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  A request whose header contains no data but only {@code [CRLF][CRLF]}
      *  is terminated with status 400.
      *  @throws Exception
@@ -329,7 +329,7 @@ public class WorkerTest_Request extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Aborted requests should not be blocked. The value of MAXACCESS must not
      *  be reached. All 150 queries must be responded with status 200, even if
      *  the MAXACCESS is set to 100.

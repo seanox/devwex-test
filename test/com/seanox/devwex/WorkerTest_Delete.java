@@ -31,7 +31,7 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
  *  WorkerTest_Delete 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -43,7 +43,7 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_Delete extends AbstractTest {
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The Deleting of files whose path is a directory is responded with the
      *  location and status 302.
      *  @throws Exception
@@ -104,7 +104,7 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The Deleting of files whose path is a directory is responded with the
      *  location and status 302.
      *  @throws Exception
@@ -129,7 +129,7 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The deletion of files is responded with status 200 and without content.
      *  @throws Exception
      */
@@ -158,7 +158,7 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The Deleting of files that do not exist is responded with status 404.
      *  @throws Exception
      */
@@ -181,7 +181,7 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The deletion of directories is responded with status 200 and without
      *  content.
      *  @throws Exception
@@ -211,7 +211,7 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The Deleting of directories that do not exist is responded with status 404.
      *  @throws Exception
      */
@@ -234,7 +234,7 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The deletion of directories with sub-directories is responded with
      *  status 200. All sub-directories and files will be deleted.
      *  content.
@@ -271,7 +271,7 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The deletion of directories with sub-directories is responded with
      *  status 200. All sub-directories and files will be deleted.
      *  content.
@@ -308,7 +308,7 @@ public class WorkerTest_Delete extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  DELETE is executed by a CGI.
      *  The request is responded with Status 200.
      *  @throws Exception
@@ -331,7 +331,7 @@ public class WorkerTest_Delete extends AbstractTest {
     }
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  DELETE is executed by a CGI, but the CGI does not exists.
      *  The request is responded with Status 403.
      *  @throws Exception
@@ -352,7 +352,7 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  DELETE is executed by a module.
      *  The path of the uri is for a module is absolute and so the module with
      *  the path {@code /test.module} will also responses an uri with the path
@@ -377,7 +377,7 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Delete is executed for an absolute reference (URL). Thus, the request
      *  is responded with Status 200. The path is absolute, so
      *  {@code /test.xxx123} is also covered by {@code /test.xxx}.
@@ -460,7 +460,7 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Delete is executed for an absolute reference (URL).
      *  Thus, the request is responded with Status 200.
      *  @throws Exception
@@ -527,7 +527,7 @@ public class WorkerTest_Delete extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Delete with a URL with redirection.
      *  The request is responded with status 302 and a location.
      *  @throws Exception
@@ -552,7 +552,7 @@ public class WorkerTest_Delete extends AbstractTest {
     }    
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Delete with a forbidden URL.
      *  The request is responded with status 403.
      *  @throws Exception
@@ -576,7 +576,7 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Delete with Basic-Authentication without access data.
      *  The request is responded with status 401.
      *  @throws Exception
@@ -600,7 +600,7 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Delete with Basic Authentication.
      *  The request must be responded with status 200 because the access data
      *  are included.

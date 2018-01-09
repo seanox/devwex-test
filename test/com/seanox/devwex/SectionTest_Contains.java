@@ -25,7 +25,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Section#contains(String, String)}.<br>
+ *  Test cases for {@link com.seanox.devwex.Section#contains(String, String)}.<br>
  *  <br>
  *  SectionTest_Contains 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -36,7 +36,7 @@ import org.junit.Test;
  */
 public class SectionTest_Contains extends AbstractTest {
     
-    /** TestCase for a invalid key. */
+    /** Test case for a invalid key. */
     @Test(expected=Exception.class)
     public void testKeyInvalid_1() {
         
@@ -44,7 +44,7 @@ public class SectionTest_Contains extends AbstractTest {
         section.set("", null);
     }
     
-    /** TestCase for a invalid key. */
+    /** Test case for a invalid key. */
     @Test(expected=IllegalArgumentException.class)
     public void testKeyInvalid_2() {
         
@@ -52,7 +52,7 @@ public class SectionTest_Contains extends AbstractTest {
         section.set(" ", null);
     }
 
-    /** TestCase for a invalid key. */
+    /** Test case for a invalid key. */
     @Test(expected=IllegalArgumentException.class)
     public void testKeyInvalid_3() {
         
@@ -60,7 +60,7 @@ public class SectionTest_Contains extends AbstractTest {
         section.set("   ", null);
     }
 
-    /** TestCase for a invalid key. */
+    /** Test case for a invalid key. */
     @Test(expected=IllegalArgumentException.class)
     public void testKeyInvalid_5() {
         
@@ -68,7 +68,7 @@ public class SectionTest_Contains extends AbstractTest {
         section.set(null, null);
     }
 
-    /** TestCase for a invalid key. */
+    /** Test case for a invalid key. */
     @Test(expected=IllegalArgumentException.class)
     public void testKeyInvalid_6() {
         
@@ -76,7 +76,7 @@ public class SectionTest_Contains extends AbstractTest {
         section.set(" \0\0 ", null);
     }
 
-    /** TestCase for a invalid key. */
+    /** Test case for a invalid key. */
     @Test(expected=IllegalArgumentException.class)
     public void testKeyInvalid_7() {
         
@@ -84,7 +84,7 @@ public class SectionTest_Contains extends AbstractTest {
         section.set(" \r\n ", null);
     }
     
-    /** TestCase for a invalid key. */
+    /** Test case for a invalid key. */
     @Test(expected=IllegalArgumentException.class)
     public void testKeyInvalid_8() {
         
@@ -92,7 +92,7 @@ public class SectionTest_Contains extends AbstractTest {
         section.set(" \07\07 ", null);
     }
 
-    /** TestCase for a invalid key. */
+    /** Test case for a invalid key. */
     @Test(expected=IllegalArgumentException.class)
     public void testKeyInvalid_9() {
         
@@ -100,7 +100,7 @@ public class SectionTest_Contains extends AbstractTest {
         section.set(" \20\20 ", null);
     }
 
-    /** TestCase for a invalid key. */
+    /** Test case for a invalid key. */
     @Test(expected=IllegalArgumentException.class)
     public void testKeyInvalid_A() {
         
@@ -108,7 +108,7 @@ public class SectionTest_Contains extends AbstractTest {
         section.set(" \17\17 ", null);
     }
     
-    /** TestCase for key tolerance. */
+    /** Test case for key tolerance. */
     @Test
     public void testKeyTolerance_1() {
         
@@ -134,7 +134,7 @@ public class SectionTest_Contains extends AbstractTest {
         Assert.assertEquals("a5", section.get("a"));
     }
     
-    /** TestCase for overwrite a key. */
+    /** Test case for overwrite a key. */
     @Test
     public void testKeyOverwrite_1() {
         

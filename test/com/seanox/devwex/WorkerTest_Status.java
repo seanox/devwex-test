@@ -28,7 +28,7 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
  *  WorkerTest_Status 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -40,7 +40,7 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_Status extends AbstractTest {
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Request of a forbidden url.
      *  Template for status 403 is not dedicated and is contained in status-4xx.html.
      *  The response must contains 'Template: status-4xx.html'.
@@ -59,7 +59,7 @@ public class WorkerTest_Status extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Request of a faulty CGI application.
      *  Template for status 502 is not dedicated and is contained in status.html.
      *  The response must contains 'Template: status.html'.
@@ -78,7 +78,7 @@ public class WorkerTest_Status extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Request of a not exsting url.
      *  Template for status 404 is dedicated.
      *  The response must contains 'Template: status-404.html'.

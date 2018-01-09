@@ -38,7 +38,7 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
  *  WorkerTest_FileIndex 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -71,7 +71,7 @@ public class WorkerTest_FileIndex extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Without sorting, the file index of directories must not contain '?'.
      *  @throws Exception
      */
@@ -99,7 +99,7 @@ public class WorkerTest_FileIndex extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  With sorting, the file index of directories must not contain '?'.
      *  @throws Exception
      */    
@@ -127,7 +127,7 @@ public class WorkerTest_FileIndex extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The path from subdirectories must be created correctly.
      *  @throws Exception
      */
@@ -156,7 +156,7 @@ public class WorkerTest_FileIndex extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] INDEX = ON}
      *  Hidden files must be included in the index.
      *  The flag {@code x} must be set for an enpty directory.
@@ -185,7 +185,7 @@ public class WorkerTest_FileIndex extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] INDEX = ON [S]}
      *  The index must not contain hidden files.
      *  The flag {@code x} must be set for an enpty directory.

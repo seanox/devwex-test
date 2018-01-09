@@ -39,7 +39,7 @@ import com.seanox.test.utils.SystemInfo;
 import com.seanox.test.utils.Timing;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
  *  WorkerTest_Performance 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -59,7 +59,7 @@ public class WorkerTest_Performance extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Measures the execution time of 1000 (40 x 25) request.
      *  The first load test is slower because the server first increases the
      *  number of threads.
@@ -101,7 +101,7 @@ public class WorkerTest_Performance extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Measures the execution time of 1000 (40 x 25) request.
      *  The second load test is faster because the server has a large number
      *  of threads.
@@ -190,7 +190,7 @@ public class WorkerTest_Performance extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The internal resource management must fast deallocate threads and
      *  memory.
      *  @throws Exception

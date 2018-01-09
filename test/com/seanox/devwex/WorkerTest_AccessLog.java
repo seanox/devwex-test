@@ -33,7 +33,7 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
  *  WorkerTest_AccessLog 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -45,7 +45,7 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_AccessLog extends AbstractTest {
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The usage of time symbols in the file name must work.
      *  @throws Exception
      */
@@ -68,7 +68,7 @@ public class WorkerTest_AccessLog extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The time zone must be set correctly in the access log.
      *  @throws Exception
      */
@@ -83,7 +83,7 @@ public class WorkerTest_AccessLog extends AbstractTest {
     }   
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Special characters (\, ") must be escaped.
      *  @throws Exception
      */
@@ -101,7 +101,7 @@ public class WorkerTest_AccessLog extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The usage of CGI variables in the file name must work.
      *  @throws Exception
      */

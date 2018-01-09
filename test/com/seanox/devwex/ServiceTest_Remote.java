@@ -31,7 +31,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Service}.<br>
+ *  Test cases for {@link com.seanox.devwex.Service}.<br>
  *  <br>
  *  ServiceTest_Remote 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -71,7 +71,7 @@ public class ServiceTest_Remote extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Default connection must work.
      *  But not here because the default is not used.
      *  @throws Exception
@@ -91,7 +91,7 @@ public class ServiceTest_Remote extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  If an unknown host is used, an error must occur.
      *  @throws Exception
      */      
@@ -110,7 +110,7 @@ public class ServiceTest_Remote extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  If an invalid port is used, an error must occur.
      *  @throws Exception
      */      
@@ -129,7 +129,7 @@ public class ServiceTest_Remote extends AbstractTest {
     }     
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  If an invalid port is used, an error must occur.
      *  @throws Exception
      */      
@@ -148,7 +148,7 @@ public class ServiceTest_Remote extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  If the correct connection is used, a status response must be returned.
      *  @throws Exception
      */      

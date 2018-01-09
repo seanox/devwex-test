@@ -35,7 +35,7 @@ import org.junit.Test;
 import com.seanox.test.utils.HttpUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Service}.<br>
+ *  Test cases for {@link com.seanox.devwex.Service}.<br>
  *  <br>
  *  ServiceTest_Server 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -75,7 +75,7 @@ public class ServiceTest_Server extends AbstractTest {
     } 
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  A server can be configured and started by different instances.
      *      [REMOTE:BAS]    25001
      *      [REMOTE:A:BAS]  25002
@@ -96,7 +96,7 @@ public class ServiceTest_Server extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Tests when a implementation (default scope) is used in different instances.
      *      [COUNT:BAS] com.seanox.devwex
      *      [COUNT:A:BAS] com.seanox.devwex
@@ -123,7 +123,7 @@ public class ServiceTest_Server extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Tests when a implementation (external scope) is used in different instances.
      *      [COUNT:B1:BAS] example
      *      [COUNT:B2:BAS] example
@@ -150,7 +150,7 @@ public class ServiceTest_Server extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Tests if a scope does not exist.
      *      [COUNT:C:BAS] example-x
      *  @throws Exception
@@ -164,7 +164,7 @@ public class ServiceTest_Server extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Tests if an error occurs in constructor of a server.
      *  @throws Exception
      */      
@@ -177,7 +177,7 @@ public class ServiceTest_Server extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Tests if an error occurs in the run-method of the server-thread.
      *  @throws Exception
      */      
@@ -190,7 +190,7 @@ public class ServiceTest_Server extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Tests if an error occurs in the run-method of the accept.
      *  @throws Exception
      */      
@@ -203,7 +203,7 @@ public class ServiceTest_Server extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Various (walid and invalid) implementations of the SAPI are checked.
      *  @throws Exception
      */      

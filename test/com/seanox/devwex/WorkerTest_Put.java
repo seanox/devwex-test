@@ -36,7 +36,7 @@ import com.seanox.test.utils.StreamUtils;
 import com.seanox.test.utils.Timing;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
  *  WorkerTest_Put 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -48,7 +48,7 @@ import com.seanox.test.utils.Timing;
 public class WorkerTest_Put extends AbstractTest {
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The creation of directories is responded with status 201 and the
      *  location.
      *  @throws Exception
@@ -87,7 +87,7 @@ public class WorkerTest_Put extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The creation of directories without Content-length is responded with
      *  status 201 and the location.
      *  @throws Exception
@@ -126,7 +126,7 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The creation of directories with invalid characters in the name is
      *  responded with status 424.
      *  @throws Exception
@@ -147,7 +147,7 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The creation of directories that alrady exists is responded with status
      *  201 and the location.
      *  @throws Exception
@@ -181,7 +181,7 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The creation of directories without a slash at the end is responded with status
      *  201 and the location with a slash at the end.
      *  @throws Exception
@@ -206,7 +206,7 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The creation of a directory with sub-directories is responded with
      *  status 201 and the location to the main directory.
      *  @throws Exception
@@ -232,7 +232,7 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The creation of a files is responded with status 201 and the location
      *  to the file.
      *  @throws Exception
@@ -260,7 +260,7 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The overwriting of an existing a files is responded with status 201 and
      *  the location to the file.
      *  @throws Exception
@@ -297,7 +297,7 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Overlength is ignored. Only as much data is written, as specified by
      *  Content-Length.
      *  @throws Exception
@@ -340,7 +340,7 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Requests with an invalid Content-Length are responded with status 411.
      *  @throws Exception
      */     
@@ -371,7 +371,7 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Requests with an invalid Content-Length are responded with status 411.
      *  @throws Exception
      */       
@@ -402,7 +402,7 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The creation of a file that already exists as a directory is responded
      *  with status 302 and the location to the directory.
      *  @throws Exception
@@ -429,7 +429,7 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The creation of a directory that already exists as a file is responded
      *  with status 302 and the location to the file.
      *  @throws Exception
@@ -454,7 +454,7 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  PUT-requests to a CGI, are executed by the CGI application.
      *  @throws Exception
      */     
@@ -473,7 +473,7 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  PUT-requests to a CGI, are executed by the CGI application.
      *  The request is responded with status 403 if the PUT method not allowed
      *  for the CGI.
@@ -491,7 +491,7 @@ public class WorkerTest_Put extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  PUT-requests to a module, are executed by the module (/test.module).
      *  The path is absolute, therefore also /test.module123 is accepted.
      *  @throws Exception
@@ -513,7 +513,7 @@ public class WorkerTest_Put extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The path /test.xxx is absolute, therefore also /test.xxx123 is
      *  accepted.
      *  @throws Exception
@@ -561,7 +561,7 @@ public class WorkerTest_Put extends AbstractTest {
     }     
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  PUT is supported for absolute path.
      *  @throws Exception
      */      
@@ -609,7 +609,7 @@ public class WorkerTest_Put extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  PUT requests to a redirected url is responded with status 302 and the
      *  location.
      *  @throws Exception
@@ -635,7 +635,7 @@ public class WorkerTest_Put extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  PUT requests to a forbidden url is responded with status 403.
      *  @throws Exception
      */      
@@ -652,7 +652,7 @@ public class WorkerTest_Put extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  PUT requests in combination with an authentication must work.
      *  In this case the authentication is not correct and the request is
      *  responded with status 401.
@@ -671,7 +671,7 @@ public class WorkerTest_Put extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  PUT requests in combination with an authentication must work.
      *  In this case the authentication is correct and the request is responded
      *  with status 201.
@@ -725,7 +725,7 @@ public class WorkerTest_Put extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For PUT requests, the number of bytes is written, which is specified
      *  with Content-Length. If fewer bytes are present, the server waits until
      *  the timeout (TIMEOUT = 15000). In this case the request is responded
@@ -754,7 +754,7 @@ public class WorkerTest_Put extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For large PUT requests.
      *  No server timeout may occur and the data must be written correctly.
      *  In this case the request is responded with status 201.
@@ -792,7 +792,7 @@ public class WorkerTest_Put extends AbstractTest {
     }     
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  PUT-requests without a Content-Length creates a file.
      *  @throws Exception
      */       
@@ -818,7 +818,7 @@ public class WorkerTest_Put extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  PUT-requests with a Content-Length creates a file.
      *  @throws Exception
      */       

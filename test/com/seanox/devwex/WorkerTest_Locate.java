@@ -31,7 +31,7 @@ import com.seanox.test.utils.OutputFacadeStream;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
  *  WorkerTest_Locate 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -43,7 +43,7 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_Locate extends AbstractTest {
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The determination of a URL must also work in the mix of UFT8 / MIME.
      *  The request is responded with status 200.
      *  @throws Exception
@@ -61,7 +61,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The determination of a URL must also work in the mix of UFT8 / MIME.
      *  The request is responded with status 200.
      *  @throws Exception
@@ -79,7 +79,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The determination of a URL must also work in the mix of UFT8 / MIME.
      *  The name of the file exists only in plain text but the url will be decoded.
      *  The request is responded with status 404.
@@ -97,7 +97,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /forbidden > .../forbidden [c]}
      *  The Access to the path is forbidden. The request must be responded with
      *  status 403.
@@ -119,7 +119,7 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /forbidden > .../forbidden [c]}
      *  The Access to the parent directory is forbidden. The request for the
      *  sub-directory must be responded also with status 403.
@@ -141,7 +141,7 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /forbidden_2 > .../forbidden}
      *  Virtual paths have independent options. If access to a physical path is
      *  forbidden, a virtual path can allow the access. The request must be
@@ -164,7 +164,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /test_test > .../documents_vh_A/test_a [-]}
      *  Virtual paths have independent options. The request must be responded
      *  with status 200, because {@code /test_test} is not equals to the other
@@ -191,7 +191,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /test_test_a > .../documents_vh_A/test_b [-]}
      *  Virtual paths have independent options. The request must be responded
      *  with status 200, because {@code /test_test_a} is not equals to the
@@ -218,7 +218,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /test_test_b > .../documents_vh_A/test_c [-]}
      *  Virtual paths have independent options. The request must be responded
      *  with status 200, because {@code /test_test_b} is not equals to the
@@ -245,7 +245,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /test_test/test > .../documents_vh_A/test_d}
      *  Virtual paths have independent options. The request must be responded
      *  with status 200, because {@code /test_test/test/} is not equals to the
@@ -273,7 +273,7 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /absolute > .../forbidden/absolute.html [a]}
      *  The virtual path is defined as 'absolute'. The request must be
      *  responded with status 200 and the content of
@@ -300,7 +300,7 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /test.2absolut > .../cgi_environment.jsx [a]}
      *  The virtual path is defined as 'absolute'. The request must be
      *  responded with status 200 and the parameters {@code PATH_BASE},
@@ -330,7 +330,7 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /forbidden.html [c]}
      *  The forbid of individual files is possible. The request must be
      *  responded with status 403 and the correct location.
@@ -353,7 +353,7 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /redirect > http://www.xXx.zzz/?a=2 [r]}
      *  The virtual path is defined as redirection. The request must be
      *  responded with status 302 and the correct location.
@@ -380,7 +380,7 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /redirect > http://www.xXx.zzz/?a=2 [r]}
      *  The virtual path is defined as redirection. The request must be
      *  responded with status 302 and the correct location.
@@ -407,7 +407,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /redirect > http://www.xXx.zzz/?a=2 [r]}
      *  The virtual path is defined as redirection. The request must be
      *  responded with status 302 and the correct location.
@@ -433,7 +433,7 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /redirect > http://www.xXx.zzz/?a=2 [r]}
      *  The virtual path is defined as redirection. The request must be
      *  responded with status 302 and the correct location.
@@ -459,7 +459,7 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The characters &gt; and &lt; are invalid.
      *  The request must be responded with status 404.
      *  @throws Exception
@@ -480,7 +480,7 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The virtual path {@code /redirect} does not include
      *  {@code /redirectxxx}. The request must be responded with status 404.
      *  @throws Exception
@@ -501,7 +501,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }     
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The virtual path {@code /test_test} is a directory. Without a slash at
      *  the end, the request must be responded with status 302 and the correct
      *  location.
@@ -527,7 +527,7 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The virtual path {@code /url_maßÿ_3.html} is a file. With a slash at
      *  the end, the request must be responded with status 302 and the correct
      *  location.
@@ -553,7 +553,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The virtual path {@code /test.module} is defined as module. The request
      *  must be responded by WorkerModule_A with status 001.
      *  @throws Exception
@@ -576,7 +576,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The virtual path {@code /test.module} is defined as module. Virtual
      *  paths of modusl are absolute. Even this request must be responded by
      *  WorkerModule_A with status 001.
@@ -599,7 +599,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The path {@code /cgi_environment.jsx.} with a dot at the end is not
      *  correct. The request must be responded  with status 404.
      *  @throws Exception
@@ -620,7 +620,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The path {@code /cgi_environment.jsx} is  correct. The request must be
      *  responded  with status 200.
      *  @throws Exception
@@ -641,7 +641,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For Windows is a path case insensitive. Even with an incorect upercase
      *  letter in the path, the request must be responded  with status 200.
      *  @throws Exception
@@ -665,7 +665,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /lastmodified.jsx > .../lastmodified.jsx [A]}
      *  The virtual path is defined as 'absolute'. The request must be
      *  responded with status 200, event with a dot at the end.
@@ -687,7 +687,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Breaking out of the DocRoot must not happen if the path contains masked
      *  characters.
      *  @throws Exception
@@ -728,7 +728,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The virtual path {@code /x} is defined as 'absolute', but the server
      *  does not support the Get method. The request must be responded with
      *  status 405.
@@ -749,7 +749,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The virtual path {@code /x} is defined as 'absolute'. The request must
      *  be responded with status 405 and the content of the physical file.
      *  @throws Exception
@@ -769,7 +769,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The virtual path {@code /x/x} is defined as 'absolute' in the scope
      *  of {@code /x}. The request must be responded with status 200 and the
      *  file listing.
@@ -794,7 +794,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  In Windows XP, there was a bug with paths in the format of
      *  {@code / / /}. You can use illegal directories. The server must check
      *  the physical paths. The request must be responded with status 404.
@@ -837,7 +837,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The various combinations of options for forwarding are checked.
      *  @throws Exception
      */      
@@ -904,7 +904,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The virtual path {@code /test.../xxx} is defined as 'absolute' for
      *  files and directories. The server must use the correct environment
      *  variable {@code SCRIPT_NAME} and the request must be responded with
@@ -921,7 +921,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The virtual path {@code /test.../xxx} is defined as 'absolute' for
      *  files and directories. The server must use the correct environment
      *  variable {@code SCRIPT_NAME} and the request must be responded with
@@ -942,7 +942,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The virtual path {@code /m/m} is defined as module, but the server does
      *  not support the GET method, but the options {@code [x]} says all
      *  methods are supported. The request must be responded by the module with
@@ -963,7 +963,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The rule for a reference without target must be ignored.
      *  The request must be responded by the module with status 404.
      *  @throws Exception
@@ -982,7 +982,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The rule for a redirect without target must be ignored.
      *  The request must be responded by the module with status 404.
      *  @throws Exception
@@ -1001,7 +1001,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The rule without alias must be ignored.
      *  The request must be responded by the module with status 200.
      *  @throws Exception
@@ -1020,7 +1020,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The rule without alias must be ignored.
      *  The request must be responded by the module with status 200.
      *  @throws Exception
@@ -1039,7 +1039,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The rule without alias must be ignored.
      *  The request must be responded by the module with status 200.
      *  @throws Exception
@@ -1058,7 +1058,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The rule without alias must be ignored.
      *  The request must be responded by the module with status 200.
      *  @throws Exception
@@ -1077,7 +1077,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
         
     /**
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The rule for a module without target must be ignored.
      *  The request must be responded by the module with status 404.
      *  @throws Exception
@@ -1096,7 +1096,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The rule for a forbidden path without target must be work.
      *  The request must be responded by the module with status 403.
      *  @throws Exception
@@ -1115,7 +1115,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /o/o/2 > ./stage/documents_d/test.txt [x]}
      *  Virtual paths to individual files must work. The request via
      *  {@code HEAD} must be responded with status 200, because the target
@@ -1152,7 +1152,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /o/o/2 > ./stage/documents_d/test.txt [x]}
      *  Virtual paths to individual files must work. The request via
      *  {@code HEAD} must be responded with status 200, 302, 404.
@@ -1177,7 +1177,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }  
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Locate must work for references in {@code [VIRTUAL:REF]} without 
      *  target.
      *  @throws Exception
@@ -1206,7 +1206,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Locate must work for references in {@code [VIRTUAL:REF]} without
      *  target and virtual path without a slash at the beginning.
      *  @throws Exception
@@ -1233,7 +1233,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Locate must work for references in {@code [VIRTUAL:REF]} if the target
      *  is a path without a slash at the beginning.
      *  @throws Exception
@@ -1260,7 +1260,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The virtual path {@code /e} is defined as module, but an error occurs
      *  when the service method is executed. The request must be responded with
      *  status 502 and the error must be logged in the output-log.
@@ -1303,7 +1303,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Breaking out for a path condition with a dot at the end must not happen.
      *  The problem only occurs in Windows.
      *  @throws Exception
@@ -1355,7 +1355,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Breaking out of the DocRoot must not happen if the path contains masked
      *  special characters.
      *  @throws Exception
@@ -1387,7 +1387,7 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Breaking out of the DocRoot must not happen if the path contains masked
      *  special characters.
      *  @throws Exception
@@ -1419,7 +1419,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Breaking out of the DocRoot must not happen if the path contains masked
      *  special characters.
      *  @throws Exception
@@ -1451,7 +1451,7 @@ public class WorkerTest_Locate extends AbstractTest {
     }     
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Breaking out of the DocRoot must not happen if the path contains masked
      *  special characters.
      *  @throws Exception
@@ -1483,7 +1483,7 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Breaking out of the DocRoot must not happen if the path contains masked
      *  special characters.
      *  @throws Exception

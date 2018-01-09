@@ -28,7 +28,7 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
  *  WorkerTest_MimeType 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -40,7 +40,7 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_MimeType extends AbstractTest {
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For the file extension {@code xxx} was not defined a mimetype.
      *  The request must be responded with status 200 and the standard mimetype.
      *  @throws Exception
@@ -58,7 +58,7 @@ public class WorkerTest_MimeType extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For the file extension {@code xls} was defined a mimetype.
      *  The request must be responded with status 200 and the defined a mimetype.
      *  @throws Exception
@@ -76,7 +76,7 @@ public class WorkerTest_MimeType extends AbstractTest {
     }    
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For the file extension {@code xls} was defined a mimetype.
      *  The request with {@code Accept: *}{@code /*} must be responded with
      *  status 200 and the defined a mimetype.
@@ -96,7 +96,7 @@ public class WorkerTest_MimeType extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For the file extension {@code xls} was defined a mimetype.
      *  The request with {@code Accept: application/*} must be responded with
      *  status 200 and the defined a mimetype.
@@ -116,7 +116,7 @@ public class WorkerTest_MimeType extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For the file extension {@code xls} was defined a mimetype.
      *  The request with {@code Accept: *}{@code /vnd.ms-excel} must be
      *  responded with status 200 and the defined a mimetype.
@@ -136,7 +136,7 @@ public class WorkerTest_MimeType extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For the file extension {@code xxx} was not defined a mimetype.
      *  The request must be responded with status 200 and the standard mimetype.
      *  @throws Exception
@@ -155,7 +155,7 @@ public class WorkerTest_MimeType extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Accept and the content-type the server has determined do not match.
      *  The request must be responded with status 406.
      *  @throws Exception
@@ -173,7 +173,7 @@ public class WorkerTest_MimeType extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Accept and the content-type the server has determined do not match.
      *  The request must be responded with status 406.
      *  @throws Exception
@@ -191,7 +191,7 @@ public class WorkerTest_MimeType extends AbstractTest {
     }  
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For the file extension {@code xxx} was not defined a mimetype.
      *  The request must be responded with status 200 and the standard mimetype.
      *  Accept is blank and is ignored.

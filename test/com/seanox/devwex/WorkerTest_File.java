@@ -30,7 +30,7 @@ import com.seanox.test.utils.ResourceUtils;
 import com.seanox.test.utils.TextUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
  *  WorkerTest_File 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -47,7 +47,7 @@ public class WorkerTest_File extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Tested the use of method:
      *      {@code Worker#fileNormalize(String)}.
      *  @throws Exception

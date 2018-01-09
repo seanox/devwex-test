@@ -37,7 +37,7 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
  *  WorkerTest_Configuration 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -49,7 +49,7 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_Configuration extends AbstractTest {
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] IDENTITY = ON}
      *  The CGI-parameter {@code SERVER_NAME} must be available.
      *  @throws Exception
@@ -73,7 +73,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] IDENTITY = ?}
      *  The CGI-parameter {@code SERVER_NAME} is not available.
      *  @throws Exception
@@ -97,7 +97,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] IDENTITY = OFF}
      *  The CGI-parameter {@code SERVER_NAME} is not available.
      *  @throws Exception
@@ -120,7 +120,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] docroot = ?}
      *  The DooRoot is the current working directory.
      *  @throws Exception
@@ -145,7 +145,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] DEFAULT = index_1.html, index_2.html}
      *  In the requested directory, the file index_1.html is found and shown.
      *  @throws Exception
@@ -170,7 +170,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] DEFAULT = index_1.html, index_2.html}
      *  In the requested directory, the file index_2.html is found and shown.
      *  @throws Exception
@@ -196,7 +196,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] DEFAULT = index_1.html, index_2.html}
      *  In the requested directory, the files index_1.html and index_2.html is
      *  not found, therefore the directory is shown.
@@ -224,7 +224,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }    
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] DEFAULT = ' '}
      *  Without correct default, the directory is shown.
      *  Without ACCESSLOG, the StdIO is used for logging.
@@ -275,7 +275,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration:
      *      {@code [SERVER/VIRTUAL:BAS] MAXACCESS = 3}
      *      {@code [SERVER/VIRTUAL:BAS] BACKLOG = 5}
@@ -308,7 +308,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = XXX}
      *  The method XXX is included in the method list, but not implemented.
      *  The request must be responded with status 501.
@@ -332,7 +332,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = XXX}
      *  The method ZZZ is included in the method list and not implemented.
      *  The request must be responded with status 405.
@@ -353,7 +353,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = AAA}
      *  The method AAA is included in the method list, but not implemented.
      *  The request must be responded with status 501.
@@ -377,7 +377,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = BBB}
      *  The method BBB is included in the method list, but no module is
      *  assigned. The request must be responded with status 501.
@@ -401,7 +401,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = BBB}
      *  The method CCC is not included in the method list. The request must be
      *  responded with status 405, even if a module exists.
@@ -428,7 +428,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] INDEX = ON}
      *  The file index includes all entries of a directory, even hidden entries.
      *  Access to hidden files is allowed.
@@ -458,7 +458,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] INDEX = ON [S]}
      *  The file index includes all not hidden entries of a directory.
      *  Access to hidden files is allowed.
@@ -487,7 +487,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] INDEX = ON [S]}
      *  The file index includes all not hidden entries of a directory.
      *  Access to hidden files is allowed.
@@ -516,7 +516,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] INDEX = OFF [S]}
      *  The file index is not allowed. The request must be responded with
      *  status 403. Access to hidden files is allowed.
@@ -545,7 +545,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = ALL}
      *  The alias ALL will no longer supported, because the Allow-Header can
      *  not be filled correctly. The request must be responded with status 405.
@@ -566,7 +566,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = XYZ ...}
      *  The method XYZ is included in the method list, but not implemented.
      *  The request must be responded with status 501.
@@ -590,7 +590,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = HEAD, ALL 123}
      *  The method HEAD is supported, but GET not. The request must be
      *  responded with status 405.
@@ -627,7 +627,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = HEAD ALL 123}
      *  The method ALL 123 will no supported. The request must be responded
      *  with status 400.
@@ -648,7 +648,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = ALL}
      *  The alias ALL will no longer supported, because the Allow-Header can
      *  not be filled correctly. The request must be responded with status 405.
@@ -669,7 +669,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] METHODS = ALL get}
      *  In the case of status 405, the response header ALLOW must be set
      *  correctly.
@@ -701,7 +701,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_A = }
      *  The value of ENV_PARAM_A is static and empty. Section works smart and
      *  therefore the variable does not exist.
@@ -731,7 +731,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_B = 123}
      *  The value of ENV_PARAM_C is static and is used normally.
      *  @throws Exception
@@ -759,7 +759,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_C [?] = 456}
      *  The value of ENV_PARAM_C is dynamically. Bcause no corresponding
      *  environment variable exists, the default value 456 is used.
@@ -788,7 +788,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_D [?] = 789}
      *  The value of ENV_PARAM_D is dynamically and is set by the corresponding
      *  environment variable. The default value 789 is not used.
@@ -817,7 +817,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_E [?]}
      *  The value of ENV_PARAM_F is dynamically, but the corresponding
      *  environment variable is empty. Section works smart and therefore the
@@ -840,7 +840,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_F [?]}
      *  The value of ENV_PARAM_F is dynamically, but there is no corresponding
      *  environment variable. Section works smart and therefore the variable
@@ -863,7 +863,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_G [?]}
      *  The value of ENV_PARAM_G is dynamically and is set by value of the
      *  environment variable.
@@ -892,7 +892,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_H = xyz [?]}
      *  The function {@code [?]} at the end of the line is ignored and is a
      *  part of the value.
@@ -921,7 +921,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_I = uvw [+]}
      *  The function {@code [+]} at the end of the line is ignored and is a
      *  part of the value.
@@ -950,7 +950,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ENV_PARAM_J [?] = xxx}
      *  The parameter is overwritten with an empty environment variable.
      *  @throws Exception
@@ -978,7 +978,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [COMMONS] RELOAD = ON}
      *  If the configuration file is changed, the server must restart and load
      *  the new configuration.
@@ -1023,7 +1023,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] ACCESS = OFF}
      *  The logging will be completely disabled.
      *  @throws Exception
@@ -1047,7 +1047,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:ENV] TESTINIT = ... + ...}
      *  The line function {@code +} must work correctly.
      *  The vlaue of the key TESTINIT must be assembled correctly.
@@ -1076,7 +1076,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] IDENTITY = ON}
      *  The server signature in the response header is activated.
      *  @throws Exception
@@ -1100,7 +1100,7 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code [SERVER/VIRTUAL:BAS] IDENTITY = ON}
      *  The server signature in the response header is disabled.
      *  @throws Exception

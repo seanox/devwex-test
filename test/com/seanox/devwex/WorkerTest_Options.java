@@ -30,7 +30,7 @@ import com.seanox.test.utils.OutputFacadeStream;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
  *  WorkerTest_Options 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -42,7 +42,7 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_Options extends AbstractTest {
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For method {@code OPTIONS}, The target is not checked. Whether exits or
      *  not, the request is responded with status 200, {@code Allow} and
      *  without content details. {@code OPTIONS} is only a request about the
@@ -69,7 +69,7 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For method {@code OPTIONS}, The target is not checked. Whether exits or
      *  not, the request is responded with status 200, {@code Allow} and
      *  without content details. {@code OPTIONS} is only a request about the
@@ -96,7 +96,7 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For method {@code OPTIONS}, The target is not checked. Whether exits or
      *  not, the request is responded with status 200, {@code Allow} and
      *  without content details. {@code OPTIONS} is only a request about the
@@ -123,7 +123,7 @@ public class WorkerTest_Options extends AbstractTest {
     } 
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For method {@code OPTIONS}, The target is not checked. Whether exits or
      *  not, the request is responded with status 200, {@code Allow} and
      *  without content details. {@code OPTIONS} is only a request about the
@@ -150,7 +150,7 @@ public class WorkerTest_Options extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For method {@code OPTIONS}, The target is not checked. Whether exits or
      *  not, the request is responded with status 200, {@code Allow} and
      *  without content details. {@code OPTIONS} is only a request about the
@@ -177,7 +177,7 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For method {@code OPTIONS}, the request header
      *  {@code If-Modified-Since} is ignored. Whether correct or invalid, the
      *  request is responded with status 200, {@code Allow} and without content
@@ -214,7 +214,7 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For method {@code OPTIONS}, the request header
      *  {@code If-Modified-Since} is ignored. Whether correct or invalid, the
      *  request is responded with status 200, {@code Allow} and without content
@@ -242,7 +242,7 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For method {@code OPTIONS}, the request header
      *  {@code If-Modified-Since} is ignored. Whether correct or invalid, the
      *  request is responded with status 200, {@code Allow} and without content
@@ -280,7 +280,7 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For method {@code OPTIONS}, the request header
      *  {@code If-Modified-Since} is ignored. Whether correct or invalid, the
      *  request is responded with status 200, {@code Allow} and without content
@@ -318,7 +318,7 @@ public class WorkerTest_Options extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For method {@code OPTIONS}, the target (also directories and
      *  independent of default) is not checked. Whether exits or not, the
      *  request is responded with status 200, {@code Allow} and without content
@@ -348,7 +348,7 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For method {@code OPTIONS}, the target (also directories) is not
      *  checked. Whether exits or not, the request is responded with status
      *  200, {@code Allow} and without content details. {@code OPTIONS} is only
@@ -378,7 +378,7 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For method {@code OPTIONS}, the request for a forbidden target is
      *  responded with status 403. 
      *  @throws Exception
@@ -404,7 +404,7 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For method {@code OPTIONS}, the target (also with an absolute paths) is
      *  not checked. Whether exits or not, the request is responded with status
      *  200, {@code Allow} and without content details. {@code OPTIONS} is only
@@ -432,7 +432,7 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For method {@code OPTIONS}, the target (also with an absolute paths) is
      *  not checked. Whether exits or not, the request is responded with status
      *  200, {@code Allow} and without content details. {@code OPTIONS} is only
@@ -460,7 +460,7 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /**
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For the CGI, the method {@code OPTIONS} are responded by the CGI.
      *  In the test case, {@code OPTIONS} is for the CGI not allowed and the
      *  request is responded with status 403, also if the CGI not exists.
@@ -487,7 +487,7 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /**
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For the CGI, the method {@code OPTIONS} are responded by the CGI.
      *  In the test case, {@code OPTIONS} is for the CGI allowed and the
      *  request is responded with status 200.
@@ -518,7 +518,7 @@ public class WorkerTest_Options extends AbstractTest {
     }
     
     /**
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For the CGI, the method {@code OPTIONS} are responded by the CGI.
      *  In the test case, {@code OPTIONS} is for the CGI not allowed and the
      *  request is responded with status 403.
@@ -585,7 +585,7 @@ public class WorkerTest_Options extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For method {@code OPTIONS}, the target is not checked. Whether exits or
      *  not, the request is responded with status 200, {@code Allow} and
      *  without content details. {@code OPTIONS} is only a request about the
@@ -755,7 +755,7 @@ public class WorkerTest_Options extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  For method {@code OPTIONS}, the target is not checked. Whether exits or
      *  not, the request is responded with status 200, {@code Allow} and
      *  without content details. {@code OPTIONS} is only a request about the

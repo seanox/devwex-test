@@ -27,7 +27,7 @@ import org.junit.Test;
 import com.seanox.test.utils.ResourceUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Initialize}.<br>
+ *  Test cases for {@link com.seanox.devwex.Initialize}.<br>
  *  <br>
  *  InitializeTest_ToString 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -38,7 +38,7 @@ import com.seanox.test.utils.ResourceUtils;
  */
 public class InitializeTest_ToString extends AbstractTest {
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_1() {
         
@@ -46,7 +46,7 @@ public class InitializeTest_ToString extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContent("testAcceptance_1_1"), InitializeTest.toString(initialize));
     }
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_2() {
         
@@ -54,7 +54,7 @@ public class InitializeTest_ToString extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContent("testAcceptance_2_1"), InitializeTest.toString(initialize));
     }
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_3() {
         
@@ -62,7 +62,7 @@ public class InitializeTest_ToString extends AbstractTest {
         Assert.assertEquals(ResourceUtils.getContent("testAcceptance_3_1"), InitializeTest.toString(initialize));
     }
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_4() {
         

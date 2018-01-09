@@ -33,7 +33,7 @@ import org.junit.Test;
 import com.seanox.test.utils.ResourceUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Service}.<br>
+ *  Test cases for {@link com.seanox.devwex.Service}.<br>
  *  <br>
  *  ServiceTest_Module 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -73,7 +73,7 @@ public class ServiceTest_Module extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Checks various variants of valid and invalid modules.
      *  @throws Exception
      */     

@@ -27,7 +27,7 @@ import org.junit.Test;
 import com.seanox.test.utils.HttpUtils;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Remote}.<br>
+ *  Test cases for {@link com.seanox.devwex.Remote}.<br>
  *  <br>
  *  RemoteTest_Invalid 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -39,7 +39,7 @@ import com.seanox.test.utils.HttpUtils;
 public class RemoteTest_Invalid extends AbstractTest {
     
     /** 
-     *  TestCase for an unknown command and overlength.
+     *  Test case for an unknown command and overlength.
      *  The length of the request is limited to 65535 bytes and must be
      *  responded with {@code INFO: UNKNOWN COMMAND}.
      *  @throws Exception
@@ -56,7 +56,7 @@ public class RemoteTest_Invalid extends AbstractTest {
     }
     
     /** 
-     *  TestCase for an unknown command.
+     *  Test case for an unknown command.
      *  The command {@code Restar[\r\n]123} is invalid and must be
      *  responded with {@code INFO: UNKNOWN COMMAND}.
      *  @throws Exception

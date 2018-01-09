@@ -28,7 +28,7 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
  *  WorkerTest_VirtualHost 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -40,7 +40,7 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_VirtualHost extends AbstractTest {
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Virtual hosts must be resolved correctly.
      *  @throws Exception
      */
@@ -66,7 +66,7 @@ public class WorkerTest_VirtualHost extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Virtual hosts must be resolved correctly.
      *  @throws Exception
      */
@@ -92,7 +92,7 @@ public class WorkerTest_VirtualHost extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The virtual host must observe the parameter SERVER.
      *  @throws Exception
      */
@@ -117,7 +117,7 @@ public class WorkerTest_VirtualHost extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The virtual host must observe the parameter SERVER.
      *  @throws Exception
      */

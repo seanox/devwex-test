@@ -25,7 +25,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Section}.<br>
+ *  Test cases for {@link com.seanox.devwex.Section}.<br>
  *  <br>
  *  SectionTest_Get 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -36,7 +36,7 @@ import org.junit.Test;
  */
 public class SectionTest_Get extends AbstractTest {
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_01() {
         
@@ -47,7 +47,7 @@ public class SectionTest_Get extends AbstractTest {
         }
     }
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_02() {
         
@@ -58,7 +58,7 @@ public class SectionTest_Get extends AbstractTest {
         }
     }    
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_03() {
         
@@ -69,7 +69,7 @@ public class SectionTest_Get extends AbstractTest {
         }
     }
 
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_04() {
         
@@ -81,7 +81,7 @@ public class SectionTest_Get extends AbstractTest {
         }
     }
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_05() {
         
@@ -93,7 +93,7 @@ public class SectionTest_Get extends AbstractTest {
         }
     }    
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_06() {
         
@@ -105,7 +105,7 @@ public class SectionTest_Get extends AbstractTest {
         }
     }    
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_07() {
         
@@ -114,7 +114,7 @@ public class SectionTest_Get extends AbstractTest {
         Assert.assertNull(value);
     }
     
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_08() {
         
@@ -123,7 +123,7 @@ public class SectionTest_Get extends AbstractTest {
         Assert.assertNull(value);
     }    
 
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_09() {
         
@@ -133,7 +133,7 @@ public class SectionTest_Get extends AbstractTest {
         Assert.assertEquals(0, section.size());
     }    
 
-    /** TestCase for acceptance. */
+    /** Test case for acceptance. */
     @Test
     public void testAcceptance_10() {
         
