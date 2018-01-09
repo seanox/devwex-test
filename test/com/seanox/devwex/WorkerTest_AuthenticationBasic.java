@@ -1,7 +1,7 @@
 /**
  *  LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
- *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt. Diese
- *  Software unterliegt der Version 2 der GNU General Public License.
+ *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
+ *  Diese Software unterliegt der Version 2 der GNU General Public License.
  *
  *  Devwex, Advanced Server Development
  *  Copyright (C) 2017 Seanox Software Solutions
@@ -26,17 +26,25 @@ import org.junit.Test;
 
 import com.seanox.test.utils.Codec;
 import com.seanox.test.utils.HttpUtils;
-import com.seanox.test.utils.Pattern;
-import com.seanox.test.utils.HttpUtils.HeaderField;
 import com.seanox.test.utils.HttpUtils.Authentication.Digest;
+import com.seanox.test.utils.HttpUtils.HeaderField;
+import com.seanox.test.utils.OutputFacadeStream;
+import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.
+ *  Test cases for {@link com.seanox.devwex.Worker}.<br>
+ *  <br>
+ *  WorkerTest_AuthenticationBasic 5.1 20171231<br>
+ *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  All rights reserved.
+ *
+ *  @author  Seanox Software Solutions
+ *  @version 5.1 20171231
  */
 public class WorkerTest_AuthenticationBasic extends AbstractTest {
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  Without {@code usr-a:pwd-a} the request is responded with status 401.
@@ -53,13 +61,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a/b/d [acc:none]}
      *  With {@code [acc:none]} no authentication is required and the request
@@ -77,13 +85,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  With {@code usr-a:pwd-a} the authentication is correct and the request
@@ -102,13 +110,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a/b [acc:usr-b:pwd-b:Section-B]}
      *  With {@code usr-a:pwd-a} the authentication is not correct and the
@@ -127,13 +135,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-B")));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a/b [acc:usr-b:pwd-b:Section-B]}
      *  With {@code usr-b:pwd-b} the authentication is correct and the request
@@ -152,13 +160,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-b")));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-b")));
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  With {@code usr-b:pwd-b} the authentication is not correct and the
@@ -177,13 +185,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a/b/c [acc:usr-a:pwd-a:Section-A2]}
      *  With {@code usr-a:pwd-a} the authentication is correct and the request
@@ -202,13 +210,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
     }   
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a/b/c [acc:usr-a:pwd-a:Section-A2]}
      *  The authentication is missing and the request is responded with status
@@ -226,13 +234,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A2")));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a/b/d/e [acc:usr-e:pwd-e:Section-E]}
      *  The authentication is missing and the request is responded with status
@@ -250,13 +258,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-E")));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }  
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a/b/d/e/e [acc:usr-e:pwd-e:Section-E]}
      *  The authentication is missing and the request is responded with status
@@ -274,13 +282,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-E")));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a/b/d/e/e [acc:usr-e:pwd-e:Section-E]}
      *  With {@code acc:usr-e:pwd-e} the authentication is correct and the request
@@ -299,13 +307,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-e")));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-e")));
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a/b/d/e/e [acc:usr-e:pwd-e:Section-E]}
      *  With {@code acc:usr-e:pwd-e} the authentication is correct and the
@@ -332,9 +340,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8080/authentication/a/b/d/e/e/")));
 
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
         
         request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -347,9 +355,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_TEXT_HTML));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
          
         request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -360,9 +368,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-e")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-e")));
     }
     
     private static void assertAcceptance_13(String uri, String status, int auth) throws Exception {
@@ -379,7 +387,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  The access to @{code /authentication/a/b/d/e/*} is defined in
      *  combination with option @{code [C]}. ACC has the higher priority and
@@ -421,7 +429,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  The realm can be specified differently. Spaces at the beginning and
      *  end, as well the quotation mark are to be suppressed in the HTTP
@@ -460,7 +468,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  Users and realm are separated by the colon when encrypting. Below are
      *  tested different combinations in the definition.   
@@ -481,7 +489,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  With {@code acc:usr-a:pwd-a} the authentication is correct and the
@@ -502,13 +510,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-a")));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-a")));
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  The authentication is missing and the request is responded with status
@@ -526,13 +534,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));  
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  VHA defines {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}.
      *  VHF extends VHA, overwrites {@code /authentication/a
@@ -555,9 +563,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -567,9 +575,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -580,9 +588,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
         
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -592,9 +600,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -605,9 +613,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -617,13 +625,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a/b/d/e/e/lock [C]}
      *  The URI requires an authorization and has been redirected, because a
@@ -646,9 +654,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));  
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));  
         
         request = "GET /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -659,9 +667,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
         
         request = "HEAD /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -671,9 +679,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));  
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));  
         
         request = "HEAD /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -684,13 +692,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a/b/d/e/e/lock [C]}
      *  The URI requires an authorization and the target does not exits. The
@@ -712,9 +720,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "GET /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -725,9 +733,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-e")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-e")));
         
         request = "HEAD /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -737,9 +745,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "HEAD /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -750,13 +758,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-e")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("404", request, "usr-e")));
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a/b/d/e/e/lock [C]}
      *  The URI requires an authorization and has been forbidden. The requests
@@ -778,9 +786,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "GET /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -791,9 +799,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-e")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-e")));
         
         request = "HEAD /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -803,9 +811,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "HEAD /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -816,93 +824,99 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-e")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-e")));
     }
 
     private static void assertAcceptance_22_1(String... args) throws Exception {
         
-        String uri = null;
-        if (args.length > 0)
-            uri = args[0];
-        String authorisation = null;
-        if (args.length > 1)
-            authorisation = args[1];
-        String login = null;
-        if (args.length > 2)
-            login = args[2];
+        try (OutputFacadeStream.Capture capture = AbstractSuite.accessStream.capture()) {
 
-        String request = "GET " + uri + " HTTP/1.0\r\n"
-                + "Host: vHa\r\n";
-        if (login != null)
-            request += "Authorization: Basic " + Codec.encodeBase64(login) + "\r\n";
-        request += "\r\n";
+            String uri = null;
+            if (args.length > 0)
+                uri = args[0];
+            String authorisation = null;
+            if (args.length > 1)
+                authorisation = args[1];
+            String login = null;
+            if (args.length > 2)
+                login = args[2];
 
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-        if (authorisation != null)
-            Assert.assertTrue(HttpUtils.getResponseHeaderValue(response, HeaderField.WWW_AUTHENTICATE).startsWith(authorisation + " "));
-        else
-            Assert.assertFalse(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
-        
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        if (authorisation != null)
-            Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
-        else
-            Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
+            String request = "GET " + uri + " HTTP/1.0\r\n"
+                    + "Host: vHa\r\n";
+            if (login != null)
+                request += "Authorization: Basic " + Codec.encodeBase64(login) + "\r\n";
+            request += "\r\n";
+
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+            if (authorisation != null)
+                Assert.assertTrue(HttpUtils.getResponseHeaderValue(response, HeaderField.WWW_AUTHENTICATE).startsWith(authorisation + " "));
+            else
+                Assert.assertFalse(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
+            
+            Thread.sleep(AbstractTest.SLEEP);
+            String accessLog = AbstractTestUtils.tail(capture.toString());
+            if (authorisation != null)
+                Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+            else
+                Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));            
+        }
     }
 
     private static void assertAcceptance_22_2(String... args) throws Exception {
         
-        String uri = null;
-        if (args.length > 0)
-            uri = args[0];
-        String method = null;
-        if (args.length > 1)
-            method = args[1];
-        String user = null;
-        if (args.length > 2)
-            user = args[2];        
-        String password = null;
-        if (args.length > 3)
-            password = args[3]; 
+        try (OutputFacadeStream.Capture capture = AbstractSuite.accessStream.capture()) {
+            
+            String uri = null;
+            if (args.length > 0)
+                uri = args[0];
+            String method = null;
+            if (args.length > 1)
+                method = args[1];
+            String user = null;
+            if (args.length > 2)
+                user = args[2];        
+            String password = null;
+            if (args.length > 3)
+                password = args[3]; 
 
-        String request;
-        String response;
-        
-        request  = null;
-        response = null;
-        if (method == null || method.trim().isEmpty()) {
-            request = "GET " + uri + " HTTP/1.0\r\n"
-                    + "Host: vHa\r\n"
-                    + "\r\n";
-            response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-        } else if (("Basic").equalsIgnoreCase(method)) {
-            request = "GET " + uri + " HTTP/1.0\r\n"
-                    + "Host: vHa\r\n"
-                    + "Authorization: Basic " + Codec.encodeBase64(user + ":" + password) + "\r\n"
-                    + "\r\n";
-            response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-        } else if (("Digest").equalsIgnoreCase(method)) {
-            request = "GET " + uri + " HTTP/1.0\r\n"
-                    + "Host: vHa\r\n"
-                    + "\r\n";
-            response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Digest(user, password)));
-        } else Assert.fail("Unsupported authentication method: '" + method + "'");
-        
-        Assert.assertNotNull(response);
-        Assert.assertFalse(response.trim().isEmpty());
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
-        Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
+            String request;
+            String response;
+            
+            request  = null;
+            response = null;
+            if (method == null || method.trim().isEmpty()) {
+                request = "GET " + uri + " HTTP/1.0\r\n"
+                        + "Host: vHa\r\n"
+                        + "\r\n";
+                response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+            } else if (("Basic").equalsIgnoreCase(method)) {
+                request = "GET " + uri + " HTTP/1.0\r\n"
+                        + "Host: vHa\r\n"
+                        + "Authorization: Basic " + Codec.encodeBase64(user + ":" + password) + "\r\n"
+                        + "\r\n";
+                response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+            } else if (("Digest").equalsIgnoreCase(method)) {
+                request = "GET " + uri + " HTTP/1.0\r\n"
+                        + "Host: vHa\r\n"
+                        + "\r\n";
+                response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Digest(user, password)));
+            } else Assert.fail("Unsupported authentication method: '" + method + "'");
+            
+            Assert.assertNotNull(response);
+            Assert.assertFalse(response.trim().isEmpty());
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
+            Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
 
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, user)));
+            Thread.sleep(AbstractTest.SLEEP);
+            String accessLog = AbstractTestUtils.tail(capture.toString());
+            Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, user)));
+        }
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  The directory structure {@code /o1} uses a mix of different
      *  authorizations. The correct use and response is checked.
@@ -939,7 +953,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  The authentication is incorrect and the request is responded with
@@ -958,13 +972,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));  
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  The authentication is incorrect and the request is responded with
@@ -983,13 +997,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));  
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/bvc [Acc:group:c] [realm:sb] [C]}
      *  The URI requires an authorization and has been forbidden. The requests
@@ -1012,9 +1026,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-a")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-a")));
         
         request = "GET /authentication/bvc HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -1025,13 +1039,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/bvr > http://www.heise.de [Acc:group:c] [R]}
      *  The URI requires an authorization and has been redirected. The requests
@@ -1054,9 +1068,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-a")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-a")));
         
         request = "GET /authentication/bvr HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -1067,13 +1081,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/bvv > ./stage/documents_vh_A/test_a [Acc:group:c]}
      *  The URI requires an authorization and referenced a existing virtual
@@ -1096,9 +1110,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-a")));
         
         request = "GET /authentication/bvv/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -1109,9 +1123,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "GET /authentication/bvv HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -1122,13 +1136,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/bvm > module.WorkerModule_A [v:xx=123] [m] [Acc:group:c]}
      *  The URI requires an authorization and reference a module. The requests 
@@ -1152,9 +1166,9 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
         Assert.assertTrue(response.matches("(?s)^.*\\[v\\:xx=123\\] \\[m\\].*$"));
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS("1", request, "usr-a")));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("1", request, "usr-a")));
         
         request = "GET /authentication/bvm HTTP/1.0\r\n"
            + "Host: vHa\r\n"
@@ -1165,34 +1179,37 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE));  
         
-        Thread.sleep(50);
-        accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        accessLog = this.accessStreamCaptureTail();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
     private static void assertAcceptance_29(String uri, String user, String password, boolean authorisation) throws Exception {
         
-        String request = "GET " + uri + " HTTP/1.0\r\n"
-                + "Host: vHf\r\n"
-                + "Authorization: Basic " + Codec.encodeBase64(user + ":" + password) + "\r\n"
-                + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-
-         if (authorisation)
-             Assert.assertTrue(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
-         else
-             Assert.assertFalse(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
-         
-         Thread.sleep(50);
-         String accessLog = AbstractSuite.getAccessLogTail();
-         if (authorisation)
-             Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
-         else
-             Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
+        try (OutputFacadeStream.Capture capture = AbstractSuite.accessStream.capture()) {
+            
+            String request = "GET " + uri + " HTTP/1.0\r\n"
+                    + "Host: vHf\r\n"
+                    + "Authorization: Basic " + Codec.encodeBase64(user + ":" + password) + "\r\n"
+                    + "\r\n";
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+            
+            if (authorisation)
+                Assert.assertTrue(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
+            else
+                Assert.assertFalse(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
+            
+            Thread.sleep(AbstractTest.SLEEP);
+            String accessLog = capture.toString().trim();
+            if (authorisation)
+                Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+            else
+                Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
+        }
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  The directory structure {@code /authentication} uses a mix of different
      *  authorizations with different options and options. The correct use and
@@ -1265,21 +1282,24 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
     
     private static void assertAcceptance_30(String uri, String method) throws Exception {
         
-        String request = "GET " + uri + " HTTP/1.0\r\n"
-                + "Host: vHf\r\n"
-                + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
-         
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE(method)));  
-         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        try (OutputFacadeStream.Capture capture = AbstractSuite.accessStream.capture()) {
+            
+            String request = "GET " + uri + " HTTP/1.0\r\n"
+                    + "Host: vHf\r\n"
+                    + "\r\n";
+            String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+            
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
+            Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE(method)));  
+            
+            Thread.sleep(AbstractTest.SLEEP);
+            String accessLog = capture.toString().trim();
+            Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        }
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The change of authentication method must be working. In the following,
      *  the correct function is checked. The request must be responded with 401
      *  and the correct {@code WWW-Authenticate}.
@@ -1294,7 +1314,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
     }     
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a/b/e [acC:group:BE[realm:Section-BE}
      *  With a corrupt acc rule the authentication is ignored and the request
@@ -1312,13 +1332,13 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Basic Authentication:
      *  {@code /authentication/a/b/e/c [acC:group:BEC][realm:Section-BEC}
      *  With a correct acc rule after a corrupt acc rule, the authentication is
@@ -1336,8 +1356,8 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-BEC")));
         
-        Thread.sleep(50);
-        String accessLog = AbstractSuite.getAccessLogTail();
-        Assert.assertTrue(accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }     
 }

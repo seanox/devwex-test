@@ -33,7 +33,7 @@ import com.seanox.test.utils.OutputFacadeStream;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  TestCases for {@link com.seanox.devwex.Worker}.<br>
+ *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
  *  WorkerTest_AuthenticationDigest 5.1 20171231<br>
  *  Copyright (C) 2017 Seanox Software Solutions<br>
@@ -45,7 +45,7 @@ import com.seanox.test.utils.Pattern;
 public class WorkerTest_AuthenticationDigest extends AbstractTest {
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  Without {@code usr-a:pwd-a} the request is responded with status 401.
      *  @throws Exception
@@ -72,7 +72,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code /authentication/a/b/d [acc:none]}
      *  Without login/password the request is responded with status 200.
      *  Access is also possible without login/password.
@@ -95,7 +95,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  Authentication {@code usr-a:pwd-a} is required for the access.
      *  @throws Exception
@@ -133,7 +133,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     } 
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code /authentication/a/b [acc:usr-b:pwd-b:Section-B]}
      *  Authentication {@code usr-b:pwd-b} is required for the access.
      *  @throws Exception
@@ -171,7 +171,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code /authentication/a/b [acc:usr-b:pwd-b:Section-B]}
      *  Authentication {@code usr-b:pwd-b} is required for the access.
      *  @throws Exception
@@ -206,7 +206,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  Authentication {@code usr-a:pwd-a} is required for the access.
      *  Transmitted was: {@code usr-b:pwd-b}
@@ -246,7 +246,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code /authentication/a/b/c [acc:usr-a:pwd-a:Section-A2]}
      *  Authentication {@code usr-a:pwd-a} is required for the access.
      *  Transmitted was: {@code usr-a:pwd-a}
@@ -286,7 +286,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code /authentication/a/b/c [acc:usr-a:pwd-a:Section-A2]}
      *  Authentication {@code usr-a:pwd-a} is required for the access.
      *  Transmitted was: nothing
@@ -315,7 +315,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code /authentication/a/b/d/e [acc:usr-e:pwd-e:Section-E]}
      *  Transmitted was: nothing
      *  The request is responded with status 401.
@@ -343,7 +343,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code /authentication/a/b/d/e/e [acc:usr-e:pwd-e:Section-E]}
      *  Transmitted was: nothing
      *  The request is responded with status 401.
@@ -371,7 +371,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code /authentication/a/b/d/e/e [acc:usr-e:pwd-e:Section-E]}
      *  Authentication {@code usr-e:pwd-e} is required for the access.
      *  Transmitted was: {@code usr-e:pwd-e}
@@ -409,7 +409,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Configuration: {@code /authentication/a/b/d/e/e [acc:usr-e:pwd-e:Section-E]}
      *  Authentication {@code usr-e:pwd-e} is required for the access.
      *  Transmitted was: {@code usr-e:pwd-e}
@@ -492,7 +492,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  The access to @{code /authentication/a/b/d/e/*} is defined in
      *  combination with option @{code [C]}. ACC has the higher priority and
@@ -538,7 +538,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  The realm can be specified differently. Spaces at the beginning and
      *  end, as well the quotation mark are to be suppressed in the HTTP
@@ -578,7 +578,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  Users and realm are separated by the colon when encrypting. Below are
      *  tested different combinations in the definition.   
@@ -599,7 +599,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  With {@code acc:usr-a:pwd-a} the authentication is correct and the
@@ -639,7 +639,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  The authentication is missing and the request is responded with status
@@ -662,7 +662,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  VHA defines {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}.
      *  VHF extends VHA, overwrites {@code /authentication/a
@@ -687,7 +687,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a/b/d/e/e/lock [C]}
      *  The URI requires an authorization and has been redirected, because a
@@ -754,7 +754,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a/b/d/e/e/lock [C]}
      *  The URI requires an authorization and the target does not exits. The
@@ -814,7 +814,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a/b/d/e/e/lock [C]}
      *  The URI requires an authorization and has been forbidden. The requests
@@ -960,7 +960,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  The directory structure {@code /o1} uses a mix of different
      *  authorizations. The correct use and response is checked.
@@ -997,7 +997,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
 
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
      *  The authentication is incorrect and the request is responded with
@@ -1035,7 +1035,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a [acc: group:C ] [realm:Section-A] [d]}
      *  The authentication is incorrect and the request is responded with
@@ -1073,7 +1073,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/dvc [Acc:group:c] [realm:sb] [C] [D]}
      *  The URI requires an authorization and has been forbidden. The requests
@@ -1111,7 +1111,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/dvr > http://www.heise.de [Acc:group:c] [realm:sb] [R] [D]}
      *  The URI requires an authorization and has been redirected. The requests
@@ -1149,7 +1149,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/dvv > ./stage/documents_vh_A/test_a [Acc:group:c] [realm:sb] [D]}
      *  The URI requires an authorization and referenced a existing virtual
@@ -1209,7 +1209,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/dvm > module.WorkerModule_A [v:xx=123] [m] [Acc:group:c] [realm:sb] [D]}
      *  The URI requires an authorization and reference a module. The requests 
@@ -1282,7 +1282,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  The directory structure {@code /authentication} uses a mix of different
      *  authorizations with different options and options. The correct use and
@@ -1371,7 +1371,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  The change of authentication method must be working. In the following,
      *  the correct function is checked. The request must be responded with 401
      *  and the correct {@code WWW-Authenticate}.
@@ -1386,7 +1386,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }     
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a/b/e [acC:group:BE[realm:Section-BE [D]}
      *  With a corrupt acc rule the authentication is ignored and the request
@@ -1410,7 +1410,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     }
     
     /** 
-     *  TestCase for acceptance.
+     *  Test case for acceptance.
      *  Test for Digest Authentication:
      *  {@code /authentication/a/b/e/c [acC:group:BEC][realm:Section-BEC}
      *  With a correct acc rule after a corrupt acc rule, the authentication is
