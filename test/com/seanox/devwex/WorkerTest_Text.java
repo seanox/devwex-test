@@ -127,4 +127,15 @@ public class WorkerTest_Text extends AbstractTest {
                     WorkerTest_Text.textDecode(lines[loop]));
         }
     }
+    
+    /** 
+     *  Test case for acceptance.
+     *  Tested the use of method:
+     *      {@code Worker#textEscape(String)}.
+     *  @throws Exception
+     */  
+    @Test
+    public void testAcceptance_05() throws Exception {
+        Assert.assertEquals("\\uD801\\uDC00", WorkerTest_Text.textEscape("\ud801\udc00"));
+    }    
 }

@@ -97,7 +97,7 @@ public class InitializeTest_Set extends AbstractTest {
     public void testKeyInvalid_9() {
         
         Initialize initialize = new Initialize();
-        initialize.set(" \20\20 ", null);
+        initialize.set(" \40\40 ", null);
     }
 
     /** Test case for a invalid key. */
@@ -105,7 +105,7 @@ public class InitializeTest_Set extends AbstractTest {
     public void testKeyInvalid_A() {
         
         Initialize initialize = new Initialize();
-        initialize.set(" \17\17 ", null);
+        initialize.set(" \27\27 ", null);
     }
     
     /** Test case for key tolerance. */

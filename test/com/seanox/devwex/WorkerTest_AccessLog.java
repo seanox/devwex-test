@@ -96,7 +96,7 @@ public class WorkerTest_AccessLog extends AbstractTest {
         
         Thread.sleep(AbstractTest.SLEEP);
         String accessLog = this.accessStreamCapture.toString().trim();
-        Assert.assertTrue(accessLog, accessLog.contains(" \"G\\\"ET /nix\\\"xxx\\\"_zzz\\ff HTTP/1.0\" "));
+        Assert.assertTrue(accessLog, accessLog.contains(" \"G\\\"ET /nix\\\"xxx\\\"_zzz\\xFF HTTP/1.0\" "));
         Assert.assertTrue(accessLog, accessLog.contains(" \"Nix\\\"123\\\""));
     }
     
@@ -122,4 +122,22 @@ public class WorkerTest_AccessLog extends AbstractTest {
         Thread.sleep(AbstractTest.SLEEP);
         Assert.assertTrue(accessLogFile.exists());
     }
+    
+    /** 
+     *  Test case for acceptance.
+     *  Special characters (\, ") must be escaped.
+     *  @throws Exception
+     */
+    @Test
+    public void testAcceptance_5() throws Exception {
+        
+        String request = "G\"ET /nix\"xxx\"_zzz\ud801\udc00 HTTP/1.0\r\n"
+                + "User-Agent: Nix\"123\"\r\n";
+        HttpUtils.sendRequest("127.0.0.1:80", request + "\r\n");
+        
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.contains(" \"G\\\"ET /nix\\\"xxx\\\"_zzz\\uD801\\uDC00 HTTP/1.0\" "));
+        Assert.assertTrue(accessLog, accessLog.contains(" \"Nix\\\"123\\\""));
+    }    
 }

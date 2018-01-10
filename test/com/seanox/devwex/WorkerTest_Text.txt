@@ -5,14 +5,14 @@ Peter und der Wolf
 #### testAcceptance_01_3
 Petär und der Wölf
 #### testAcceptance_01_4
-Pet\e4r und der W\f6lf
+Pet\xE4r und der W\xF6lf
 #### testAcceptance_01_5
 Petär
   und
     der
       Wölf
 #### testAcceptance_01_6
-Pet\e4r\r\n  und\r\n    der\r\n      W\f6lf
+Pet\xE4r\r\n  und\r\n    der\r\n      W\xF6lf
 #### testAcceptance_02
 Peter und der Wolf:e:x
 Pxtxr und dxr Wolf

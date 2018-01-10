@@ -97,7 +97,7 @@ public class SectionTest_Contains extends AbstractTest {
     public void testKeyInvalid_9() {
         
         Section section = new Section();
-        section.set(" \20\20 ", null);
+        section.set(" \40\40 ", null);
     }
 
     /** Test case for a invalid key. */
@@ -105,7 +105,7 @@ public class SectionTest_Contains extends AbstractTest {
     public void testKeyInvalid_A() {
         
         Section section = new Section();
-        section.set(" \17\17 ", null);
+        section.set(" \27\27 ", null);
     }
     
     /** Test case for key tolerance. */
