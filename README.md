@@ -30,5 +30,6 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # Changes (Change Log)
 ## 5.1.0 2018xxx (summary of the next version)  
 CR: Project - Updated to Seanox Test API 1.1 (AbstractSuite)  
+CR: Test - General enhancement of the tests  
 
 [Read more](https://raw.githubusercontent.com/seanox/devwex/master/CHANGES)
