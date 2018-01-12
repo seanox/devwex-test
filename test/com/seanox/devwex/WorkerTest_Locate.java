@@ -303,14 +303,14 @@ public class WorkerTest_Locate extends AbstractTest {
      *  Test case for acceptance.
      *  Configuration: {@code [VIRTUAL:VHA:REF] /test.2absolut > .../cgi_environment.jsx [a]}
      *  The virtual path is defined as 'absolute'. The request must be
-     *  responded with status 200 and the parameters {@code PATH_BASE},
+     *  responded with status 200 and the parameters {@code PATH_URL},
      *  {@code PATH_TRANSLATED}, {@code PATH_ABSOLUTE} and {@code PATH_INFO}.
      *  @throws Exception
      */       
     @Test
     public void testAcceptance_13() throws Exception {
         
-        String request = "GET /test.2absolutes?parameter=PATH_BASE,PATH_TRANSLATED,PATH_ABSOLUTE,PATH_INFO HTTP/1.0\r\n"
+        String request = "GET /test.2absolutes?parameter=PATH_URL,PATH_TRANSLATED,PATH_ABSOLUTE,PATH_INFO HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
@@ -320,7 +320,7 @@ public class WorkerTest_Locate extends AbstractTest {
         
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertTrue(body.matches("(?s)^.*\r\nPATH_INFO=es\r\n.*$"));
-        Assert.assertTrue(body.matches("(?s)^.*\r\nPATH_BASE=/test\\.2absolutes\r\n.*$"));
+        Assert.assertTrue(body.matches("(?s)^.*\r\nPATH_URL=/test\\.2absolutes\r\n.*$"));
         Assert.assertTrue(body.matches("(?s)^.*\r\nPATH_TRANSLATED=[^\r\n]+[\\\\/]cgi_environment.jsx\r\n.*$"));
         Assert.assertTrue(body.matches("(?s)^.*\r\nPATH_ABSOLUTE=/test\\.2absolut\r\n.*$"));
         

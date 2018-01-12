@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -84,6 +85,9 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
     @SuppressWarnings("unchecked")
     private static void initiate()
             throws Exception {
+        
+        if (!Charset.defaultCharset().name().equals("ISO-8859-1"))
+            throw new RuntimeException("Character encoding ISO-8859-1 required");
         
         final File root = new File(".").getCanonicalFile();
         final File rootStage = new File(root, AbstractSuite.PATH_STAGE).getCanonicalFile();

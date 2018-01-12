@@ -236,7 +236,25 @@
       includes="module/Acceptance*14.class"/>      
     <jar destfile="${workspace.resources.libraries}/module-acceptance_15.jar"
       basedir="${workspace.resources.libraries}"
-      includes="module/Acceptance*15.class"/>      
+      includes="module/Acceptance*15.class"/>
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_16.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*16.class"/>
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_17.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*17.class"/>
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_18.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*18.class"/>   
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_19.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*19.class"/>
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_20.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*20.class"/>
+    <jar destfile="${workspace.resources.libraries}/module-acceptance_21.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="module/Acceptance*21.class"/>                
     
     <jar destfile="${workspace.resources.libraries}/scripting.jar"
       basedir="${workspace.resources.libraries}"

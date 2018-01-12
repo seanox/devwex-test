@@ -322,7 +322,7 @@ public class WorkerTest_Gateway extends AbstractTest {
      *  For the CGI typical environment variables {@code SCRIPT_FILENAME},
      *  {@code PATH_TRANSLATED}, {@code DOCUMENT_ROOT}, {@code REQUEST_URI},
      *  {@code SCRIPT_URL}, {@code SCRIPT_URI}, {@code QUERY_STRING} and
-     *  {@code PATH_BASE} must be set correctly. The environment variables
+     *  {@code PATH_URL} must be set correctly. The environment variables
      *  {@code PATH_ABSOLUTE} and {@code PATH_INFO} must not be set.
      *  @throws Exception
      */      
@@ -355,7 +355,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertTrue(body.matches("(?si)^.*\r\nSCRIPT_URL=/cgi_environment\\.jsx\r\n.*$"));        
         Assert.assertTrue(body.matches("(?si)^.*\r\nSCRIPT_URI=http://vHa:8080/cgi_environment\\.jsx\r\n.*$"));
         Assert.assertTrue(body.matches("(?si)^.*\r\nQUERY_STRING=parameter=SCRIPT_FILENAME,PATH_TRANSLATED,REQUEST_URI\r\n.*$"));
-        Assert.assertTrue(body.matches("(?si)^.*\r\nPATH_BASE=/cgi_environment\\.jsx\r\n.*$"));        
+        Assert.assertTrue(body.matches("(?si)^.*\r\nPATH_URL=/cgi_environment\\.jsx\r\n.*$"));        
         Assert.assertFalse(body.matches("(?si)^.*\r\nPATH_ABSOLUTE=.*$"));     
         Assert.assertFalse(body.matches("(?si)^.*\r\nPATH_INFO=.*$"));
     } 

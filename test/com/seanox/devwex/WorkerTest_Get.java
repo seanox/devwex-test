@@ -259,6 +259,7 @@ public class WorkerTest_Get extends AbstractTest {
      */  
     @Test
     public void testAcceptance_10() throws Exception {
+        
         String request = "Get /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 19 Jan 2004 16:58:57 GMT; xxx; length=20\r\n"
                 + "Host: vHa\r\n"
@@ -278,6 +279,7 @@ public class WorkerTest_Get extends AbstractTest {
      */        
     @Test
     public void testAcceptance_11() throws Exception {
+        
         String request = "Get /test_a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
@@ -296,6 +298,7 @@ public class WorkerTest_Get extends AbstractTest {
      */        
     @Test
     public void testAcceptance_12() throws Exception {
+        
         String request = "Get /test_d/ HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
@@ -316,6 +319,7 @@ public class WorkerTest_Get extends AbstractTest {
      */   
     @Test
     public void testAcceptance_13() throws Exception {
+        
         String request = "Get /forbidden HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
@@ -333,6 +337,7 @@ public class WorkerTest_Get extends AbstractTest {
      */ 
     @Test
     public void testAcceptance_14() throws Exception {
+        
         String request = "Get /absolute HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
@@ -352,6 +357,7 @@ public class WorkerTest_Get extends AbstractTest {
      */  
     @Test
     public void testAcceptance_15() throws Exception {
+        
         String request = "Get /absolutexxx HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
@@ -372,6 +378,7 @@ public class WorkerTest_Get extends AbstractTest {
      */    
     @Test
     public void testAcceptance_16() throws Exception {
+        
         String request = "Get /method.jsx HTTP/1.0\r\n"
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHe\r\n"
@@ -391,6 +398,7 @@ public class WorkerTest_Get extends AbstractTest {
      */    
     @Test
     public void testAcceptance_17() throws Exception {
+        
         String request = "Get /method.jsx HTTP/1.0\r\n"
                 + "Host: vHb\r\n"
                 + "\r\n";
@@ -408,6 +416,7 @@ public class WorkerTest_Get extends AbstractTest {
      */ 
     @Test
     public void testAcceptance_18() throws Exception {
+        
         String request = "Get /decoding_maﬂ1bc.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
@@ -424,6 +433,7 @@ public class WorkerTest_Get extends AbstractTest {
      */ 
     @Test
     public void testAcceptance_19() throws Exception {
+        
         String request = "Get /decoding_maﬂ1bc.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
@@ -440,6 +450,7 @@ public class WorkerTest_Get extends AbstractTest {
      */ 
     @Test
     public void testAcceptance_20() throws Exception {
+        
         String request = "Get /decoding_ma%DF1bc.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
@@ -456,6 +467,7 @@ public class WorkerTest_Get extends AbstractTest {
      */ 
     @Test
     public void testAcceptance_21() throws Exception {
+        
         String request = "Get /decoding_ma%c3%9f1bc.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
@@ -472,6 +484,7 @@ public class WorkerTest_Get extends AbstractTest {
      */ 
     @Test
     public void testAcceptance_22() throws Exception {
+        
         String request = "Get /decoding_maﬂ123.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
@@ -490,6 +503,7 @@ public class WorkerTest_Get extends AbstractTest {
      */ 
     @Test
     public void testAcceptance_23() throws Exception {
+        
         String request = "Get /decoding_ma%DF123.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";

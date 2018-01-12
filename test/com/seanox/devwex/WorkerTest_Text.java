@@ -4,7 +4,7 @@
  *  Diese Software unterliegt der Version 2 der GNU General Public License.
  *
  *  Devwex, Advanced Server Development
- *  Copyright (C) 2017 Seanox Software Solutions
+ *  Copyright (C) 2018 Seanox Software Solutions
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as published
@@ -32,12 +32,12 @@ import com.seanox.test.utils.TextUtils;
 /**
  *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
- *  WorkerTest_Text 5.1 20171231<br>
- *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  WorkerTest_Text 5.1 20180110<br>
+ *  Copyright (C) 2018 Seanox Software Solutions<br>
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 5.1 20171231
+ *  @version 5.1 20180110
  */
 public class WorkerTest_Text extends AbstractTest {
     
@@ -136,6 +136,8 @@ public class WorkerTest_Text extends AbstractTest {
      */  
     @Test
     public void testAcceptance_05() throws Exception {
-        Assert.assertEquals("\\uD801\\uDC00", WorkerTest_Text.textEscape("\ud801\udc00"));
+        
+        String string = new String(("\ud801\udc00").getBytes("UTF-8"), "UTF-8");
+        Assert.assertEquals("\\uD801\\uDC00", WorkerTest_Text.textEscape(string));
     }    
 }
