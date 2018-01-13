@@ -190,7 +190,16 @@
       includes="server/Acceptance*21*.class"/>     
     <jar destfile="${workspace.resources.libraries}/server-acceptance_22.jar"
       basedir="${workspace.resources.libraries}"
-      includes="server/Acceptance*22*.class"/>
+      includes="server/Acceptance*22*.class"/>     
+    <jar destfile="${workspace.resources.libraries}/server-acceptance_30.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="server/Acceptance*30*.class"/>     
+    <jar destfile="${workspace.resources.libraries}/server-acceptance_31.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="server/Acceptance*31*.class"/>     
+    <jar destfile="${workspace.resources.libraries}/server-acceptance_32.jar"
+      basedir="${workspace.resources.libraries}"
+      includes="server/Acceptance*32*.class"/>
     
     <jar destfile="${workspace.resources.libraries}/module-acceptance_01.jar"
       basedir="${workspace.resources.libraries}"

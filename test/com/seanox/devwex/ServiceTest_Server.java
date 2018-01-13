@@ -259,5 +259,15 @@ public class ServiceTest_Server extends AbstractTest {
         //          optionally the derstroy-method can have a return value/type, this is ignored
         Assert.assertFalse(output.contains("Exception: server.Acceptance_22"));        
         Assert.assertTrue(output.contains("SERVICE INITIATE SERVER server.Acceptance_22")); 
+        
+        //Server 30 uses a scope with a valid package and class, the server must be load
+        Assert.assertFalse(output.toLowerCase().contains("exception: server.acceptance_3"));        
+        Assert.assertTrue(output.contains("SERVICE INITIATE SERVER ACCEPTANCE_3X"));
+        
+        //Server 30/31 use a scope with an invalid package/class, the servers must not be loaded
+        Assert.assertFalse(output.toLowerCase().contains("service initiate server server.acceptance_31"));
+        Assert.assertFalse(output.toLowerCase().contains("exception: server.acceptance_31"));        
+        Assert.assertFalse(output.toLowerCase().contains("service initiate server server.acceptance_32"));        
+        Assert.assertFalse(output.toLowerCase().contains("exception: server.acceptance_32"));        
     }
 }

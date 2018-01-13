@@ -115,3 +115,19 @@
   SCOPE                       = server
   ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
   PORT                        = 9022                            ;local port of server   
+
+[ACCEPTANCE_3x:BAS]
+  SCOPE                       = server.Acceptance_30
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9030                            ;local port of server
+  
+[ACCEPTANCE_31:BAS]
+  SCOPE                       = server.Acceptance_31x
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9031                            ;local port of server      
+
+[ACCEPTANCE_32:BAS]
+  SCOPE                       = server.
+  ADDRESS                     = 127.0.0.1                       ;local address of server [AUTO|LOCALHOST|IP|NAME]
+  PORT                        = 9032                            ;local port of server   
+  
