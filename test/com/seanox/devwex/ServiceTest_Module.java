@@ -117,9 +117,8 @@ public class ServiceTest_Module extends AbstractTest {
     
     /** 
      *  Test case for acceptance.
-     *  Checks the automatic setting of section keys as parameters if no
-     *  parameters and options have been set for a module. 
-     *  Only for modules loaded from the section INITIALIZE.
+     *  The automatic setting of section keys as parameters is no longer
+     *  necessary. Check the new behavior.
      *  @throws Exception
      */     
     @Test
@@ -131,8 +130,8 @@ public class ServiceTest_Module extends AbstractTest {
         Assert.assertNull(ServiceTest_Module.getModuleExplain("module.Acceptance_15"));
         Assert.assertEquals("123", ServiceTest_Module.getModuleExplain("module.Acceptance_16"));
         Assert.assertEquals("[123]", ServiceTest_Module.getModuleExplain("module.Acceptance_17"));
-        Assert.assertEquals("[MODULE-ACCEPTANCE_18]", ServiceTest_Module.getModuleExplain("module.Acceptance_18"));
-        Assert.assertEquals("[MODULE-ACCEPTANCE_19]", ServiceTest_Module.getModuleExplain("module.Acceptance_19"));
+        Assert.assertEquals("[*]", ServiceTest_Module.getModuleExplain("module.Acceptance_18"));
+        Assert.assertEquals("[*] [*]", ServiceTest_Module.getModuleExplain("module.Acceptance_19"));
         Assert.assertEquals("[*] 123 [*]", ServiceTest_Module.getModuleExplain("module.Acceptance_20"));
 
         this.outputStreamCapture.reset();

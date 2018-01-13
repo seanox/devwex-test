@@ -22,6 +22,7 @@
 package com.seanox.devwex;
 
 import java.io.File;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -125,19 +126,33 @@ public class WorkerTest_AccessLog extends AbstractTest {
     
     /** 
      *  Test case for acceptance.
-     *  Special characters (\, ") must be escaped.
+     *  Unicode characters must be ignored as default ASCII.
      *  @throws Exception
      */
     @Test
     public void testAcceptance_5() throws Exception {
         
-        String request = "G\"ET /nix\"xxx\"_zzz\ud801\udc00 HTTP/1.0\r\n"
-                + "User-Agent: Nix\"123\"\r\n";
+        String request = "GET /nix_xxx_zzz\ud801\udc00 HTTP/1.0\r\n";
         HttpUtils.sendRequest("127.0.0.1:80", request + "\r\n");
         
         Thread.sleep(AbstractTest.SLEEP);
         String accessLog = this.accessStreamCapture.toString().trim();
-        Assert.assertTrue(accessLog, accessLog.contains(" \"G\\\"ET /nix\\\"xxx\\\"_zzz\\uD801\\uDC00 HTTP/1.0\" "));
-        Assert.assertTrue(accessLog, accessLog.contains(" \"Nix\\\"123\\\""));
+        Assert.assertTrue(accessLog, accessLog.contains(" \"GET /nix_xxx_zzz? HTTP/1.0\" "));
+    }    
+    
+    /** 
+     *  Test case for acceptance.
+     *  Unicode characters in UTF-8 must be escaped.
+     *  @throws Exception
+     */
+    @Test
+    public void testAcceptance_6() throws Exception {
+        
+        String request = "GET /nix_xxx_zzz" + URLEncoder.encode("\ud801\udc00", "UTF-8") +  " HTTP/1.0\r\n";
+        HttpUtils.sendRequest("127.0.0.1:80", request + "\r\n");
+        
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.contains(" \"GET /nix_xxx_zzz%F0%90%90%80 HTTP/1.0\" "));
     }    
 }

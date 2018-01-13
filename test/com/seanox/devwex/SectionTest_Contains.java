@@ -105,7 +105,7 @@ public class SectionTest_Contains extends AbstractTest {
     public void testKeyInvalid_A() {
         
         Section section = new Section();
-        section.set(" \27\27 ", null);
+        section.set(" \33\33 ", null);
     }
     
     /** Test case for key tolerance. */

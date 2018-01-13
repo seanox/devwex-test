@@ -105,7 +105,7 @@ public class InitializeTest_Contains extends AbstractTest {
     public void testKeyInvalid_A() {
         
         Initialize initialize = new Initialize();
-        initialize.set(" \27\27 ", null);
+        initialize.set(" \33\33 ", null);
     }
     
     /** Test case for key tolerance. */
