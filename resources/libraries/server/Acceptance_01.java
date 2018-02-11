@@ -25,7 +25,7 @@ import com.seanox.devwex.Service;
 
 public class Acceptance_01 implements Runnable {
 
-    public Acceptance_01(String server, Object data) throws Throwable {
+    public Acceptance_01(String context, Object data) throws Throwable {
         throw new Throwable(this.getClass().getName());
     }
     

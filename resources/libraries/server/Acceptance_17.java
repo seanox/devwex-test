@@ -23,7 +23,7 @@ package server;
 
 public class Acceptance_17 {
 
-    public Acceptance_17(String server, Object data) {
+    public Acceptance_17(String context, Object data) {
     }
     
     public String explain() {

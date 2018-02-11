@@ -33,8 +33,8 @@ import com.seanox.devwex.Service;
 
 public class Acceptance_32 extends Acceptance_30 {
 
-    public Acceptance_32(String server, Object data) throws Throwable {
+    public Acceptance_32(String context, Object data) throws Throwable {
 
-        super(server, data);
+        super(context, data);
     }
 }

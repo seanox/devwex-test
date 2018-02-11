@@ -23,7 +23,7 @@ package server;
 
 public class Acceptance_18 extends Thread {
 
-    public Acceptance_18(String server, Object data) {
+    public Acceptance_18(String context, Object data) {
     }
     
     public String explain() {

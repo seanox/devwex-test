@@ -39,23 +39,23 @@ public class Acceptance_03 implements Runnable {
 
     private volatile String caption;
 
-    public Acceptance_03(String server, Object data) throws Throwable {
+    public Acceptance_03(String context, Object data) throws Throwable {
 
         InetAddress address;
         Section     options;
 
         int         port;
 
-        server  = server == null ? "" : server.trim();
-        options = ((Initialize)data).get(server.concat(":bas"));
+        context = context == null ? "" : context.trim();
+        options = ((Initialize)data).get(context);
         
         try {port = Integer.parseInt(options.get("port"));
         } catch (Throwable throwable) {
             port = 0;
         }
         
-        server  = options.get("address", "auto").toLowerCase();
-        address = server.equals("auto") ? null : InetAddress.getByName(server);
+        context = options.get("address", "auto").toLowerCase();
+        address = context.equals("auto") ? null : InetAddress.getByName(context);
         
         this.socket = new ServerSocket(port, 0, address);
         this.socket.setSoTimeout(1000);

@@ -23,7 +23,7 @@ package server;
 
 public class Acceptance_11 implements Runnable {
 
-    public Acceptance_11(String server, Object data) {
+    public Acceptance_11(String context, Object data) {
     }
     
     public String explain() {
