@@ -157,7 +157,7 @@ public class WorkerTest_DirectoryIndex extends AbstractTest {
     
     /** 
      *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:BAS] INDEX = ON}
+     *  Configuration: {@code [SERVER/VIRTUAL:INI] INDEX = ON}
      *  Hidden files must be included in the index.
      *  The flag {@code x} must be set for an enpty directory.
      *  @throws Exception
@@ -186,7 +186,7 @@ public class WorkerTest_DirectoryIndex extends AbstractTest {
     
     /** 
      *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:BAS] INDEX = ON [S]}
+     *  Configuration: {@code [SERVER/VIRTUAL:INI] INDEX = ON [S]}
      *  The index must not contain hidden files.
      *  The flag {@code x} must be set for an enpty directory.
      *  @throws Exception
