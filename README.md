@@ -24,11 +24,11 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 
 # Downloads
-[Seanox Devwex Test 5.0.0](https://github.com/seanox/devwex-test/raw/master/releases/seanox-devwex-test-5.0.0.zip)  
+[Seanox Devwex Test 5.1.0](https://github.com/seanox/devwex-test/raw/master/releases/seanox-devwex-test-5.1.0.zip)  
 
 
 # Changes (Change Log)
-## 5.1.0 2018xxx (summary of the next version)  
+## 5.1.0 20180505 (summary of the current version)  
 CR: Project - Updated to Seanox Test API 1.1 (AbstractSuite)  
 CR: Test - General enhancement of the tests  
 
