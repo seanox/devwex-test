@@ -4,7 +4,7 @@
  *  Diese Software unterliegt der Version 2 der GNU General Public License.
  *
  *  Devwex, Advanced Server Development
- *  Copyright (C) 2017 Seanox Software Solutions
+ *  Copyright (C) 2018 Seanox Software Solutions
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as published
@@ -35,11 +35,11 @@ import com.seanox.test.utils.Pattern;
  *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
  *  WorkerTest_AuthenticationBasic 5.1 20171231<br>
- *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  Copyright (C) 2018 Seanox Software Solutions<br>
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 5.1 20171231
+ *  @version 5.1 20180521
  */
 public class WorkerTest_AuthenticationBasic extends AbstractTest {
     
@@ -1322,7 +1322,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
      *  @throws Exception
      */
     @Test
-    public void testAcceptance_98() throws Exception {
+    public void testAcceptance_31() throws Exception {
         
         String request = "GET /authentication/a/b/e/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -1346,7 +1346,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
      *  @throws Exception
      */
     @Test
-    public void testAcceptance_99() throws Exception {
+    public void testAcceptance_32() throws Exception {
         
         String request = "GET /authentication/a/b/e/c/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
@@ -1355,6 +1355,144 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-BEC")));
+        
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+    }  
+    
+    /** 
+     *  Test case for acceptance.
+     *  Test for Basic Authentication:
+     *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
+     *  Without {@code usr-a:pwd-a} the request is responded with status 401.
+     *  @throws Exception
+     */
+    @Test
+    public void testAcceptance_33() throws Exception {
+        
+        String request = "GET /authentication/X/ HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("x")));
+        
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+    } 
+    
+    /** 
+     *  Test case for acceptance.
+     *  Test for Basic Authentication:
+     *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
+     *  Without {@code usr-a:pwd-a} the request is responded with status 401.
+     *  @throws Exception
+     */
+    @Test
+    public void testAcceptance_34() throws Exception {
+        
+        String request = "GET /authentication/x/ HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("x")));
+        
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+    }    
+    
+    /** 
+     *  Test case for acceptance.
+     *  Test for Basic Authentication:
+     *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
+     *  Without {@code usr-a:pwd-a} the request is responded with status 401.
+     *  @throws Exception
+     */
+    @Test
+    public void testAcceptance_35() throws Exception {
+        
+        String request = "GET /authentication/L/ HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("l")));
+        
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+    } 
+    
+    /** 
+     *  Test case for acceptance.
+     *  Test for Basic Authentication:
+     *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
+     *  Without {@code usr-a:pwd-a} the request is responded with status 401.
+     *  @throws Exception
+     */
+    @Test
+    public void testAcceptance_36() throws Exception {
+        
+        String request = "GET /authentication/l/ HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("l")));
+        
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+    } 
+    
+    /** 
+     *  Test case for acceptance.
+     *  Test for Basic Authentication:
+     *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
+     *  Without {@code usr-a:pwd-a} the request is responded with status 401.
+     *  @throws Exception
+     */
+    @Test
+    public void testAcceptance_37() throws Exception {
+        
+        String request = "GET /authentication/I/ HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("i")));
+        
+        Thread.sleep(AbstractTest.SLEEP);
+        String accessLog = this.accessStreamCapture.toString().trim();
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
+    } 
+    
+    /** 
+     *  Test case for acceptance.
+     *  Test for Basic Authentication:
+     *  {@code /authentication/a [acc:usr-a:pwd-a:Section-A]}
+     *  Without {@code usr-a:pwd-a} the request is responded with status 401.
+     *  @throws Exception
+     */
+    @Test
+    public void testAcceptance_38() throws Exception {
+        
+        String request = "GET /authentication/i/ HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("i")));
         
         Thread.sleep(AbstractTest.SLEEP);
         String accessLog = this.accessStreamCapture.toString().trim();
