@@ -103,7 +103,7 @@ public class GeneratorTest extends AbstractTest {
             buffer.write(generator.extract("file", values));
         }
         values.put("file", buffer.toByteArray());
-        generator.set("file", values);
+        generator.set(values);
         Assert.assertEquals(ResourceUtils.getContent(), new String(generator.extract()));
     }
     
@@ -188,6 +188,7 @@ public class GeneratorTest extends AbstractTest {
     public void testAcceptance_A() {
         
         Generator generator = Generator.parse(ResourceUtils.getContent("testAcceptance_0_2").getBytes());
+        System.out.println("[INF] " + new String(generator.extract()));
         Hashtable<String, Object> values = new Hashtable<>();
         String path = new String();
         for (String entry : ("1/22/333/4444/55555").split("/")) {
@@ -205,6 +206,55 @@ public class GeneratorTest extends AbstractTest {
         
         Assert.assertEquals("A\00\00\07\00\00B", new String(Generator.parse(("A#[0x0000070000]B").getBytes()).extract()));
     }
+    
+    /** 
+     *  Test case for acceptance. 
+     *  @throws Exception
+     */
+    @Test
+    public void testAcceptance_C() throws Exception {
+        
+        Generator generator = Generator.parse(ResourceUtils.getContent("testAcceptance_0_0").getBytes());
+        Hashtable<String, Object> values = new Hashtable<>();
+        for (int loop = 1; loop < 7; loop++) {
+            String charX = Character.toString((char)('A' -1 + loop));
+            values.put("case", charX + "1");
+            values.put("name", charX + "2");
+            values.put("date", charX + "3");
+            values.put("size", charX + "4");
+            values.put("type", charX + "5");
+            values.put("mime", charX + "6");
+            generator.set("file", values);
+        }
+        Assert.assertEquals(ResourceUtils.getContent(), new String(generator.extract()));
+    }    
+    
+    /** Test case for acceptance. */
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testAcceptance_D() {
+        
+        Generator generator = Generator.parse(ResourceUtils.getContent("testAcceptance_D_1").getBytes());
+        Hashtable<String, String> values = new Hashtable() {{
+            put("a", new Hashtable() {{
+                put("a1", "xa1");
+                put("a2", "xa2");
+                put("a3", "xa3");
+                put("b", new Hashtable() {{
+                    put("b1", "xb1");
+                    put("b2", "xb2");
+                    put("b3", "xb3");
+                    put("c", new Hashtable() {{
+                        put("c1", "xc1");
+                        put("c2", "xc2");
+                        put("c3", "xc3");
+                    }});
+                }});
+            }});
+        }};
+        generator.set(values);
+        Assert.assertEquals(ResourceUtils.getContent(), new String(generator.extract()).replaceAll("\\s+", ""));
+    }    
 
     /** Test case for recursion. */
     @Test
@@ -344,6 +394,37 @@ public class GeneratorTest extends AbstractTest {
         generator.set("c", values);
         generator.set("b", values);
         generator.set("a", values);
+        Assert.assertEquals(ResourceUtils.getContent(), new String(generator.extract()));
+    }
+    
+    /** Test case for recursion. */
+    @Test
+    public void testRecursion_A() {
+        
+        Generator generator = Generator.parse(ResourceUtils.getContent("testRecursion_0_3").getBytes());
+        Hashtable<String, Object> values = new Hashtable<>();
+        values.put("bv", "bv-ok");
+        values.put("cv", "cv-ok");
+        values.put("dv", "dv-ok");
+        values.put("b1v", "b1v-ok");
+        values.put("a", values);
+        values.put("b", values);
+        values.put("c", values);
+        values.put("d", values);
+        generator.set(values);
+        Assert.assertEquals(ResourceUtils.getContent(), new String(generator.extract()));
+    } 
+
+    /** Test case for recursion. */
+    @Test
+    public void testRecursion_B() {
+        
+        Generator generator = Generator.parse(ResourceUtils.getContent("testRecursion_B_1").getBytes());
+        Hashtable<String, Object> values = new Hashtable<>();
+        values.put("a", "xa");
+        values.put("b", "xb");
+        values.put("c", "xc");
+        generator.set(values);
         Assert.assertEquals(ResourceUtils.getContent(), new String(generator.extract()));
     } 
     
