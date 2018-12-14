@@ -22,6 +22,7 @@
 package com.seanox.devwex;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 import org.junit.Assert;
@@ -254,7 +255,49 @@ public class GeneratorTest extends AbstractTest {
         }};
         generator.set(values);
         Assert.assertEquals(ResourceUtils.getContent(), new String(generator.extract()).replaceAll("\\s+", ""));
-    }    
+    }
+    
+    /** Test case for acceptance. */
+    @Test
+    public void testAcceptance_E() {
+
+        Generator generator = Generator.parse(ResourceUtils.getContent("testAcceptance_E_1").getBytes());
+        Hashtable<String, Object> values = new Hashtable() {{
+            put("row", new ArrayList() {{
+                add(new Hashtable() {{
+                    put("cell", new ArrayList() {{
+                        add("A1");
+                        add("A2");
+                        add("A3");
+                    }});
+                }});
+                add(new Hashtable() {{
+                    put("cell", new ArrayList() {{
+                        add("B1");
+                        add("B2");
+                        add("B3");
+                    }});
+                }});
+                add(new Hashtable() {{
+                    put("cell", new ArrayList() {{
+                        add("C1");
+                        add("C2");
+                    }});
+                }});
+                add(new Hashtable() {{
+                    put("cell", new ArrayList() {{
+                        add("D1");
+                    }});
+                }});
+                add(new Hashtable() {{
+                    put("cell", new ArrayList() {{
+                    }});
+                }});
+            }});
+        }};
+        generator.set("table", values);
+        Assert.assertEquals(ResourceUtils.getContent(), new String(generator.extract()));
+    }
 
     /** Test case for recursion. */
     @Test
