@@ -33,3 +33,18 @@ CR: Project - Updated to Seanox Test API 1.1 (AbstractSuite)
 CR: Test - General enhancement of the tests  
 
 [Read more](https://raw.githubusercontent.com/seanox/devwex/master/CHANGES)
+
+# Thanks!
+<img src="https://raw.githubusercontent.com/seanox/seanox/master/sources/resources/images/thanks.png">
+
+[JetBrains](https://www.jetbrains.com/?from=seanox)  
+Sven Lorenz  
+Andreas Mitterhofer  
+[novaObjects GmbH](https://www.novaobjects.de)  
+Leo Pelillo  
+Gunter Pfannm&uuml;ller  
+Annette und Steffen Pokel  
+Edgar R&ouml;stle  
+Michael S&auml;mann  
+Markus Schlosneck  
+[T-Systems International GmbH](https://www.t-systems.com)
