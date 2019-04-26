@@ -147,7 +147,7 @@ public class WorkerTest_DirectoryIndex extends AbstractTest {
         
         String body = "\r\n" + response.replaceAll(Pattern.HTTP_RESPONSE, "$2") + "\r\n";
         Assert.assertTrue(body.contains("\r\nindex of: /test_a/test\r\n"));
-        Assert.assertTrue(body.contains("\r\norder by: na x\r\n"));
+        Assert.assertTrue(body.contains("\r\norder by: na\r\n"));
         Assert.assertFalse(body.contains("?"));
         
         Thread.sleep(AbstractTest.SLEEP);

@@ -298,6 +298,33 @@ public class GeneratorTest extends AbstractTest {
         generator.set("table", values);
         Assert.assertEquals(ResourceUtils.getContent(), new String(generator.extract()));
     }
+    
+    /** Test case for acceptance. */
+    @Test
+    public void testAcceptance_F() {
+
+        String template = "#[0x5065746572]#[0x7c756e64]#[0x7c646572]#[0x7c576f6c66]";
+        Generator generator = Generator.parse(template.getBytes());
+        Assert.assertEquals("Peter|und|der|Wolf", new String(generator.extract()));
+    }
+
+    /** Test case for acceptance. */
+    @Test
+    public void testAcceptance_G() {
+
+        String template = "#[0x5065746572]#[0x7C756E64]#[0x7C646572]#[0x7C576F6C66]";
+        Generator generator = Generator.parse(template.getBytes());
+        Assert.assertEquals("Peter|und|der|Wolf", new String(generator.extract()));
+    }
+    
+    /** Test case for acceptance. */
+    @Test
+    public void testAcceptance_H() {
+
+        String template = "#[0X5065746572]#[0X7C756E64]#[0X7C646572]#[0X7C576F6C66]";
+        Generator generator = Generator.parse(template.getBytes());
+        Assert.assertEquals("Peter|und|der|Wolf", new String(generator.extract()));
+    }    
 
     /** Test case for recursion. */
     @Test
