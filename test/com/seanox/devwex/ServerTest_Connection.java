@@ -139,8 +139,8 @@ public class ServerTest_Connection extends AbstractTest {
         kmf.init(clientStore, ("changeIt").toCharArray());
         KeyManager[] kms = kmf.getKeyManagers();
 
-        KeyStore trustStore = KeyStore.getInstance("JKS");
-        trustStore.load(new FileInputStream(new File(AbstractSuite.getRootStageCertificates(), "client.jks")), ("changeIt").toCharArray());
+        KeyStore trustStore = KeyStore.getInstance("PKCS12");
+        trustStore.load(new FileInputStream(new File(AbstractSuite.getRootStageCertificates(), "client.keystore")), ("changeIt").toCharArray());
 
         TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
         tmf.init(trustStore);
