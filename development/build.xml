@@ -21,17 +21,17 @@
     <include name="classes"/>
     <include name="development/build.xml"/>
     <include name="development/devwex.jar"/>
-    <include name="development/release.txt"/>
     <include name="libraries/*"/>
     <include name="test/**/*"/>
     <include name="resources/**/*"/>
     <include name="stage"/>
     <include name=".*"/>
+    <include name="CHANGES"/>
   </fileset>
   
   <macrodef name="release-locate">
     <sequential>
-      <copy file="${workspace.development}/release.txt" tofile="${workspace.development}/release.tmp" overwrite="true"/>
+      <copy file="${workspace}/CHANGES" tofile="${workspace.development}/release.tmp" overwrite="true"/>
       <replaceregexp file="${workspace.development}/release.tmp"
         match="(?s)^\s*([\d\.x]+) (\d{4})([\dx]+).*$" flags="g" byline="false"
         replace="release.version=\1&#x000D;release.year=\2&#x000D;release.date=\2\3&#x000D;"/>
@@ -44,7 +44,6 @@
   </macrodef>  
   
   <target name="changes">
-    <copy file="${workspace.development}/release.txt" tofile="${workspace}/CHANGES" overwrite="true"/>
     <replaceregexp file="${workspace}/CHANGES" match="&#x00E4;" replace="ae" flags="g"/>
     <replaceregexp file="${workspace}/CHANGES" match="&#x00C4;" replace="Ae" flags="g"/>
     <replaceregexp file="${workspace}/CHANGES" match="&#x00F6;" replace="oe" flags="g"/>
@@ -52,7 +51,7 @@
     <replaceregexp file="${workspace}/CHANGES" match="&#x00FC;" replace="ue" flags="g"/>
     <replaceregexp file="${workspace}/CHANGES" match="&#x00DC;" replace="Ue" flags="g"/>
       
-    <copy file="${workspace.development}/release.txt" tofile="${workspace.development}/release.tmp" overwrite="true"/>
+    <copy file="${workspace}/CHANGES" tofile="${workspace.development}/release.tmp" overwrite="true"/>
     <replaceregexp file="${workspace.development}/release.tmp" match="^\s+" replace="" byline="false"/>
     <replaceregexp file="${workspace.development}/release.tmp" match="(?s)^(.*?)[\r\n]+\d[\d\. x]+.*$" replace="\1" byline="false"/>
     <replaceregexp file="${workspace.development}/release.tmp" match="^(.*?)\s*$" replace="\1  " flags="g" byline="true"/>

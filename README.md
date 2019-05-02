@@ -28,9 +28,10 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 
 # Changes (Change Log)
-## 5.1.0 20180505 (summary of the current version)  
-CR: Project - Updated to Seanox Test API 1.1 (AbstractSuite)  
-CR: Test - General enhancement of the tests  
+## 5.2.0 20190502 (summary of the current version)  
+CR: Test: General enhancement of the tests  
+CR: Project: Uniform use of ./LICENSE and ./CHANGES  
+CR: KeyStore: Change to use PKCS12  
 
 [Read more](https://raw.githubusercontent.com/seanox/devwex/master/CHANGES)
 

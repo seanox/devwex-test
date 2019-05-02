@@ -1,6 +1,11 @@
+5.2.0 20190502
+  CR: Test: General enhancement of the tests  
+  CR: Project: Uniform use of ./LICENSE and ./CHANGES    
+  CR: KeyStore: Change to use PKCS12
+
 5.1.0 20180505
-  CR: Project - Updated to Seanox Test API 1.1 (AbstractSuite)
-  CR: Test - General enhancement of the tests  
+  CR: Project: Updated to Seanox Test API 1.1 (AbstractSuite)
+  CR: Test: General enhancement of the tests  
 
 5.0.0 20171206
   NT: Initial Release
