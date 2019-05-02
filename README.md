@@ -33,7 +33,7 @@ CR: Test: General enhancement of the tests
 CR: Project: Uniform use of ./LICENSE and ./CHANGES  
 CR: KeyStore: Change to use PKCS12  
 
-[Read more](https://raw.githubusercontent.com/seanox/devwex/master/CHANGES)
+[Read more](https://raw.githubusercontent.com/seanox/devwex-test/master/CHANGES)
 
 # Thanks!
 <img src="https://raw.githubusercontent.com/seanox/seanox/master/sources/resources/images/thanks.png">
