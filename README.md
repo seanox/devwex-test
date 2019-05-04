@@ -8,7 +8,7 @@ Seanox Software Solutions oder kurz Seanox genannt.
 
 Diese Software unterliegt der Version 2 der GNU General Public License.
 
-Copyright (C) 2017 Seanox Software Solutions
+Copyright (C) 2019 Seanox Software Solutions
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of version 2 of the GNU General Public License as published by the
@@ -24,7 +24,7 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 
 # Downloads
-[Seanox Devwex Test 5.1.0](https://github.com/seanox/devwex-test/raw/master/releases/seanox-devwex-test-5.1.0.zip)  
+[Seanox Devwex Test 5.2.0](https://github.com/seanox/devwex-test/raw/master/releases/seanox-devwex-test-5.2.0.zip)  
 
 
 # Changes (Change Log)
