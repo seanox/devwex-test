@@ -146,7 +146,7 @@ public class ServerTest_Connection extends AbstractTest {
         tmf.init(trustStore);
         TrustManager[] tms = tmf.getTrustManagers();
 
-        SSLContext sslContext = SSLContext.getInstance("TLS");
+        SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
         sslContext.init(kms, tms, new SecureRandom());
 
         HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
@@ -208,7 +208,7 @@ public class ServerTest_Connection extends AbstractTest {
      *  Connection without client certificate must fail.
      *  @throws Exception
      */     
-    @Test(expected=SocketException.class)
+    @Test(expected=SSLException.class)
     public void testAcceptance_06() throws Exception {
         
         ServerTest_Connection.initHttpsUrlConnection();
@@ -306,7 +306,7 @@ public class ServerTest_Connection extends AbstractTest {
      *  Connection with unknown client certificate must fail.
      *  @throws Exception
      */      
-    @Test(expected=SocketException.class)
+    @Test(expected=SSLException.class)
     public void testAcceptance_12() throws Exception {
             
         File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_x.p12");
