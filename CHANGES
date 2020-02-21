@@ -4,6 +4,7 @@
   CR: Build: Harmonization when updating the version
   CR: Project: Automatic update of the version in README.md
   CR: HTTP(S) - Status: Added option [H] (Header Only)
+  CR: Test: Update of test cases for Java 11+
 
 5.2.0 20190502
   CR: Test: General enhancement of the tests  

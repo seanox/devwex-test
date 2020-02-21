@@ -1,3 +1,16 @@
+<p>
+  <a href="https://github.com/seanox/devwex-test/pulls"
+      title="Development is waiting for new issues / requests / ideas">
+    <img src="https://img.shields.io/badge/development-passive-blue?style=for-the-badge">
+  </a>
+  <a href="https://github.com/seanox/devwex-test/issues">
+    <img src="https://img.shields.io/badge/maintenance-active-green?style=for-the-badge">
+  </a>
+  <a href="http://seanox.de/contact">
+    <img src="https://img.shields.io/badge/support-active-green?style=for-the-badge">
+  </a>
+</p>
+
 # Description
 Test environment for Seanox Devwex.
 
@@ -8,7 +21,7 @@ Seanox Software Solutions oder kurz Seanox genannt.
 
 Diese Software unterliegt der Version 2 der GNU General Public License.
 
-Copyright (C) 2019 Seanox Software Solutions
+Copyright (C) 2020 Seanox Software Solutions
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of version 2 of the GNU General Public License as published by the
@@ -28,10 +41,13 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 
 # Changes (Change Log)
-## 5.2.0 20190502 (summary of the current version)  
-CR: Test: General enhancement of the tests  
-CR: Project: Uniform use of ./LICENSE and ./CHANGES  
-CR: KeyStore: Change to use PKCS12  
+## 5.3.0 2020xxxx (summary of the next version)  
+BF: HTTP(S) - Content Types: Correction of xml/xsl/xslt to use application/xslt+xml  
+CR: Project: Automatic update of the version in README.md  
+CR: Build: Harmonization when updating the version  
+CR: Project: Automatic update of the version in README.md  
+CR: HTTP(S) - Status: Added option [H] (Header Only)  
+CR: Test: Update of test cases for Java 11+  
 
 [Read more](https://raw.githubusercontent.com/seanox/devwex-test/master/CHANGES)
 
