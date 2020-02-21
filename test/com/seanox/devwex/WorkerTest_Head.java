@@ -161,7 +161,7 @@ public class WorkerTest_Head extends AbstractTest {
         String response;        
         
         request = "Get /documents/commons/lastmodified.jsx HTTP/1.0\r\n"
-                + "File: ../../documents_vh_A/method_file.txt\r\n"
+                + "File: ./stage/documents_vh_A/method_file.txt\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
@@ -217,7 +217,7 @@ public class WorkerTest_Head extends AbstractTest {
         String response;        
         
         request = "Get /documents/commons/lastmodified.jsx HTTP/1.0\r\n"
-                + "File: ../../documents_vh_A/method_file.txt\r\n"
+                + "File: ./stage/documents_vh_A/method_file.txt\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
@@ -252,7 +252,7 @@ public class WorkerTest_Head extends AbstractTest {
         String response;        
         
         request = "Get /documents/commons/lastmodified.jsx HTTP/1.0\r\n"
-                + "File: ../../documents_vh_A/method_file.txt\r\n"
+                + "File: ./stage/documents_vh_A/method_file.txt\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
@@ -322,7 +322,7 @@ public class WorkerTest_Head extends AbstractTest {
         String response;        
         
         request = "Get /documents/commons/lastmodified.jsx HTTP/1.0\r\n"
-                + "File: ../../documents_vh_A/test_d\r\n"
+                + "File: ./stage/documents_vh_A/test_d\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
@@ -749,7 +749,7 @@ public class WorkerTest_Head extends AbstractTest {
             
             if (path.equals("/")) {
                 requestLastModified = "Get /documents/commons/lastmodified.jsx HTTP/1.0\r\n"
-                        + "File: ../../documents_vh_A\r\n"
+                        + "File: ./stage/documents_vh_A\r\n"
                         + "Host: vHa\r\n"
                         + "\r\n";
                 responseLastModified = new String(HttpUtils.sendRequest("127.0.0.1:8080", requestLastModified));
