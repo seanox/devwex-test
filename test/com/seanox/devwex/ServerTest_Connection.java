@@ -23,7 +23,6 @@ package com.seanox.devwex;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.net.SocketException;
 import java.net.URL;
 import java.security.KeyStore;
 import java.security.SecureRandom;
@@ -215,6 +214,7 @@ public class ServerTest_Connection extends AbstractTest {
         URL url = new URL("https://127.0.0.2");
         HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
         Assert.assertNotEquals(200, urlConn.getResponseCode());
+        Assert.fail();
     }       
     
     /** 
@@ -314,6 +314,7 @@ public class ServerTest_Connection extends AbstractTest {
         URL url = new URL("https://127.0.0.2");
         HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
         Assert.assertNotEquals(200, urlConn.getResponseCode());
+        Assert.fail();
     }     
     
     /** 
