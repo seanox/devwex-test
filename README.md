@@ -51,6 +51,13 @@ CR: Test: Update of test cases for Java 11+
 
 [Read more](https://raw.githubusercontent.com/seanox/devwex-test/master/CHANGES)
 
+
+# Contact
+[Issues](https://github.com/seanox/devwex-test/issues)  
+[Requests](https://github.com/seanox/devwex-test/pulls)  
+[Mail](http://seanox.de/contact)
+
+
 # Thanks!
 <img src="https://raw.githubusercontent.com/seanox/seanox/master/sources/resources/images/thanks.png">
 
