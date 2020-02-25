@@ -34,7 +34,6 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
@@ -80,7 +79,7 @@ public class WorkerTest_DirectoryIndex extends AbstractTest {
         
         String request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8081", request));
+        String response = this.sendRequest("127.0.0.1:8081", request);
 
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
@@ -93,8 +92,7 @@ public class WorkerTest_DirectoryIndex extends AbstractTest {
         Assert.assertTrue(body.contains("\r\norder by: na\r\n"));
         Assert.assertFalse(body.contains("?"));
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
     }
     
@@ -108,7 +106,7 @@ public class WorkerTest_DirectoryIndex extends AbstractTest {
         
         String request = "GET /?d HTTP/1.0\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8081", request));
+        String response = this.sendRequest("127.0.0.1:8081", request);
 
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
@@ -121,8 +119,7 @@ public class WorkerTest_DirectoryIndex extends AbstractTest {
         Assert.assertTrue(body.contains("\r\norder by: da\r\n"));
         Assert.assertFalse(body.contains("?"));
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
     }
     
@@ -137,7 +134,7 @@ public class WorkerTest_DirectoryIndex extends AbstractTest {
         String request = "GET /test_a/test/ HTTP/1.0\r\n"
                 + "Host: vHb\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8081", request));
+        String response = this.sendRequest("127.0.0.1:8081", request);
 
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
@@ -150,8 +147,7 @@ public class WorkerTest_DirectoryIndex extends AbstractTest {
         Assert.assertTrue(body.contains("\r\norder by: na\r\n"));
         Assert.assertFalse(body.contains("?"));
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
     }
     
@@ -168,7 +164,7 @@ public class WorkerTest_DirectoryIndex extends AbstractTest {
         for (int loop = 1; loop <= 3; loop++) {
             String request = "GET /empty/" + loop + "/ HTTP/1.0\r\n"
                     + "\r\n";
-            String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
+            String response = this.sendRequest("127.0.0.1:80", request);
             if (loop == 1) {
                 Assert.assertTrue(response.contains("\r\norder by: na x\r\n"));
                 Assert.assertFalse(response.contains("case:file"));
@@ -197,7 +193,7 @@ public class WorkerTest_DirectoryIndex extends AbstractTest {
         for (int loop = 1; loop <= 3; loop++) {
             String request = "GET /empty/" + loop + "/ HTTP/1.0\r\n"
                     + "\r\n";
-            String response = new String(HttpUtils.sendRequest("127.0.0.1:8082", request));
+            String response = this.sendRequest("127.0.0.1:8082", request);
             if (loop == 1) {
                 Assert.assertTrue(response.contains("\r\norder by: na x\r\n"));
                 Assert.assertFalse(response.contains("case:file"));

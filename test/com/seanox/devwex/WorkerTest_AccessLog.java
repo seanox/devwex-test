@@ -76,10 +76,10 @@ public class WorkerTest_AccessLog extends AbstractTest {
     @Test
     public void testAcceptance_2() throws Exception {
         
-        HttpUtils.sendRequest("127.0.0.1:80", "GET / HTTP/1.0\r\n\r\n");
+        String response = this.sendRequest("127.0.0.1:80", "GET / HTTP/1.0\r\n\r\n");
         String pattern = new SimpleDateFormat("Z", Locale.US).format(new Date());
         Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches("^.*?\\[\\d{2}/\\w{3}/\\d{4}(:\\d{2}){3} \\" + pattern + "\\]\\s.*$"));
     }   
 
@@ -91,12 +91,16 @@ public class WorkerTest_AccessLog extends AbstractTest {
     @Test
     public void testAcceptance_3() throws Exception {
         
-        String request = "G\"ET /nix\"xxx\"_zzz\u00FF HTTP/1.0\r\n"
-                + "User-Agent: Nix\"123\"\r\n";
-        HttpUtils.sendRequest("127.0.0.1:80", request + "\r\n");
+        String request;
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        request = "G\"ET /nix\"xxx\"_zzz\u00FF HTTP/1.0\r\n"
+                + "UUID: Nix\"123\"\r\n";
+        HttpUtils.sendRequest("127.0.0.1:80", request + "\r\n");
+
+        request = "GET / HTTP/1.0\r\n";
+        String response = this.sendRequest("127.0.0.1:80", request + "\r\n");
+
+        String accessLog = this.accessStreamCapture.toString();
         Assert.assertTrue(accessLog, accessLog.contains(" \"G\\\"ET /nix\\\"xxx\\\"_zzz\\xFF HTTP/1.0\" "));
         Assert.assertTrue(accessLog, accessLog.contains(" \"Nix\\\"123\\\""));
     }
@@ -133,10 +137,9 @@ public class WorkerTest_AccessLog extends AbstractTest {
     public void testAcceptance_5() throws Exception {
         
         String request = "GET /nix_xxx_zzz\ud801\udc00 HTTP/1.0\r\n";
-        HttpUtils.sendRequest("127.0.0.1:80", request + "\r\n");
+        String response = this.sendRequest("127.0.0.1:80", request + "\r\n");
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.contains(" \"GET /nix_xxx_zzz? HTTP/1.0\" "));
     }    
     
@@ -149,10 +152,9 @@ public class WorkerTest_AccessLog extends AbstractTest {
     public void testAcceptance_6() throws Exception {
         
         String request = "GET /nix_xxx_zzz" + URLEncoder.encode("\ud801\udc00", "UTF-8") +  " HTTP/1.0\r\n";
-        HttpUtils.sendRequest("127.0.0.1:80", request + "\r\n");
+        String response = this.sendRequest("127.0.0.1:80", request + "\r\n");
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.contains(" \"GET /nix_xxx_zzz%F0%90%90%80 HTTP/1.0\" "));
     }    
 }

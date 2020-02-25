@@ -55,7 +55,7 @@ public class WorkerTest_Get extends AbstractTest {
         String request = "Get / HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
     }
@@ -72,15 +72,14 @@ public class WorkerTest_Get extends AbstractTest {
         String request = "Get /test_a HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8080/test_a/")));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
     }
     
@@ -95,7 +94,7 @@ public class WorkerTest_Get extends AbstractTest {
         String request = "Get /test_ax HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
     }
     
@@ -111,7 +110,7 @@ public class WorkerTest_Get extends AbstractTest {
         String request = "Get /method_file.txt HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));
@@ -130,15 +129,14 @@ public class WorkerTest_Get extends AbstractTest {
         String request = "Get /method_file.txt/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8080/method_file.txt")));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
     }
     
@@ -158,22 +156,21 @@ public class WorkerTest_Get extends AbstractTest {
                 + "File: ./stage/documents_vh_A/method_file.txt\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         String lastModified = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");        
 
         request = "Get /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: " + lastModified + "\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_304));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LOCATION_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_304));
     }
     
@@ -190,7 +187,7 @@ public class WorkerTest_Get extends AbstractTest {
                 + "If-Modified-Since: Mon, 19 Jan 2004 16:58:55 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));
@@ -213,7 +210,7 @@ public class WorkerTest_Get extends AbstractTest {
                 + "File: ./stage/documents_vh_A/method_file.txt\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         String lastModified = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");        
 
 
@@ -221,14 +218,13 @@ public class WorkerTest_Get extends AbstractTest {
                 + "If-Modified-Since: " + lastModified + "; xxx; length=15\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_304));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_304));
     }
     
@@ -245,7 +241,7 @@ public class WorkerTest_Get extends AbstractTest {
                 + "If-Modified-Since: Mon, 19 Jan 2004 16:58:56 GMT; xxx; length=21\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));
@@ -264,7 +260,7 @@ public class WorkerTest_Get extends AbstractTest {
                 + "If-Modified-Since: Mon, 19 Jan 2004 16:58:57 GMT; xxx; length=20\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));
@@ -283,7 +279,7 @@ public class WorkerTest_Get extends AbstractTest {
         String request = "Get /test_a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));
@@ -303,7 +299,7 @@ public class WorkerTest_Get extends AbstractTest {
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_TEXT_HTML));
@@ -324,7 +320,7 @@ public class WorkerTest_Get extends AbstractTest {
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
     }
@@ -342,7 +338,7 @@ public class WorkerTest_Get extends AbstractTest {
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));
@@ -362,7 +358,7 @@ public class WorkerTest_Get extends AbstractTest {
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));
@@ -383,7 +379,7 @@ public class WorkerTest_Get extends AbstractTest {
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHe\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -402,7 +398,7 @@ public class WorkerTest_Get extends AbstractTest {
         String request = "Get /method.jsx HTTP/1.0\r\n"
                 + "Host: vHb\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("hallo", body);
@@ -420,7 +416,7 @@ public class WorkerTest_Get extends AbstractTest {
         String request = "Get /decoding_maﬂ1bc.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(3)));
     }
@@ -437,7 +433,7 @@ public class WorkerTest_Get extends AbstractTest {
         String request = "Get /decoding_maﬂ1bc.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(3)));
     }
@@ -454,7 +450,7 @@ public class WorkerTest_Get extends AbstractTest {
         String request = "Get /decoding_ma%DF1bc.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(3)));
     }
@@ -471,7 +467,7 @@ public class WorkerTest_Get extends AbstractTest {
         String request = "Get /decoding_ma%c3%9f1bc.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(3)));
     }
@@ -488,7 +484,7 @@ public class WorkerTest_Get extends AbstractTest {
         String request = "Get /decoding_maﬂ123.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(3)));
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
@@ -507,7 +503,7 @@ public class WorkerTest_Get extends AbstractTest {
         String request = "Get /decoding_ma%DF123.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(3)));
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
@@ -526,7 +522,7 @@ public class WorkerTest_Get extends AbstractTest {
         String request = "Get /decoding_maﬂ%c3%9f%DF123.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(3)));
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
@@ -545,14 +541,14 @@ public class WorkerTest_Get extends AbstractTest {
         String request = "Get /decoding_ma%DFﬂ%c3%9f123.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(3)));
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("-2-", body);
     }
     
-    private static void assertAcceptance_26(int count, String path, String start, String end) throws Exception {
+    private void assertAcceptance_26(int count, String path, String start, String end) throws Exception {
         
         try (OutputFacadeStream.Capture capture = AbstractSuite.accessStream.capture()) {
                   
@@ -578,7 +574,7 @@ public class WorkerTest_Get extends AbstractTest {
             if (start != null && start.contains(";"))
                 end = null;
             
-            String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request + "\r\n"));
+            String response = this.sendRequest("127.0.0.1:8080", request + "\r\n");
             
             long code = 0;
             long size = 0;
@@ -724,14 +720,12 @@ public class WorkerTest_Get extends AbstractTest {
                         Assert.assertTrue(body.matches(pattern));
                     }
                     
-                    Thread.sleep(AbstractTest.SLEEP);
-                    String accessLog = AbstractTestUtils.tail(capture.toString());         
+                    String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
                     Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS(String.valueOf(code), request, (int)size)));  
                 }
             }
             
-            Thread.sleep(AbstractTest.SLEEP);
-            String accessLog = AbstractTestUtils.tail(capture.toString());     
+            String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
             Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS(String.valueOf(code), request)));              
         }        
     }
@@ -749,137 +743,137 @@ public class WorkerTest_Get extends AbstractTest {
 
             int count = 0;
             
-            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      "0");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      "1");    
-            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      "127");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      "65535");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      "0");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      "1");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      "127");    
-            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      "65535");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "127",    "256");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    "127");
+            this.assertAcceptance_26(++count, path, "0",      "0");
+            this.assertAcceptance_26(++count, path, "0",      "1");    
+            this.assertAcceptance_26(++count, path, "0",      "127");
+            this.assertAcceptance_26(++count, path, "0",      "65535");
+            this.assertAcceptance_26(++count, path, "1",      "0");
+            this.assertAcceptance_26(++count, path, "1",      "1");
+            this.assertAcceptance_26(++count, path, "1",      "127");    
+            this.assertAcceptance_26(++count, path, "1",      "65535");
+            this.assertAcceptance_26(++count, path, "127",    "256");
+            this.assertAcceptance_26(++count, path, "256",    "127");
     
-            WorkerTest_Get.assertAcceptance_26(++count, path, "127",    "0");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "127",    "1");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  "0");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  "1");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    "65535");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  "256");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-256",   "127");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-127",   "256");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    "-127");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "127",    "-256");
+            this.assertAcceptance_26(++count, path, "127",    "0");
+            this.assertAcceptance_26(++count, path, "127",    "1");
+            this.assertAcceptance_26(++count, path, "65535",  "0");
+            this.assertAcceptance_26(++count, path, "65535",  "1");
+            this.assertAcceptance_26(++count, path, "256",    "65535");
+            this.assertAcceptance_26(++count, path, "65535",  "256");
+            this.assertAcceptance_26(++count, path, "-256",   "127");
+            this.assertAcceptance_26(++count, path, "-127",   "256");
+            this.assertAcceptance_26(++count, path, "256",    "-127");
+            this.assertAcceptance_26(++count, path, "127",    "-256");
     
-            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      "A");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      "A");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    "B");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  "C");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-0",     "A");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-1",     "A");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-256",   "B");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-65535", "C");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "A",      "0");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "A",      "1");
+            this.assertAcceptance_26(++count, path, "0",      "A");
+            this.assertAcceptance_26(++count, path, "1",      "A");
+            this.assertAcceptance_26(++count, path, "256",    "B");
+            this.assertAcceptance_26(++count, path, "65535",  "C");
+            this.assertAcceptance_26(++count, path, "-0",     "A");
+            this.assertAcceptance_26(++count, path, "-1",     "A");
+            this.assertAcceptance_26(++count, path, "-256",   "B");
+            this.assertAcceptance_26(++count, path, "-65535", "C");
+            this.assertAcceptance_26(++count, path, "A",      "0");
+            this.assertAcceptance_26(++count, path, "A",      "1");
     
-            WorkerTest_Get.assertAcceptance_26(++count, path, "B",      "256");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "C",      "65535");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "A",      "-0");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "A",      "-1");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "B",      "-256");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "C",      "-65535");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      "");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    "");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  "");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-0",     "");
+            this.assertAcceptance_26(++count, path, "B",      "256");
+            this.assertAcceptance_26(++count, path, "C",      "65535");
+            this.assertAcceptance_26(++count, path, "A",      "-0");
+            this.assertAcceptance_26(++count, path, "A",      "-1");
+            this.assertAcceptance_26(++count, path, "B",      "-256");
+            this.assertAcceptance_26(++count, path, "C",      "-65535");
+            this.assertAcceptance_26(++count, path, "0",      "");
+            this.assertAcceptance_26(++count, path, "256",    "");
+            this.assertAcceptance_26(++count, path, "65535",  "");
+            this.assertAcceptance_26(++count, path, "-0",     "");
             
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-1",     "");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-256",   "");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-65535", "");
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "0");
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "256");
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "65535");
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "A");
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,     null);
-            WorkerTest_Get.assertAcceptance_26(++count, path, "",       "0");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "",       "256");
+            this.assertAcceptance_26(++count, path, "-1",     "");
+            this.assertAcceptance_26(++count, path, "-256",   "");
+            this.assertAcceptance_26(++count, path, "-65535", "");
+            this.assertAcceptance_26(++count, path, null,     "0");
+            this.assertAcceptance_26(++count, path, null,     "256");
+            this.assertAcceptance_26(++count, path, null,     "65535");
+            this.assertAcceptance_26(++count, path, null,     "A");
+            this.assertAcceptance_26(++count, path, null,     null);
+            this.assertAcceptance_26(++count, path, "",       "0");
+            this.assertAcceptance_26(++count, path, "",       "256");
             
-            WorkerTest_Get.assertAcceptance_26(++count, path, "",       "65535");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "",       "-0");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "",       "-1");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "",       "-256");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "",       "-65535");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      " ");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      " ");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    " ");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  " ");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-0",     " ");
+            this.assertAcceptance_26(++count, path, "",       "65535");
+            this.assertAcceptance_26(++count, path, "",       "-0");
+            this.assertAcceptance_26(++count, path, "",       "-1");
+            this.assertAcceptance_26(++count, path, "",       "-256");
+            this.assertAcceptance_26(++count, path, "",       "-65535");
+            this.assertAcceptance_26(++count, path, "0",      " ");
+            this.assertAcceptance_26(++count, path, "1",      " ");
+            this.assertAcceptance_26(++count, path, "256",    " ");
+            this.assertAcceptance_26(++count, path, "65535",  " ");
+            this.assertAcceptance_26(++count, path, "-0",     " ");
             
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "-0");
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "-1");
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "-256");
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "-65535");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      null);
-            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      null);
-            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    null);
-            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  null);
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-0",     null);  
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "65535");
+            this.assertAcceptance_26(++count, path, null,     "-0");
+            this.assertAcceptance_26(++count, path, null,     "-1");
+            this.assertAcceptance_26(++count, path, null,     "-256");
+            this.assertAcceptance_26(++count, path, null,     "-65535");
+            this.assertAcceptance_26(++count, path, "0",      null);
+            this.assertAcceptance_26(++count, path, "1",      null);
+            this.assertAcceptance_26(++count, path, "256",    null);
+            this.assertAcceptance_26(++count, path, "65535",  null);
+            this.assertAcceptance_26(++count, path, "-0",     null);  
+            this.assertAcceptance_26(++count, path, null,     "65535");
             
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "256");
-            WorkerTest_Get.assertAcceptance_26(++count, path, null,     "127");            
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-1",     " ");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-256",   " ");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-65535", " ");
-            WorkerTest_Get.assertAcceptance_26(++count, path, " ",      "0");
-            WorkerTest_Get.assertAcceptance_26(++count, path, " ",      "1");
-            WorkerTest_Get.assertAcceptance_26(++count, path, " ",      "256");
-            WorkerTest_Get.assertAcceptance_26(++count, path, " ",      "65535");
-            WorkerTest_Get.assertAcceptance_26(++count, path, " ",      "-0");
+            this.assertAcceptance_26(++count, path, null,     "256");
+            this.assertAcceptance_26(++count, path, null,     "127");            
+            this.assertAcceptance_26(++count, path, "-1",     " ");
+            this.assertAcceptance_26(++count, path, "-256",   " ");
+            this.assertAcceptance_26(++count, path, "-65535", " ");
+            this.assertAcceptance_26(++count, path, " ",      "0");
+            this.assertAcceptance_26(++count, path, " ",      "1");
+            this.assertAcceptance_26(++count, path, " ",      "256");
+            this.assertAcceptance_26(++count, path, " ",      "65535");
+            this.assertAcceptance_26(++count, path, " ",      "-0");
             
-            WorkerTest_Get.assertAcceptance_26(++count, path, " ",      "-1");
-            WorkerTest_Get.assertAcceptance_26(++count, path, " ",      "-256");
-            WorkerTest_Get.assertAcceptance_26(++count, path, " ",      "-65535");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      "-");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      "-");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    "-");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  "-");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-0",     "-");    
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-1",     "-");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-256",   "-");
+            this.assertAcceptance_26(++count, path, " ",      "-1");
+            this.assertAcceptance_26(++count, path, " ",      "-256");
+            this.assertAcceptance_26(++count, path, " ",      "-65535");
+            this.assertAcceptance_26(++count, path, "0",      "-");
+            this.assertAcceptance_26(++count, path, "1",      "-");
+            this.assertAcceptance_26(++count, path, "256",    "-");
+            this.assertAcceptance_26(++count, path, "65535",  "-");
+            this.assertAcceptance_26(++count, path, "-0",     "-");    
+            this.assertAcceptance_26(++count, path, "-1",     "-");
+            this.assertAcceptance_26(++count, path, "-256",   "-");
             
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-65535", "-");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-",      "0");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-",      "256");    
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-",      "65535");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-",      "-0");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-",      "-1");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-",      "-256");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-",      "-65535");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "0",      ";");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      ";");    
+            this.assertAcceptance_26(++count, path, "-65535", "-");
+            this.assertAcceptance_26(++count, path, "-",      "0");
+            this.assertAcceptance_26(++count, path, "-",      "256");    
+            this.assertAcceptance_26(++count, path, "-",      "65535");
+            this.assertAcceptance_26(++count, path, "-",      "-0");
+            this.assertAcceptance_26(++count, path, "-",      "-1");
+            this.assertAcceptance_26(++count, path, "-",      "-256");
+            this.assertAcceptance_26(++count, path, "-",      "-65535");
+            this.assertAcceptance_26(++count, path, "0",      ";");
+            this.assertAcceptance_26(++count, path, "1",      ";");    
             
-            WorkerTest_Get.assertAcceptance_26(++count, path, "256",    ";");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "65535",  ";");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "0;",     null);
-            WorkerTest_Get.assertAcceptance_26(++count, path, "1;",     null);    
-            WorkerTest_Get.assertAcceptance_26(++count, path, "256;",   null);
-            WorkerTest_Get.assertAcceptance_26(++count, path, "65535;", null);            
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-0",     ";");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-1",     ";");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-256",   ";");    
-            WorkerTest_Get.assertAcceptance_26(++count, path, "-65535", ";");
+            this.assertAcceptance_26(++count, path, "256",    ";");
+            this.assertAcceptance_26(++count, path, "65535",  ";");
+            this.assertAcceptance_26(++count, path, "0;",     null);
+            this.assertAcceptance_26(++count, path, "1;",     null);    
+            this.assertAcceptance_26(++count, path, "256;",   null);
+            this.assertAcceptance_26(++count, path, "65535;", null);            
+            this.assertAcceptance_26(++count, path, "-0",     ";");
+            this.assertAcceptance_26(++count, path, "-1",     ";");
+            this.assertAcceptance_26(++count, path, "-256",   ";");    
+            this.assertAcceptance_26(++count, path, "-65535", ";");
 
-            WorkerTest_Get.assertAcceptance_26(++count, path, ";",      "0");
-            WorkerTest_Get.assertAcceptance_26(++count, path, ";",      "1");
-            WorkerTest_Get.assertAcceptance_26(++count, path, ";",      "256");
-            WorkerTest_Get.assertAcceptance_26(++count, path, ";",      "65535");    
-            WorkerTest_Get.assertAcceptance_26(++count, path, ";",      "-0");
-            WorkerTest_Get.assertAcceptance_26(++count, path, ";",      "-1");
-            WorkerTest_Get.assertAcceptance_26(++count, path, ";",      "-256");
-            WorkerTest_Get.assertAcceptance_26(++count, path, ";",      "-65535");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "1",      "");
-            WorkerTest_Get.assertAcceptance_26(++count, path, "",       "1");            
+            this.assertAcceptance_26(++count, path, ";",      "0");
+            this.assertAcceptance_26(++count, path, ";",      "1");
+            this.assertAcceptance_26(++count, path, ";",      "256");
+            this.assertAcceptance_26(++count, path, ";",      "65535");    
+            this.assertAcceptance_26(++count, path, ";",      "-0");
+            this.assertAcceptance_26(++count, path, ";",      "-1");
+            this.assertAcceptance_26(++count, path, ";",      "-256");
+            this.assertAcceptance_26(++count, path, ";",      "-65535");
+            this.assertAcceptance_26(++count, path, "1",      "");
+            this.assertAcceptance_26(++count, path, "",       "1");            
         }
     }
     
@@ -898,7 +892,7 @@ public class WorkerTest_Get extends AbstractTest {
             String requestLastModified = "HEAD " + path + " HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "\r\n";
-            String responseLastModified = new String(HttpUtils.sendRequest("127.0.0.1:8080", requestLastModified));       
+            String responseLastModified = this.sendRequest("127.0.0.1:8080", requestLastModified);       
             String lastModified = HttpUtils.getResponseHeaderValue(responseLastModified, HeaderField.LAST_MODIFIED);
             
             if (path.equals("/")) {
@@ -906,7 +900,7 @@ public class WorkerTest_Get extends AbstractTest {
                         + "File: ./stage/documents_vh_A\r\n"
                         + "Host: vHa\r\n"
                         + "\r\n";
-                responseLastModified = new String(HttpUtils.sendRequest("127.0.0.1:8080", requestLastModified));
+                responseLastModified = this.sendRequest("127.0.0.1:8080", requestLastModified);
                 lastModified = responseLastModified.replaceAll(Pattern.HTTP_RESPONSE, "$2");
             }
             
@@ -1014,7 +1008,7 @@ public class WorkerTest_Get extends AbstractTest {
                     code = "200";
                 }
 
-                String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+                String response = this.sendRequest("127.0.0.1:8080", request);
                 Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS(code)));
             }            
         }

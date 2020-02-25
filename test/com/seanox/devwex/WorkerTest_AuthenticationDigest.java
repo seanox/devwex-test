@@ -56,7 +56,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         String request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST("Section-A"))); 
@@ -66,8 +66,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(header.matches("^.*, opaque=\"\\w+\".*$"));
         Assert.assertTrue(header.matches("^.*, algorithm=\"MD5\".*$"));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     } 
     
@@ -84,13 +83,12 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         String request = "GET /authentication/a/b/d/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     } 
     
@@ -110,19 +108,18 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
         accessLog = this.accessStreamCaptureTail();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-a")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-a"));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
@@ -148,25 +145,23 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/a/b/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
         
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-b", "pwd-b")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-b", "pwd-b"));
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST("Section-A")));
          
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -186,19 +181,18 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/a/b/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-b", "pwd-b"));
+        this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-b", "pwd-b"));
 
         Thread.sleep(AbstractTest.SLEEP);
         accessLog = this.accessStreamCaptureTail();
@@ -223,25 +217,23 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-b", "pwd-b")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-b", "pwd-b"));
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));   
     }
     
@@ -263,19 +255,18 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/a/b/c/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/c/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-a")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-a"));
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
@@ -299,7 +290,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         String request = "GET /authentication/a/b/c/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST("Section-A2")));
@@ -309,8 +300,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(header.matches("^.*, opaque=\"\\w+\".*$"));
         Assert.assertTrue(header.matches("^.*, algorithm=\"MD5\".*$"));        
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -327,7 +317,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         String request = "GET /authentication/a/b/d/e/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST("Section-E")));
@@ -337,8 +327,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(header.matches("^.*, opaque=\"\\w+\".*$"));
         Assert.assertTrue(header.matches("^.*, algorithm=\"MD5\".*$"));  
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
 
@@ -355,7 +344,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         String request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST("Section-E")));
@@ -365,8 +354,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(header.matches("^.*, opaque=\"\\w+\".*$"));
         Assert.assertTrue(header.matches("^.*, algorithm=\"MD5\".*$"));  
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));        
     }
     
@@ -388,18 +376,17 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
@@ -426,18 +413,17 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
@@ -451,7 +437,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
@@ -465,7 +451,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
@@ -474,7 +460,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, "usr-e")));
     }
     
-    private static void assertAcceptance_13(String uri, String status, int auth) throws Exception {
+    private void assertAcceptance_13(String uri, String status, int auth) throws Exception {
         
         String request = "GET " + uri + " HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -486,8 +472,8 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
             authentication = new Authentication.Digest("usr-a", "pwd-a");
         String response;
         if (authentication != null)
-            response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, authentication));
-        else response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+            response = this.sendRequest("127.0.0.1:8080", request, authentication);
+        else response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS(status)));
     }
     
@@ -503,23 +489,23 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     @Test
     public void testAcceptance_13() throws Exception {
         
-        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/f", "401", 0);
-        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/g", "401", 0);
-        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/h", "401", 0);
-        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/i", "401", 0);
+        this.assertAcceptance_13("/authentication/a/b/c/f", "401", 0);
+        this.assertAcceptance_13("/authentication/a/b/c/g", "401", 0);
+        this.assertAcceptance_13("/authentication/a/b/c/h", "401", 0);
+        this.assertAcceptance_13("/authentication/a/b/c/i", "401", 0);
 
-        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/f", "403", 1);
-        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/g", "403", 1);
-        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/h", "403", 1);
-        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/i", "403", 1);
+        this.assertAcceptance_13("/authentication/a/b/c/f", "403", 1);
+        this.assertAcceptance_13("/authentication/a/b/c/g", "403", 1);
+        this.assertAcceptance_13("/authentication/a/b/c/h", "403", 1);
+        this.assertAcceptance_13("/authentication/a/b/c/i", "403", 1);
 
-        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/f", "401", 2);
-        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/g", "401", 2);
-        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/h", "401", 2);
-        WorkerTest_AuthenticationDigest.assertAcceptance_13("/authentication/a/b/c/i", "401", 2);
+        this.assertAcceptance_13("/authentication/a/b/c/f", "401", 2);
+        this.assertAcceptance_13("/authentication/a/b/c/g", "401", 2);
+        this.assertAcceptance_13("/authentication/a/b/c/h", "401", 2);
+        this.assertAcceptance_13("/authentication/a/b/c/i", "401", 2);
     }
     
-    private static void assertAcceptance_14(String uri, String realm, int auth) throws Exception {
+    private void assertAcceptance_14(String uri, String realm, int auth) throws Exception {
         
         String request = "GET " + uri + " HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
@@ -531,8 +517,8 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
             authentication = new Authentication.Digest("usr-a", "pwd-a");
         String response;
         if (authentication != null)
-            response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, authentication));
-        else response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+            response = this.sendRequest("127.0.0.1:8080", request, authentication);
+        else response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST(realm)));
     }
@@ -548,28 +534,28 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     @Test
     public void testAcceptance_14() throws Exception {
         
-        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/a/", "", 0);
-        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/b/", "", 0);
-        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/c/", "", 0);
-        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/d/", "", 0);
-        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/e/", "", 0);
-        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/f/", "x", 0);
-        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/g/", "x", 0);
-        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/h/", "x", 0);
-        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/i/", "x", 0);
-        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/j/", "\\\"x\\\"", 0);
-        WorkerTest_AuthenticationDigest.assertAcceptance_14("/authentication/r/k/", "", 0);
+        this.assertAcceptance_14("/authentication/r/a/", "", 0);
+        this.assertAcceptance_14("/authentication/r/b/", "", 0);
+        this.assertAcceptance_14("/authentication/r/c/", "", 0);
+        this.assertAcceptance_14("/authentication/r/d/", "", 0);
+        this.assertAcceptance_14("/authentication/r/e/", "", 0);
+        this.assertAcceptance_14("/authentication/r/f/", "x", 0);
+        this.assertAcceptance_14("/authentication/r/g/", "x", 0);
+        this.assertAcceptance_14("/authentication/r/h/", "x", 0);
+        this.assertAcceptance_14("/authentication/r/i/", "x", 0);
+        this.assertAcceptance_14("/authentication/r/j/", "\\\"x\\\"", 0);
+        this.assertAcceptance_14("/authentication/r/k/", "", 0);
     }
     
-    private static void assertAcceptance_15(String uri, String realm, String auth) throws Exception {
+    private void assertAcceptance_15(String uri, String realm, String auth) throws Exception {
         
         String request = "GET " + uri + " HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
         String response;
         if (auth != null && !auth.trim().isEmpty()) {
-            response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest(auth, null)));
-        } else response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+            response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest(auth, null));
+        } else response = this.sendRequest("127.0.0.1:8080", request);
 
         if (realm != null)
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST(realm)));      
@@ -587,15 +573,15 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     @Test
     public void testAcceptance_15() throws Exception {
         
-        WorkerTest_AuthenticationDigest.assertAcceptance_15("/authentication/s/a/", "", null);
-        WorkerTest_AuthenticationDigest.assertAcceptance_15("/authentication/s/a/", "", null);
-        WorkerTest_AuthenticationDigest.assertAcceptance_15("/authentication/s/b/", "sb", null);
-        WorkerTest_AuthenticationDigest.assertAcceptance_15("/authentication/s/b/", "sb", null);
+        this.assertAcceptance_15("/authentication/s/a/", "", null);
+        this.assertAcceptance_15("/authentication/s/a/", "", null);
+        this.assertAcceptance_15("/authentication/s/b/", "sb", null);
+        this.assertAcceptance_15("/authentication/s/b/", "sb", null);
 
-        WorkerTest_AuthenticationDigest.assertAcceptance_15("/authentication/s/a/", "", "usrSa1:");
-        WorkerTest_AuthenticationDigest.assertAcceptance_15("/authentication/s/a/", null, "usrSa2:");
-        WorkerTest_AuthenticationDigest.assertAcceptance_15("/authentication/s/b/", "sb", "usrSb1:");
-        WorkerTest_AuthenticationDigest.assertAcceptance_15("/authentication/s/b/", null, "usrSb2:");
+        this.assertAcceptance_15("/authentication/s/a/", "", "usrSa1:");
+        this.assertAcceptance_15("/authentication/s/a/", null, "usrSa2:");
+        this.assertAcceptance_15("/authentication/s/b/", "sb", "usrSb1:");
+        this.assertAcceptance_15("/authentication/s/b/", null, "usrSb2:");
     }
     
     /** 
@@ -618,18 +604,17 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/a/xxx HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/xxx HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-a")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-a"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
         
@@ -652,12 +637,11 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         String request = "GET /authentication/a/xxx HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -677,12 +661,11 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
                 + "Host: vHf\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -705,18 +688,17 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
@@ -730,18 +712,17 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "HEAD /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "HEAD /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
@@ -771,18 +752,17 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
@@ -793,18 +773,17 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "HEAD /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "HEAD /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
@@ -831,18 +810,17 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
@@ -853,18 +831,17 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "HEAD /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "HEAD /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-e", "pwd-e"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
@@ -873,7 +850,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("403", request, "usr-e")));        
     }
     
-    private static void assertAcceptance_22_1(String... args) throws Exception {
+    private void assertAcceptance_22_1(String... args) throws Exception {
         
         try (OutputFacadeStream.Capture capture = AbstractSuite.accessStream.capture()) {
                         
@@ -893,14 +870,13 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
                 request += "Authorization: Basic " + Codec.encodeBase64(login) + "\r\n";
             request += "\r\n";
     
-            String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+            String response = this.sendRequest("127.0.0.1:8080", request);
             if (authorisation != null)
                 Assert.assertTrue(HttpUtils.getResponseHeaderValue(response, HeaderField.WWW_AUTHENTICATE).startsWith(authorisation + " "));
             else
                 Assert.assertFalse(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
             
-            Thread.sleep(AbstractTest.SLEEP);
-            String accessLog = capture.toString().trim();
+            String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
             if (authorisation != null)
                 Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
             else
@@ -908,7 +884,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         }
     }
 
-    private static void assertAcceptance_22_2(String... args) throws Exception {
+    private void assertAcceptance_22_2(String... args) throws Exception {
         
         try (OutputFacadeStream.Capture capture = AbstractSuite.accessStream.capture()) {
         
@@ -934,18 +910,18 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
                 request = "GET " + uri + " HTTP/1.0\r\n"
                         + "Host: vHa\r\n"
                         + "\r\n";
-                response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+                response = this.sendRequest("127.0.0.1:8080", request);
             } else if (("Basic").equalsIgnoreCase(method)) {
                 request = "GET " + uri + " HTTP/1.0\r\n"
                         + "Host: vHa\r\n"
                         + "Authorization: Basic " + Codec.encodeBase64(user + ":" + password) + "\r\n"
                         + "\r\n";
-                response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+                response = this.sendRequest("127.0.0.1:8080", request);
             } else if (("Digest").equalsIgnoreCase(method)) {
                 request = "GET " + uri + " HTTP/1.0\r\n"
                         + "Host: vHa\r\n"
                         + "\r\n";
-                response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Digest(user, password)));
+                response = this.sendRequest("127.0.0.1:8080", request, new Digest(user, password));
             } else Assert.fail("Unsupported authentication method: '" + method + "'");
             
             Assert.assertNotNull(response);
@@ -954,7 +930,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
             Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
     
             Thread.sleep(AbstractTest.SLEEP);
-            String accessLog = AbstractTestUtils.tail(capture.toString());
+            String accessLog = this.accessStreamCaptureTail();
             Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, user)));
         }
     }
@@ -969,31 +945,31 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     @Test
     public void testAcceptance_22() throws Exception {
 
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1", null);
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2", null);
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3", null);
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1", "Digest");
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1/d2", "Digest");
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3", "Digest");
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1", null);
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2", null);
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2/n3", null);
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1", "Basic");
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1/b2", "Basic");
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1/b2/b3", "Basic");
+        this.assertAcceptance_22_1("/o1", null);
+        this.assertAcceptance_22_1("/o1/o2", null);
+        this.assertAcceptance_22_1("/o1/o2/o3", null);
+        this.assertAcceptance_22_1("/o1/o2/o3/d1", "Digest");
+        this.assertAcceptance_22_1("/o1/o2/o3/d1/d2", "Digest");
+        this.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3", "Digest");
+        this.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1", null);
+        this.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2", null);
+        this.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2/n3", null);
+        this.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1", "Basic");
+        this.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1/b2", "Basic");
+        this.assertAcceptance_22_1("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1/b2/b3", "Basic");
 
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1", null);
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2", null);
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3", null);
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1", "Digest", "usr-d", "pwd-d");
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1/d2", "Digest", "usr-d", "pwd-d");
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3", "Digest", "usr-d", "pwd-d");
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1");
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2");
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2/n3");
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1", "Basic", "usr-b", "pwd-b");
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1/b2", "Basic", "usr-b", "pwd-b");
-        WorkerTest_AuthenticationDigest.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1/b2/b3", "Basic", "usr-b", "pwd-b");
+        this.assertAcceptance_22_2("/o1", null);
+        this.assertAcceptance_22_2("/o1/o2", null);
+        this.assertAcceptance_22_2("/o1/o2/o3", null);
+        this.assertAcceptance_22_2("/o1/o2/o3/d1", "Digest", "usr-d", "pwd-d");
+        this.assertAcceptance_22_2("/o1/o2/o3/d1/d2", "Digest", "usr-d", "pwd-d");
+        this.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3", "Digest", "usr-d", "pwd-d");
+        this.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1");
+        this.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2");
+        this.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2/n3");
+        this.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1", "Basic", "usr-b", "pwd-b");
+        this.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1/b2", "Basic", "usr-b", "pwd-b");
+        this.assertAcceptance_22_2("/o1/o2/o3/d1/d2/d3/n1/n2/n3/b1/b2/b3", "Basic", "usr-b", "pwd-b");
     }
 
     /** 
@@ -1014,23 +990,21 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
         
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-b")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-b"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -1052,23 +1026,21 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-b", "pwd-a")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-b", "pwd-a"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -1090,18 +1062,17 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/dvc HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/dvc HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-a")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-a"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
         
@@ -1128,18 +1099,17 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/dvr HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
         
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/dvr HTTP/1.0\r\n"
                + "Host: vHf\r\n"
                + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-a")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-a"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
@@ -1166,18 +1136,17 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/dvv/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/dvv/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-a")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-a"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
@@ -1188,23 +1157,21 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/dvv HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-ax", "pwd-a")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-ax", "pwd-a"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/dvv/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-ax", "pwd-a")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-ax", "pwd-a"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
        
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -1227,18 +1194,17 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/dvm/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        response = this.sendRequest("127.0.0.1:8080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/dvm/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-a")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-a"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001")));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
@@ -1249,23 +1215,22 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/dvm/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-ax")));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-a", "pwd-ax"));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
-    private static void assertAcceptance_29(String uri, String user, String password, boolean authorisation) throws Exception {
+    private void assertAcceptance_29(String uri, String user, String password, boolean authorisation) throws Exception {
         
         try (OutputFacadeStream.Capture capture = AbstractSuite.accessStream.capture()) {
                     
             String request = "GET " + uri + " HTTP/1.0\r\n"
                     + "Host: vHf\r\n"
                     + "\r\n";
-            String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request, new Authentication.Digest(user, password)));
+            String response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest(user, password));
     
              if (authorisation)
                  Assert.assertTrue(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
@@ -1273,7 +1238,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
                  Assert.assertFalse(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
              
              Thread.sleep(AbstractTest.SLEEP);
-             String accessLog = AbstractTestUtils.tail(capture.toString());
+             String accessLog = this.accessStreamCaptureTail();
              if (authorisation)
                  Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
              else
@@ -1292,80 +1257,79 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     @Test
     public void testAcceptance_29() throws Exception {
         
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg0", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg0", "usr-b", "pwd-b", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg0", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg0", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg0", "usr-x", "pwd-x", false);
+        this.assertAcceptance_29("/authentication/dg0", "usr-a", "pwd-a", false);
+        this.assertAcceptance_29("/authentication/dg0", "usr-b", "pwd-b", false);
+        this.assertAcceptance_29("/authentication/dg0", "usr-e", "pwd-e", false);
+        this.assertAcceptance_29("/authentication/dg0", "usr-d", "pwd-d", false);
+        this.assertAcceptance_29("/authentication/dg0", "usr-x", "pwd-x", false);
 
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg1", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg1", "usr-b", "pwd-b", true);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg1", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg1", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg1", "usr-x", "pwd-x", true);
+        this.assertAcceptance_29("/authentication/dg1", "usr-a", "pwd-a", false);
+        this.assertAcceptance_29("/authentication/dg1", "usr-b", "pwd-b", true);
+        this.assertAcceptance_29("/authentication/dg1", "usr-e", "pwd-e", false);
+        this.assertAcceptance_29("/authentication/dg1", "usr-d", "pwd-d", false);
+        this.assertAcceptance_29("/authentication/dg1", "usr-x", "pwd-x", true);
 
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg2", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg2", "usr-b", "pwd-b", true);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg2", "usr-e", "pwd-e", true);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg2", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg2", "usr-x", "pwd-x", true);
+        this.assertAcceptance_29("/authentication/dg2", "usr-a", "pwd-a", false);
+        this.assertAcceptance_29("/authentication/dg2", "usr-b", "pwd-b", true);
+        this.assertAcceptance_29("/authentication/dg2", "usr-e", "pwd-e", true);
+        this.assertAcceptance_29("/authentication/dg2", "usr-d", "pwd-d", false);
+        this.assertAcceptance_29("/authentication/dg2", "usr-x", "pwd-x", true);
 
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg3", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg3", "usr-b", "pwd-b", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg3", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg3", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg3", "usr-x", "pwd-x", false);
+        this.assertAcceptance_29("/authentication/dg3", "usr-a", "pwd-a", false);
+        this.assertAcceptance_29("/authentication/dg3", "usr-b", "pwd-b", false);
+        this.assertAcceptance_29("/authentication/dg3", "usr-e", "pwd-e", false);
+        this.assertAcceptance_29("/authentication/dg3", "usr-d", "pwd-d", false);
+        this.assertAcceptance_29("/authentication/dg3", "usr-x", "pwd-x", false);
 
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg4", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg4", "usr-b", "pwd-b", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg4", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg4", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg4", "usr-x", "pwd-x", false);
+        this.assertAcceptance_29("/authentication/dg4", "usr-a", "pwd-a", false);
+        this.assertAcceptance_29("/authentication/dg4", "usr-b", "pwd-b", false);
+        this.assertAcceptance_29("/authentication/dg4", "usr-e", "pwd-e", false);
+        this.assertAcceptance_29("/authentication/dg4", "usr-d", "pwd-d", false);
+        this.assertAcceptance_29("/authentication/dg4", "usr-x", "pwd-x", false);
 
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg5", "usr-a", "pwd-a", true);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg5", "usr-b", "pwd-b", true);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg5", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg5", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg5", "usr-x", "pwd-x", true);
+        this.assertAcceptance_29("/authentication/dg5", "usr-a", "pwd-a", true);
+        this.assertAcceptance_29("/authentication/dg5", "usr-b", "pwd-b", true);
+        this.assertAcceptance_29("/authentication/dg5", "usr-e", "pwd-e", false);
+        this.assertAcceptance_29("/authentication/dg5", "usr-d", "pwd-d", false);
+        this.assertAcceptance_29("/authentication/dg5", "usr-x", "pwd-x", true);
 
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg6", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg6", "usr-b", "pwd-b", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg6", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg6", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg6", "usr-x", "pwd-x", false);
+        this.assertAcceptance_29("/authentication/dg6", "usr-a", "pwd-a", false);
+        this.assertAcceptance_29("/authentication/dg6", "usr-b", "pwd-b", false);
+        this.assertAcceptance_29("/authentication/dg6", "usr-e", "pwd-e", false);
+        this.assertAcceptance_29("/authentication/dg6", "usr-d", "pwd-d", false);
+        this.assertAcceptance_29("/authentication/dg6", "usr-x", "pwd-x", false);
 
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg7", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg7", "usr-b", "pwd-b", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg7", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg7", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg7", "usr-x", "pwd-x", false);
+        this.assertAcceptance_29("/authentication/dg7", "usr-a", "pwd-a", false);
+        this.assertAcceptance_29("/authentication/dg7", "usr-b", "pwd-b", false);
+        this.assertAcceptance_29("/authentication/dg7", "usr-e", "pwd-e", false);
+        this.assertAcceptance_29("/authentication/dg7", "usr-d", "pwd-d", false);
+        this.assertAcceptance_29("/authentication/dg7", "usr-x", "pwd-x", false);
 
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg8", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg8", "usr-b", "pwd-b", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg8", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg8", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg8", "usr-x", "pwd-x", false);
+        this.assertAcceptance_29("/authentication/dg8", "usr-a", "pwd-a", false);
+        this.assertAcceptance_29("/authentication/dg8", "usr-b", "pwd-b", false);
+        this.assertAcceptance_29("/authentication/dg8", "usr-e", "pwd-e", false);
+        this.assertAcceptance_29("/authentication/dg8", "usr-d", "pwd-d", false);
+        this.assertAcceptance_29("/authentication/dg8", "usr-x", "pwd-x", false);
 
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg9", "usr-a", "pwd-a", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg9", "usr-b", "pwd-b", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg9", "usr-e", "pwd-e", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg9", "usr-d", "pwd-d", false);
-        WorkerTest_AuthenticationDigest.assertAcceptance_29("/authentication/dg9", "usr-x", "pwd-x", false);
+        this.assertAcceptance_29("/authentication/dg9", "usr-a", "pwd-a", false);
+        this.assertAcceptance_29("/authentication/dg9", "usr-b", "pwd-b", false);
+        this.assertAcceptance_29("/authentication/dg9", "usr-e", "pwd-e", false);
+        this.assertAcceptance_29("/authentication/dg9", "usr-d", "pwd-d", false);
+        this.assertAcceptance_29("/authentication/dg9", "usr-x", "pwd-x", false);
     }
     
-    private static void assertAcceptance_30(String uri, String method) throws Exception {
+    private void assertAcceptance_30(String uri, String method) throws Exception {
         
         try (OutputFacadeStream.Capture capture = AbstractSuite.accessStream.capture()) {
                         
             String request = "GET " + uri + " HTTP/1.0\r\n"
                     + "Host: vHf\r\n"
                     + "\r\n";
-            String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+            String response = this.sendRequest("127.0.0.1:8080", request);
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE(method)));  
              
-            Thread.sleep(AbstractTest.SLEEP);
-            String accessLog = capture.toString().trim();
+            String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
             Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         }
     }
@@ -1380,9 +1344,9 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
     @Test
     public void testAcceptance_30() throws Exception {
         
-        WorkerTest_AuthenticationDigest.assertAcceptance_30("/authentication/dbd/a", "Digest");
-        WorkerTest_AuthenticationDigest.assertAcceptance_30("/authentication/dbd/a/b", "Basic");
-        WorkerTest_AuthenticationDigest.assertAcceptance_30("/authentication/dbd/a/b/c", "Digest"); 
+        this.assertAcceptance_30("/authentication/dbd/a", "Digest");
+        this.assertAcceptance_30("/authentication/dbd/a/b", "Basic");
+        this.assertAcceptance_30("/authentication/dbd/a/b/c", "Digest"); 
     }     
     
     /** 
@@ -1399,13 +1363,12 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         String request = "GET /authentication/a/b/e/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
@@ -1423,13 +1386,12 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         String request = "GET /authentication/a/b/e/c/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = this.sendRequest("127.0.0.1:8080", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST("Section-BEC")));
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     } 
 }

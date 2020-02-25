@@ -29,7 +29,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.seanox.test.utils.Codec;
-import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.MockUtils;
 import com.seanox.test.utils.Pattern;
 import com.seanox.test.utils.StreamUtils;
@@ -62,18 +61,18 @@ public class WorkerTest_Put extends AbstractTest {
         request = "Delete /put_test_1\\ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        HttpUtils.sendRequest("127.0.0.1:8085", request);
+        this.sendRequest("127.0.0.1:8085", request);
 
         request = "Head /put_test_1\\ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
 
         request = "Put /put_test_1\\ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/put_test_1/")));
@@ -81,8 +80,7 @@ public class WorkerTest_Put extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_201)); 
     } 
     
@@ -101,18 +99,18 @@ public class WorkerTest_Put extends AbstractTest {
         request = "Delete /put_test_2\\ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        HttpUtils.sendRequest("127.0.0.1:8085", request);
+        this.sendRequest("127.0.0.1:8085", request);
 
         request = "Head /put_test_2\\ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
 
         request = "Put /put_test_2 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/put_test_2")));
@@ -120,8 +118,7 @@ public class WorkerTest_Put extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_201)); 
     }
     
@@ -137,12 +134,11 @@ public class WorkerTest_Put extends AbstractTest {
         String request = "Put /put_test_2.:::2 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_424));
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_424)); 
     }
     
@@ -161,13 +157,13 @@ public class WorkerTest_Put extends AbstractTest {
         request = "Head /put_test_2\\ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
         request = "Put /put_test_1/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/put_test_1/")));
@@ -175,8 +171,7 @@ public class WorkerTest_Put extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_201)); 
     }
     
@@ -192,7 +187,7 @@ public class WorkerTest_Put extends AbstractTest {
         String request= "Put /put_test_1 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/put_test_1/")));
@@ -200,8 +195,7 @@ public class WorkerTest_Put extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_302)); 
     }
     
@@ -218,7 +212,7 @@ public class WorkerTest_Put extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "\r\n";
 
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/put_test_1/x1/x2/x3")));
@@ -226,8 +220,7 @@ public class WorkerTest_Put extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_201)); 
     }
     
@@ -246,7 +239,7 @@ public class WorkerTest_Put extends AbstractTest {
                 + "\r\n"
                 + "1234567890";
 
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/put_test_1/test_file.1")));
@@ -254,8 +247,7 @@ public class WorkerTest_Put extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_201)); 
     }
     
@@ -274,7 +266,7 @@ public class WorkerTest_Put extends AbstractTest {
         request = "Head /put_test_1/test_file.1 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
@@ -283,7 +275,7 @@ public class WorkerTest_Put extends AbstractTest {
                 + "Content-Length: 10\r\n"
                 + "\r\n"
                 + "1234567890";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/put_test_1/test_file.1")));
@@ -291,8 +283,7 @@ public class WorkerTest_Put extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_201)); 
     }
     
@@ -318,7 +309,7 @@ public class WorkerTest_Put extends AbstractTest {
                 + "1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ **\r\n"
                 + "1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ **\r\n"
                 + "1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ **\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/put_test_1/test_file.2")));
@@ -326,14 +317,13 @@ public class WorkerTest_Put extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_201)); 
 
         request = "head /put_test_1/test_file.2 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(50)));
@@ -360,13 +350,13 @@ public class WorkerTest_Put extends AbstractTest {
                 + "1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ **\r\n"
                 + "1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ **\r\n"
                 + "1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ **\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_411));
 
         request = "head /put_test_1/test_file.3 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
     }
     
@@ -391,13 +381,13 @@ public class WorkerTest_Put extends AbstractTest {
                 + "1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ **\r\n"
                 + "1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ **\r\n"
                 + "1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ--1234567890--ABCDEFGHIJKLMNOPQRSTUVWXYZ **\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_411));
 
         request = "head /put_test_1/test_file.3 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
     }
     
@@ -415,7 +405,7 @@ public class WorkerTest_Put extends AbstractTest {
                 + "Content-Length: 10\r\n"
                 + "\r\n"
                 + "1234567890";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/put_test_1/x1/")));
@@ -423,8 +413,7 @@ public class WorkerTest_Put extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
     }
     
@@ -440,7 +429,7 @@ public class WorkerTest_Put extends AbstractTest {
         String request = "Put /put_test_1/test_file.1/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/put_test_1/test_file.1")));
@@ -448,8 +437,7 @@ public class WorkerTest_Put extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
     }
     
@@ -464,7 +452,7 @@ public class WorkerTest_Put extends AbstractTest {
         String request = "Put /method.jsx HTTP/1.0\r\n"
                 + "Host: vHe\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LOCATION_DIFFUSE));
@@ -485,7 +473,7 @@ public class WorkerTest_Put extends AbstractTest {
         String request = "Put /method.jsx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
     }
@@ -502,13 +490,12 @@ public class WorkerTest_Put extends AbstractTest {
         String request = "Put /test.module123 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = this.sendRequest("127.0.0.1:8085", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
         Assert.assertTrue(response.matches("(?s)^.*\r\nModule: module.WorkerModule_A::Service\r\n.*$"));
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("1")));        
     } 
     
@@ -527,12 +514,12 @@ public class WorkerTest_Put extends AbstractTest {
         request = "Delete /file.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
 
         request = "Head /file.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
 
@@ -540,7 +527,7 @@ public class WorkerTest_Put extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/test.xxx123")));
@@ -548,14 +535,13 @@ public class WorkerTest_Put extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_201)); 
         
         request = "Get /test.xxx123 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));    
     }     
@@ -575,12 +561,12 @@ public class WorkerTest_Put extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         
         request = "Head /file.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
 
@@ -588,7 +574,7 @@ public class WorkerTest_Put extends AbstractTest {
             + "Host: vHa\r\n"
             + "Content-Length: 0\r\n"
             + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/test.xxx")));
@@ -596,14 +582,13 @@ public class WorkerTest_Put extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_201)); 
 
         request = "Get /test.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
     } 
@@ -621,7 +606,7 @@ public class WorkerTest_Put extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://www.xXx.zzz/?a=2/a/b/c/file.xxx")));
@@ -629,8 +614,7 @@ public class WorkerTest_Put extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
     } 
     
@@ -646,7 +630,7 @@ public class WorkerTest_Put extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
     } 
@@ -665,7 +649,7 @@ public class WorkerTest_Put extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
     } 
@@ -688,13 +672,13 @@ public class WorkerTest_Put extends AbstractTest {
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         
         request = "Head /authentication/a/file.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         
@@ -703,7 +687,7 @@ public class WorkerTest_Put extends AbstractTest {
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/authentication/a/file.xxx")));
@@ -711,15 +695,14 @@ public class WorkerTest_Put extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
 
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("201", request, "usr-a")));
 
         request = "Get /authentication/a/file.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
     } 
@@ -741,15 +724,14 @@ public class WorkerTest_Put extends AbstractTest {
                 + "Content-Length: 10\r\n"
                 + "\r\n"
                 + "12345";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = this.sendRequest("127.0.0.1:8085", request);
         
         timing.assertTimeIn(16000);
         timing.assertTimeOut(15000);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_424));
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_424));
     } 
     
@@ -770,7 +752,7 @@ public class WorkerTest_Put extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
             
         long size = 3L *1000L *1000L *1000L;
         InputStream input = MockUtils.createInputStream(size);
@@ -778,7 +760,7 @@ public class WorkerTest_Put extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Content-Length: " + size + "\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request, input));
+        response = this.sendRequest("127.0.0.1:8085", request, input);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
 
@@ -786,8 +768,7 @@ public class WorkerTest_Put extends AbstractTest {
         Assert.assertEquals(size, file.length());
         Assert.assertEquals("---------E", new String(StreamUtils.tail(new FileInputStream(file), 10)));
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureTail();
+        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_201));
     }     
 
@@ -805,13 +786,13 @@ public class WorkerTest_Put extends AbstractTest {
         request = "Put /put_test_1/test_file.98 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
 
         request = "head /put_test_1/test_file.98/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LOCATION_DIFFUSE));
@@ -832,13 +813,13 @@ public class WorkerTest_Put extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
 
         request = "head /put_test_1/test_file.99 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        response = this.sendRequest("127.0.0.1:8085", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(0)));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LOCATION_DIFFUSE));
