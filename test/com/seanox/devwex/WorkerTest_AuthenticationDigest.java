@@ -4,7 +4,7 @@
  *  Diese Software unterliegt der Version 2 der GNU General Public License.
  *
  *  Devwex, Advanced Server Development
- *  Copyright (C) 2017 Seanox Software Solutions
+ *  Copyright (C) 2020 Seanox Software Solutions
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as published
@@ -35,12 +35,12 @@ import com.seanox.test.utils.Pattern;
 /**
  *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
- *  WorkerTest_AuthenticationDigest 5.1 20171231<br>
- *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  WorkerTest_AuthenticationDigest 5.2 20200410<br>
+ *  Copyright (C) 2020 Seanox Software Solutions<br>
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 5.1 20171231
+ *  @version 5.2 20200410
  */
 public class WorkerTest_AuthenticationDigest extends AbstractTest {
     
@@ -66,7 +66,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(header.matches("^.*, opaque=\"\\w+\".*$"));
         Assert.assertTrue(header.matches("^.*, algorithm=\"MD5\".*$"));
 
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     } 
     
@@ -88,7 +88,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE)); 
 
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     } 
     
@@ -150,7 +150,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
         
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/ HTTP/1.0\r\n"
@@ -161,7 +161,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST("Section-A")));
          
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -186,7 +186,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/ HTTP/1.0\r\n"
@@ -222,7 +222,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/ HTTP/1.0\r\n"
@@ -233,7 +233,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));   
     }
     
@@ -260,7 +260,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/c/ HTTP/1.0\r\n"
@@ -300,7 +300,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(header.matches("^.*, opaque=\"\\w+\".*$"));
         Assert.assertTrue(header.matches("^.*, algorithm=\"MD5\".*$"));        
 
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -327,7 +327,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(header.matches("^.*, opaque=\"\\w+\".*$"));
         Assert.assertTrue(header.matches("^.*, algorithm=\"MD5\".*$"));  
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
 
@@ -354,7 +354,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(header.matches("^.*, opaque=\"\\w+\".*$"));
         Assert.assertTrue(header.matches("^.*, algorithm=\"MD5\".*$"));  
 
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));        
     }
     
@@ -380,7 +380,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
@@ -417,7 +417,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/d/e/e HTTP/1.0\r\n"
@@ -608,7 +608,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/xxx HTTP/1.0\r\n"
@@ -641,7 +641,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -665,7 +665,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -692,7 +692,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/d/e/e HTTP/1.0\r\n"
@@ -716,7 +716,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         
         request = "HEAD /authentication/a/b/d/e/e HTTP/1.0\r\n"
@@ -756,7 +756,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
@@ -777,7 +777,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "HEAD /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
@@ -814,7 +814,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
@@ -835,7 +835,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "HEAD /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
@@ -876,7 +876,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
             else
                 Assert.assertFalse(HttpUtils.exitsResponseHeader(response, HeaderField.WWW_AUTHENTICATE));
             
-            String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+            String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
             if (authorisation != null)
                 Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
             else
@@ -994,7 +994,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
         
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/ HTTP/1.0\r\n"
@@ -1004,7 +1004,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -1030,7 +1030,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/ HTTP/1.0\r\n"
@@ -1040,7 +1040,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -1066,7 +1066,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/dvc HTTP/1.0\r\n"
@@ -1103,7 +1103,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
         
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/dvr HTTP/1.0\r\n"
@@ -1140,7 +1140,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/dvv/ HTTP/1.0\r\n"
@@ -1161,7 +1161,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/dvv/ HTTP/1.0\r\n"
@@ -1171,7 +1171,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
        
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -1198,7 +1198,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/dvm/ HTTP/1.0\r\n"
@@ -1219,7 +1219,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     }
     
@@ -1329,7 +1329,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE(method)));  
              
-            String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+            String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
             Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
         }
     }
@@ -1368,7 +1368,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
@@ -1391,7 +1391,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST("Section-BEC")));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
     } 
 }

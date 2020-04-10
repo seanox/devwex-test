@@ -4,7 +4,7 @@
  *  Diese Software unterliegt der Version 2 der GNU General Public License.
  *
  *  Devwex, Advanced Server Development
- *  Copyright (C) 2017 Seanox Software Solutions
+ *  Copyright (C) 2020 Seanox Software Solutions
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as published
@@ -36,12 +36,12 @@ import com.seanox.test.utils.Pattern;
 /**
  *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
- *  WorkerTest_AccessLog 5.1 20171231<br>
- *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  WorkerTest_AccessLog 5.2 20200410<br>
+ *  Copyright (C) 2020 Seanox Software Solutions<br>
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 5.1 20171231
+ *  @version 5.2 20200410
  */
 public class WorkerTest_AccessLog extends AbstractTest {
     
@@ -79,7 +79,7 @@ public class WorkerTest_AccessLog extends AbstractTest {
         String response = this.sendRequest("127.0.0.1:80", "GET / HTTP/1.0\r\n\r\n");
         String pattern = new SimpleDateFormat("Z", Locale.US).format(new Date());
         Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches("^.*?\\[\\d{2}/\\w{3}/\\d{4}(:\\d{2}){3} \\" + pattern + "\\]\\s.*$"));
     }   
 
@@ -139,7 +139,7 @@ public class WorkerTest_AccessLog extends AbstractTest {
         String request = "GET /nix_xxx_zzz\ud801\udc00 HTTP/1.0\r\n";
         String response = this.sendRequest("127.0.0.1:80", request + "\r\n");
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.contains(" \"GET /nix_xxx_zzz? HTTP/1.0\" "));
     }    
     
@@ -154,7 +154,7 @@ public class WorkerTest_AccessLog extends AbstractTest {
         String request = "GET /nix_xxx_zzz" + URLEncoder.encode("\ud801\udc00", "UTF-8") +  " HTTP/1.0\r\n";
         String response = this.sendRequest("127.0.0.1:80", request + "\r\n");
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.contains(" \"GET /nix_xxx_zzz%F0%90%90%80 HTTP/1.0\" "));
     }    
 }
