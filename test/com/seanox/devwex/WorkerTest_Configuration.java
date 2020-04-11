@@ -41,12 +41,12 @@ import com.seanox.test.utils.Pattern;
 /**
  *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
- *  WorkerTest_Configuration 5.2 20200410<br>
+ *  WorkerTest_Configuration 5.2 20200411<br>
  *  Copyright (C) 2020 Seanox Software Solutions<br>
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 5.2 20200410
+ *  @version 5.2 20200411
  */
 public class WorkerTest_Configuration extends AbstractTest {
     
@@ -604,8 +604,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_405));
         
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_405));  
         
         request = "HEAD / HTTP/1.0\r\n"
@@ -614,8 +613,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
         
         

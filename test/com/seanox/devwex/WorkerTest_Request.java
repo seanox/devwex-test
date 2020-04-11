@@ -4,7 +4,7 @@
  *  Diese Software unterliegt der Version 2 der GNU General Public License.
  *
  *  Devwex, Advanced Server Development
- *  Copyright (C) 2017 Seanox Software Solutions
+ *  Copyright (C) 2020 Seanox Software Solutions
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as published
@@ -22,28 +22,32 @@
 package com.seanox.devwex;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 import com.seanox.test.utils.StreamUtils;
+import com.seanox.test.utils.Timing;
 
 /**
  *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
- *  WorkerTest_Request 5.1 20171231<br>
- *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  WorkerTest_Request 5.2 20200411<br>
+ *  Copyright (C) 2020 Seanox Software Solutions<br>
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 5.1 20171231
+ *  @version 5.2 20200411
  */
 public class WorkerTest_Request extends AbstractTest {
     
@@ -54,18 +58,17 @@ public class WorkerTest_Request extends AbstractTest {
      *  request must be responded with status 408.
      *  @throws Exception
      */  
-    @Test(timeout=16000)
+    @Test(timeout=17500)
     public void testTimeout_1() throws Exception {
         
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:80"));
+        String response = this.sendRequest("127.0.0.1:80", "");
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_408));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_408));
     }
     
@@ -76,11 +79,16 @@ public class WorkerTest_Request extends AbstractTest {
      *  of the request are transmitted less than 15 seconds. The request must
      *  be transmitted completely and responded with status 200.
      *  @throws Exception
-     */      
-    @Test(timeout=25000)
+     */ 
+    @Test
     public void testTimeout_2() throws Exception {
         
+        String uuid = UUID.randomUUID().toString();
+        Files.write(new File(PATH_STAGE_ACCESS_LOG).toPath(), (uuid + "\r\n").getBytes(), StandardOpenOption.APPEND);
+        
         try (Socket socket = new Socket("127.0.0.1", 8085)) {
+            
+            Timing timing = Timing.create(true);
             
             InputStream input = new BufferedInputStream(socket.getInputStream(), 65535);
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
@@ -90,7 +98,7 @@ public class WorkerTest_Request extends AbstractTest {
             for (int loop1 = 1; loop1 < 10; loop1++) {
                 writer.printf("%nline-%02d: ", Integer.valueOf(loop1));
                 for (int loop2 = 1; loop2 < 10; loop2++) {
-                    Thread.sleep(275);
+                    Thread.sleep(300);
                     writer.print("x");
                     writer.flush();
                     Assert.assertFalse(input.available() > 0);
@@ -101,13 +109,15 @@ public class WorkerTest_Request extends AbstractTest {
             
             String response = new String(StreamUtils.read(input));
             
+            timing.assertTimeOut(20000);
+            
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
             Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
             
-            Thread.sleep(AbstractTest.SLEEP);
-            String accessLog = this.accessStreamCapture.toString().trim();
+            this.accessStreamCapture.await(ACCESS_LOG_UUID(uuid));
+            String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_UUID(uuid));
             Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", "GET / HTTP/1.0")));
         }
     }    
@@ -120,11 +130,16 @@ public class WorkerTest_Request extends AbstractTest {
      *  request is not terminated, the server waits for the request end.
      *  Therefore the request  must be responded with status 408.
      *  @throws Exception
-     */      
-    @Test(timeout=40000)
+     */    
+    @Test
     public void testTimeout_3() throws Exception {
         
+        String uuid = UUID.randomUUID().toString();
+        Files.write(new File(PATH_STAGE_ACCESS_LOG).toPath(), (uuid + "\r\n").getBytes(), StandardOpenOption.APPEND);
+        
         try (Socket socket = new Socket("127.0.0.1", 8085)) {
+            
+            Timing timing = Timing.create(true);
 
             InputStream input = new BufferedInputStream(socket.getInputStream(), 65535);
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
@@ -146,13 +161,15 @@ public class WorkerTest_Request extends AbstractTest {
             
             String response = new String(StreamUtils.read(input));
             
+            timing.assertTimeOut(25000);
+            
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_408));
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
             Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
             
-            Thread.sleep(AbstractTest.SLEEP);
-            String accessLog = this.accessStreamCapture.toString().trim();
+            this.accessStreamCapture.await(ACCESS_LOG_UUID(uuid));
+            String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_UUID(uuid));
             Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("408", "GET / HTTP/1.0")));
         }
     }  
@@ -173,7 +190,7 @@ public class WorkerTest_Request extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("400", request)));
     }
     
@@ -194,7 +211,7 @@ public class WorkerTest_Request extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("400", request)));
     }
     
@@ -215,7 +232,7 @@ public class WorkerTest_Request extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
     }
     
@@ -239,7 +256,7 @@ public class WorkerTest_Request extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("413", request)));
     }    
     
@@ -268,7 +285,7 @@ public class WorkerTest_Request extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("413", request)));
     }    
     
@@ -297,7 +314,7 @@ public class WorkerTest_Request extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
     }
     
@@ -310,15 +327,14 @@ public class WorkerTest_Request extends AbstractTest {
     @Test
     public void testAcceptance_8() throws Exception {
         
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", "\r\n\r\n"));
+        String response = this.sendRequest("127.0.0.1:80", "\r\n\r\n");
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_400));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_400));
     } 
     
@@ -332,7 +348,8 @@ public class WorkerTest_Request extends AbstractTest {
     @Test
     public void testAcceptance_9() throws Exception {
         
-        int threadCount = Thread.activeCount();
+        Service.restart();
+        Thread.sleep(SLEEP);
         
         List<Socket> sockets = new ArrayList<>();
         try {
@@ -356,16 +373,15 @@ public class WorkerTest_Request extends AbstractTest {
             for (Socket socket : sockets) {
                 if (socket.isClosed())
                     socketClosed++;
-                 else socketOpened++;
+                else socketOpened++;
                 if (!socket.isClosed())
                     socket.close();
             }
+            
             Assert.assertTrue(socketOpened > 100);
             Assert.assertTrue(socketClosed > 20);
             
-            while (Thread.activeCount() > threadCount)
-                Thread.sleep(25);
-            AbstractTestUtils.waitOutputFacadeStream(AbstractSuite.outputStream);
+            AbstractTestUtils.waitOutputFacadeStream(com.seanox.test.AbstractSuite.outputStream);
         }
     }     
 }

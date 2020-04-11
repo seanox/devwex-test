@@ -4,7 +4,7 @@
  *  Diese Software unterliegt der Version 2 der GNU General Public License.
  *
  *  Devwex, Advanced Server Development
- *  Copyright (C) 2017 Seanox Software Solutions
+ *  Copyright (C) 2020 Seanox Software Solutions
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as published
@@ -26,19 +26,18 @@ import java.io.File;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.OutputFacadeStream;
 import com.seanox.test.utils.Pattern;
 
 /**
  *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
- *  WorkerTest_Locate 5.1 20171231<br>
- *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  WorkerTest_Locate 5.2 20200411<br>
+ *  Copyright (C) 2020 Seanox Software Solutions<br>
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 5.1 20171231
+ *  @version 5.2 20200411
  */
 public class WorkerTest_Locate extends AbstractTest {
     
@@ -113,7 +112,7 @@ public class WorkerTest_Locate extends AbstractTest {
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));
     } 
     
@@ -134,7 +133,7 @@ public class WorkerTest_Locate extends AbstractTest {
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));
     } 
     
@@ -156,7 +155,7 @@ public class WorkerTest_Locate extends AbstractTest {
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
@@ -182,7 +181,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertTrue(body.matches("(?s)^\\s*test_a\\.html\\s*$"));        
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
 
@@ -208,7 +207,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertTrue(body.matches("(?s)^\\s*test_b\\.html\\s*$"));        
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }  
     
@@ -234,7 +233,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertTrue(body.matches("(?s)^\\s*test_c\\.html\\s*$"));        
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }  
     
@@ -261,7 +260,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertTrue(body.matches("(?s)^\\s*test_d\\.html\\s*$"));        
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     } 
     
@@ -287,7 +286,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertTrue(body.matches("(?s)^\\s*absolute\\.html\\s*$"));        
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     } 
     
@@ -316,7 +315,7 @@ public class WorkerTest_Locate extends AbstractTest {
         Assert.assertTrue(body.matches("(?s)^.*\r\nPATH_TRANSLATED=[^\r\n]+[\\\\/]cgi_environment.jsx\r\n.*$"));
         Assert.assertTrue(body.matches("(?s)^.*\r\nPATH_ABSOLUTE=/test\\.2absolut\r\n.*$"));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     } 
     
@@ -338,7 +337,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));
     } 
     
@@ -364,7 +363,7 @@ public class WorkerTest_Locate extends AbstractTest {
         Assert.assertFalse(header.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(header.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
     } 
     
@@ -390,7 +389,7 @@ public class WorkerTest_Locate extends AbstractTest {
         Assert.assertFalse(header.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(header.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
     }
     
@@ -415,7 +414,7 @@ public class WorkerTest_Locate extends AbstractTest {
         Assert.assertFalse(header.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(header.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
     } 
     
@@ -440,7 +439,7 @@ public class WorkerTest_Locate extends AbstractTest {
         Assert.assertFalse(header.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(header.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
     } 
     
@@ -460,7 +459,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     } 
     
@@ -480,7 +479,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }     
     
@@ -505,7 +504,7 @@ public class WorkerTest_Locate extends AbstractTest {
         Assert.assertFalse(header.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(header.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
     } 
     
@@ -530,7 +529,7 @@ public class WorkerTest_Locate extends AbstractTest {
         Assert.assertFalse(header.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(header.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_302));
     }
     
@@ -552,7 +551,7 @@ public class WorkerTest_Locate extends AbstractTest {
         Assert.assertTrue(header.matches("(?s)^.*\r\nModule: module.WorkerModule_A::Service\r\n.*$"));
         Assert.assertTrue(header.matches("(?s)^.*\r\nOpts: module.WorkerModule_A \\[v:xx=123\\] \\[m\\]\r\n.*$"));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("1")));
     }
     
@@ -574,7 +573,7 @@ public class WorkerTest_Locate extends AbstractTest {
         Assert.assertTrue(response.matches("(?s)^.*\r\nModule: module.WorkerModule_A::Service\r\n.*$"));
         Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: module.WorkerModule_A \\[v:xx=123\\] \\[m\\]\r\n.*$"));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("1")));
     }
     
@@ -594,7 +593,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }
     
@@ -614,7 +613,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
@@ -637,7 +636,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
@@ -658,7 +657,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
@@ -685,7 +684,7 @@ public class WorkerTest_Locate extends AbstractTest {
         body1 = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
 
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
 
         request = "GET /..\\..\\..\\\\..\\\\.. HTTP/1.0\r\n"
@@ -695,7 +694,7 @@ public class WorkerTest_Locate extends AbstractTest {
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         body2 = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
         
         Assert.assertEquals(body1, body2);
@@ -717,7 +716,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_405));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_405));
     }
     
@@ -736,7 +735,7 @@ public class WorkerTest_Locate extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches("(?s)^.*\r\n\r\nHallo\r\n.*$"));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
@@ -760,7 +759,7 @@ public class WorkerTest_Locate extends AbstractTest {
         Assert.assertTrue(body.matches("(?s)^.*\r\nindex of: /x/x\r\n.*$"));
         Assert.assertTrue(body.matches("(?s)^.*\r\nname:test\\.txt\r\n.*$"));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
@@ -785,7 +784,7 @@ public class WorkerTest_Locate extends AbstractTest {
             String response = this.sendRequest("127.0.0.1:8080", request);
             Assert.assertTrue(request, response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
             
-            String accessLog = this.accessStreamCaptureTail();
+            String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
             Assert.assertTrue(request, accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
         }
     }
@@ -800,7 +799,7 @@ public class WorkerTest_Locate extends AbstractTest {
             String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1") + "\r\n";
             Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS(String.valueOf(status))));
             
-            String accessLog = capture.toString().trim();
+            String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
             Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS(String.valueOf(status)))); 
         }
     }
@@ -866,7 +865,7 @@ public class WorkerTest_Locate extends AbstractTest {
             String body = "\r\n" + response.replaceAll(Pattern.HTTP_RESPONSE, "$2") + "\r\n";
             Assert.assertTrue(body.matches("(?s)^.*\r\n\\Q" + value + "\\E\r\n.*$"));
             
-            String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+            String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
             Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
         }
     }
@@ -904,7 +903,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String response = this.sendRequest("127.0.0.1:8091", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_405));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_405));
     }
     
@@ -924,7 +923,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String response = this.sendRequest("127.0.0.1:8091", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001")));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("1", request)));
     }
     
@@ -942,7 +941,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String response = this.sendRequest("127.0.0.1:80", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }
     
@@ -960,7 +959,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String response = this.sendRequest("127.0.0.1:80", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }
     
@@ -978,7 +977,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String response = this.sendRequest("127.0.0.1:80", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
     }
     
@@ -993,11 +992,10 @@ public class WorkerTest_Locate extends AbstractTest {
         
         String request = "GET HTTP/1.0\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
+        String response = this.sendRequest("127.0.0.1:80", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_400));
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_400));
     }
     
@@ -1012,11 +1010,10 @@ public class WorkerTest_Locate extends AbstractTest {
         
         String request = "GET + HTTP/1.0\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
+        String response = this.sendRequest("127.0.0.1:80", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_400));
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_400));
     }
     
@@ -1031,11 +1028,10 @@ public class WorkerTest_Locate extends AbstractTest {
         
         String request = "GET %20 HTTP/1.0\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
+        String response = this.sendRequest("127.0.0.1:80", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_400));
         
-        Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_400));
     }
         
@@ -1053,7 +1049,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String response = this.sendRequest("127.0.0.1:80", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));
     }
     
@@ -1071,7 +1067,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String response = this.sendRequest("127.0.0.1:80", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));
     }
     
@@ -1098,7 +1094,7 @@ public class WorkerTest_Locate extends AbstractTest {
         response = this.sendRequest("127.0.0.1:8091", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
 
         request = "GET /o/o/2 HTTP/1.0\r\n"
@@ -1106,7 +1102,7 @@ public class WorkerTest_Locate extends AbstractTest {
         response = this.sendRequest("127.0.0.1:8091", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_405));
         
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_405));
     }    
     
@@ -1129,7 +1125,7 @@ public class WorkerTest_Locate extends AbstractTest {
             String response = this.sendRequest("127.0.0.1:8091", request);
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS(text[0])));
 
-            String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+            String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
             Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS(text[0])));
         }
     }  
@@ -1157,7 +1153,7 @@ public class WorkerTest_Locate extends AbstractTest {
             if (text.length > 2)
                 Assert.assertTrue(path, response.contains(text[2]));
 
-            String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+            String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
             Assert.assertTrue(path, accessLog.matches(Pattern.ACCESS_LOG_STATUS(text[0])));
         }
     }
@@ -1183,7 +1179,7 @@ public class WorkerTest_Locate extends AbstractTest {
             if (text.length > 2)
                 Assert.assertTrue(path, response.contains(text[2]));
 
-            String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+            String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
             Assert.assertTrue(path, accessLog.matches(Pattern.ACCESS_LOG_STATUS(text[0])));
         }
     }
@@ -1209,7 +1205,7 @@ public class WorkerTest_Locate extends AbstractTest {
             if (text.length > 2)
                 Assert.assertTrue(path, response.contains(text[2]));
 
-            String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+            String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
             Assert.assertTrue(path, accessLog.matches(Pattern.ACCESS_LOG_STATUS(text[0])));
         }
     }
@@ -1230,7 +1226,7 @@ public class WorkerTest_Locate extends AbstractTest {
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1") + "\r\n";
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_502));
 
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_502));
         
         Thread.sleep(AbstractTest.SLEEP);
@@ -1250,7 +1246,7 @@ public class WorkerTest_Locate extends AbstractTest {
             String response = this.sendRequest("127.0.0.1:80", request);
             Assert.assertTrue(path + " -> " + response.split("[\r\n]+")[0], response.matches(Pattern.HTTP_RESPONSE_STATUS(status)));
             
-            String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+            String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
             Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS(status)));
         }
     }    

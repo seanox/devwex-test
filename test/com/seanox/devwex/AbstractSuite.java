@@ -4,7 +4,7 @@
  *  Diese Software unterliegt der Version 2 der GNU General Public License.
  *
  *  Devwex, Advanced Server Development
- *  Copyright (C) 2018 Seanox Software Solutions
+ *  Copyright (C) 2020 Seanox Software Solutions
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as published
@@ -42,29 +42,38 @@ import com.seanox.test.utils.OutputFacadeStream;
 /**
  *  Abstract class to implements and use test suites.<br>
  *  <br>
- *  AbstractSuite 5.1 20180109<br>
- *  Copyright (C) 2018 Seanox Software Solutions<br>
+ *  AbstractSuite 5.2 20201004<br>
+ *  Copyright (C) 2020 Seanox Software Solutions<br>
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 5.1 20180109
+ *  @version 5.2 20201004
  */
 public class AbstractSuite extends com.seanox.test.AbstractSuite {
     
     /** path of {@code ./stage} */
-    private static final String PATH_STAGE = "./stage";
+    final static String PATH_STAGE = "./stage";
 
     /** path of {@code ./stage/libraries} */
-    private static final String PATH_STAGE_LIBRARIES = "./stage/libraries";
+    final static String PATH_STAGE_LIBRARIES = "./stage/libraries";
 
     /** path of {@code ./stage/certificates} */
-    private static final String PATH_STAGE_CERTIFICATES = "./stage/certificates";
+    final static String PATH_STAGE_CERTIFICATES = "./stage/certificates";
 
+    /** path of {@code ./stage/output.log} */
+    final static String PATH_STAGE_OUTPUT_LOG = "./stage/output.log";
+
+    /** path of {@code ./stage/error.log} */
+    final static String PATH_STAGE_ERROR_LOG = "./stage/error.log";
+
+    /** path of {@code ./stage/access.log} */
+    final static String PATH_STAGE_ACCESS_LOG = "./stage/access.log";
+    
     /** path of {@code ./resources} */
-    private static final String PATH_RESOURCES = "./resources";    
+    final static String PATH_RESOURCES = "./resources";    
     
     /** path of {@code ./resources/program} */
-    private static final String PATH_RESOURCES_PROGRAM = "./resources/program";
+    final static String PATH_RESOURCES_PROGRAM = "./resources/program";
     
     /** keystore for SSL connections */
     private static Keystore keystore;
@@ -74,12 +83,6 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
     
     /** continuation reader for the access log */
     final static OutputFacadeStream accessStream = new OutputFacadeStream();  
-    
-    /** internal shared system output stream */
-    final static OutputFacadeStream outputStream = new OutputFacadeStream();
-
-    /** internal shared error output stream */
-    final static OutputFacadeStream errorStream = new OutputFacadeStream();
     
     @Initiate
     @SuppressWarnings("unchecked")
@@ -173,17 +176,15 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
         String libraries = rootStageLibraries.toString();
         System.setProperty("libraries", libraries);
 
-        File outputLog = new File(rootStage, "output.log");
+        File outputLog = new File(root, AbstractSuite.PATH_STAGE_OUTPUT_LOG);
         outputLog.createNewFile();
-        AbstractSuite.outputStream.mount(new FileOutputStream(outputLog));
-        com.seanox.test.AbstractSuite.outputStream.mount(AbstractSuite.outputStream);
+        com.seanox.test.AbstractSuite.outputStream.mount(new FileOutputStream(outputLog));
         
-        File errorLog = new File(rootStage, "error.log");
+        File errorLog = new File(root, AbstractSuite.PATH_STAGE_ERROR_LOG);
         errorLog.createNewFile();
-        AbstractSuite.errorStream.mount(new FileOutputStream(errorLog));
-        com.seanox.test.AbstractSuite.outputStream.mount(AbstractSuite.errorStream);
+        com.seanox.test.AbstractSuite.errorStream.mount(new FileOutputStream(errorLog));
 
-        File accessLog = new File(rootStage, "access.log");
+        File accessLog = new File(root, AbstractSuite.PATH_STAGE_ACCESS_LOG);
         accessLog.createNewFile();
         
         AbstractSuite.accessSynchronize = new Thread() {
@@ -219,10 +220,10 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
         
         AbstractSuite.accessSynchronize.interrupt();
         
-        AbstractSuite.outputStream.unmount(System.out);
-        AbstractSuite.outputStream.close();
-        AbstractSuite.errorStream.unmount(System.err);
-        AbstractSuite.outputStream.close();
+        com.seanox.test.AbstractSuite.outputStream.unmount(System.out);
+        com.seanox.test.AbstractSuite.outputStream.close();
+        com.seanox.test.AbstractSuite.errorStream.unmount(System.err);
+        com.seanox.test.AbstractSuite.outputStream.close();
         AbstractSuite.accessStream.close();
     }
 
