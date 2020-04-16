@@ -4,7 +4,7 @@
  *  Diese Software unterliegt der Version 2 der GNU General Public License.
  *
  *  Devwex, Advanced Server Development
- *  Copyright (C) 2017 Seanox Software Solutions
+ *  Copyright (C) 2020 Seanox Software Solutions
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as published
@@ -41,12 +41,12 @@ import com.seanox.test.utils.Timing;
 /**
  *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
- *  WorkerTest_Performance 5.1 20171231<br>
- *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  WorkerTest_Performance 5.1.1 20200416<br>
+ *  Copyright (C) 2020 Seanox Software Solutions<br>
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 5.1 20171231
+ *  @version 5.1.1 20200416
  */
 public class WorkerTest_Performance extends AbstractTest {
     
@@ -69,13 +69,14 @@ public class WorkerTest_Performance extends AbstractTest {
     public void testAcceptance_1() throws Exception {
         
         Service.restart();
+        Thread.sleep(250);
         
         Executor executor = Executor.create(40, TestWorker.class);
         
         Timing timing = Timing.create(true);
         executor.execute();
         boolean success = executor.await(3000);
-        timing.assertTimeIn(1000, 2000);
+        timing.assertTimeIn(1000, 3000);
         String failedTestWorkerInfo = WorkerTest_Performance.createFailedTestWorkerInfo(executor);
         Assert.assertTrue(failedTestWorkerInfo, success);
         Assert.assertFalse(failedTestWorkerInfo, executor.isFailed());
@@ -119,7 +120,7 @@ public class WorkerTest_Performance extends AbstractTest {
         Executor executor1 = Executor.create(40, TestWorker.class);
         executor1.execute();
         boolean success1 = executor1.await(3000);
-        timing.assertTimeIn(750, 1750);
+        timing.assertTimeIn(1000, 2000);
         String failedTestWorkerInfo1 = WorkerTest_Performance.createFailedTestWorkerInfo(executor1);
         Assert.assertTrue(failedTestWorkerInfo1, success1);
         Assert.assertFalse(failedTestWorkerInfo1, executor1.isFailed());
