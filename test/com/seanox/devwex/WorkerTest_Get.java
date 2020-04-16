@@ -1,23 +1,23 @@
 /**
- *  LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
- *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
- *  Diese Software unterliegt der Version 2 der GNU General Public License.
+ * LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
+ * im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
+ * Diese Software unterliegt der Version 2 der GNU General Public License.
  *
- *  Devwex, Advanced Server Development
- *  Copyright (C) 2020 Seanox Software Solutions
+ * Devwex, Advanced Server Development
+ * Copyright (C) 2020 Seanox Software Solutions
  *
- *  This program is free software; you can redistribute it and/or modify it
- *  under the terms of version 2 of the GNU General Public License as published
- *  by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of version 2 of the GNU General Public License as published by the
+ * Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful, but WITHOUT
- *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- *  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- *  more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 package com.seanox.devwex;
 
@@ -33,21 +33,21 @@ import com.seanox.test.utils.OutputFacadeStream;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  Test cases for {@link com.seanox.devwex.Worker}.<br>
- *  <br>
- *  WorkerTest_Get 5.2 20200410<br>
- *  Copyright (C) 2020 Seanox Software Solutions<br>
- *  All rights reserved.
+ * Test cases for {@link com.seanox.devwex.Worker}.<br>
+ * <br>
+ * WorkerTest_Get 5.2 20200410<br>
+ * Copyright (C) 2020 Seanox Software Solutions<br>
+ * All rights reserved.
  *
- *  @author  Seanox Software Solutions
- *  @version 5.2 20200410
+ * @author  Seanox Software Solutions
+ * @version 5.2 20200410
  */
 public class WorkerTest_Get extends AbstractTest {
     
     /** 
-     *  Test case for acceptance.
-     *  Directories are responded with status 200 and without Content-Length.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Directories are responded with status 200 and without Content-Length.
+     * @throws Exception
      */  
     @Test
     public void testAcceptance_01() throws Exception {
@@ -61,10 +61,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Directories without a slah at the end, are responded with status 302
-     *  and a redirect.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Directories without a slah at the end, are responded with status 302 and
+     * a redirect.
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_02() throws Exception {
@@ -84,9 +84,9 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Directories these not exists, are responded with status 404.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Directories these not exists, are responded with status 404.
+     * @throws Exception
      */  
     @Test
     public void testAcceptance_03() throws Exception {
@@ -99,10 +99,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Files are responded with status 200, Content-Length, Content-Type and
-     *  LastModified.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Files are responded with status 200, Content-Length, Content-Type and
+     * LastModified.
+     * @throws Exception
      */  
     @Test
     public void testAcceptance_04() throws Exception {
@@ -118,10 +118,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Files with a slah at the end, are responded with status 302 and a
-     *  redirect.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Files with a slah at the end, are responded with status 302 and a
+     * redirect.
+     * @throws Exception
      */   
     @Test
     public void testAcceptance_05() throws Exception {
@@ -141,10 +141,9 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Requests with a correct If-Modified-Since are responded with status
-     *  304.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Requests with a correct If-Modified-Since are responded with status 304.
+     * @throws Exception
      */  
     @Test
     public void testAcceptance_06() throws Exception {
@@ -175,10 +174,9 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Requests with a incorrect If-Modified-Since are responded with status
-     *  200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Requests with a incorrect If-Modified-Since are responded with status 200.
+     * @throws Exception
      */  
     @Test
     public void testAcceptance_07() throws Exception {
@@ -195,10 +193,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Requests with a correct If-Modified-Since (incl. length) are responded
-     *  with status 304.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Requests with a correct If-Modified-Since (incl. length) are responded
+     * with status 304.
+     * @throws Exception
      */   
     @Test
     public void testAcceptance_08() throws Exception {
@@ -229,10 +227,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Requests with a If-Modified-Since (correct date, invalid length) are
-     *  responded with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Requests with a If-Modified-Since (correct date, invalid length) are
+     * responded with status 200.
+     * @throws Exception
      */ 
     @Test
     public void testAcceptance_09() throws Exception {
@@ -249,9 +247,9 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Requests with an other If-Modified-Since are responded with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Requests with an other If-Modified-Since are responded with status 200.
+     * @throws Exception
      */  
     @Test
     public void testAcceptance_10() throws Exception {
@@ -268,10 +266,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Requested directories with a default page are responded with status 200
-     *  and the details of the default page.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Requested directories with a default page are responded with status 200
+     * and the details of the default page.
+     * @throws Exception
      */        
     @Test
     public void testAcceptance_11() throws Exception {
@@ -287,10 +285,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The If-Modified-Since is ignored for directories.
-     *  The request are responded with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The If-Modified-Since is ignored for directories.
+     * The request are responded with status 200.
+     * @throws Exception
      */        
     @Test
     public void testAcceptance_12() throws Exception {
@@ -307,11 +305,11 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The If-Modified-Since is ignored for directories.
-     *  The request are responded with status 403, because the access is
-     *  forbidden.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The If-Modified-Since is ignored for directories.
+     * The request are responded with status 403, because the access is
+     * forbidden.
+     * @throws Exception
      */   
     @Test
     public void testAcceptance_13() throws Exception {
@@ -326,10 +324,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The If-Modified-Since is ignored for absolutes paths.
-     *  The request are responded with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The If-Modified-Since is ignored for absolutes paths.
+     * The request are responded with status 200.
+     * @throws Exception
      */ 
     @Test
     public void testAcceptance_14() throws Exception {
@@ -346,10 +344,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The If-Modified-Since is ignored for absolutes paths.
-     *  The request are responded with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The If-Modified-Since is ignored for absolutes paths.
+     * The request are responded with status 200.
+     * @throws Exception
      */  
     @Test
     public void testAcceptance_15() throws Exception {
@@ -366,11 +364,11 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The If-Modified-Since is ignored for the CGI.
-     *  The request are responded with status 405, because the CGI does not
-     *  exists.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The If-Modified-Since is ignored for the CGI.
+     * The request are responded with status 405, because the CGI does not
+     * exists.
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_16() throws Exception {
@@ -387,10 +385,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The request are responded with status 200 by the CGI self, if the HEAD
-     *  method allowed.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The request are responded with status 200 by the CGI self, if the HEAD
+     * method allowed.
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_17() throws Exception {
@@ -405,10 +403,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The decoding (MIME/UTF8) from the URL must work.
-     *  The request is responded with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The decoding (MIME/UTF8) from the URL must work.
+     * The request is responded with status 200.
+     * @throws Exception
      */ 
     @Test
     public void testAcceptance_18() throws Exception {
@@ -422,10 +420,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The decoding (MIME/UTF8) from the URL must work.
-     *  The request is responded with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The decoding (MIME/UTF8) from the URL must work.
+     * The request is responded with status 200.
+     * @throws Exception
      */ 
     @Test
     public void testAcceptance_19() throws Exception {
@@ -439,10 +437,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The decoding (MIME/UTF8) from the URL must work.
-     *  The request is responded with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The decoding (MIME/UTF8) from the URL must work.
+     * The request is responded with status 200.
+     * @throws Exception
      */ 
     @Test
     public void testAcceptance_20() throws Exception {
@@ -456,10 +454,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The decoding (MIME/UTF8) from the URL must work.
-     *  The request is responded with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The decoding (MIME/UTF8) from the URL must work.
+     * The request is responded with status 200.
+     * @throws Exception
      */ 
     @Test
     public void testAcceptance_21() throws Exception {
@@ -473,10 +471,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The decoding (MIME/UTF8) from the URL must work.
-     *  The request is responded with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The decoding (MIME/UTF8) from the URL must work.
+     * The request is responded with status 200.
+     * @throws Exception
      */ 
     @Test
     public void testAcceptance_22() throws Exception {
@@ -492,10 +490,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The decoding (MIME/UTF8) from the URL must work.
-     *  The request is responded with status 200 and the correct content.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The decoding (MIME/UTF8) from the URL must work.
+     * The request is responded with status 200 and the correct content.
+     * @throws Exception
      */ 
     @Test
     public void testAcceptance_23() throws Exception {
@@ -511,10 +509,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The decoding (MIME/UTF8) from the URL must work.
-     *  The request is responded with status 200 and the correct content.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The decoding (MIME/UTF8) from the URL must work.
+     * The request is responded with status 200 and the correct content.
+     * @throws Exception
      */ 
     @Test
     public void testAcceptance_24() throws Exception {
@@ -530,10 +528,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The decoding (MIME/UTF8) from the URL must work.
-     *  The request is responded with status 200 and the correct content.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The decoding (MIME/UTF8) from the URL must work.
+     * The request is responded with status 200 and the correct content.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_25() throws Exception {
@@ -731,9 +729,9 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The correct response for GET request with a Range header is checked.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The correct response for GET request with a Range header is checked.
+     * @throws Exception
      */       
     @Test
     public void testAcceptance_26() throws Exception {
@@ -878,10 +876,10 @@ public class WorkerTest_Get extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The correct response for GET request with a Range,
-     *  If-Modified-Since and If-UnModified-Since header is checked.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The correct response for GET request with a Range,
+     * If-Modified-Since and If-UnModified-Since header is checked.
+     * @throws Exception
      */  
     @Test
     public void testAcceptance_27() throws Exception {

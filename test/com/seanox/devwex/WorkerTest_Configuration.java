@@ -1,23 +1,23 @@
 /**
- *  LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
- *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
- *  Diese Software unterliegt der Version 2 der GNU General Public License.
+ * LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
+ * im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
+ * Diese Software unterliegt der Version 2 der GNU General Public License.
  *
- *  Devwex, Advanced Server Development
- *  Copyright (C) 2020 Seanox Software Solutions
+ * Devwex, Advanced Server Development
+ * Copyright (C) 2020 Seanox Software Solutions
  *
- *  This program is free software; you can redistribute it and/or modify it
- *  under the terms of version 2 of the GNU General Public License as published
- *  by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of version 2 of the GNU General Public License as published by the
+ * Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful, but WITHOUT
- *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- *  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- *  more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 package com.seanox.devwex;
 
@@ -39,22 +39,22 @@ import com.seanox.test.utils.HttpUtils;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  Test cases for {@link com.seanox.devwex.Worker}.<br>
- *  <br>
- *  WorkerTest_Configuration 5.2 20200411<br>
- *  Copyright (C) 2020 Seanox Software Solutions<br>
- *  All rights reserved.
+ * Test cases for {@link com.seanox.devwex.Worker}.<br>
+ * <br>
+ * WorkerTest_Configuration 5.2 20200411<br>
+ * Copyright (C) 2020 Seanox Software Solutions<br>
+ * All rights reserved.
  *
- *  @author  Seanox Software Solutions
- *  @version 5.2 20200411
+ * @author  Seanox Software Solutions
+ * @version 5.2 20200411
  */
 public class WorkerTest_Configuration extends AbstractTest {
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] IDENTITY = ON}
-     *  The CGI-parameter {@code SERVER_NAME} must be available.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] IDENTITY = ON}
+     * The CGI-parameter {@code SERVER_NAME} must be available.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_01() throws Exception {
@@ -74,10 +74,10 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] IDENTITY = ?}
-     *  The CGI-parameter {@code SERVER_NAME} is not available.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] IDENTITY = ?}
+     * The CGI-parameter {@code SERVER_NAME} is not available.
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_02() throws Exception {
@@ -97,10 +97,10 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] IDENTITY = OFF}
-     *  The CGI-parameter {@code SERVER_NAME} is not available.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] IDENTITY = OFF}
+     * The CGI-parameter {@code SERVER_NAME} is not available.
+     * @throws Exception
      */       
     @Test
     public void testAcceptance_03() throws Exception {
@@ -119,10 +119,10 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] docroot = ?}
-     *  The DooRoot is the current working directory.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] docroot = ?}
+     * The DooRoot is the current working directory.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_04() throws Exception {
@@ -143,10 +143,10 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] DEFAULT = index_1.html, index_2.html}
-     *  In the requested directory, the file index_1.html is found and shown.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] DEFAULT = index_1.html, index_2.html}
+     * In the requested directory, the file index_1.html is found and shown.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_05() throws Exception {
@@ -167,10 +167,10 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] DEFAULT = index_1.html, index_2.html}
-     *  In the requested directory, the file index_2.html is found and shown.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] DEFAULT = index_1.html, index_2.html}
+     * In the requested directory, the file index_2.html is found and shown.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_06() throws Exception {
@@ -192,11 +192,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] DEFAULT = index_1.html, index_2.html}
-     *  In the requested directory, the files index_1.html and index_2.html is
-     *  not found, therefore the directory is shown.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] DEFAULT = index_1.html, index_2.html}
+     * In the requested directory, the files index_1.html and index_2.html is
+     * not found, therefore the directory is shown.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_07() throws Exception {
@@ -219,11 +219,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }    
 
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] DEFAULT = ' '}
-     *  Without correct default, the directory is shown.
-     *  Without ACCESSLOG, the StdIO is used for logging.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] DEFAULT = ' '}
+     * Without correct default, the directory is shown.
+     * Without ACCESSLOG, the StdIO is used for logging.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_08() throws Exception {
@@ -272,13 +272,13 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  Test case for acceptance.
-     *  Configuration:
-     *      {@code [SERVER/VIRTUAL:INI] MAXACCESS = 3}
-     *      {@code [SERVER/VIRTUAL:INI] BACKLOG = 5}
-     *  It will: 3 connections are accepted, 5 are reserved and each additional
-     *  are refused.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration:
+     *     {@code [SERVER/VIRTUAL:INI] MAXACCESS = 3}
+     *     {@code [SERVER/VIRTUAL:INI] BACKLOG = 5}
+     * It will: 3 connections are accepted, 5 are reserved and each additional
+     * are refused.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_09() throws Exception {
@@ -310,11 +310,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = XXX}
-     *  The method XXX is included in the method list, but not implemented.
-     *  The request must be responded with status 501.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = XXX}
+     * The method XXX is included in the method list, but not implemented.
+     * The request must be responded with status 501.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_10() throws Exception {
@@ -333,11 +333,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = XXX}
-     *  The method ZZZ is included in the method list and not implemented.
-     *  The request must be responded with status 405.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = XXX}
+     * The method ZZZ is included in the method list and not implemented.
+     * The request must be responded with status 405.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_11() throws Exception {
@@ -353,11 +353,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = AAA}
-     *  The method AAA is included in the method list, but not implemented.
-     *  The request must be responded with status 501.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = AAA}
+     * The method AAA is included in the method list, but not implemented.
+     * The request must be responded with status 501.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_12() throws Exception {
@@ -376,11 +376,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = BBB}
-     *  The method BBB is included in the method list, but no module is
-     *  assigned. The request must be responded with status 501.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = BBB}
+     * The method BBB is included in the method list, but no module is assigned.
+     * The request must be responded with status 501.
+     * @throws Exception
      */        
     @Test
     public void testAcceptance_13() throws Exception {
@@ -399,11 +399,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = BBB}
-     *  The method CCC is not included in the method list. The request must be
-     *  responded with status 405, even if a module exists.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = BBB}
+     * The method CCC is not included in the method list. The request must be
+     * responded with status 405, even if a module exists.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_14() throws Exception {
@@ -425,11 +425,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] INDEX = ON}
-     *  The file index includes all entries of a directory, even hidden entries.
-     *  Access to hidden files is allowed.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] INDEX = ON}
+     * The file index includes all entries of a directory, even hidden entries.
+     * Access to hidden files is allowed.
+     * @throws Exception
      */ 
     @Test
     @BeforeTest("testAcceptanceBefore_15")
@@ -455,11 +455,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] INDEX = ON [S]}
-     *  The file index includes all not hidden entries of a directory.
-     *  Access to hidden files is allowed.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] INDEX = ON [S]}
+     * The file index includes all not hidden entries of a directory.
+     * Access to hidden files is allowed.
+     * @throws Exception
      */ 
     @Test
     public void testAcceptance_16() throws Exception {
@@ -484,11 +484,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] INDEX = ON [S]}
-     *  The file index includes all not hidden entries of a directory.
-     *  Access to hidden files is allowed.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] INDEX = ON [S]}
+     * The file index includes all not hidden entries of a directory.
+     * Access to hidden files is allowed.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_17() throws Exception {
@@ -513,11 +513,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] INDEX = OFF [S]}
-     *  The file index is not allowed. The request must be responded with
-     *  status 403. Access to hidden files is allowed.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] INDEX = OFF [S]}
+     * The file index is not allowed. The request must be responded with status 403.
+     * Access to hidden files is allowed.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_18() throws Exception {
@@ -542,11 +542,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = ALL}
-     *  The alias ALL will no longer supported, because the Allow-Header can
-     *  not be filled correctly. The request must be responded with status 405.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = ALL}
+     * The alias ALL will no longer supported, because the Allow-Header can not
+     * be filled correctly. The request must be responded with status 405.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_19() throws Exception {
@@ -562,11 +562,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = XYZ ...}
-     *  The method XYZ is included in the method list, but not implemented.
-     *  The request must be responded with status 501.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = XYZ ...}
+     * The method XYZ is included in the method list, but not implemented.
+     * The request must be responded with status 501.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_21() throws Exception {
@@ -585,11 +585,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = HEAD, ALL 123}
-     *  The method HEAD is supported, but GET not. The request must be
-     *  responded with status 405.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = HEAD, ALL 123}
+     * The method HEAD is supported, but GET not. The request must be responded
+     * with status 405.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_23() throws Exception {
@@ -620,11 +620,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = HEAD ALL 123}
-     *  The method ALL 123 will no supported. The request must be responded
-     *  with status 400.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = HEAD ALL 123}
+     * The method ALL 123 will no supported. The request must be responded with
+     * status 400.
+     * @throws Exception
      */  
     @Test
     public void testAcceptance_24() throws Exception {
@@ -640,11 +640,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = ALL}
-     *  The alias ALL will no longer supported, because the Allow-Header can
-     *  not be filled correctly. The request must be responded with status 405.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = ALL}
+     * The alias ALL will no longer supported, because the Allow-Header can not
+     * be filled correctly. The request must be responded with status 405.
+     * @throws Exception
      */  
     @Test
     public void testAcceptance_25() throws Exception {
@@ -660,11 +660,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = ALL get}
-     *  In the case of status 405, the response header ALLOW must be set
-     *  correctly.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] METHODS = ALL get}
+     * In the case of status 405, the response header ALLOW must be set
+     * correctly.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_26() throws Exception {
@@ -691,11 +691,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_A = }
-     *  The value of ENV_PARAM_A is static and empty. Section works smart and
-     *  therefore the variable does not exist.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_A = }
+     * The value of ENV_PARAM_A is static and empty. Section works smart and
+     * therefore the variable does not exist.
+     * @throws Exception
      */      
     @Test
     @BeforeTest("testAcceptanceBefore_27")
@@ -721,10 +721,10 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_B = 123}
-     *  The value of ENV_PARAM_C is static and is used normally.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_B = 123}
+     * The value of ENV_PARAM_C is static and is used normally.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_28() throws Exception {
@@ -749,11 +749,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_C [?] = 456}
-     *  The value of ENV_PARAM_C is dynamically. Bcause no corresponding
-     *  environment variable exists, the default value 456 is used.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_C [?] = 456}
+     * The value of ENV_PARAM_C is dynamically. Bcause no corresponding
+     * environment variable exists, the default value 456 is used.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_29() throws Exception {
@@ -778,11 +778,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_D [?] = 789}
-     *  The value of ENV_PARAM_D is dynamically and is set by the corresponding
-     *  environment variable. The default value 789 is not used.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_D [?] = 789}
+     * The value of ENV_PARAM_D is dynamically and is set by the corresponding
+     * environment variable. The default value 789 is not used.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_30() throws Exception {
@@ -807,12 +807,12 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_E [?]}
-     *  The value of ENV_PARAM_F is dynamically, but the corresponding
-     *  environment variable is empty. Section works smart and therefore the
-     *  variable does not exist.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_E [?]}
+     * The value of ENV_PARAM_F is dynamically, but the corresponding
+     * environment variable is empty. Section works smart and therefore the
+     * variable does not exist.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_31() throws Exception {
@@ -830,12 +830,12 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_F [?]}
-     *  The value of ENV_PARAM_F is dynamically, but there is no corresponding
-     *  environment variable. Section works smart and therefore the variable
-     *  does not exist.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_F [?]}
+     * The value of ENV_PARAM_F is dynamically, but there is no corresponding
+     * environment variable. Section works smart and therefore the variable does
+     * not exist.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_32() throws Exception {
@@ -853,11 +853,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_G [?]}
-     *  The value of ENV_PARAM_G is dynamically and is set by value of the
-     *  environment variable.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_G [?]}
+     * The value of ENV_PARAM_G is dynamically and is set by value of the
+     * environment variable.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_33() throws Exception {
@@ -882,11 +882,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_H = xyz [?]}
-     *  The function {@code [?]} at the end of the line is ignored and is a
-     *  part of the value.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_H = xyz [?]}
+     * The function {@code [?]} at the end of the line is ignored and is a part
+     * of the value.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_34() throws Exception {
@@ -911,11 +911,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_I = uvw [+]}
-     *  The function {@code [+]} at the end of the line is ignored and is a
-     *  part of the value.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_I = uvw [+]}
+     * The function {@code [+]} at the end of the line is ignored and is a part
+     * of the value.
+     * @throws Exception
      */       
     @Test
     public void testAcceptance_35() throws Exception {
@@ -940,10 +940,10 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_J [?] = xxx}
-     *  The parameter is overwritten with an empty environment variable.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] ENV_PARAM_J [?] = xxx}
+     * The parameter is overwritten with an empty environment variable.
+     * @throws Exception
      */       
     @Test
     public void testAcceptance_36() throws Exception {
@@ -968,11 +968,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [COMMONS] RELOAD = ON}
-     *  If the configuration file is changed, the server must restart and load
-     *  the new configuration.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [COMMONS] RELOAD = ON}
+     * If the configuration file is changed, the server must restart and load
+     * the new configuration.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_37() throws Exception {
@@ -1011,10 +1011,10 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
 
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] ACCESS = OFF}
-     *  The logging will be completely disabled.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] ACCESS = OFF}
+     * The logging will be completely disabled.
+     * @throws Exception
      */   
     @Test
     public void testAcceptance_38() throws Exception {
@@ -1035,11 +1035,11 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:ENV] TESTINIT = ... + ...}
-     *  The line function {@code +} must work correctly.
-     *  The vlaue of the key TESTINIT must be assembled correctly.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:ENV] TESTINIT = ... + ...}
+     * The line function {@code +} must work correctly.
+     * The vlaue of the key TESTINIT must be assembled correctly.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_39() throws Exception {
@@ -1064,10 +1064,10 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] IDENTITY = ON}
-     *  The server signature in the response header is activated.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] IDENTITY = ON}
+     * The server signature in the response header is activated.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_40() throws Exception {
@@ -1088,10 +1088,10 @@ public class WorkerTest_Configuration extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [SERVER/VIRTUAL:INI] IDENTITY = ON}
-     *  The server signature in the response header is disabled.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [SERVER/VIRTUAL:INI] IDENTITY = ON}
+     * The server signature in the response header is disabled.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_41() throws Exception {

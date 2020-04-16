@@ -1,23 +1,23 @@
 /**
- *  LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
- *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
- *  Diese Software unterliegt der Version 2 der GNU General Public License.
+ * LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
+ * im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
+ * Diese Software unterliegt der Version 2 der GNU General Public License.
  *
- *  Devwex, Advanced Server Development
- *  Copyright (C) 2020 Seanox Software Solutions
+ * Devwex, Advanced Server Development
+ * Copyright (C) 2020 Seanox Software Solutions
  *
- *  This program is free software; you can redistribute it and/or modify it
- *  under the terms of version 2 of the GNU General Public License as published
- *  by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of version 2 of the GNU General Public License as published by the
+ * Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful, but WITHOUT
- *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- *  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- *  more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 package com.seanox.devwex;
 
@@ -31,22 +31,22 @@ import org.junit.Test;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  Test cases for {@link com.seanox.devwex.Worker}.<br>
- *  <br>
- *  WorkerTest_Filter 5.2 20200410<br>
- *  Copyright (C) 2020 Seanox Software Solutions<br>
- *  All rights reserved.
+ * Test cases for {@link com.seanox.devwex.Worker}.<br>
+ * <br>
+ * WorkerTest_Filter 5.2 20200410<br>
+ * Copyright (C) 2020 Seanox Software Solutions<br>
+ * All rights reserved.
  *
- *  @author  Seanox Software Solutions
- *  @version 5.2 20200410
+ * @author  Seanox Software Solutions
+ * @version 5.2 20200410
  */
 public class WorkerTest_Filter extends AbstractTest {
     
     /** 
-     *  Test case for acceptance.
-     *  Without 'Feld-C' the request is responded with status 403.
-     *  filter expression: {@code GET IS EMPTY FELD-C}
-     *  @throws Exception
+     * Test case for acceptance.
+     * Without 'Feld-C' the request is responded with status 403.
+     * filter expression: {@code GET IS EMPTY FELD-C}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_01() throws Exception {
@@ -67,11 +67,11 @@ public class WorkerTest_Filter extends AbstractTest {
     }    
     
     /** 
-     *  Test case for acceptance.
-     *  The filter method ALL is working for all methods, also unknown methods.
-     *  The request is responded with status 403.
-     *  filter expression: {@code ALL IS CONTAINS REQUEST ABC}
-     *  @throws Exception
+     * Test case for acceptance.
+     * The filter method ALL is working for all methods, also unknown methods.
+     * The request is responded with status 403.
+     * filter expression: {@code ALL IS CONTAINS REQUEST ABC}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_02() throws Exception {
@@ -123,11 +123,11 @@ public class WorkerTest_Filter extends AbstractTest {
     }  
     
     /** 
-     *  Test case for acceptance.
-     *  If 'FeldA' contains 'A1', the HEAD request is responded with status 403
-     *  but the GET request is responded with status 200.
-     *  filter expression: {@code HEAD IS CONTAINS FELDA A1}
-     *  @throws Exception
+     * Test case for acceptance.
+     * If 'FeldA' contains 'A1', the HEAD request is responded with status 403
+     * but the GET request is responded with status 200.
+     * filter expression: {@code HEAD IS CONTAINS FELDA A1}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_03() throws Exception {
@@ -151,11 +151,11 @@ public class WorkerTest_Filter extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  If 'FeldA' ends not with 'A2', the request is responded with status 200
-     *  but with 'A2' at the end, the request is responded with status 403.
-     *  filter expression: {@code HEAD IS ENDS FELDA A2}
-     *  @throws Exception
+     * Test case for acceptance.
+     * If 'FeldA' ends not with 'A2', the request is responded with status 200
+     * but with 'A2' at the end, the request is responded with status 403.
+     * filter expression: {@code HEAD IS ENDS FELDA A2}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_04() throws Exception {
@@ -179,11 +179,11 @@ public class WorkerTest_Filter extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The filter must also work with encoded special characters (MIME/UFT8).
-     *  The request is responded with status 403.
-     *  filter expression: {@code GET IS CONTAINS PATH -ß-}
-     *  @throws Exception
+     * Test case for acceptance.
+     * The filter must also work with encoded special characters (MIME/UFT8).
+     * The request is responded with status 403.
+     * filter expression: {@code GET IS CONTAINS PATH -ß-}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_05() throws Exception {
@@ -195,12 +195,11 @@ public class WorkerTest_Filter extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  If 'FeldA' starts not with 'A3', the request is responded with status
-     *  200 but with 'A3' at the beginn, the request is responded with status
-     *  403.
-     *  filter expression: {@code HEAD IS STARTS FELDA A3}
-     *  @throws Exception
+     * Test case for acceptance.
+     * If 'FeldA' starts not with 'A3', the request is responded with status 200
+     * but with 'A3' at the beginn, the request is responded with status 403.
+     * filter expression: {@code HEAD IS STARTS FELDA A3}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_06() throws Exception {
@@ -224,11 +223,11 @@ public class WorkerTest_Filter extends AbstractTest {
     }  
     
     /** 
-     *  Test case for acceptance.
-     *  The filter must also work with encoded special characters (MIME/UFT8).
-     *  The request is responded with status 403.
-     *  filter expression: {@code GET IS CONTAINS PATH -ß-}
-     *  @throws Exception
+     * Test case for acceptance.
+     * The filter must also work with encoded special characters (MIME/UFT8).
+     * The request is responded with status 403.
+     * filter expression: {@code GET IS CONTAINS PATH -ß-}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_07() throws Exception {
@@ -240,11 +239,11 @@ public class WorkerTest_Filter extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  If 'FeldA' equals not 'A4', the request is responded with status 200
-     *  but 'FeldA' equals 'A4', the request is responded with status 403.
-     *  filter expression: {@code HEAD IS EQUALS FELDA A4}
-     *  @throws Exception
+     * Test case for acceptance.
+     * If 'FeldA' equals not 'A4', the request is responded with status 200
+     * but 'FeldA' equals 'A4', the request is responded with status 403.
+     * filter expression: {@code HEAD IS EQUALS FELDA A4}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_08() throws Exception {
@@ -268,11 +267,11 @@ public class WorkerTest_Filter extends AbstractTest {
     }  
     
     /** 
-     *  Test case for acceptance.
-     *  The filter must also work with encoded special characters (MIME/UFT8).
-     *  The request is responded with status 403.
-     *  filter expression: {@code GET IS CONTAINS PATH -ß-}
-     *  @throws Exception
+     * Test case for acceptance.
+     * The filter must also work with encoded special characters (MIME/UFT8).
+     * The request is responded with status 403.
+     * filter expression: {@code GET IS CONTAINS PATH -ß-}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_09() throws Exception {
@@ -284,11 +283,11 @@ public class WorkerTest_Filter extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  If 'FeldA' equals not 'A4', the request is responded with status 200
-     *  but 'FeldA' equals 'A4', the request is responded with status 403.
-     *  filter expression: {@code HEAD IS EQUALS FELDA A4}
-     *  @throws Exception
+     * Test case for acceptance.
+     * If 'FeldA' equals not 'A4', the request is responded with status 200
+     * but 'FeldA' equals 'A4', the request is responded with status 403.
+     * filter expression: {@code HEAD IS EQUALS FELDA A4}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_10() throws Exception {
@@ -320,11 +319,11 @@ public class WorkerTest_Filter extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  The filter must also work with encoded special characters (MIME/UFT8).
-     *  The request is responded with status 403.
-     *  filter expression: {@code GET IS CONTAINS PATH -ß-}
-     *  @throws Exception
+     * Test case for acceptance.
+     * The filter must also work with encoded special characters (MIME/UFT8).
+     * The request is responded with status 403.
+     * filter expression: {@code GET IS CONTAINS PATH -ß-}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_11() throws Exception {
@@ -336,11 +335,11 @@ public class WorkerTest_Filter extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The filter must also work with encoded special characters (MIME/UFT8).
-     *  The request is responded with status 403.
-     *  filter expression: {@code GET IS CONTAINS PATH -ß-}
-     *  @throws Exception
+     * Test case for acceptance.
+     * The filter must also work with encoded special characters (MIME/UFT8).
+     * The request is responded with status 403.
+     * filter expression: {@code GET IS CONTAINS PATH -ß-}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_12() throws Exception {
@@ -352,12 +351,12 @@ public class WorkerTest_Filter extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  If the request contains {@code Felda: t1} and {@code Felda: field-C},
-     *  the request is responded with status 200 and the content of
-     *  {@code ../documents/filter_a.html}.
-     *  filter expression: {@code GET IS CONTAINS FELDA T1 > ./stage/documents/filter_a.html}
-     *  @throws Exception
+     * Test case for acceptance.
+     * If the request contains {@code Felda: t1} and {@code Felda: field-C},
+     * the request is responded with status 200 and the content of
+     * {@code ../documents/filter_a.html}.
+     * filter expression: {@code GET IS CONTAINS FELDA T1 > ./stage/documents/filter_a.html}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_13() throws Exception {
@@ -373,12 +372,12 @@ public class WorkerTest_Filter extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  If the request contains {@code Feldo: t1} the request is responded
-     *  with status 403 because the target {@code ../documents/filter_a.html_}
-     *  does not exists.
-     *  filter expression: {@code GET IS CONTAINS FELDO T1 > ./stage/documents/filter_a.html_}
-     *  @throws Exception
+     * Test case for acceptance.
+     * If the request contains {@code Feldo: t1} the request is responded
+     * with status 403 because the target {@code ../documents/filter_a.html_}
+     * does not exists.
+     * filter expression: {@code GET IS CONTAINS FELDO T1 > ./stage/documents/filter_a.html_}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_14() throws Exception {
@@ -393,11 +392,11 @@ public class WorkerTest_Filter extends AbstractTest {
     }   
     
     /** 
-     *  Test case for acceptance.
-     *  If the request contains {@code Felda: t2} the request is responded with
-     *  status 302 and a redirect/location to {@code http://www.xxx.zz/a=1}.
-     *  filter expression: {@code GET IS CONTAINS FELDA T2 > http://www.xxx.zz/a=1 [r]}
-     *  @throws Exception
+     * Test case for acceptance.
+     * If the request contains {@code Felda: t2} the request is responded with
+     * status 302 and a redirect/location to {@code http://www.xxx.zz/a=1}.
+     * filter expression: {@code GET IS CONTAINS FELDA T2 > http://www.xxx.zz/a=1 [r]}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_15() throws Exception {
@@ -419,12 +418,11 @@ public class WorkerTest_Filter extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  If 'FeldA' equals not '3B1BB2', the request is responded with status
-     *  200 but 'FeldA' equals '3B1BB2', the request is responded with status
-     *  403.
-     *  filter expression: {@code GET NOT EQUALS FELDA 3B1BB2}
-     *  @throws Exception
+     * Test case for acceptance.
+     * If 'FeldA' equals not '3B1BB2', the request is responded with status 200
+     * but 'FeldA' equals '3B1BB2', the request is responded with status 403.
+     * filter expression: {@code GET NOT EQUALS FELDA 3B1BB2}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_16() throws Exception {
@@ -446,12 +444,12 @@ public class WorkerTest_Filter extends AbstractTest {
     }  
     
     /** 
-     *  Test case for acceptance.
-     *  If the request contains {@code Felda: t4} the request is responded with
-     *  status 403 because for the redirect is the option {@code [R]} is
-     *  missing.
-     *  filter expression: {@code GET IS CONTAINS FELDA T4 > http://www.xxx.zz/a=1}
-     *  @throws Exception
+     * Test case for acceptance.
+     * If the request contains {@code Felda: t4} the request is responded with
+     * status 403 because for the redirect is the option {@code [R]} is
+     * missing.
+     * filter expression: {@code GET IS CONTAINS FELDA T4 > http://www.xxx.zz/a=1}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_17() throws Exception {
@@ -467,12 +465,12 @@ public class WorkerTest_Filter extends AbstractTest {
     }  
     
     /** 
-     *  Test case for acceptance.
-     *  If the request contains {@code Felda: t6} and {@code Feldb: t7} the
-     *  request is responded with status 200 and the content of
-     *  {@code ../documents/filter_a.html}.
-     *  filter expression: {@code GET IS CONTAINS FELDA T6[A] GET IS CONTAINS FELDB T7 > ./stage/documents/filter_a.html}
-     *  @throws Exception
+     * Test case for acceptance.
+     * If the request contains {@code Felda: t6} and {@code Feldb: t7} the
+     * request is responded with status 200 and the content of
+     * {@code ../documents/filter_a.html}.
+     * filter expression: {@code GET IS CONTAINS FELDA T6[A] GET IS CONTAINS FELDB T7 > ./stage/documents/filter_a.html}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_18() throws Exception {
@@ -489,12 +487,12 @@ public class WorkerTest_Filter extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  If the request contains {@code Felda: t5}, then a module should be
-     *  used. But the module definition is incorrect, the option {@code [M]} is
-     *  missing here. So the request is responded with status 403.
-     *  filter expression: {@code GET IS CONTAINS FELDA T5 > module.WorkerModule_A}
-     *  @throws Exception
+     * Test case for acceptance.
+     * If the request contains {@code Felda: t5}, then a module should be
+     * used. But the module definition is incorrect, the option {@code [M]} is
+     * missing here. So the request is responded with status 403.
+     * filter expression: {@code GET IS CONTAINS FELDA T5 > module.WorkerModule_A}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_19() throws Exception {
@@ -510,11 +508,11 @@ public class WorkerTest_Filter extends AbstractTest {
     }  
     
     /** 
-     *  Test case for acceptance.
-     *  If the request contains {@code Felda: t3}, then a module should be
-     *  used. So the request is responded with status 001.
-     *  filter expression: {@code GET IS CONTAINS FELDA T3 > module.WorkerModule_A [pA=3] [m]}
-     *  @throws Exception
+     * Test case for acceptance.
+     * If the request contains {@code Felda: t3}, then a module should be
+     * used. So the request is responded with status 001.
+     * filter expression: {@code GET IS CONTAINS FELDA T3 > module.WorkerModule_A [pA=3] [m]}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_20() throws Exception {
@@ -534,14 +532,14 @@ public class WorkerTest_Filter extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  VHP has three ALWAYS filters.
-     *  All filters are executed because no filter changes the server status.
-     *  The request is responded with status 200 and a test file is created in
-     *  DocRoot. Each filter increases the value in the file. Finally, the file
-     *  must contain the value "3".
-     *  filter expression: {@code ALL ALWAYS > module.WorkerModule_E [M]}
-     *  @throws Exception
+     * Test case for acceptance.
+     * VHP has three ALWAYS filters.
+     * All filters are executed because no filter changes the server status.
+     * The request is responded with status 200 and a test file is created in
+     * DocRoot. Each filter increases the value in the file. Finally, the file
+     * must contain the value "3".
+     * filter expression: {@code ALL ALWAYS > module.WorkerModule_E [M]}
+     * @throws Exception
      */
     @Test
     public void testAcceptance_21() throws Exception {
@@ -564,13 +562,13 @@ public class WorkerTest_Filter extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration:
-     *      {@code FLT: GET IS CONTAINS QUERY -404- > module.WorkerModule_B [M]}
-     *      {@code REF: /env.test > module.WorkerModule_C [M]}
-     *  The request is responded with status 404 even the path is defined as
-     *  module.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration:
+     *     {@code FLT: GET IS CONTAINS QUERY -404- > module.WorkerModule_B [M]}
+     *     {@code REF: /env.test > module.WorkerModule_C [M]}
+     * The request is responded with status 404 even the path is defined as
+     * module.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_22() throws Exception {
@@ -603,14 +601,14 @@ public class WorkerTest_Filter extends AbstractTest {
     }
 
     /** 
-     *  Test case for acceptance.
-     *  Configuration:
-     *      {@code FLT: PUT IS CONTAINS QUERY -404- > vF [M]}
-     *      {@code REF: /env.test > module.WorkerModule_C [M]}
-     *  The request is responded with status 201 because the status 404 + PUT
-     *  is equals to a ressource that does not exist. This is the normal
-     *  situation to create a new ressource.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration:
+     *     {@code FLT: PUT IS CONTAINS QUERY -404- > vF [M]}
+     *     {@code REF: /env.test > module.WorkerModule_C [M]}
+     * The request is responded with status 201 because the status 404 + PUT is
+     * equals to a ressource that does not exist. This is the normal situation
+     * to create a new ressource.
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_23() throws Exception {
@@ -673,11 +671,10 @@ public class WorkerTest_Filter extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Method {@code ALL} was defined for the CGI but {@code METHODS} does
-     *  this not allow and the request is responded with status 403.
-     *  is without content.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Method {@code ALL} was defined for the CGI but {@code METHODS} does this
+     * not allow and the request is responded with status 403.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_24() throws Exception {

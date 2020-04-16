@@ -1,23 +1,23 @@
 /**
- *  LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
- *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
- *  Diese Software unterliegt der Version 2 der GNU General Public License.
+ * LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
+ * im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
+ * Diese Software unterliegt der Version 2 der GNU General Public License.
  *
- *  Devwex, Advanced Server Development
- *  Copyright (C) 2020 Seanox Software Solutions
+ * Devwex, Advanced Server Development
+ * Copyright (C) 2020 Seanox Software Solutions
  *
- *  This program is free software; you can redistribute it and/or modify it
- *  under the terms of version 2 of the GNU General Public License as published
- *  by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of version 2 of the GNU General Public License as published by the
+ * Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful, but WITHOUT
- *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- *  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- *  more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 package com.seanox.devwex;
 
@@ -39,14 +39,14 @@ import com.seanox.test.utils.SystemInfo;
 import com.seanox.test.utils.Timing;
 
 /**
- *  Test cases for {@link com.seanox.devwex.Worker}.<br>
- *  <br>
- *  WorkerTest_Performance 5.1.1 20200416<br>
- *  Copyright (C) 2020 Seanox Software Solutions<br>
- *  All rights reserved.
+ * Test cases for {@link com.seanox.devwex.Worker}.<br>
+ * <br>
+ * WorkerTest_Performance 5.1.1 20200416<br>
+ * Copyright (C) 2020 Seanox Software Solutions<br>
+ * All rights reserved.
  *
- *  @author  Seanox Software Solutions
- *  @version 5.1.1 20200416
+ * @author  Seanox Software Solutions
+ * @version 5.1.1 20200416
  */
 public class WorkerTest_Performance extends AbstractTest {
     
@@ -59,11 +59,11 @@ public class WorkerTest_Performance extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Measures the execution time of 1000 (40 x 25) request.
-     *  The first load test is slower because the server first increases the
-     *  number of threads.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Measures the execution time of 1000 (40 x 25) request.
+     * The first load test is slower because the server first increases the
+     * number of threads.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_1() throws Exception {
@@ -102,11 +102,11 @@ public class WorkerTest_Performance extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Measures the execution time of 1000 (40 x 25) request.
-     *  The second load test is faster because the server has a large number
-     *  of threads.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Measures the execution time of 1000 (40 x 25) request.
+     * The second load test is faster because the server has a large number of
+     * threads.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_2() throws Exception {
@@ -191,10 +191,9 @@ public class WorkerTest_Performance extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The internal resource management must fast deallocate threads and
-     *  memory.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The internal resource management must fast deallocate threads and memory.
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_3() throws Exception {
@@ -262,9 +261,9 @@ public class WorkerTest_Performance extends AbstractTest {
     }
     
     /**
-     *  Internal class for a worker.
-     *  A worker creates a set of requests, performs them and collects the
-     *  responses.
+     * Internal class for a worker.
+     * A worker creates a set of requests, performs them and collects the
+     * responses.
      */
     public static class TestWorker extends Worker {
         
@@ -308,9 +307,9 @@ public class WorkerTest_Performance extends AbstractTest {
         }
         
         /**
-         *  Internal class for a response.
-         *  Collection of response data (data, duration, possibly occurred
-         *  exception).
+         * Internal class for a response.
+         * Collection of response data (data, duration, possibly occurred
+         * exception).
          */
         static class Response {
             
@@ -324,12 +323,12 @@ public class WorkerTest_Performance extends AbstractTest {
             Exception exception;
             
             /**
-             *  Performs a request and creates a new response object.
-             *  @param  host
-             *  @param  request
-             *  @return the created response
-             *  @throws IOException
-             *  @throws InterruptedException
+             * Performs a request and creates a new response object.
+             * @param  host
+             * @param  request
+             * @return the created response
+             * @throws IOException
+             * @throws InterruptedException
              */                
             static Response create(String host, String request) {
                 
@@ -344,12 +343,12 @@ public class WorkerTest_Performance extends AbstractTest {
             }
             
             /**
-             *  Creates a new response object for a occured exception.
-             *  @param  host
-             *  @param  request
-             *  @return the created response
-             *  @throws IOException
-             *  @throws InterruptedException
+             * Creates a new response object for a occured exception.
+             * @param  host
+             * @param  request
+             * @return the created response
+             * @throws IOException
+             * @throws InterruptedException
              */                 
             static Response create(Exception exception) {
                 

@@ -1,23 +1,23 @@
 /**
- *  LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
- *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
- *  Diese Software unterliegt der Version 2 der GNU General Public License.
+ * LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
+ * im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
+ * Diese Software unterliegt der Version 2 der GNU General Public License.
  *
- *  Devwex, Advanced Server Development
- *  Copyright (C) 2020 Seanox Software Solutions
+ * Devwex, Advanced Server Development
+ * Copyright (C) 2020 Seanox Software Solutions
  *
- *  This program is free software; you can redistribute it and/or modify it
- *  under the terms of version 2 of the GNU General Public License as published
- *  by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of version 2 of the GNU General Public License as published by the
+ * Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful, but WITHOUT
- *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- *  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- *  more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 package com.seanox.devwex;
 
@@ -30,22 +30,22 @@ import com.seanox.test.utils.Codec;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  Test cases for {@link com.seanox.devwex.Worker}.<br>
- *  <br>
- *  WorkerTest_Delete 5.2 20200410<br>
- *  Copyright (C) 2020 Seanox Software Solutions<br>
- *  All rights reserved.
+ * Test cases for {@link com.seanox.devwex.Worker}.<br>
+ * <br>
+ * WorkerTest_Delete 5.2 20200410<br>
+ * Copyright (C) 2020 Seanox Software Solutions<br>
+ * All rights reserved.
  *
- *  @author  Seanox Software Solutions
- *  @version 5.2 20200410
+ * @author  Seanox Software Solutions
+ * @version 5.2 20200410
  */
 public class WorkerTest_Delete extends AbstractTest {
     
     /** 
-     *  Test case for acceptance.
-     *  The Deleting of files whose path is a directory is responded with the
-     *  location and status 302.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The Deleting of files whose path is a directory is responded with the
+     * location and status 302.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_01() throws Exception {
@@ -102,10 +102,10 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The Deleting of files whose path is a directory is responded with the
-     *  location and status 302.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The Deleting of files whose path is a directory is responded with the
+     * location and status 302.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_02() throws Exception {
@@ -126,9 +126,9 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The deletion of files is responded with status 200 and without content.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The deletion of files is responded with status 200 and without content.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_03() throws Exception {
@@ -154,9 +154,9 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The Deleting of files that do not exist is responded with status 404.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The Deleting of files that do not exist is responded with status 404.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_04() throws Exception {
@@ -176,10 +176,10 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The deletion of directories is responded with status 200 and without
-     *  content.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The deletion of directories is responded with status 200 and without
+     * content.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_05() throws Exception {
@@ -205,9 +205,9 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The Deleting of directories that do not exist is responded with status 404.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The Deleting of directories that do not exist is responded with status 404.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_06() throws Exception {
@@ -227,11 +227,10 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The deletion of directories with sub-directories is responded with
-     *  status 200. All sub-directories and files will be deleted.
-     *  content.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The deletion of directories with sub-directories is responded with status 200.
+     * All sub-directories and files will be deleted.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_07() throws Exception {
@@ -263,11 +262,10 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The deletion of directories with sub-directories is responded with
-     *  status 200. All sub-directories and files will be deleted.
-     *  content.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The deletion of directories with sub-directories is responded with status 200.
+     * All sub-directories and files will be deleted.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_08() throws Exception {
@@ -299,10 +297,10 @@ public class WorkerTest_Delete extends AbstractTest {
     }    
     
     /** 
-     *  Test case for acceptance.
-     *  DELETE is executed by a CGI.
-     *  The request is responded with Status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * DELETE is executed by a CGI.
+     * The request is responded with Status 200.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_09() throws Exception {
@@ -321,10 +319,10 @@ public class WorkerTest_Delete extends AbstractTest {
     }
 
     /** 
-     *  Test case for acceptance.
-     *  DELETE is executed by a CGI, but the CGI does not exists.
-     *  The request is responded with Status 405.
-     *  @throws Exception
+     * Test case for acceptance.
+     * DELETE is executed by a CGI, but the CGI does not exists.
+     * The request is responded with Status 405.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_10() throws Exception {
@@ -341,12 +339,12 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  DELETE is executed by a module.
-     *  The path of the uri is for a module is absolute and so the module with
-     *  the path {@code /test.module} will also responses an uri with the path
-     *  {@code /test.module123}. 
-     *  @throws Exception
+     * Test case for acceptance.
+     * DELETE is executed by a module.
+     * The path of the uri is for a module is absolute and so the module with
+     * the path {@code /test.module} will also responses an uri with the path
+     * {@code /test.module123}. 
+     * @throws Exception
      */
     @Test
     public void testAcceptance_11() throws Exception {
@@ -365,11 +363,11 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Delete is executed for an absolute reference (URL). Thus, the request
-     *  is responded with Status 200. The path is absolute, so
-     *  {@code /test.xxx123} is also covered by {@code /test.xxx}.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Delete is executed for an absolute reference (URL). Thus, the request is
+     * responded with Status 200. The path is absolute, so {@code /test.xxx123}
+     * is also covered by {@code /test.xxx}.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_12() throws Exception {
@@ -445,10 +443,10 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Delete is executed for an absolute reference (URL).
-     *  Thus, the request is responded with Status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Delete is executed for an absolute reference (URL).
+     * Thus, the request is responded with Status 200.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_13() throws Exception {
@@ -510,10 +508,10 @@ public class WorkerTest_Delete extends AbstractTest {
     }  
     
     /** 
-     *  Test case for acceptance.
-     *  Delete with a URL with redirection.
-     *  The request is responded with status 302 and a location.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Delete with a URL with redirection.
+     * The request is responded with status 302 and a location.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_14() throws Exception {
@@ -534,10 +532,10 @@ public class WorkerTest_Delete extends AbstractTest {
     }    
 
     /** 
-     *  Test case for acceptance.
-     *  Delete with a forbidden URL.
-     *  The request is responded with status 403.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Delete with a forbidden URL.
+     * The request is responded with status 403.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_15() throws Exception {
@@ -557,10 +555,10 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Delete with Basic-Authentication without access data.
-     *  The request is responded with status 401.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Delete with Basic-Authentication without access data.
+     * The request is responded with status 401.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_16() throws Exception {
@@ -580,11 +578,11 @@ public class WorkerTest_Delete extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Delete with Basic Authentication.
-     *  The request must be responded with status 200 because the access data
-     *  are included.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Delete with Basic Authentication.
+     * The request must be responded with status 200 because the access data are
+     * included.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_17() throws Exception {

@@ -1,23 +1,23 @@
 /**
- *  LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
- *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
- *  Diese Software unterliegt der Version 2 der GNU General Public License.
+ * LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
+ * im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
+ * Diese Software unterliegt der Version 2 der GNU General Public License.
  *
- *  Devwex, Advanced Server Development
- *  Copyright (C) 2017 Seanox Software Solutions
+ * Devwex, Advanced Server Development
+ * Copyright (C) 2020 Seanox Software Solutions
  *
- *  This program is free software; you can redistribute it and/or modify it
- *  under the terms of version 2 of the GNU General Public License as published
- *  by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of version 2 of the GNU General Public License as published by the
+ * Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful, but WITHOUT
- *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- *  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- *  more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 package com.seanox.devwex;
 
@@ -31,20 +31,20 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- *  Test cases for {@link com.seanox.devwex.Service}.<br>
- *  <br>
- *  ServiceTest_Remote 5.1 20171231<br>
- *  Copyright (C) 2017 Seanox Software Solutions<br>
- *  All rights reserved.
+ * Test cases for {@link com.seanox.devwex.Service}.<br>
+ * <br>
+ * ServiceTest_Remote 5.1 20171231<br>
+ * Copyright (C) 2017 Seanox Software Solutions<br>
+ * All rights reserved.
  *
- *  @author  Seanox Software Solutions
- *  @version 5.1 20171231
+ * @author  Seanox Software Solutions
+ * @version 5.1 20171231
  */
 public class ServiceTest_Remote extends AbstractTest {
     
     /** 
-     *  Preparation of the runtime environment.
-     *  @throws Exception
+     * Preparation of the runtime environment.
+     * @throws Exception
      */
     @BeforeClass
     public static void initiate() throws Exception {
@@ -57,8 +57,8 @@ public class ServiceTest_Remote extends AbstractTest {
     }
     
     /** 
-     *  Restoration of the runtime environment.
-     *  @throws Exception
+     * Restoration of the runtime environment.
+     * @throws Exception
      */
     @AfterClass
     public static void terminate() throws Exception {
@@ -71,10 +71,10 @@ public class ServiceTest_Remote extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  Default connection must work.
-     *  But not here because the default is not used.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Default connection must work.
+     * But not here because the default is not used.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_01() throws Exception {
@@ -91,9 +91,9 @@ public class ServiceTest_Remote extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  If an unknown host is used, an error must occur.
-     *  @throws Exception
+     * Test case for acceptance.
+     * If an unknown host is used, an error must occur.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_02() throws Exception {
@@ -110,9 +110,9 @@ public class ServiceTest_Remote extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  If an invalid port is used, an error must occur.
-     *  @throws Exception
+     * Test case for acceptance.
+     * If an invalid port is used, an error must occur.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_03() throws Exception {
@@ -129,9 +129,9 @@ public class ServiceTest_Remote extends AbstractTest {
     }     
     
     /** 
-     *  Test case for acceptance.
-     *  If an invalid port is used, an error must occur.
-     *  @throws Exception
+     * Test case for acceptance.
+     * If an invalid port is used, an error must occur.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_04() throws Exception {
@@ -148,9 +148,9 @@ public class ServiceTest_Remote extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  If the correct connection is used, a status response must be returned.
-     *  @throws Exception
+     * Test case for acceptance.
+     * If the correct connection is used, a status response must be returned.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_05() throws Exception {

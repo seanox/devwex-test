@@ -1,23 +1,23 @@
 /**
- *  LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
- *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
- *  Diese Software unterliegt der Version 2 der GNU General Public License.
+ * LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
+ * im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
+ * Diese Software unterliegt der Version 2 der GNU General Public License.
  *
- *  Devwex, Advanced Server Development
- *  Copyright (C) 2020 Seanox Software Solutions
+ * Devwex, Advanced Server Development
+ * Copyright (C) 2020 Seanox Software Solutions
  *
- *  This program is free software; you can redistribute it and/or modify it
- *  under the terms of version 2 of the GNU General Public License as published
- *  by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of version 2 of the GNU General Public License as published by the
+ * Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful, but WITHOUT
- *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- *  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- *  more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 package com.seanox.devwex;
 
@@ -30,22 +30,22 @@ import com.seanox.test.utils.OutputFacadeStream;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  Test cases for {@link com.seanox.devwex.Worker}.<br>
- *  <br>
- *  WorkerTest_Locate 5.2 20200411<br>
- *  Copyright (C) 2020 Seanox Software Solutions<br>
- *  All rights reserved.
+ * Test cases for {@link com.seanox.devwex.Worker}.<br>
+ * <br>
+ * WorkerTest_Locate 5.2 20200411<br>
+ * Copyright (C) 2020 Seanox Software Solutions<br>
+ * All rights reserved.
  *
- *  @author  Seanox Software Solutions
- *  @version 5.2 20200411
+ * @author  Seanox Software Solutions
+ * @version 5.2 20200411
  */
 public class WorkerTest_Locate extends AbstractTest {
     
     /** 
-     *  Test case for acceptance.
-     *  The determination of a URL must also work in the mix of UFT8 / MIME.
-     *  The request is responded with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The determination of a URL must also work in the mix of UFT8 / MIME.
+     * The request is responded with status 200.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_01() throws Exception {
@@ -60,10 +60,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The determination of a URL must also work in the mix of UFT8 / MIME.
-     *  The request is responded with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The determination of a URL must also work in the mix of UFT8 / MIME.
+     * The request is responded with status 200.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_02() throws Exception {
@@ -78,11 +78,11 @@ public class WorkerTest_Locate extends AbstractTest {
     }  
     
     /** 
-     *  Test case for acceptance.
-     *  The determination of a URL must also work in the mix of UFT8 / MIME.
-     *  The name of the file exists only in plain text but the url will be decoded.
-     *  The request is responded with status 404.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The determination of a URL must also work in the mix of UFT8 / MIME.
+     * The name of the file exists only in plain text but the url will be decoded.
+     * The request is responded with status 404.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_03() throws Exception {
@@ -96,11 +96,11 @@ public class WorkerTest_Locate extends AbstractTest {
     }    
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [VIRTUAL:VHA:REF] /forbidden > .../forbidden [c]}
-     *  The Access to the path is forbidden. The request must be responded with
-     *  status 403.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [VIRTUAL:VHA:REF] /forbidden > .../forbidden [c]}
+     * The Access to the path is forbidden. The request must be responded with
+     * status 403.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_05() throws Exception {
@@ -117,11 +117,11 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [VIRTUAL:VHA:REF] /forbidden > .../forbidden [c]}
-     *  The Access to the parent directory is forbidden. The request for the
-     *  sub-directory must be responded also with status 403.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [VIRTUAL:VHA:REF] /forbidden > .../forbidden [c]}
+     * The Access to the parent directory is forbidden. The request for the
+     * sub-directory must be responded also with status 403.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_06() throws Exception {
@@ -138,12 +138,12 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [VIRTUAL:VHA:REF] /forbidden_2 > .../forbidden}
-     *  Virtual paths have independent options. If access to a physical path is
-     *  forbidden, a virtual path can allow the access. The request must be
-     *  responded with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [VIRTUAL:VHA:REF] /forbidden_2 > .../forbidden}
+     * Virtual paths have independent options. If access to a physical path is
+     * forbidden, a virtual path can allow the access. The request must be
+     * responded with status 200.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_07() throws Exception {
@@ -160,12 +160,12 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [VIRTUAL:VHA:REF] /test_test > .../documents_vh_A/test_a [-]}
-     *  Virtual paths have independent options. The request must be responded
-     *  with status 200, because {@code /test_test} is not equals to the other
-     *  {@code /test_test...}.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [VIRTUAL:VHA:REF] /test_test > .../documents_vh_A/test_a [-]}
+     * Virtual paths have independent options. The request must be responded
+     * with status 200, because {@code /test_test} is not equals to the other
+     * {@code /test_test...}.
+     * @throws Exception
      */        
     @Test
     public void testAcceptance_08() throws Exception {
@@ -186,12 +186,12 @@ public class WorkerTest_Locate extends AbstractTest {
     }
 
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [VIRTUAL:VHA:REF] /test_test_a > .../documents_vh_A/test_b [-]}
-     *  Virtual paths have independent options. The request must be responded
-     *  with status 200, because {@code /test_test_a} is not equals to the
-     *  other {@code /test_test...}.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [VIRTUAL:VHA:REF] /test_test_a > .../documents_vh_A/test_b [-]}
+     * Virtual paths have independent options. The request must be responded
+     * with status 200, because {@code /test_test_a} is not equals to the other
+     * {@code /test_test...}.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_09() throws Exception {
@@ -212,12 +212,12 @@ public class WorkerTest_Locate extends AbstractTest {
     }  
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [VIRTUAL:VHA:REF] /test_test_b > .../documents_vh_A/test_c [-]}
-     *  Virtual paths have independent options. The request must be responded
-     *  with status 200, because {@code /test_test_b} is not equals to the
-     *  other {@code /test_test...}.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [VIRTUAL:VHA:REF] /test_test_b > .../documents_vh_A/test_c [-]}
+     * Virtual paths have independent options. The request must be responded
+     * with status 200, because {@code /test_test_b} is not equals to the other
+     * {@code /test_test...}.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_10() throws Exception {
@@ -238,13 +238,13 @@ public class WorkerTest_Locate extends AbstractTest {
     }  
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [VIRTUAL:VHA:REF] /test_test/test > .../documents_vh_A/test_d}
-     *  Virtual paths have independent options. The request must be responded
-     *  with status 200, because {@code /test_test/test/} is not equals to the
-     *  other {@code /test_test...}. Even if the physical path
-     *  {@code /test_test/test} " exists, the virtual path is preferred.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [VIRTUAL:VHA:REF] /test_test/test > .../documents_vh_A/test_d}
+     * Virtual paths have independent options. The request must be responded
+     * with status 200, because {@code /test_test/test/} is not equals to the
+     * other {@code /test_test...}. Even if the physical path
+     * {@code /test_test/test} " exists, the virtual path is preferred.
+     * @throws Exception
      */       
     @Test
     public void testAcceptance_11() throws Exception {
@@ -265,12 +265,12 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [VIRTUAL:VHA:REF] /absolute > .../forbidden/absolute.html [a]}
-     *  The virtual path is defined as 'absolute'. The request must be
-     *  responded with status 200 and the content of
-     *  {@code .../documents_vh_A/forbidden/absolute.html}.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [VIRTUAL:VHA:REF] /absolute > .../forbidden/absolute.html [a]}
+     * The virtual path is defined as 'absolute'. The request must be responded
+     * with status 200 and the content of
+     * {@code .../documents_vh_A/forbidden/absolute.html}.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_12() throws Exception {
@@ -291,12 +291,12 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [VIRTUAL:VHA:REF] /test.2absolut > .../cgi_environment.jsx [a]}
-     *  The virtual path is defined as 'absolute'. The request must be
-     *  responded with status 200 and the parameters {@code PATH_URL},
-     *  {@code PATH_TRANSLATED}, {@code PATH_ABSOLUTE} and {@code PATH_INFO}.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [VIRTUAL:VHA:REF] /test.2absolut > .../cgi_environment.jsx [a]}
+     * The virtual path is defined as 'absolute'. The request must be responded
+     * with status 200 and the parameters {@code PATH_URL},
+     * {@code PATH_TRANSLATED}, {@code PATH_ABSOLUTE} and {@code PATH_INFO}.
+     * @throws Exception
      */       
     @Test
     public void testAcceptance_13() throws Exception {
@@ -320,11 +320,11 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [VIRTUAL:VHA:REF] /forbidden.html [c]}
-     *  The forbid of individual files is possible. The request must be
-     *  responded with status 403 and the correct location.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [VIRTUAL:VHA:REF] /forbidden.html [c]}
+     * The forbid of individual files is possible. The request must be responded
+     * with status 403 and the correct location.
+     * @throws Exception
      */       
     @Test
     public void testAcceptance_14() throws Exception {
@@ -342,11 +342,11 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [VIRTUAL:VHA:REF] /redirect > http://www.xXx.zzz/?a=2 [r]}
-     *  The virtual path is defined as redirection. The request must be
-     *  responded with status 302 and the correct location.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [VIRTUAL:VHA:REF] /redirect > http://www.xXx.zzz/?a=2 [r]}
+     * The virtual path is defined as redirection. The request must be responded
+     * with status 302 and the correct location.
+     * @throws Exception
      */       
     @Test
     public void testAcceptance_15() throws Exception {
@@ -368,11 +368,11 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [VIRTUAL:VHA:REF] /redirect > http://www.xXx.zzz/?a=2 [r]}
-     *  The virtual path is defined as redirection. The request must be
-     *  responded with status 302 and the correct location.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [VIRTUAL:VHA:REF] /redirect > http://www.xXx.zzz/?a=2 [r]}
+     * The virtual path is defined as redirection. The request must be responded
+     * with status 302 and the correct location.
+     * @throws Exception
      */       
     @Test
     public void testAcceptance_16() throws Exception {
@@ -394,11 +394,11 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [VIRTUAL:VHA:REF] /redirect > http://www.xXx.zzz/?a=2 [r]}
-     *  The virtual path is defined as redirection. The request must be
-     *  responded with status 302 and the correct location.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [VIRTUAL:VHA:REF] /redirect > http://www.xXx.zzz/?a=2 [r]}
+     * The virtual path is defined as redirection. The request must be responded
+     * with status 302 and the correct location.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_17() throws Exception {
@@ -419,11 +419,11 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [VIRTUAL:VHA:REF] /redirect > http://www.xXx.zzz/?a=2 [r]}
-     *  The virtual path is defined as redirection. The request must be
-     *  responded with status 302 and the correct location.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [VIRTUAL:VHA:REF] /redirect > http://www.xXx.zzz/?a=2 [r]}
+     * The virtual path is defined as redirection. The request must be responded
+     * with status 302 and the correct location.
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_18() throws Exception {
@@ -444,10 +444,10 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  The characters &gt; and &lt; are invalid.
-     *  The request must be responded with status 404.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The characters &gt; and &lt; are invalid.
+     * The request must be responded with status 404.
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_19() throws Exception {
@@ -464,10 +464,10 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  The virtual path {@code /redirect} does not include
-     *  {@code /redirectxxx}. The request must be responded with status 404.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The virtual path {@code /redirect} does not include
+     * {@code /redirectxxx}. The request must be responded with status 404.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_20() throws Exception {
@@ -484,11 +484,11 @@ public class WorkerTest_Locate extends AbstractTest {
     }     
     
     /** 
-     *  Test case for acceptance.
-     *  The virtual path {@code /test_test} is a directory. Without a slash at
-     *  the end, the request must be responded with status 302 and the correct
-     *  location.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The virtual path {@code /test_test} is a directory. Without a slash at
+     * the end, the request must be responded with status 302 and the correct
+     * location.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_21() throws Exception {
@@ -509,11 +509,11 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  The virtual path {@code /url_maßÿ_3.html} is a file. With a slash at
-     *  the end, the request must be responded with status 302 and the correct
-     *  location.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The virtual path {@code /url_maßÿ_3.html} is a file. With a slash at
+     * the end, the request must be responded with status 302 and the correct
+     * location.
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_22() throws Exception {
@@ -534,10 +534,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The virtual path {@code /test.module} is defined as module. The request
-     *  must be responded by WorkerModule_A with status 001.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The virtual path {@code /test.module} is defined as module. The request
+     * must be responded by WorkerModule_A with status 001.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_23() throws Exception {
@@ -556,11 +556,11 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The virtual path {@code /test.module} is defined as module. Virtual
-     *  paths of modusl are absolute. Even this request must be responded by
-     *  WorkerModule_A with status 001.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The virtual path {@code /test.module} is defined as module. Virtual
+     * paths of modusl are absolute. Even this request must be responded by
+     * WorkerModule_A with status 001.
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_24() throws Exception {
@@ -578,10 +578,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The path {@code /cgi_environment.jsx.} with a dot at the end is not
-     *  correct. The request must be responded  with status 404.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The path {@code /cgi_environment.jsx.} with a dot at the end is not
+     * correct. The request must be responded  with status 404.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_25() throws Exception {
@@ -598,10 +598,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The path {@code /cgi_environment.jsx} is  correct. The request must be
-     *  responded  with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The path {@code /cgi_environment.jsx} is  correct. The request must be
+     * responded  with status 200.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_26() throws Exception {
@@ -618,10 +618,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  For Windows is a path case insensitive. Even with an incorect upercase
-     *  letter in the path, the request must be responded  with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * For Windows is a path case insensitive. Even with an incorect upercase
+     * letter in the path, the request must be responded  with status 200.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_27() throws Exception {
@@ -641,11 +641,11 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [VIRTUAL:VHA:REF] /lastmodified.jsx > .../lastmodified.jsx [A]}
-     *  The virtual path is defined as 'absolute'. The request must be
-     *  responded with status 200, event with a dot at the end.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [VIRTUAL:VHA:REF] /lastmodified.jsx > .../lastmodified.jsx [A]}
+     * The virtual path is defined as 'absolute'. The request must be responded
+     * with status 200, event with a dot at the end.
+     * @throws Exception
      */       
     @Test
     public void testAcceptance_28() throws Exception {
@@ -662,10 +662,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Breaking out of the DocRoot must not happen if the path contains masked
-     *  characters.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Breaking out of the DocRoot must not happen if the path contains masked
+     * characters.
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_31() throws Exception {
@@ -701,11 +701,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The virtual path {@code /x} is defined as 'absolute', but the server
-     *  does not support the Get method. The request must be responded with
-     *  status 405.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The virtual path {@code /x} is defined as 'absolute', but the server does
+     * not support the Get method. The request must be responded with status 405.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_36() throws Exception {
@@ -721,10 +720,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The virtual path {@code /x} is defined as 'absolute'. The request must
-     *  be responded with status 405 and the content of the physical file.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The virtual path {@code /x} is defined as 'absolute'. The request must be
+     * responded with status 405 and the content of the physical file.
+     * @throws Exception
      */  
     @Test
     public void testAcceptance_37() throws Exception {
@@ -740,11 +739,11 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The virtual path {@code /x/x} is defined as 'absolute' in the scope
-     *  of {@code /x}. The request must be responded with status 200 and the
-     *  file listing.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The virtual path {@code /x/x} is defined as 'absolute' in the scope of
+     * {@code /x}. The request must be responded with status 200 and the file
+     * listing.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_38() throws Exception {
@@ -764,11 +763,11 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  In Windows XP, there was a bug with paths in the format of
-     *  {@code / / /}. You can use illegal directories. The server must check
-     *  the physical paths. The request must be responded with status 404.
-     *  @throws Exception
+     * Test case for acceptance.
+     * In Windows XP, there was a bug with paths in the format of {@code / / /}.
+     * You can use illegal directories. The server must check the physical
+     * paths. The request must be responded with status 404.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_39() throws Exception {
@@ -805,9 +804,9 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The various combinations of options for forwarding are checked.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The various combinations of options for forwarding are checked.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_40() throws Exception {
@@ -871,12 +870,12 @@ public class WorkerTest_Locate extends AbstractTest {
     }
 
     /** 
-     *  Test case for acceptance.
-     *  The virtual path {@code /test.../xxx} is defined as 'absolute' for
-     *  files and directories. The server must use the correct environment
-     *  variable {@code SCRIPT_NAME} and the request must be responded with
-     *  correct status and content.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The virtual path {@code /test.../xxx} is defined as 'absolute' for
+     * files and directories. The server must use the correct environment
+     * variable {@code SCRIPT_NAME} and the request must be responded with
+     * correct status and content.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_41() throws Exception {
@@ -888,12 +887,12 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  Test case for acceptance.
-     *  The virtual path {@code /test.../xxx} is defined as 'absolute' for
-     *  files and directories. The server must use the correct environment
-     *  variable {@code SCRIPT_NAME} and the request must be responded with
-     *  correct status and content.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The virtual path {@code /test.../xxx} is defined as 'absolute' for files
+     * and directories. The server must use the correct environment variable
+     * {@code SCRIPT_NAME} and the request must be responded with correct status
+     * and content.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_42() throws Exception {
@@ -908,12 +907,11 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  Test case for acceptance.
-     *  The virtual path {@code /m/m} is defined as module, but the server does
-     *  not support the GET method, but the options {@code [x]} says all
-     *  methods are supported. The request must be responded by the module with
-     *  status 001.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The virtual path {@code /m/m} is defined as module, but the server does
+     * not support the GET method, but the options {@code [x]} says all methods
+     * are supported. The request must be responded by the module with status 001.
+     * @throws Exception
      */   
     @Test
     public void testAcceptance_43() throws Exception {
@@ -928,10 +926,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  Test case for acceptance.
-     *  The rule for a reference without target must be ignored.
-     *  The request must be responded by the module with status 404.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The rule for a reference without target must be ignored.
+     * The request must be responded by the module with status 404.
+     * @throws Exception
      */   
     @Test
     public void testAcceptance_44() throws Exception {
@@ -946,10 +944,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  Test case for acceptance.
-     *  The rule for a redirect without target must be ignored.
-     *  The request must be responded by the module with status 404.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The rule for a redirect without target must be ignored.
+     * The request must be responded by the module with status 404.
+     * @throws Exception
      */  
     @Test
     public void testAcceptance_45() throws Exception {
@@ -964,10 +962,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  Test case for acceptance.
-     *  The rule without alias must be ignored.
-     *  The request must be responded by the module with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The rule without alias must be ignored.
+     * The request must be responded by the module with status 200.
+     * @throws Exception
      */   
     @Test
     public void testAcceptance_46() throws Exception {
@@ -982,10 +980,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  Test case for acceptance.
-     *  The rule without alias must be ignored.
-     *  The request must be responded by the module with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The rule without alias must be ignored.
+     * The request must be responded by the module with status 200.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_47() throws Exception {
@@ -1000,10 +998,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  Test case for acceptance.
-     *  The rule without alias must be ignored.
-     *  The request must be responded by the module with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The rule without alias must be ignored.
+     * The request must be responded by the module with status 200.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_48() throws Exception {
@@ -1018,10 +1016,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  Test case for acceptance.
-     *  The rule without alias must be ignored.
-     *  The request must be responded by the module with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The rule without alias must be ignored.
+     * The request must be responded by the module with status 200.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_49() throws Exception {
@@ -1036,10 +1034,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
         
     /**
-     *  Test case for acceptance.
-     *  The rule for a module without target must be ignored.
-     *  The request must be responded by the module with status 404.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The rule for a module without target must be ignored.
+     * The request must be responded by the module with status 404.
+     * @throws Exception
      */  
     @Test
     public void testAcceptance_50() throws Exception {
@@ -1054,10 +1052,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /**
-     *  Test case for acceptance.
-     *  The rule for a forbidden path without target must be work.
-     *  The request must be responded by the module with status 403.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The rule for a forbidden path without target must be work.
+     * The request must be responded by the module with status 403.
+     * @throws Exception
      */  
     @Test
     public void testAcceptance_51() throws Exception {
@@ -1072,15 +1070,14 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [VIRTUAL:VHA:REF] /o/o/2 > ./stage/documents_d/test.txt [x]}
-     *  Virtual paths to individual files must work. The request via
-     *  {@code HEAD} must be responded with status 200, because the target
-     *  exists and method {@code HEAD} is allowed. The request via {@code GET}
-     *  must be responded with status 405, because the target exists also but
-     *  method {@code GET} is not allowed and the options {@code [X]} was only
-     *  supported for modules.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [VIRTUAL:VHA:REF] /o/o/2 > ./stage/documents_d/test.txt [x]}
+     * Virtual paths to individual files must work. The request via {@code HEAD}
+     * must be responded with status 200, because the target exists and method
+     * {@code HEAD} is allowed. The request via {@code GET} must be responded
+     * with status 405, because the target exists also but method {@code GET} is
+     * not allowed and the options {@code [X]} was only supported for modules.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_52() throws Exception {
@@ -1107,11 +1104,11 @@ public class WorkerTest_Locate extends AbstractTest {
     }    
     
     /** 
-     *  Test case for acceptance.
-     *  Configuration: {@code [VIRTUAL:VHA:REF] /o/o/2 > ./stage/documents_d/test.txt [x]}
-     *  Virtual paths to individual files must work. The request via
-     *  {@code HEAD} must be responded with status 200, 302, 404.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Configuration: {@code [VIRTUAL:VHA:REF] /o/o/2 > ./stage/documents_d/test.txt [x]}
+     * Virtual paths to individual files must work. The request via {@code HEAD}
+     * must be responded with status 200, 302, 404.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_53() throws Exception {
@@ -1131,10 +1128,9 @@ public class WorkerTest_Locate extends AbstractTest {
     }  
 
     /** 
-     *  Test case for acceptance.
-     *  Locate must work for references in {@code [VIRTUAL:REF]} without 
-     *  target.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Locate must work for references in {@code [VIRTUAL:REF]} without  target.
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_54() throws Exception {
@@ -1159,10 +1155,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Locate must work for references in {@code [VIRTUAL:REF]} without
-     *  target and virtual path without a slash at the beginning.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Locate must work for references in {@code [VIRTUAL:REF]} without target
+     * and virtual path without a slash at the beginning.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_55() throws Exception {
@@ -1185,10 +1181,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Locate must work for references in {@code [VIRTUAL:REF]} if the target
-     *  is a path without a slash at the beginning.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Locate must work for references in {@code [VIRTUAL:REF]} if the target is
+     * a path without a slash at the beginning.
+     * @throws Exception
      */       
     @Test
     public void testAcceptance_56() throws Exception {
@@ -1211,11 +1207,11 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The virtual path {@code /e} is defined as module, but an error occurs
-     *  when the service method is executed. The request must be responded with
-     *  status 502 and the error must be logged in the output-log.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The virtual path {@code /e} is defined as module, but an error occurs
+     * when the service method is executed. The request must be responded with
+     * status 502 and the error must be logged in the output-log.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_57() throws Exception {
@@ -1252,10 +1248,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }    
     
     /** 
-     *  Test case for acceptance.
-     *  Breaking out for a path condition with a dot at the end must not happen.
-     *  The problem only occurs in Windows.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Breaking out for a path condition with a dot at the end must not happen.
+     * The problem only occurs in Windows.
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_58() throws Exception {
@@ -1304,10 +1300,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Breaking out of the DocRoot must not happen if the path contains masked
-     *  special characters.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Breaking out of the DocRoot must not happen if the path contains masked
+     * special characters.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_94() throws Exception {
@@ -1336,10 +1332,10 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  Breaking out of the DocRoot must not happen if the path contains masked
-     *  special characters.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Breaking out of the DocRoot must not happen if the path contains masked
+     * special characters.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_95() throws Exception {
@@ -1368,10 +1364,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }  
     
     /** 
-     *  Test case for acceptance.
-     *  Breaking out of the DocRoot must not happen if the path contains masked
-     *  special characters.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Breaking out of the DocRoot must not happen if the path contains masked
+     * special characters.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_96() throws Exception {
@@ -1400,10 +1396,10 @@ public class WorkerTest_Locate extends AbstractTest {
     }     
     
     /** 
-     *  Test case for acceptance.
-     *  Breaking out of the DocRoot must not happen if the path contains masked
-     *  special characters.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Breaking out of the DocRoot must not happen if the path contains masked
+     * special characters.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_97() throws Exception {
@@ -1432,10 +1428,10 @@ public class WorkerTest_Locate extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  Breaking out of the DocRoot must not happen if the path contains masked
-     *  special characters.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Breaking out of the DocRoot must not happen if the path contains masked
+     * special characters.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_98() throws Exception {

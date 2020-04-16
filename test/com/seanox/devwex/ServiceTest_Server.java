@@ -1,23 +1,23 @@
 /**
- *  LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
- *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
- *  Diese Software unterliegt der Version 2 der GNU General Public License.
+ * LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
+ * im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
+ * Diese Software unterliegt der Version 2 der GNU General Public License.
  *
- *  Devwex, Advanced Server Development
- *  Copyright (C) 2018 Seanox Software Solutions
+ * Devwex, Advanced Server Development
+ * Copyright (C) 2020 Seanox Software Solutions
  *
- *  This program is free software; you can redistribute it and/or modify it
- *  under the terms of version 2 of the GNU General Public License as published
- *  by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of version 2 of the GNU General Public License as published by the
+ * Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful, but WITHOUT
- *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- *  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- *  more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 package com.seanox.devwex;
 
@@ -35,20 +35,20 @@ import org.junit.Test;
 import com.seanox.test.utils.HttpUtils;
 
 /**
- *  Test cases for {@link com.seanox.devwex.Service}.<br>
- *  <br>
- *  ServiceTest_Server 5.1 20180220<br>
- *  Copyright (C) 2018 Seanox Software Solutions<br>
- *  All rights reserved.
+ * Test cases for {@link com.seanox.devwex.Service}.<br>
+ * <br>
+ * ServiceTest_Server 5.1 20180220<br>
+ * Copyright (C) 2018 Seanox Software Solutions<br>
+ * All rights reserved.
  *
- *  @author  Seanox Software Solutions
- *  @version 5.1 20180220
+ * @author  Seanox Software Solutions
+ * @version 5.1 20180220
  */
 public class ServiceTest_Server extends AbstractTest {
     
     /** 
-     *  Preparation of the runtime environment.
-     *  @throws Exception
+     * Preparation of the runtime environment.
+     * @throws Exception
      */
     @BeforeClass
     public static void initiate() throws Exception {
@@ -61,8 +61,8 @@ public class ServiceTest_Server extends AbstractTest {
     }
     
     /** 
-     *  Restoration of the runtime environment.
-     *  @throws Exception
+     * Restoration of the runtime environment.
+     * @throws Exception
      */
     @AfterClass
     public static void terminate() throws Exception {
@@ -75,13 +75,13 @@ public class ServiceTest_Server extends AbstractTest {
     } 
 
     /** 
-     *  Test case for acceptance.
-     *  A server can be configured and started by different instances.
-     *      [REMOTE:INI]    25001
-     *      [REMOTE:A:INI]  25002
-     *      [REMOTE:B:INI]  25003
-     *      [REMOTE::INI]   25004
-     *  @throws Exception
+     * Test case for acceptance.
+     * A server can be configured and started by different instances.
+     *     [REMOTE:INI]    25001
+     *     [REMOTE:A:INI]  25002
+     *     [REMOTE:B:INI]  25003
+     *     [REMOTE::INI]   25004
+     * @throws Exception
      */    
     @Test      
     public void testAcceptance_01() throws Exception {
@@ -96,11 +96,11 @@ public class ServiceTest_Server extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Tests when a implementation (default scope) is used in different instances.
-     *      [COUNT:INI] com.seanox.devwex
-     *      [COUNT:A:INI] com.seanox.devwex
-     *  @throws Exception
+     * Test case for acceptance.
+     * Tests when a implementation (default scope) is used in different instances.
+     *     [COUNT:INI] com.seanox.devwex
+     *     [COUNT:A:INI] com.seanox.devwex
+     * @throws Exception
      */     
     @Test      
     public void testAcceptance_02() throws Exception {
@@ -123,11 +123,11 @@ public class ServiceTest_Server extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Tests when a implementation (external scope) is used in different instances.
-     *      [COUNT:B1:INI] example
-     *      [COUNT:B2:INI] example
-     *  @throws Exception
+     * Test case for acceptance.
+     * Tests when a implementation (external scope) is used in different instances.
+     *     [COUNT:B1:INI] example
+     *     [COUNT:B2:INI] example
+     * @throws Exception
      */       
     @Test      
     public void testAcceptance_03() throws Exception {
@@ -150,10 +150,10 @@ public class ServiceTest_Server extends AbstractTest {
     }  
     
     /** 
-     *  Test case for acceptance.
-     *  Tests if a scope does not exist.
-     *      [COUNT:C:INI] example-x
-     *  @throws Exception
+     * Test case for acceptance.
+     * Tests if a scope does not exist.
+     *     [COUNT:C:INI] example-x
+     * @throws Exception
      */           
     @Test(expected=ConnectException.class)
     public void testAcceptance_04() throws Exception {
@@ -164,9 +164,9 @@ public class ServiceTest_Server extends AbstractTest {
     }  
     
     /** 
-     *  Test case for acceptance.
-     *  Tests if an error occurs in constructor of a server.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Tests if an error occurs in constructor of a server.
+     * @throws Exception
      */        
     @Test(expected=ConnectException.class)
     public void testAcceptance_05() throws Exception {
@@ -177,9 +177,9 @@ public class ServiceTest_Server extends AbstractTest {
     }    
     
     /** 
-     *  Test case for acceptance.
-     *  Tests if an error occurs in the run-method of the server-thread.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Tests if an error occurs in the run-method of the server-thread.
+     * @throws Exception
      */           
     @Test(expected=SocketTimeoutException.class)
     public void testAcceptance_06() throws Exception {
@@ -190,9 +190,9 @@ public class ServiceTest_Server extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Tests if an error occurs in the run-method of the accept.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Tests if an error occurs in the run-method of the accept.
+     * @throws Exception
      */      
     @Test(expected=AssertionError.class)
     public void testAcceptance_07() throws Exception {
@@ -203,9 +203,9 @@ public class ServiceTest_Server extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Various (walid and invalid) implementations of the SAPI are checked.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Various (walid and invalid) implementations of the SAPI are checked.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_08() throws Exception {

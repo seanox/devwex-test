@@ -1,23 +1,23 @@
 /**
- *  LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
- *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
- *  Diese Software unterliegt der Version 2 der GNU General Public License.
+ * LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
+ * im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
+ * Diese Software unterliegt der Version 2 der GNU General Public License.
  *
- *  Devwex, Advanced Server Development
- *  Copyright (C) 2020 Seanox Software Solutions
+ * Devwex, Advanced Server Development
+ * Copyright (C) 2020 Seanox Software Solutions
  *
- *  This program is free software; you can redistribute it and/or modify it
- *  under the terms of version 2 of the GNU General Public License as published
- *  by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of version 2 of the GNU General Public License as published by the
+ * Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful, but WITHOUT
- *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- *  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- *  more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 package com.seanox.devwex;
 
@@ -40,14 +40,14 @@ import com.seanox.test.utils.HttpUtils.Keystore;
 import com.seanox.test.utils.OutputFacadeStream;
 
 /**
- *  Abstract class to implements and use test suites.<br>
- *  <br>
- *  AbstractSuite 5.2 20201004<br>
- *  Copyright (C) 2020 Seanox Software Solutions<br>
- *  All rights reserved.
+ * Abstract class to implements and use test suites.<br>
+ * <br>
+ * AbstractSuite 5.2 20201004<br>
+ * Copyright (C) 2020 Seanox Software Solutions<br>
+ * All rights reserved.
  *
- *  @author  Seanox Software Solutions
- *  @version 5.2 20201004
+ * @author  Seanox Software Solutions
+ * @version 5.2 20201004
  */
 public class AbstractSuite extends com.seanox.test.AbstractSuite {
     
@@ -228,9 +228,9 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
     }
 
     /**
-     *  Returns the root stage as file.
-     *  @return the root stage as file
-     *  @throws IOException
+     * Returns the root stage as file.
+     * @return the root stage as file
+     * @throws IOException
      */
     static File getRoot()
             throws IOException {
@@ -238,9 +238,9 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
     }
     
     /**
-     *  Returns the root stage as file.
-     *  @return the root stage as file
-     *  @throws IOException
+     * Returns the root stage as file.
+     * @return the root stage as file
+     * @throws IOException
      */
     static File getRootStage()
             throws IOException {
@@ -248,9 +248,9 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
     }
 
     /**
-     *  Returns the root stage access log as file.
-     *  @return the root stage access log as file
-     *  @throws IOException
+     * Returns the root stage access log as file.
+     * @return the root stage access log as file
+     * @throws IOException
      */
     static File getRootStageAccessLog()
             throws IOException {
@@ -258,9 +258,9 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
     }
 
     /**
-     *  Returns the root stage output log as file.
-     *  @return the root stage output log as file
-     *  @throws IOException
+     * Returns the root stage output log as file.
+     * @return the root stage output log as file
+     * @throws IOException
      */
     static File getRootStageOutputLog()
             throws IOException {
@@ -268,9 +268,9 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
     }
     
     /**
-     *  Returns the root stage certificates directory as file.
-     *  @return the root stage certificates directory as file
-     *  @throws IOException
+     * Returns the root stage certificates directory as file.
+     * @return the root stage certificates directory as file
+     * @throws IOException
      */
     static File getRootStageCertificates()
             throws IOException {
@@ -278,8 +278,8 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
     }
 
     /**
-     *  Returns the default keystore for SSL connections.
-     *  @return the default keystore for SSL connections
+     * Returns the default keystore for SSL connections.
+     * @return the default keystore for SSL connections
      */    
     static Keystore getKeystore() {
         return AbstractSuite.keystore;

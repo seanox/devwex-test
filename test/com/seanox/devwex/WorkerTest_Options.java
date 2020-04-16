@@ -1,23 +1,23 @@
 /**
- *  LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
- *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
- *  Diese Software unterliegt der Version 2 der GNU General Public License.
+ * LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
+ * im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
+ * Diese Software unterliegt der Version 2 der GNU General Public License.
  *
- *  Devwex, Advanced Server Development
- *  Copyright (C) 2020 Seanox Software Solutions
+ * Devwex, Advanced Server Development
+ * Copyright (C) 2020 Seanox Software Solutions
  *
- *  This program is free software; you can redistribute it and/or modify it
- *  under the terms of version 2 of the GNU General Public License as published
- *  by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of version 2 of the GNU General Public License as published by the
+ * Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful, but WITHOUT
- *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- *  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- *  more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 package com.seanox.devwex;
 
@@ -30,24 +30,24 @@ import com.seanox.test.utils.OutputFacadeStream;
 import com.seanox.test.utils.Pattern;
 
 /**
- *  Test cases for {@link com.seanox.devwex.Worker}.<br>
- *  <br>
- *  WorkerTest_Options 5.2 20200410<br>
- *  Copyright (C) 2020 Seanox Software Solutions<br>
- *  All rights reserved.
+ * Test cases for {@link com.seanox.devwex.Worker}.<br>
+ * <br>
+ * WorkerTest_Options 5.2 20200410<br>
+ * Copyright (C) 2020 Seanox Software Solutions<br>
+ * All rights reserved.
  *
- *  @author  Seanox Software Solutions
- *  @version 5.2 20200410
+ * @author  Seanox Software Solutions
+ * @version 5.2 20200410
  */
 public class WorkerTest_Options extends AbstractTest {
     
     /** 
-     *  Test case for acceptance.
-     *  For method {@code OPTIONS}, The target is not checked. Whether exits or
-     *  not, the request is responded with status 200, {@code Allow} and
-     *  without content details. {@code OPTIONS} is only a request about the
-     *  supported HTTP methods.
-     *  @throws Exception
+     * Test case for acceptance.
+     * For method {@code OPTIONS}, The target is not checked. Whether exits or
+     * not, the request is responded with status 200, {@code Allow} and without
+     * content details. {@code OPTIONS} is only a request about the supported
+     * HTTP methods.
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_01() throws Exception {
@@ -68,12 +68,12 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  For method {@code OPTIONS}, The target is not checked. Whether exits or
-     *  not, the request is responded with status 200, {@code Allow} and
-     *  without content details. {@code OPTIONS} is only a request about the
-     *  supported HTTP methods.
-     *  @throws Exception
+     * Test case for acceptance.
+     * For method {@code OPTIONS}, The target is not checked. Whether exits or
+     * not, the request is responded with status 200, {@code Allow} and without
+     * content details. {@code OPTIONS} is only a request about the supported
+     * HTTP methods.
+     * @throws Exception
      */ 
     @Test
     public void testAcceptance_02() throws Exception {
@@ -94,12 +94,12 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  For method {@code OPTIONS}, The target is not checked. Whether exits or
-     *  not, the request is responded with status 200, {@code Allow} and
-     *  without content details. {@code OPTIONS} is only a request about the
-     *  supported HTTP methods.
-     *  @throws Exception
+     * Test case for acceptance.
+     * For method {@code OPTIONS}, The target is not checked. Whether exits or
+     * not, the request is responded with status 200, {@code Allow} and without
+     * content details. {@code OPTIONS} is only a request about the supported
+     * HTTP methods.
+     * @throws Exception
      */ 
     @Test
     public void testAcceptance_03() throws Exception {
@@ -120,12 +120,12 @@ public class WorkerTest_Options extends AbstractTest {
     } 
 
     /** 
-     *  Test case for acceptance.
-     *  For method {@code OPTIONS}, The target is not checked. Whether exits or
-     *  not, the request is responded with status 200, {@code Allow} and
-     *  without content details. {@code OPTIONS} is only a request about the
-     *  supported HTTP methods.
-     *  @throws Exception
+     * Test case for acceptance.
+     * For method {@code OPTIONS}, The target is not checked. Whether exits or
+     * not, the request is responded with status 200, {@code Allow} and without
+     * content details. {@code OPTIONS} is only a request about the supported
+     * HTTP methods.
+     * @throws Exception
      */      
     @Test
     public void testAcceptance_04() throws Exception {
@@ -146,12 +146,12 @@ public class WorkerTest_Options extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  For method {@code OPTIONS}, The target is not checked. Whether exits or
-     *  not, the request is responded with status 200, {@code Allow} and
-     *  without content details. {@code OPTIONS} is only a request about the
-     *  supported HTTP methods.
-     *  @throws Exception
+     * Test case for acceptance.
+     * For method {@code OPTIONS}, The target is not checked. Whether exits or
+     * not, the request is responded with status 200, {@code Allow} and without
+     * content details. {@code OPTIONS} is only a request about the supported
+     * HTTP methods.
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_05() throws Exception {
@@ -172,12 +172,11 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  For method {@code OPTIONS}, the request header
-     *  {@code If-Modified-Since} is ignored. Whether correct or invalid, the
-     *  request is responded with status 200, {@code Allow} and without content
-     *  details.
-     *  @throws Exception
+     * Test case for acceptance.
+     * For method {@code OPTIONS}, the request header {@code If-Modified-Since}
+     * is ignored. Whether correct or invalid, the request is responded with
+     * status 200, {@code Allow} and without content details.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_06() throws Exception {
@@ -208,12 +207,11 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  For method {@code OPTIONS}, the request header
-     *  {@code If-Modified-Since} is ignored. Whether correct or invalid, the
-     *  request is responded with status 200, {@code Allow} and without content
-     *  details.
-     *  @throws Exception
+     * Test case for acceptance.
+     * For method {@code OPTIONS}, the request header {@code If-Modified-Since}
+     * is ignored. Whether correct or invalid, the request is responded with
+     * status 200, {@code Allow} and without content details.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_07() throws Exception {
@@ -235,12 +233,11 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  For method {@code OPTIONS}, the request header
-     *  {@code If-Modified-Since} is ignored. Whether correct or invalid, the
-     *  request is responded with status 200, {@code Allow} and without content
-     *  details.
-     *  @throws Exception
+     * Test case for acceptance.
+     * For method {@code OPTIONS}, the request header {@code If-Modified-Since}
+     * is ignored. Whether correct or invalid, the request is responded with
+     * status 200, {@code Allow} and without content details.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_08() throws Exception {
@@ -272,12 +269,11 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  For method {@code OPTIONS}, the request header
-     *  {@code If-Modified-Since} is ignored. Whether correct or invalid, the
-     *  request is responded with status 200, {@code Allow} and without content
-     *  details.
-     *  @throws Exception
+     * Test case for acceptance.
+     * For method {@code OPTIONS}, the request header {@code If-Modified-Since}
+     * is ignored. Whether correct or invalid, the request is responded with
+     * status 200, {@code Allow} and without content details.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_09() throws Exception {
@@ -309,15 +305,14 @@ public class WorkerTest_Options extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  For method {@code OPTIONS}, the target (also directories and
-     *  independent of default) is not checked. Whether exits or not, the
-     *  request is responded with status 200, {@code Allow} and without content
-     *  details. {@code OPTIONS} is only a request about the supported HTTP
-     *  methods. Header fields: {@code Range}, {@code If-Modified-Since} and
-     *  {@code If-UnModified-Since}
-     *  are ignored. 
-     *  @throws Exception
+     * Test case for acceptance.
+     * For method {@code OPTIONS}, the target (also directories and independent
+     * of default) is not checked. Whether exits or not, the request is
+     * responded with status 200, {@code Allow} and without content details.
+     * {@code OPTIONS} is only a request about the supported HTTP methods.
+     * Header fields: {@code Range}, {@code If-Modified-Since} and
+     * {@code If-UnModified-Since} are ignored. 
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_11() throws Exception {
@@ -338,14 +333,13 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  For method {@code OPTIONS}, the target (also directories) is not
-     *  checked. Whether exits or not, the request is responded with status
-     *  200, {@code Allow} and without content details. {@code OPTIONS} is only
-     *  a request about the supported HTTP methods. Header fields:
-     *  {@code Range}, {@code If-Modified-Since} and {@code If-UnModified-Since}
-     *  are ignored. 
-     *  @throws Exception
+     * Test case for acceptance.
+     * For method {@code OPTIONS}, the target (also directories) is not checked.
+     * Whether exits or not, the request is responded with status 200,
+     * {@code Allow} and without content details. {@code OPTIONS} is only a
+     * request about the supported HTTP methods. Header fields: {@code Range},
+     * {@code If-Modified-Since} and {@code If-UnModified-Since} are ignored. 
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_12() throws Exception {
@@ -367,10 +361,10 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  For method {@code OPTIONS}, the request for a forbidden target is
-     *  responded with status 403. 
-     *  @throws Exception
+     * Test case for acceptance.
+     * For method {@code OPTIONS}, the request for a forbidden target is
+     * responded with status 403. 
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_13() throws Exception {
@@ -392,12 +386,12 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  For method {@code OPTIONS}, the target (also with an absolute paths) is
-     *  not checked. Whether exits or not, the request is responded with status
-     *  200, {@code Allow} and without content details. {@code OPTIONS} is only
-     *  a request about the supported HTTP methods. 
-     *  @throws Exception
+     * Test case for acceptance.
+     * For method {@code OPTIONS}, the target (also with an absolute paths) is
+     * not checked. Whether exits or not, the request is responded with status 200,
+     * {@code Allow} and without content details. {@code OPTIONS} is only a
+     * request about the supported HTTP methods. 
+     * @throws Exception
      */ 
     @Test
     public void testAcceptance_14() throws Exception {
@@ -419,12 +413,12 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  For method {@code OPTIONS}, the target (also with an absolute paths) is
-     *  not checked. Whether exits or not, the request is responded with status
-     *  200, {@code Allow} and without content details. {@code OPTIONS} is only
-     *  a request about the supported HTTP methods. 
-     *  @throws Exception
+     * Test case for acceptance.
+     * For method {@code OPTIONS}, the target (also with an absolute paths) is
+     * not checked. Whether exits or not, the request is responded with status 200,
+     * {@code Allow} and without content details. {@code OPTIONS} is only a
+     * request about the supported HTTP methods. 
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_15() throws Exception {
@@ -446,11 +440,11 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /**
-     *  Test case for acceptance.
-     *  For the CGI, the method {@code OPTIONS} are responded by the CGI.
-     *  In the test case, {@code OPTIONS} is for the CGI not allowed and the
-     *  request is responded with status 405, also if the CGI not exists.
-     *  @throws Exception
+     * Test case for acceptance.
+     * For the CGI, the method {@code OPTIONS} are responded by the CGI.
+     * In the test case, {@code OPTIONS} is for the CGI not allowed and the
+     * request is responded with status 405, also if the CGI not exists.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_16() throws Exception {
@@ -472,11 +466,11 @@ public class WorkerTest_Options extends AbstractTest {
     } 
     
     /**
-     *  Test case for acceptance.
-     *  For the CGI, the method {@code OPTIONS} are responded by the CGI.
-     *  In the test case, {@code OPTIONS} is for the CGI allowed and the
-     *  request is responded with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * For the CGI, the method {@code OPTIONS} are responded by the CGI.
+     * In the test case, {@code OPTIONS} is for the CGI allowed and the request
+     * is responded with status 200.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_17() throws Exception {
@@ -502,11 +496,11 @@ public class WorkerTest_Options extends AbstractTest {
     }
     
     /**
-     *  Test case for acceptance.
-     *  For the CGI, the method {@code OPTIONS} are responded by the CGI.
-     *  In the test case, {@code OPTIONS} is for the CGI not allowed and the
-     *  request is responded with status 405.
-     *  @throws Exception
+     * Test case for acceptance.
+     * For the CGI, the method {@code OPTIONS} are responded by the CGI.
+     * In the test case, {@code OPTIONS} is for the CGI not allowed and the
+     * request is responded with status 405.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_18() throws Exception {
@@ -567,13 +561,13 @@ public class WorkerTest_Options extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  For method {@code OPTIONS}, the target is not checked. Whether exits or
-     *  not, the request is responded with status 200, {@code Allow} and
-     *  without content details. {@code OPTIONS} is only a request about the
-     *  supported HTTP methods. Header fields: {@code Range},
-     *  {@code If-Modified-Since} and {@code If-UnModified-Since} are ignored. 
-     *  @throws Exception
+     * Test case for acceptance.
+     * For method {@code OPTIONS}, the target is not checked. Whether exits or
+     * not, the request is responded with status 200, {@code Allow} and without
+     * content details. {@code OPTIONS} is only a request about the supported
+     * HTTP methods. Header fields: {@code Range}, {@code If-Modified-Since} and
+     * {@code If-UnModified-Since} are ignored. 
+     * @throws Exception
      */
     @Test
     public void testAcceptance_19() throws Exception {
@@ -736,13 +730,13 @@ public class WorkerTest_Options extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  For method {@code OPTIONS}, the target is not checked. Whether exits or
-     *  not, the request is responded with status 200, {@code Allow} and
-     *  without content details. {@code OPTIONS} is only a request about the
-     *  supported HTTP methods. Header fields: {@code Range},
-     *  {@code If-Modified-Since} and {@code If-UnModified-Since} are ignored. 
-     *  @throws Exception
+     * Test case for acceptance.
+     * For method {@code OPTIONS}, the target is not checked. Whether exits or
+     * not, the request is responded with status 200, {@code Allow} and without
+     * content details. {@code OPTIONS} is only a request about the supported
+     * HTTP methods. Header fields: {@code Range}, {@code If-Modified-Since} and
+     * {@code If-UnModified-Since} are ignored. 
+     * @throws Exception
      */     
     @Test
     public void testAcceptance_22() throws Exception {

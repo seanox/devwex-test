@@ -1,23 +1,23 @@
 /**
- *  LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
- *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
- *  Diese Software unterliegt der Version 2 der GNU General Public License.
+ * LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
+ * im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
+ * Diese Software unterliegt der Version 2 der GNU General Public License.
  *
- *  Devwex, Advanced Server Development
- *  Copyright (C) 2020 Seanox Software Solutions
+ * Devwex, Advanced Server Development
+ * Copyright (C) 2020 Seanox Software Solutions
  *
- *  This program is free software; you can redistribute it and/or modify it
- *  under the terms of version 2 of the GNU General Public License as published
- *  by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of version 2 of the GNU General Public License as published by the
+ * Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful, but WITHOUT
- *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- *  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- *  more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 package com.seanox.devwex;
 
@@ -40,23 +40,23 @@ import com.seanox.test.utils.StreamUtils;
 import com.seanox.test.utils.Timing;
 
 /**
- *  Test cases for {@link com.seanox.devwex.Worker}.<br>
- *  <br>
- *  WorkerTest_Request 5.2 20200411<br>
- *  Copyright (C) 2020 Seanox Software Solutions<br>
- *  All rights reserved.
+ * Test cases for {@link com.seanox.devwex.Worker}.<br>
+ * <br>
+ * WorkerTest_Request 5.2 20200411<br>
+ * Copyright (C) 2020 Seanox Software Solutions<br>
+ * All rights reserved.
  *
- *  @author  Seanox Software Solutions
- *  @version 5.2 20200411
+ * @author  Seanox Software Solutions
+ * @version 5.2 20200411
  */
 public class WorkerTest_Request extends AbstractTest {
     
     /** 
-     *  Test case for timeout.
-     *  The timeout is defined to 15 seconds. Because the request is not
-     *  terminated, the server waits for the request end. Therefore the
-     *  request must be responded with status 408.
-     *  @throws Exception
+     * Test case for timeout.
+     * The timeout is defined to 15 seconds. Because the request is not
+     * terminated, the server waits for the request end. Therefore the request
+     * must be responded with status 408.
+     * @throws Exception
      */  
     @Test(timeout=17500)
     public void testTimeout_1() throws Exception {
@@ -73,12 +73,12 @@ public class WorkerTest_Request extends AbstractTest {
     }
     
     /** 
-     *  Test case for timeout.
-     *  The timeout is defined to 15 seconds and the request is transmitted
-     *  slowly. The total duration is over 15 seconds, but the individual parts
-     *  of the request are transmitted less than 15 seconds. The request must
-     *  be transmitted completely and responded with status 200.
-     *  @throws Exception
+     * Test case for timeout.
+     * The timeout is defined to 15 seconds and the request is transmitted
+     * slowly. The total duration is over 15 seconds, but the individual parts
+     * of the request are transmitted less than 15 seconds. The request must be
+     * transmitted completely and responded with status 200.
+     * @throws Exception
      */ 
     @Test
     public void testTimeout_2() throws Exception {
@@ -123,13 +123,13 @@ public class WorkerTest_Request extends AbstractTest {
     }    
     
     /** 
-     *  Test case for timeout.
-     *  The timeout is defined to 15 seconds and the request is transmitted
-     *  slowly. The total duration is over 15 seconds, but the individual parts
-     *  of the request are transmitted less than 15 seconds. Because the
-     *  request is not terminated, the server waits for the request end.
-     *  Therefore the request  must be responded with status 408.
-     *  @throws Exception
+     * Test case for timeout.
+     * The timeout is defined to 15 seconds and the request is transmitted
+     * slowly. The total duration is over 15 seconds, but the individual parts
+     * of the request are transmitted less than 15 seconds. Because the request
+     * is not terminated, the server waits for the request end.
+     * Therefore the request  must be responded with status 408.
+     * @throws Exception
      */    
     @Test
     public void testTimeout_3() throws Exception {
@@ -175,9 +175,9 @@ public class WorkerTest_Request extends AbstractTest {
     }  
     
     /** 
-     *  Test case for acceptance.
-     *  Without a path, then terminates the request with status 400.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Without a path, then terminates the request with status 400.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_1() throws Exception {
@@ -195,10 +195,9 @@ public class WorkerTest_Request extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  The path starts without a slash, then terminates the request with
-     *  status 400.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The path starts without a slash, then terminates the request with status 400.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_2() throws Exception {
@@ -216,10 +215,10 @@ public class WorkerTest_Request extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  If the path starts with backslash, the server will change it to slash
-     *  and respond to it with status 200.
-     *  @throws Exception
+     * Test case for acceptance.
+     * If the path starts with backslash, the server will change it to slash and
+     * respond to it with status 200.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_3() throws Exception {
@@ -237,10 +236,10 @@ public class WorkerTest_Request extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Each request line is limited to 32768 characters and will be terminated
-     *  with status 413 if it is overlength.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Each request line is limited to 32768 characters and will be terminated
+     * with status 413 if it is overlength.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_5() throws Exception {
@@ -261,10 +260,10 @@ public class WorkerTest_Request extends AbstractTest {
     }    
     
     /** 
-     *  Test case for acceptance.
-     *  The request is limited to 65535 characters and will be terminated with
-     *  status 200 if it is big but not overlength.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The request is limited to 65535 characters and will be terminated with
+     * status 200 if it is big but not overlength.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_6() throws Exception {
@@ -290,10 +289,10 @@ public class WorkerTest_Request extends AbstractTest {
     }    
     
     /** 
-     *  Test case for acceptance.
-     *  The request is limited to 65535 characters and will be terminated with
-     *  status 200 if big but it is not overlength.
-     *  @throws Exception
+     * Test case for acceptance.
+     * The request is limited to 65535 characters and will be terminated with
+     * status 200 if big but it is not overlength.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_7() throws Exception {
@@ -319,10 +318,10 @@ public class WorkerTest_Request extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  A request whose header contains no data but only {@code [CRLF][CRLF]}
-     *  is terminated with status 400.
-     *  @throws Exception
+     * Test case for acceptance.
+     * A request whose header contains no data but only {@code [CRLF][CRLF]} is
+     * terminated with status 400.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_8() throws Exception {
@@ -339,11 +338,11 @@ public class WorkerTest_Request extends AbstractTest {
     } 
     
     /** 
-     *  Test case for acceptance.
-     *  Aborted requests should not be blocked. The value of MAXACCESS must not
-     *  be reached. All 150 queries must be responded with status 200, even if
-     *  the MAXACCESS is set to 100.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Aborted requests should not be blocked. The value of MAXACCESS must not
+     * be reached. All 150 queries must be responded with status 200, even if
+     * the MAXACCESS is set to 100.
+     * @throws Exception
      */
     @Test
     public void testAcceptance_9() throws Exception {

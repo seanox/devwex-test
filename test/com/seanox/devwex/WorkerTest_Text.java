@@ -1,23 +1,23 @@
 /**
- *  LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
- *  im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
- *  Diese Software unterliegt der Version 2 der GNU General Public License.
+ * LIZENZBEDINGUNGEN - Seanox Software Solutions ist ein Open-Source-Projekt,
+ * im Folgenden Seanox Software Solutions oder kurz Seanox genannt.
+ * Diese Software unterliegt der Version 2 der GNU General Public License.
  *
- *  Devwex, Advanced Server Development
- *  Copyright (C) 2018 Seanox Software Solutions
+ * Devwex, Advanced Server Development
+ * Copyright (C) 2020 Seanox Software Solutions
  *
- *  This program is free software; you can redistribute it and/or modify it
- *  under the terms of version 2 of the GNU General Public License as published
- *  by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of version 2 of the GNU General Public License as published by the
+ * Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful, but WITHOUT
- *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- *  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- *  more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 package com.seanox.devwex;
 
@@ -30,14 +30,14 @@ import com.seanox.test.utils.ResourceUtils;
 import com.seanox.test.utils.TextUtils;
 
 /**
- *  Test cases for {@link com.seanox.devwex.Worker}.<br>
- *  <br>
- *  WorkerTest_Text 5.1 20180110<br>
- *  Copyright (C) 2018 Seanox Software Solutions<br>
- *  All rights reserved.
+ * Test cases for {@link com.seanox.devwex.Worker}.<br>
+ * <br>
+ * WorkerTest_Text 5.1 20180110<br>
+ * Copyright (C) 2018 Seanox Software Solutions<br>
+ * All rights reserved.
  *
- *  @author  Seanox Software Solutions
- *  @version 5.1 20180110
+ * @author  Seanox Software Solutions
+ * @version 5.1 20180110
  */
 public class WorkerTest_Text extends AbstractTest {
     
@@ -62,10 +62,10 @@ public class WorkerTest_Text extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Tested the use of method:
-     *      {@code Worker#textEscape(String)}.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Tested the use of method:
+     *     {@code Worker#textEscape(String)}.
+     * @throws Exception
      */  
     @Test
     public void testAcceptance_01() throws Exception {
@@ -77,10 +77,10 @@ public class WorkerTest_Text extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Tested the use of method:
-     *      {@code Worker#textReplace(String, String, String)}.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Tested the use of method:
+     *     {@code Worker#textReplace(String, String, String)}.
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_02() throws Exception {
@@ -95,10 +95,10 @@ public class WorkerTest_Text extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Tested the use of method:
-     *      {@code Worker#textHash(String, String, String)}.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Tested the use of method:
+     *     {@code Worker#textHash(String, String, String)}.
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_03() throws Exception {
@@ -112,10 +112,10 @@ public class WorkerTest_Text extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Tested the use of method:
-     *      {@code Worker#textDecode(String, String, String)}.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Tested the use of method:
+     *     {@code Worker#textDecode(String, String, String)}.
+     * @throws Exception
      */    
     @Test
     public void testAcceptance_04() throws Exception {
@@ -129,10 +129,10 @@ public class WorkerTest_Text extends AbstractTest {
     }
     
     /** 
-     *  Test case for acceptance.
-     *  Tested the use of method:
-     *      {@code Worker#textEscape(String)}.
-     *  @throws Exception
+     * Test case for acceptance.
+     * Tested the use of method:
+     *     {@code Worker#textEscape(String)}.
+     * @throws Exception
      */  
     @Test
     public void testAcceptance_05() throws Exception {
