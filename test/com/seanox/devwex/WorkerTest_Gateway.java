@@ -4,7 +4,7 @@
  *  Diese Software unterliegt der Version 2 der GNU General Public License.
  *
  *  Devwex, Advanced Server Development
- *  Copyright (C) 2017 Seanox Software Solutions
+ *  Copyright (C) 2020 Seanox Software Solutions
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as published
@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.UUID;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -38,19 +40,19 @@ import com.seanox.test.utils.Timing;
 /**
  *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
- *  WorkerTest_Gateway 5.1 20171231<br>
- *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  WorkerTest_Gateway 5.2.0 20200416<br>
+ *  Copyright (C) 2020 Seanox Software Solutions<br>
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 5.1 20171231
+ *  @version 5.2.0 20200416
  */
 public class WorkerTest_Gateway extends AbstractTest {
     
     /** 
      *  Test case for acceptance.
      *  Method {@code HEAD} was not defined for the CGI and the request is
-     *  responded with status 403. For a method {@code HEAD} the server status
+     *  responded with status 405. For a method {@code HEAD} the server status
      *  is without content.
      *  @throws Exception
      */
@@ -62,13 +64,13 @@ public class WorkerTest_Gateway extends AbstractTest {
                 + "\r\n";
         String response = this.sendRequest("127.0.0.1:8080", request);
         
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_405));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
-        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_403));
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_405));
     }
     
     /** 
@@ -90,7 +92,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertTrue(response.matches("(?s)^.*\r\nModule: module.WorkerModule_A::Service\r\n.*$"));
         Assert.assertTrue(response.matches("(?s)^.*\r\nOpts: module.WorkerModule_A \\[pa=1\\] \\[M\\]\r\n.*$"));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("1")));
     } 
     
@@ -114,7 +116,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_404));      
     } 
     
@@ -146,7 +148,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertTrue(body.length() == 25);
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request, 25)));
     }
     
@@ -171,7 +173,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_SERVER));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("123")));      
     } 
     
@@ -196,7 +198,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_SERVER));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_502));   
         
         Thread.sleep(AbstractTest.SLEEP);
@@ -377,7 +379,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_SERVER));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));      
     }  
     
@@ -402,7 +404,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_SERVER));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));      
     } 
     
@@ -531,7 +533,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_502));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_502));      
     }
     
@@ -585,7 +587,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertFalse(response.matches("(?si)^.*\\sBerlin.*$"));
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("123")));
         
         request = "GET /cgi_header_status_3.jsx HTTP/1.0\r\n"
@@ -597,7 +599,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\\sBerlin.*$"));
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200)); 
         
         request = "GET /cgi_header_status_4.jsx HTTP/1.0\r\n"
@@ -609,7 +611,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\\sBerlin.*$"));
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
         
         request = "GET /cgi_header_status_5.jsx HTTP/1.0\r\n"
@@ -621,7 +623,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\\sBerlin.*$"));
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
         
         request = "GET /cgi_header_status_6.jsx HTTP/1.0\r\n"
@@ -633,7 +635,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertFalse(response.matches("(?si)^.*\\sBerlin.*$"));
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));   
         
         request = "GET /cgi_header_status_7.jsx HTTP/1.0\r\n"
@@ -645,7 +647,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertFalse(response.matches("(?si)^.*\\sBerlin.*$"));
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));   
         
         request = "GET /cgi_header_status_8.jsx HTTP/1.0\r\n"
@@ -657,7 +659,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertFalse(response.matches("(?si)^.*\\sBerlin.*$"));
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));  
         
         request = "GET /cgi_header_status_9.jsx HTTP/1.0\r\n"
@@ -669,7 +671,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\\sBerlin.*$"));
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));   
         
         request = "GET /cgi_header_status_A.jsx HTTP/1.0\r\n"
@@ -681,7 +683,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\\sBerlin.*$"));
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
         
         request = "GET /cgi_header_status_B.jsx HTTP/1.0\r\n"
@@ -693,7 +695,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         Assert.assertTrue(response.matches("(?si)^.*\\sBerlin.*$"));
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("444")));
     } 
     
@@ -716,7 +718,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         timing.assertTimeIn(31000);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_504));   
     }  
     
@@ -739,7 +741,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         timing.assertTimeIn(31000);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_504));
         
-        String accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_504));   
     }   
     
@@ -761,7 +763,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_502));
         
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_502));   
         
         request = "GET /cgi_header_flood_2.jsx HTTP/1.0\r\n\r\n";
@@ -769,7 +771,7 @@ public class WorkerTest_Gateway extends AbstractTest {
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_502));
         
-        accessLog = this.accessStreamCaptureLine(HTTP_RESPONSE_UUID(response)).trim();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_502));
     } 
     
@@ -783,7 +785,10 @@ public class WorkerTest_Gateway extends AbstractTest {
     @Test
     public void testAcceptance_22() throws Exception {
         
-        String request = "GET /cgi_count.jsx HTTP/1.0\r\n\r\n";
+        String uuid = UUID.randomUUID().toString();
+        Files.write(new File(PATH_STAGE_ACCESS_LOG).toPath(), (uuid + "\r\n").getBytes(), StandardOpenOption.APPEND);
+        
+        String request = "GET /cgi_count.jsx HTTP/1.0\r\nUUID: " + uuid + "\r\n\r\n";
         HttpUtils.sendRequest("127.0.0.1:80", request, (RequestEvent)null);
         Thread.sleep(2500);
         Path counterPath = Paths.get(AbstractSuite.getRootStage().toString(), "/documents/cgi_count.txt");
@@ -799,8 +804,13 @@ public class WorkerTest_Gateway extends AbstractTest {
         Assert.assertTrue(counterContent2 == counterContent3);
         
         Thread.sleep(AbstractTest.SLEEP);
-        String accessLog = this.accessStreamCapture.toString().trim();
-        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_503));  
+        this.accessStreamCapture.await(ACCESS_LOG_UUID(uuid));
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_UUID(uuid));
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_503));
+        
+        Thread.sleep(2500);
+        int counterContent4 = Integer.parseInt(new String(Files.readAllBytes(counterPath)));
+        Assert.assertTrue(counterContent2 == counterContent4);
     }
 
     /** 

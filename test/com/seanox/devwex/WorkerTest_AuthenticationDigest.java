@@ -35,12 +35,12 @@ import com.seanox.test.utils.Pattern;
 /**
  *  Test cases for {@link com.seanox.devwex.Worker}.<br>
  *  <br>
- *  WorkerTest_AuthenticationDigest 5.2 20200410<br>
+ *  WorkerTest_AuthenticationDigest 5.2 20200411<br>
  *  Copyright (C) 2020 Seanox Software Solutions<br>
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 5.2 20200410
+ *  @version 5.2 20200411
  */
 public class WorkerTest_AuthenticationDigest extends AbstractTest {
     
@@ -113,7 +113,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST)); 
 
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/ HTTP/1.0\r\n"
@@ -192,7 +192,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         request = "GET /authentication/a/b/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-b", "pwd-b"));
+        response = this.sendRequest("127.0.0.1:8080", request, new Authentication.Digest("usr-b", "pwd-b"));
 
         Thread.sleep(AbstractTest.SLEEP);
         accessLog = this.accessStreamCaptureTail();
@@ -444,8 +444,7 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_TEXT_HTML));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
         
-        Thread.sleep(AbstractTest.SLEEP);
-        accessLog = this.accessStreamCaptureTail();
+        accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_401));
 
         request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"

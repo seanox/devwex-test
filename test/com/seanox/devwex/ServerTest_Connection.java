@@ -4,7 +4,7 @@
  *  Diese Software unterliegt der Version 2 der GNU General Public License.
  *
  *  Devwex, Advanced Server Development
- *  Copyright (C) 2017 Seanox Software Solutions
+ *  Copyright (C) 2020 Seanox Software Solutions
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as published
@@ -21,8 +21,11 @@
  */
 package com.seanox.devwex;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.PrintStream;
+import java.net.SocketException;
 import java.net.URL;
 import java.security.KeyStore;
 import java.security.SecureRandom;
@@ -48,12 +51,12 @@ import com.seanox.test.utils.Pattern;
 /**
  *  Test cases for {@link com.seanox.devwex.Server}.<br>
  *  <br>
- *  ServerTest_Connection 5.1 20171231<br>
- *  Copyright (C) 2017 Seanox Software Solutions<br>
+ *  ServerTest_Connection 5.1.1 20200416<br>
+ *  Copyright (C) 2020 Seanox Software Solutions<br>
  *  All rights reserved.
  *
  *  @author  Seanox Software Solutions
- *  @version 5.1 20171231
+ *  @version 5.1.1 20200416
  */
 public class ServerTest_Connection extends AbstractTest {
 
@@ -206,14 +209,22 @@ public class ServerTest_Connection extends AbstractTest {
      *  Configuration: {@code CLIENTAUTH = ON} 
      *  Connection without client certificate must fail.
      *  @throws Exception
-     */     
-    @Test(expected=SSLException.class)
+     */   
+    @Test
     public void testAcceptance_06() throws Exception {
         
         ServerTest_Connection.initHttpsUrlConnection();
         URL url = new URL("https://127.0.0.2");
         HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
-        Assert.assertNotEquals(200, urlConn.getResponseCode());
+        try {Assert.assertNotEquals(200, urlConn.getResponseCode());
+        } catch (Exception exception) {
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            exception.printStackTrace(new PrintStream(output));
+            if (output.toString().contains("SSLException")
+                    || (output.toString().contains("SSLSocketImpl")
+                            && exception instanceof SocketException))
+                return;
+        }
         Assert.fail();
     }       
     
