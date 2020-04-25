@@ -48,8 +48,7 @@ public class WorkerTest_File extends AbstractTest {
     
     /** 
      * Test case for acceptance.
-     * Tested the use of method:
-     *     {@code Worker#fileNormalize(String)}.
+     * Test method {@link Worker#fileNormalize(String)}
      * @throws Exception
      */ 
     @Test

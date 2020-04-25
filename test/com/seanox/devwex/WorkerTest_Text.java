@@ -63,8 +63,7 @@ public class WorkerTest_Text extends AbstractTest {
     
     /** 
      * Test case for acceptance.
-     * Tested the use of method:
-     *     {@code Worker#textEscape(String)}.
+     * Test method {@link Worker#textEscape(String)}
      * @throws Exception
      */  
     @Test
@@ -78,8 +77,7 @@ public class WorkerTest_Text extends AbstractTest {
     
     /** 
      * Test case for acceptance.
-     * Tested the use of method:
-     *     {@code Worker#textReplace(String, String, String)}.
+     * Test method {@link Worker#textReplace(String, String, String)}
      * @throws Exception
      */    
     @Test
@@ -96,8 +94,7 @@ public class WorkerTest_Text extends AbstractTest {
     
     /** 
      * Test case for acceptance.
-     * Tested the use of method:
-     *     {@code Worker#textHash(String, String, String)}.
+     * Test method {@link Worker#textHash(String, String, String)}
      * @throws Exception
      */    
     @Test
@@ -113,8 +110,7 @@ public class WorkerTest_Text extends AbstractTest {
     
     /** 
      * Test case for acceptance.
-     * Tested the use of method:
-     *     {@code Worker#textDecode(String, String, String)}.
+     * Test method {@link Worker#textDecode(String, String, String)}
      * @throws Exception
      */    
     @Test
@@ -130,8 +126,7 @@ public class WorkerTest_Text extends AbstractTest {
     
     /** 
      * Test case for acceptance.
-     * Tested the use of method:
-     *     {@code Worker#textEscape(String)}.
+     * Test method {@link Worker#textEscape(String)}
      * @throws Exception
      */  
     @Test

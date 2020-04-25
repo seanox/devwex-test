@@ -188,8 +188,8 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
      * Test case for acceptance.
      * Test for Basic Authentication:
      * {@code /authentication/a/b/c [acc:usr-a:pwd-a:Section-A2]}
-     * With {@code usr-a:pwd-a} the authentication is correct and the request
-     * is responded with status 200.
+     * With {@code usr-a:pwd-a} the authentication is correct and the request is
+     * responded with status 200.
      * @throws Exception
      */
     @Test
