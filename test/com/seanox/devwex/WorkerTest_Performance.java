@@ -69,7 +69,7 @@ public class WorkerTest_Performance extends AbstractTest {
     public void testAcceptance_1() throws Exception {
         
         Service.restart();
-        Thread.sleep(250);
+        Thread.sleep(3000);
         
         Executor executor = Executor.create(40, TestWorker.class);
         
@@ -112,7 +112,6 @@ public class WorkerTest_Performance extends AbstractTest {
     public void testAcceptance_2() throws Exception {
         
         Service.restart();
-        
         Thread.sleep(3000);
         
         Timing timing = Timing.create(true);
@@ -199,7 +198,6 @@ public class WorkerTest_Performance extends AbstractTest {
     public void testAcceptance_3() throws Exception {
         
         Service.restart();
-        
         Thread.sleep(3000);
         
         long threadCount1 = Thread.activeCount() /10;
@@ -243,6 +241,8 @@ public class WorkerTest_Performance extends AbstractTest {
                 Assert.assertTrue(responseSring.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));                    
             }
         }
+
+        Thread.sleep(30000);
         
         Assert.assertTrue(threadCount2 > threadCount1);
         Assert.assertTrue(threadCount2 > threadCount4);

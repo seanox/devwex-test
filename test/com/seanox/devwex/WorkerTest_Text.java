@@ -32,19 +32,14 @@ import com.seanox.test.utils.TextUtils;
 /**
  * Test cases for {@link com.seanox.devwex.Worker}.<br>
  * <br>
- * WorkerTest_Text 5.1 20180110<br>
+ * WorkerTest_Text 5.2.0 20200513<br>
  * Copyright (C) 2018 Seanox Software Solutions<br>
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 5.1 20180110
+ * @version 5.2.0 20200513
  */
 public class WorkerTest_Text extends AbstractTest {
-    
-    private static String textReplace(String string, String search, String replace) throws Exception {
-        return (String)Accession.invoke(Worker.class, "textReplace",
-                new Object[] {string, search, replace});
-    }
     
     private static String textHash(String string) throws Exception {
         return (String)Accession.invoke(Worker.class, "textHash",
@@ -73,23 +68,6 @@ public class WorkerTest_Text extends AbstractTest {
         for (int loop = 1; loop < length; loop += 2)
             Assert.assertEquals("#" + loop + ":", ResourceUtils.getContent(loop +1),
                     new String(WorkerTest_Text.textEscape(ResourceUtils.getContent(loop))));
-    }
-    
-    /** 
-     * Test case for acceptance.
-     * Test method {@link Worker#textReplace(String, String, String)}
-     * @throws Exception
-     */    
-    @Test
-    public void testAcceptance_02() throws Exception {
-
-        String content = ResourceUtils.getContent();
-        String[] lines = TextUtils.split(content, Pattern.LINE_BREAK); 
-        for (int loop = 0; loop < lines.length; loop += 2) {
-            String[] args = TextUtils.split(lines[loop], ":");
-            Assert.assertEquals("#" + (loop +1) + ": " + lines[loop], lines[loop +1],
-                    WorkerTest_Text.textReplace(args[0], args[1], args[2]));
-        }
     }
     
     /** 
