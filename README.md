@@ -41,7 +41,7 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 
 # Changes (Change Log)
-## 5.3.0 2020xxxx (summary of the next version)  
+## 5.3.0 202007xx (summary of the next version)  
 BF: HTTP(S) - Content Types: Correction of xml/xsl/xslt to use application/xslt+xml  
 CR: HTTP(S) - Status: Added option [H] (Header Only)  
 CR: Build: Harmonization when updating the version  
@@ -50,6 +50,7 @@ CR: Project: Automatic update of the version in README.md
 CR: Project: Update Hamcrest version 2.2  
 CR: Project: Update JUnit version 4.13  
 CR: Project: Update Seanox Test version 1.2.0  
+CR: XAPI: Integration of cascaded initialization  
 
 [Read more](https://raw.githubusercontent.com/seanox/devwex-test/master/CHANGES)
 

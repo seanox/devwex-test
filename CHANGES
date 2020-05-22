@@ -1,4 +1,4 @@
-5.3.0 2020xxxx
+5.3.0 202007xx
   BF: HTTP(S) - Content Types: Correction of xml/xsl/xslt to use application/xslt+xml
   CR: HTTP(S) - Status: Added option [H] (Header Only)
   CR: Build: Harmonization when updating the version
@@ -7,6 +7,7 @@
   CR: Project: Update Hamcrest version 2.2
   CR: Project: Update JUnit version 4.13
   CR: Project: Update Seanox Test version 1.2.0
+  CR: XAPI: Integration of cascaded initialization
 
 5.2.0 20190502
   CR: Test: General enhancement of the tests  
