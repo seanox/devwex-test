@@ -118,7 +118,6 @@ public abstract class AbstractTest extends AbstractSuite {
                 count++;
                 break;
             }
-            
         }
         return count;
     }
