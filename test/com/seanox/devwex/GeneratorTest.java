@@ -23,7 +23,9 @@ package com.seanox.devwex;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -34,12 +36,12 @@ import com.seanox.test.utils.Timing;
 /**
  * Test cases for {@link com.seanox.devwex.Generator}.<br>
  * <br>
- * GeneratorTest 5.1 20171231<br>
- * Copyright (C) 2017 Seanox Software Solutions<br>
+ * GeneratorTest 5.1.1 20200608<br>
+ * Copyright (C) 2020 Seanox Software Solutions<br>
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 5.1 20171231
+ * @version 5.1.1 20200608
  */
 public class GeneratorTest extends AbstractTest {
     
@@ -326,6 +328,19 @@ public class GeneratorTest extends AbstractTest {
         Assert.assertEquals("Peter|und|der|Wolf", new String(generator.extract()));
     }    
 
+    /** Test case for acceptance. */
+    @Test
+    public void testAcceptance_I() {
+
+        String template = "#[x]#[X]";
+        Generator generator = Generator.parse(template.getBytes());
+        Map<String, String> values = new HashMap<>();
+        values.put("X", "1");
+        values.put("x", "2");
+        generator.set(values);
+        Assert.assertEquals("11", new String(generator.extract()));
+    }
+    
     /** Test case for recursion. */
     @Test
     public void testRecursion_1() {

@@ -1187,7 +1187,6 @@ public class WorkerTest_AuthenticationDigest extends AbstractTest {
         String response;
         String accessLog;   
         
-        
         request = "GET /authentication/dvm/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";

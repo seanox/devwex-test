@@ -615,8 +615,6 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));
-        
-        
     }
     
     /** 

@@ -211,7 +211,6 @@ public class WorkerTest_Get extends AbstractTest {
         response = this.sendRequest("127.0.0.1:8080", request);
         String lastModified = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");        
 
-
         request = "Get /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: " + lastModified + "; xxx; length=15\r\n"
                 + "Host: vHa\r\n"
