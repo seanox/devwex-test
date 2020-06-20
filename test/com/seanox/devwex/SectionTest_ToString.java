@@ -34,7 +34,7 @@ import com.seanox.test.utils.ResourceUtils;
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 5.1 20171231
+ * @version 5.1.0 20171231
  */
 public class SectionTest_ToString extends AbstractTest {
     

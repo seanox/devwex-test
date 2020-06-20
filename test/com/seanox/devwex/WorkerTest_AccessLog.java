@@ -36,12 +36,12 @@ import com.seanox.test.utils.Pattern;
 /**
  * Test cases for {@link com.seanox.devwex.Worker}.<br>
  * <br>
- * WorkerTest_AccessLog 5.2 20200410<br>
+ * WorkerTest_AccessLog 5.2.0 20200410<br>
  * Copyright (C) 2020 Seanox Software Solutions<br>
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 5.2 20200410
+ * @version 5.2.0 20200410
  */
 public class WorkerTest_AccessLog extends AbstractTest {
     

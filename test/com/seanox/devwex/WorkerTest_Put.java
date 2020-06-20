@@ -42,7 +42,7 @@ import com.seanox.test.utils.Timing;
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 5.2 20200410
+ * @version 5.2.0 20200410
  */
 public class WorkerTest_Put extends AbstractTest {
     

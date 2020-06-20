@@ -30,12 +30,12 @@ import com.seanox.test.utils.Executor.Worker;
 /**
  * Test cases for {@link com.seanox.devwex.Service}.<br>
  * <br>
- * ServiceTest_Restart 5.1 20171231<br>
- * Copyright (C) 2017 Seanox Software Solutions<br>
+ * ServiceTest_Restart 5.1.1 20200620<br>
+ * Copyright (C) 2020 Seanox Software Solutions<br>
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 5.1 20171231
+ * @version 5.1.1 20200620
  */
 public class ServiceTest_Restart extends AbstractTest {
     
@@ -56,7 +56,7 @@ public class ServiceTest_Restart extends AbstractTest {
         });
         
         executor.execute();
-        Assert.assertTrue(executor.await(60000));
+        Assert.assertTrue(executor.await(90000));
         
         String outputLog = this.outputStreamCapture.toString();
         Assert.assertFalse(outputLog.contains(".Exception"));

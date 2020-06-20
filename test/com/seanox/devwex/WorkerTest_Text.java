@@ -33,7 +33,7 @@ import com.seanox.test.utils.TextUtils;
  * Test cases for {@link com.seanox.devwex.Worker}.<br>
  * <br>
  * WorkerTest_Text 5.2.0 20200513<br>
- * Copyright (C) 2018 Seanox Software Solutions<br>
+ * Copyright (C) 2020 Seanox Software Solutions<br>
  * All rights reserved.
  *
  * @author  Seanox Software Solutions

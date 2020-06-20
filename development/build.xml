@@ -214,9 +214,6 @@
     <jar destfile="${workspace.resources.libraries}/server-acceptance_32.jar"
         basedir="${workspace.resources.libraries}"
         includes="server/Acceptance*32*.class"/>
-    <jar destfile="${workspace.resources.libraries}/server-acceptance_33.jar"
-        basedir="${workspace.resources.libraries}"
-        includes="server/Acceptance*33*.class"/>
     
     <jar destfile="${workspace.resources.libraries}/module-acceptance_01.jar"
         basedir="${workspace.resources.libraries}"

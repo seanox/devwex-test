@@ -37,12 +37,12 @@ import com.seanox.test.utils.HttpUtils;
 /**
  * Test cases for {@link com.seanox.devwex.Service}.<br>
  * <br>
- * ServiceTest_Server 5.1 20180220<br>
- * Copyright (C) 2018 Seanox Software Solutions<br>
+ * ServiceTest_Server 5.1.1 20200619<br>
+ * Copyright (C) 2020 Seanox Software Solutions<br>
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 5.1 20180220
+ * @version 5.1.1 20200619
  */
 public class ServiceTest_Server extends AbstractTest {
     

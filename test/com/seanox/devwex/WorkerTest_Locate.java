@@ -37,7 +37,7 @@ import com.seanox.test.utils.Pattern;
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 5.2 20200411
+ * @version 5.2.0 20200411
  */
 public class WorkerTest_Locate extends AbstractTest {
     

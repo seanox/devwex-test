@@ -42,12 +42,12 @@ import com.seanox.test.utils.OutputFacadeStream;
 /**
  * Abstract class to implements and use test suites.<br>
  * <br>
- * AbstractSuite 5.2 20201004<br>
+ * AbstractSuite 5.2.0 20201004<br>
  * Copyright (C) 2020 Seanox Software Solutions<br>
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 5.2 20201004
+ * @version 5.2.0 20201004
  */
 public class AbstractSuite extends com.seanox.test.AbstractSuite {
     

@@ -41,12 +41,12 @@ import com.seanox.test.utils.Pattern;
 /**
  * Test cases for {@link com.seanox.devwex.Worker}.<br>
  * <br>
- * WorkerTest_Configuration 5.2 20200411<br>
+ * WorkerTest_Configuration 5.2.0 20200411<br>
  * Copyright (C) 2020 Seanox Software Solutions<br>
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 5.2 20200411
+ * @version 5.2.0 20200411
  */
 public class WorkerTest_Configuration extends AbstractTest {
     

@@ -40,7 +40,7 @@ import com.seanox.test.utils.Accession;
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 5.1 20171231
+ * @version 5.1.0 20171231
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
