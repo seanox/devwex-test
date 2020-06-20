@@ -51,6 +51,8 @@ CR: Project: Update Hamcrest version 2.2
 CR: Project: Update JUnit version 4.13  
 CR: Project: Update Seanox Test version 1.2.0  
 CR: XAPI: Integration of cascaded initialization  
+CR: HTTP(S) - Directory Index: Change from placeholder 'files' to 'file'  
+CR: HTTP(S) - CGI: Change of the option [P] to [D]  
 
 [Read more](https://raw.githubusercontent.com/seanox/devwex-test/master/CHANGES)
 

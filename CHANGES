@@ -8,6 +8,8 @@
   CR: Project: Update JUnit version 4.13
   CR: Project: Update Seanox Test version 1.2.0
   CR: XAPI: Integration of cascaded initialization
+  CR: HTTP(S) - Directory Index: Change from placeholder 'files' to 'file'
+  CR: HTTP(S) - CGI: Change of the option [P] to [D]
 
 5.2.0 20190502
   CR: Test: General enhancement of the tests  

@@ -40,12 +40,12 @@ import com.seanox.test.utils.Timing;
 /**
  * Test cases for {@link com.seanox.devwex.Worker}.<br>
  * <br>
- * WorkerTest_Gateway 5.2.0 20200416<br>
+ * WorkerTest_Gateway 5.2.0 20200620<br>
  * Copyright (C) 2020 Seanox Software Solutions<br>
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 5.2.0 20200416
+ * @version 5.2.0 20200620
  */
 public class WorkerTest_Gateway extends AbstractTest {
     
@@ -505,6 +505,31 @@ public class WorkerTest_Gateway extends AbstractTest {
         body = "\r\n" + response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertFalse(body.matches("(?si)^.*\r\nHTTP_HOST=vHa\r\n.*$"));
         Assert.assertTrue(body.matches("(?si)^.*\r\nHTTP_HOST=127\\.0\\.0\\.1\r\n.*$"));        
+    }
+    
+    /** 
+     * Test case for acceptance.
+     * Check of the command line arguments {@code[C]} {@code[D]} {@code[N]}
+     * @throws Exception
+     */     
+    @Test
+    public void testAcceptance_15() throws Exception {
+        
+        String request = "GET /parameter.jex HTTP/1.0\r\n"
+                + "Host: vHa\r\n"
+                + "\r\n";
+        String response = this.sendRequest("127.0.0.1:8080", request);
+        
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
+
+        response = response.replaceAll("\\\\+", "/");
+        response = response.replaceAll("(?i)(>[CDN]:)[^<]+?(/stage/documents_vh_A)", "$1/...$2");
+        Assert.assertTrue(response.contains(">C:/.../stage/documents_vh_A/parameter.jex<"));
+        Assert.assertTrue(response.contains(">D:/.../stage/documents_vh_A/<"));
+        Assert.assertTrue(response.contains(">N:parameter<"));
+        
+        String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
+        Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("200", request)));
     }
     
     /** 
