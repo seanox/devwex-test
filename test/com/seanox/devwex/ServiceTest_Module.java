@@ -24,6 +24,7 @@ package com.seanox.devwex;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 import java.util.Hashtable;
 
 import org.junit.AfterClass;
@@ -32,17 +33,16 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.seanox.test.utils.Accession;
-import com.seanox.test.utils.ResourceUtils;
 
 /**
  * Test cases for {@link com.seanox.devwex.Service}.<br>
  * <br>
- * ServiceTest_Module 5.1 20180112<br>
- * Copyright (C) 2018 Seanox Software Solutions<br>
+ * ServiceTest_Module 5.1.1 20200620<br>
+ * Copyright (C) 2020 Seanox Software Solutions<br>
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 5.1 20180112
+ * @version 5.1.1 20200620
  */
 public class ServiceTest_Module extends AbstractTest {
     
@@ -87,13 +87,16 @@ public class ServiceTest_Module extends AbstractTest {
         AbstractTestUtils.waitOutputFacadeStream(AbstractSuite.outputStream);
         
         String output = this.outputStreamCapture.toString();
-        for (int loop : new int[] {5, 6, 7, 9, 10, 11, 12, 14, 15}) {
-            String pattern = String.format("(?si).*Exception:[^\r\n]+_%02d.*", Integer.valueOf(loop));
-            Assert.assertFalse(pattern, output.matches(pattern));
+        for (int loop = 1; loop < 15; loop++) {
+            String pattern = String.format("\\QSERVICE INITIATE MODULE module.Acceptance_%02d\\E", Integer.valueOf(loop));
+            Assert.assertTrue(pattern, output.matches("(?s).*" + pattern + ".*"));
+            if (loop != 8)
+                pattern = pattern + "[\r\n]+\\d{4}(-\\d{2}){2} \\d{2}(:\\d{2}){2} \\Qjava.lang.NoSuchMethodException: Invalid interface\\E";
+            else pattern = pattern + "[\r\n]+\\d{4}(-\\d{2}){2} \\d{2}(:\\d{2}){2} \\Qjava.lang.Throwable: module.Acceptance_08\\E";
+            if (Arrays.asList(5, 6, 7, 9, 10, 11, 12, 14, 15).contains(loop))
+                Assert.assertFalse(pattern, output.matches("(?s).*" + pattern + ".*"));
+            else Assert.assertTrue(pattern, output.matches("(?s).*" + pattern + ".*"));
         }
-
-        for (String pattern : ResourceUtils.getContent().split("[\r\n]+"))
-            Assert.assertTrue(pattern, output.contains(pattern));
     }
     
     @SuppressWarnings("unchecked")
