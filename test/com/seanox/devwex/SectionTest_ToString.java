@@ -29,7 +29,7 @@ import com.seanox.test.utils.ResourceUtils;
 /**
  * Test cases for {@link com.seanox.devwex.Section}.<br>
  * <br>
- * SectionTest_ToString 5.1 20171231<br>
+ * SectionTest_ToString 5.1.0 20171231<br>
  * Copyright (C) 2017 Seanox Software Solutions<br>
  * All rights reserved.
  *

@@ -32,7 +32,7 @@ import com.seanox.test.utils.Pattern;
 /**
  * Test cases for {@link com.seanox.devwex.Worker}.<br>
  * <br>
- * WorkerTest_Locate 5.2 20200411<br>
+ * WorkerTest_Locate 5.2.0 20200411<br>
  * Copyright (C) 2020 Seanox Software Solutions<br>
  * All rights reserved.
  *

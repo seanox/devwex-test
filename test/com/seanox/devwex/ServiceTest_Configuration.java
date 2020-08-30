@@ -34,7 +34,7 @@ import com.seanox.test.utils.Pattern;
 /**
  * Test cases for {@link com.seanox.devwex.Worker}.<br>
  * <br>
- * ServiceTest_Configuration 5.1 20171231<br>
+ * ServiceTest_Configuration 5.1.0 20171231<br>
  * Copyright (C) 2017 Seanox Software Solutions<br>
  * All rights reserved.
  *
