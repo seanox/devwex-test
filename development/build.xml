@@ -95,7 +95,7 @@
     </exec>
   </target>  
   
-  <target name="archive">
+  <target name="archive" depends="changes">
     <delete dir="${build}"/>
     <mkdir dir="${build}"/>
     <mkdir dir="${build.project}"/>
