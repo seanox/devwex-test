@@ -37,11 +37,11 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 
 # Downloads
-[Seanox Devwex Test 5.2.0](https://github.com/seanox/devwex-test/raw/master/releases/seanox-devwex-test-5.2.0.zip)  
+[Seanox Devwex Test 5.3.0](https://github.com/seanox/devwex-test/raw/master/releases/seanox-devwex-test-5.3.0.zip)  
 
 
 # Changes (Change Log)
-## 5.3.0 202007xx (summary of the next version)  
+## 5.3.0 20200831 (summary of the current version)  
 BF: HTTP(S) - Content Types: Correction of xml/xsl/xslt to use application/xslt+xml  
 CR: HTTP(S) - Status: Added option [H] (Header Only)  
 CR: Build: Harmonization when updating the version  
@@ -53,6 +53,7 @@ CR: Project: Update Seanox Test version 1.2.0
 CR: XAPI: Integration of cascaded initialization  
 CR: HTTP(S) - Directory Index: Change from placeholder 'files' to 'file'  
 CR: HTTP(S) - CGI: Change of the option [P] to [D]  
+CR: HTTP(S) - CGI: Not allowed/configured methods are now answered with status 405  
 
 [Read more](https://raw.githubusercontent.com/seanox/devwex-test/master/CHANGES)
 
