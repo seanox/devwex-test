@@ -4,7 +4,7 @@
  * Diese Software unterliegt der Version 2 der GNU General Public License.
  *
  * Devwex, Advanced Server Development
- * Copyright (C) 2020 Seanox Software Solutions
+ * Copyright (C) 2021 Seanox Software Solutions
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of version 2 of the GNU General Public License as published by the
@@ -32,12 +32,12 @@ import com.seanox.test.utils.Pattern;
 /**
  * Test cases for {@link com.seanox.devwex.Worker}.<br>
  * <br>
- * WorkerTest_Locate 5.2.0 20200411<br>
- * Copyright (C) 2020 Seanox Software Solutions<br>
+ * WorkerTest_Locate 5.4.0 20210312<br>
+ * Copyright (C) 2021 Seanox Software Solutions<br>
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 5.2.0 20200411
+ * @version 5.4.0 20210312
  */
 public class WorkerTest_Locate extends AbstractTest {
     
@@ -295,13 +295,13 @@ public class WorkerTest_Locate extends AbstractTest {
      * Configuration: {@code [VIRTUAL:VHA:REF] /test.2absolut > .../cgi_environment.jsx [a]}
      * The virtual path is defined as 'absolute'. The request must be responded
      * with status 200 and the parameters {@code PATH_URL},
-     * {@code PATH_TRANSLATED}, {@code PATH_ABSOLUTE} and {@code PATH_INFO}.
+     * {@code PATH_TRANSLATED}, {@code PATH_CONTEXT} and {@code PATH_INFO}.
      * @throws Exception
      */       
     @Test
     public void testAcceptance_13() throws Exception {
         
-        String request = "GET /test.2absolutes?parameter=PATH_URL,PATH_TRANSLATED,PATH_ABSOLUTE,PATH_INFO HTTP/1.0\r\n"
+        String request = "GET /test.2absolutes?parameter=PATH_URL,PATH_TRANSLATED,PATH_CONTEXT,PATH_INFO HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = this.sendRequest("127.0.0.1:8080", request);
@@ -313,7 +313,7 @@ public class WorkerTest_Locate extends AbstractTest {
         Assert.assertTrue(body.matches("(?s)^.*\r\nPATH_INFO=es\r\n.*$"));
         Assert.assertTrue(body.matches("(?s)^.*\r\nPATH_URL=/test\\.2absolutes\r\n.*$"));
         Assert.assertTrue(body.matches("(?s)^.*\r\nPATH_TRANSLATED=[^\r\n]+[\\\\/]cgi_environment.jsx\r\n.*$"));
-        Assert.assertTrue(body.matches("(?s)^.*\r\nPATH_ABSOLUTE=/test\\.2absolut\r\n.*$"));
+        Assert.assertTrue(body.matches("(?s)^.*\r\nPATH_CONTEXT=/test\\.2absolut\r\n.*$"));
         
         String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS_200));

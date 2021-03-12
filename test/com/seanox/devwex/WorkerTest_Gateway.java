@@ -4,7 +4,7 @@
  * Diese Software unterliegt der Version 2 der GNU General Public License.
  *
  * Devwex, Advanced Server Development
- * Copyright (C) 2020 Seanox Software Solutions
+ * Copyright (C) 2021 Seanox Software Solutions
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of version 2 of the GNU General Public License as published by the
@@ -40,12 +40,12 @@ import com.seanox.test.utils.Timing;
 /**
  * Test cases for {@link com.seanox.devwex.Worker}.<br>
  * <br>
- * WorkerTest_Gateway 5.2.0 20200620<br>
- * Copyright (C) 2020 Seanox Software Solutions<br>
+ * WorkerTest_Gateway 5.4.0 20210312<br>
+ * Copyright (C) 2021 Seanox Software Solutions<br>
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 5.2.0 20200620
+ * @version 5.4.0 20210312
  */
 public class WorkerTest_Gateway extends AbstractTest {
     
@@ -319,13 +319,13 @@ public class WorkerTest_Gateway extends AbstractTest {
      * {@code PATH_TRANSLATED}, {@code DOCUMENT_ROOT}, {@code REQUEST_URI},
      * {@code SCRIPT_URL}, {@code SCRIPT_URI}, {@code QUERY_STRING} and
      * {@code PATH_URL} must be set correctly. The environment variables
-     * {@code PATH_ABSOLUTE} and {@code PATH_INFO} must not be set.
+     * {@code PATH_CONTEXT} and {@code PATH_INFO} must not be set.
      * @throws Exception
      */      
     @Test
     public void testAcceptance_10() throws Exception {
         
-        String request = "GET \\cgi_environment.jsx?parameter=SCRIPT_FILENAME,PATH_TRANSLATED,REQUEST_URI HTTP/1.0\r\n"
+        String request = "GET \\cgi_environment.jsx?parameter=SCRIPT_FILENAME,PATH_TRANSLATED,REQUEST_URI&%20%20A HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
         String response = this.sendRequest("127.0.0.1:8080", request);
@@ -347,12 +347,12 @@ public class WorkerTest_Gateway extends AbstractTest {
             Assert.assertTrue(body.matches("(?si)^.*\r\nPATH_TRANSLATED=[^\r\n]+/stage/documents_vh_A/cgi_environment\\.jsx\r\n.*$"));
         }
         Assert.assertTrue(body.matches("(?si)^.*\r\nDOCUMENT_ROOT=[^\r\n]+/stage/documents_vh_A\r\n.*$"));
-        Assert.assertTrue(body.matches("(?si)^.*\r\nREQUEST_URI=/cgi_environment\\.jsx\\?parameter=SCRIPT_FILENAME,PATH_TRANSLATED,REQUEST_URI\r\n.*$"));
-        Assert.assertTrue(body.matches("(?si)^.*\r\nSCRIPT_URL=/cgi_environment\\.jsx\r\n.*$"));        
+        Assert.assertTrue(body.matches("(?si)^.*\r\nREQUEST_URI=\\\\cgi_environment\\.jsx\\?parameter=SCRIPT_FILENAME,PATH_TRANSLATED,REQUEST_URI&%20%20A\r\n.*$"));
+        Assert.assertTrue(body.matches("(?si)^.*\r\nSCRIPT_URL=\\\\cgi_environment\\.jsx\r\n.*$"));        
         Assert.assertTrue(body.matches("(?si)^.*\r\nSCRIPT_URI=http://vHa:8080/cgi_environment\\.jsx\r\n.*$"));
-        Assert.assertTrue(body.matches("(?si)^.*\r\nQUERY_STRING=parameter=SCRIPT_FILENAME,PATH_TRANSLATED,REQUEST_URI\r\n.*$"));
+        Assert.assertTrue(body.matches("(?si)^.*\r\nQUERY_STRING=parameter=SCRIPT_FILENAME,PATH_TRANSLATED,REQUEST_URI&%20%20A\r\n.*$"));
         Assert.assertTrue(body.matches("(?si)^.*\r\nPATH_URL=/cgi_environment\\.jsx\r\n.*$"));        
-        Assert.assertFalse(body.matches("(?si)^.*\r\nPATH_ABSOLUTE=.*$"));     
+        Assert.assertFalse(body.matches("(?si)^.*\r\nPATH_CONTEXT=.*$"));     
         Assert.assertFalse(body.matches("(?si)^.*\r\nPATH_INFO=.*$"));
     } 
     
