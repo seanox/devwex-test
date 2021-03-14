@@ -289,7 +289,7 @@ public class WorkerTest_Performance extends AbstractTest {
         protected void execute() {
             
             for (String request : this.requestList)
-                this.responseList.add(Response.create("127.0.0.1:80", request));
+                this.responseList.add(Response.create("127.0.0.1:18080", request));
             this.success = true;
         }
         
