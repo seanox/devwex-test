@@ -50,7 +50,7 @@ public class RemoteTest_Timeout extends AbstractTest {
     public void testTimeout_1() throws Exception {
 
         Timing timing = Timing.create(true);
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:25001"));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:18001"));
         timing.assertTimeIn(11000); 
         Assert.assertTrue(response.isEmpty());
     }    
@@ -66,7 +66,7 @@ public class RemoteTest_Timeout extends AbstractTest {
     public void testTimeout_2() throws Exception {
         
         Timing timing = Timing.create(true);
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:25001", "sTatuS"));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:18001", "sTatuS"));
         timing.assertTimeIn(11000); 
         Assert.assertTrue(response.isEmpty());
     }     

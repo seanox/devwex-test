@@ -64,7 +64,7 @@ public class ServiceTest_Configuration extends AbstractTest {
 
         String request = "Get / HTTP/1.0\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:80", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:18080", request));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
     }

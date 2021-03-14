@@ -73,10 +73,10 @@ public class ServerTest_Connection extends AbstractTest {
          
         String request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:443", request));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:18443", request));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_DIFFUSE));
 
-        response = new String(HttpUtils.sendRequest("127.0.0.1:443", request, AbstractSuite.getKeystore()));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:18443", request, AbstractSuite.getKeystore()));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
     } 
     
@@ -91,7 +91,7 @@ public class ServerTest_Connection extends AbstractTest {
 
         String request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
-        HttpUtils.sendRequest("127.0.0.1:80", request, AbstractSuite.getKeystore());
+        HttpUtils.sendRequest("127.0.0.1:18080", request, AbstractSuite.getKeystore());
         Assert.fail();
     }
     
@@ -169,7 +169,7 @@ public class ServerTest_Connection extends AbstractTest {
     public void testAcceptance_03() throws Exception {
         
         ServerTest_Connection.initHttpsUrlConnection();
-        URL url = new URL("https://127.0.0.1");
+        URL url = new URL("https://127.0.0.1:18443");
         HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
         Assert.assertEquals(200, urlConn.getResponseCode());
     }
@@ -184,7 +184,7 @@ public class ServerTest_Connection extends AbstractTest {
         
         File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_a.p12");
         ServerTest_Connection.initHttpsMutualAuthenticationUrlConnection(certificate, "changeIt");
-        URL url = new URL("https://127.0.0.1");
+        URL url = new URL("https://127.0.0.1:18443");
         HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
         Assert.assertEquals(200, urlConn.getResponseCode());
     }
@@ -199,7 +199,7 @@ public class ServerTest_Connection extends AbstractTest {
         
         File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_x.p12");
         ServerTest_Connection.initHttpsMutualAuthenticationUrlConnection(certificate, "changeIt");
-        URL url = new URL("https://127.0.0.1");
+        URL url = new URL("https://127.0.0.1:18443");
         HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
         Assert.assertEquals(200, urlConn.getResponseCode());
     }      
@@ -214,7 +214,7 @@ public class ServerTest_Connection extends AbstractTest {
     public void testAcceptance_06() throws Exception {
         
         ServerTest_Connection.initHttpsUrlConnection();
-        URL url = new URL("https://127.0.0.2");
+        URL url = new URL("https://127.0.0.2:18443");
         HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
         try {Assert.assertNotEquals(200, urlConn.getResponseCode());
         } catch (Exception exception) {
@@ -239,7 +239,7 @@ public class ServerTest_Connection extends AbstractTest {
         
         File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_a.p12");
         ServerTest_Connection.initHttpsMutualAuthenticationUrlConnection(certificate, "changeIt");
-        URL url = new URL("https://127.0.0.2");
+        URL url = new URL("https://127.0.0.2:18443");
         HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
         Assert.assertEquals(200, urlConn.getResponseCode());
     }   
@@ -254,7 +254,7 @@ public class ServerTest_Connection extends AbstractTest {
     public void testAcceptance_08() throws Exception {
         
         ServerTest_Connection.initHttpsUrlConnection();
-        URL url = new URL("https://127.0.0.3");
+        URL url = new URL("https://127.0.0.3:18443");
         HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
         Assert.assertEquals(200, urlConn.getResponseCode());
     } 
@@ -270,7 +270,7 @@ public class ServerTest_Connection extends AbstractTest {
 
         File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_a.p12");
         ServerTest_Connection.initHttpsMutualAuthenticationUrlConnection(certificate, "changeIt");
-        URL url = new URL("https://127.0.0.3");
+        URL url = new URL("https://127.0.0.3:18443");
         HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
         Assert.assertEquals(200, urlConn.getResponseCode());
     } 
@@ -287,7 +287,7 @@ public class ServerTest_Connection extends AbstractTest {
         for (char client : ("abcx").toCharArray()) {
             File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_" + client + ".p12");
             ServerTest_Connection.initHttpsMutualAuthenticationUrlConnection(certificate, "changeIt");
-            URL url = new URL("https://127.0.0.1");
+            URL url = new URL("https://127.0.0.1:18443");
             HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
             Assert.assertEquals(200, urlConn.getResponseCode());
         }
@@ -305,7 +305,7 @@ public class ServerTest_Connection extends AbstractTest {
         for (char client : ("abc").toCharArray()) {
             File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_" + client + ".p12");
             ServerTest_Connection.initHttpsMutualAuthenticationUrlConnection(certificate, "changeIt");
-            URL url = new URL("https://127.0.0.2");
+            URL url = new URL("https://127.0.0.2:18443");
             HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
             Assert.assertEquals(200, urlConn.getResponseCode());
         }
@@ -322,7 +322,7 @@ public class ServerTest_Connection extends AbstractTest {
             
         File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_x.p12");
         ServerTest_Connection.initHttpsMutualAuthenticationUrlConnection(certificate, "changeIt");
-        URL url = new URL("https://127.0.0.2");
+        URL url = new URL("https://127.0.0.2:18443");
         HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
         Assert.assertNotEquals(200, urlConn.getResponseCode());
         Assert.fail();
@@ -340,7 +340,7 @@ public class ServerTest_Connection extends AbstractTest {
         for (char client : ("abcx").toCharArray()) {
             File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_" + client + ".p12");
             ServerTest_Connection.initHttpsMutualAuthenticationUrlConnection(certificate, "changeIt");
-            URL url = new URL("https://127.0.0.3");
+            URL url = new URL("https://127.0.0.3:18443");
             HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
             Assert.assertEquals(200, urlConn.getResponseCode());
         }
@@ -358,7 +358,7 @@ public class ServerTest_Connection extends AbstractTest {
         for (char client : ("abc").toCharArray()) {
             File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_" + client + ".p12");
             ServerTest_Connection.initHttpsMutualAuthenticationUrlConnection(certificate, "changeIt");
-            URL url = new URL("https://127.0.0.4");
+            URL url = new URL("https://127.0.0.4:18443");
             HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
             Assert.assertEquals(200, urlConn.getResponseCode());
         }
@@ -374,7 +374,7 @@ public class ServerTest_Connection extends AbstractTest {
             
         File certificate = new File(AbstractSuite.getRootStageCertificates(), "client_x.p12");
         ServerTest_Connection.initHttpsMutualAuthenticationUrlConnection(certificate, "changeIt");
-        URL url = new URL("https://127.0.0.4");
+        URL url = new URL("https://127.0.0.4:18443");
         HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
         Assert.assertEquals(403, urlConn.getResponseCode());
     }  
@@ -388,7 +388,7 @@ public class ServerTest_Connection extends AbstractTest {
     public void testAcceptance_16() throws Exception {
         
         ServerTest_Connection.initHttpsUrlConnection();
-        URL url = new URL("https://127.0.0.4");
+        URL url = new URL("https://127.0.0.4:18443");
         HttpsURLConnection urlConn = (HttpsURLConnection)url.openConnection();
         Assert.assertEquals(403, urlConn.getResponseCode());
     }    
