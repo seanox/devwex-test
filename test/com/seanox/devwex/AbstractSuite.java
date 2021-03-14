@@ -4,7 +4,7 @@
  * Diese Software unterliegt der Version 2 der GNU General Public License.
  *
  * Devwex, Advanced Server Development
- * Copyright (C) 2020 Seanox Software Solutions
+ * Copyright (C) 2021 Seanox Software Solutions
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of version 2 of the GNU General Public License as published by the
@@ -42,12 +42,12 @@ import com.seanox.test.utils.OutputFacadeStream;
 /**
  * Abstract class to implements and use test suites.<br>
  * <br>
- * AbstractSuite 5.2.0 20201004<br>
- * Copyright (C) 2020 Seanox Software Solutions<br>
+ * AbstractSuite 5.3.0 20210314<br>
+ * Copyright (C) 2021 Seanox Software Solutions<br>
  * All rights reserved.
  *
  * @author  Seanox Software Solutions
- * @version 5.2.0 20201004
+ * @version 5.3.0 20210314
  */
 public class AbstractSuite extends com.seanox.test.AbstractSuite {
     
@@ -91,6 +91,10 @@ public class AbstractSuite extends com.seanox.test.AbstractSuite {
         
         if (!Charset.defaultCharset().name().equals("ISO-8859-1"))
             throw new RuntimeException("Character encoding ISO-8859-1 required");
+        
+        String version = System.getProperty("java.version");
+        if (Integer.valueOf(version.split("\\.")[0]).intValue() < 11)
+            throw new RuntimeException("Java 11 or higher required");
         
         final File root = new File(".").getCanonicalFile();
         final File rootStage = new File(root, AbstractSuite.PATH_STAGE).getCanonicalFile();
