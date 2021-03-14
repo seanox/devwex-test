@@ -62,7 +62,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         String request = "GET \\cgi_environment.jsx?parameter=SERVER_NAME HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
 
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
@@ -85,7 +85,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         String request = "GET \\documents\\cgi_environment.jsx?parameter=SERVER_NAME HTTP/1.0\r\n"
                 + "Host: vHc\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
 
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
@@ -107,7 +107,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         String request = "GET \\cgi_environment.jsx?parameter=SERVER_NAME HTTP/1.0\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
 
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
@@ -130,7 +130,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         String request = "GET / HTTP/1.0\r\n"
                 + "Host: vHq\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
 
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
@@ -154,7 +154,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         String request = "GET /test_a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));     
@@ -178,7 +178,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         String request = "GET /test_b/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(12)));
@@ -204,7 +204,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         String request = "GET /test_c/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
@@ -238,7 +238,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         System.out.println(uuid);
         request = "GET /?test=1234567A HTTP/1.0\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8095", request));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:18195", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH(0)));
@@ -257,7 +257,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         System.out.println(uuid);
         request = "GET /?test=1234567B HTTP/1.0\r\n"
                 + "\r\n";
-        response = new String(HttpUtils.sendRequest("127.0.0.1:8094", request));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:18194", request));
         
         Thread.sleep(AbstractTest.SLEEP);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
@@ -288,7 +288,7 @@ public class WorkerTest_Configuration extends AbstractTest {
 
         LinkedList<Object> socketList = new LinkedList<>();
         for (int loop = 0; loop < 9; loop++) {
-            try {socketList.add(new Socket("127.0.0.1", 8093));
+            try {socketList.add(new Socket("127.0.0.1", 18193));
             } catch (Exception exception) {
                 socketList.add(exception);
             }
@@ -321,7 +321,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         String request = "XXX / HTTP/1.0\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_501));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
@@ -344,7 +344,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         String request = "ZZZ / HTTP/1.0\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_405));
         
@@ -364,7 +364,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         String request = "AAA / HTTP/1.0\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_501));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
@@ -387,7 +387,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         String request = "BBB / HTTP/1.0\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_501));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
@@ -410,7 +410,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         String request = "CCC / HTTP/1.0\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_405));
         
@@ -441,14 +441,14 @@ public class WorkerTest_Configuration extends AbstractTest {
 
         request = "GET /commons/ HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8081", request);
+        response = this.sendRequest("127.0.0.1:18181", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertTrue(body.contains("\r\nname:hidden.txt\r\n"));
         
         request = "GET /commons/hidden.txt HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8081", request);
+        response = this.sendRequest("127.0.0.1:18181", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("123", body);
@@ -470,14 +470,14 @@ public class WorkerTest_Configuration extends AbstractTest {
             
         request = "GET /commons/ HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8082", request);
+        response = this.sendRequest("127.0.0.1:18182", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertFalse(body.contains("\r\nname:hidden.txt\r\n"));
         
         request = "GET /commons/hidden.txt HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8082", request);
+        response = this.sendRequest("127.0.0.1:18182", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("123", body);
@@ -499,14 +499,14 @@ public class WorkerTest_Configuration extends AbstractTest {
             
         request = "GET /commons/ HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8083", request);
+        response = this.sendRequest("127.0.0.1:18183", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertFalse(body.contains("\r\nname:hidden.txt\r\n"));
         
         request = "GET /commons/hidden.txt HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8083", request);
+        response = this.sendRequest("127.0.0.1:18183", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("123", body);
@@ -528,14 +528,14 @@ public class WorkerTest_Configuration extends AbstractTest {
             
         request = "GET /commons/ HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8084", request);
+        response = this.sendRequest("127.0.0.1:18184", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertFalse(body.contains("\r\nname:hidden.txt\r\n"));
         
         request = "GET /commons/hidden.txt HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8084", request);
+        response = this.sendRequest("127.0.0.1:18184", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("123", body);
@@ -553,7 +553,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         String request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8091", request);
+        String response = this.sendRequest("127.0.0.1:18191", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_405));
         
@@ -573,7 +573,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         String request = "XYZ / HTTP/1.0\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8091", request);
+        String response = this.sendRequest("127.0.0.1:18191", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_501));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
@@ -600,7 +600,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8090", request);
+        response = this.sendRequest("127.0.0.1:18190", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_405));
         
@@ -609,7 +609,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         request = "HEAD / HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8090", request);
+        response = this.sendRequest("127.0.0.1:18190", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
@@ -629,7 +629,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         String request = "ALL 123 / HTTP/1.0\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8090", request);
+        String response = this.sendRequest("127.0.0.1:18190", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_400));
         
@@ -649,7 +649,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         String request = "HEAD / HTTP/1.0\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8092", request);
+        String response = this.sendRequest("127.0.0.1:18192", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_405));
         
@@ -669,7 +669,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         String request = "XYZ / HTTP/1.0\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8092", request);
+        String response = this.sendRequest("127.0.0.1:18192", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_405));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_ALLOW("ALL", "GET")));
@@ -705,14 +705,14 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         request = "GET /env.test?exist=ENV_PARAM_A HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("false", body);
         
         request = "GET /env.test?value=ENV_PARAM_A HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("", body);
@@ -733,14 +733,14 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         request = "GET /env.test?exist=ENV_PARAM_B HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("true", body);
         
         request = "GET /env.test?value=ENV_PARAM_B HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("123", body);
@@ -762,14 +762,14 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         request = "GET /env.test?exist=ENV_PARAM_C HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("true", body);
         
         request = "GET /env.test?value=ENV_PARAM_C HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("456", body);
@@ -791,14 +791,14 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         request = "GET /env.test?exist=ENV_PARAM_D HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("true", body);
         
         request = "GET /env.test?value=ENV_PARAM_D HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("abc", body);
@@ -821,7 +821,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         request = "GET /env.test?exist=ENV_PARAM_E HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("false", body);
@@ -844,7 +844,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         request = "GET /env.test?exist=ENV_PARAM_F HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("false", body);
@@ -866,14 +866,14 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         request = "GET /env.test?exist=ENV_PARAM_G HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("true", body);
         
         request = "GET /env.test?value=ENV_PARAM_G HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("def", body);
@@ -895,14 +895,14 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         request = "GET /env.test?exist=ENV_PARAM_H HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("true", body);
         
         request = "GET /env.test?value=ENV_PARAM_H HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("xyz [?]", body);
@@ -924,14 +924,14 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         request = "GET /env.test?exist=ENV_PARAM_I HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("true", body);
         
         request = "GET /env.test?value=ENV_PARAM_I HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("uvw [+]", body);
@@ -952,14 +952,14 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         request = "GET /env.test?exist=ENV_PARAM_J HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("false", body);
         
         request = "GET /env.test?value=ENV_PARAM_J HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("", body);
@@ -981,7 +981,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         try {
             request = "GET / HTTP/1.0\r\n"
                     + "\r\n";
-            response = this.sendRequest("127.0.0.1:8999", request);
+            response = this.sendRequest("127.0.0.1:18999", request);
             Assert.fail();
         } catch (Exception exception) {
             Assert.assertTrue(exception instanceof ConnectException);
@@ -991,7 +991,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         try (PrintWriter output = new PrintWriter(new FileOutputStream(configFile, true))) {
             output.print("\r\n");
             output.print("[SERVER:0:INI] EXTENDS serVER:A:INI\r\n");
-            output.print("  PORT = 8999\r\n");
+            output.print("  PORT = 18999\r\n");
             output.print("[SERVER:0:REF] EXTENDS serVER:A:REF\r\n");
             output.print("[SERVER:0:ACC] EXTENDS serVER:A:ACC\r\n");
             output.print("[SERVER:0:CGI] EXTENDS serVER:A:CGI\r\n");
@@ -1004,7 +1004,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8999", request);
+        response = this.sendRequest("127.0.0.1:18999", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
     }
 
@@ -1022,7 +1022,7 @@ public class WorkerTest_Configuration extends AbstractTest {
         String request = "GET / HTTP/1.0\r\n"
                 + "Host: vHj\r\n"
                 + "\r\n";
-        HttpUtils.sendRequest("127.0.0.1:8080", request);
+        HttpUtils.sendRequest("127.0.0.1:18180", request);
 
         Thread.sleep(AbstractTest.SLEEP);
         String accessLog = this.accessStreamCapture.toString();
@@ -1048,14 +1048,14 @@ public class WorkerTest_Configuration extends AbstractTest {
         
         request = "GET /env.test?exist=TESTINIT HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("true", body);
         
         request = "GET /env.test?value=TESTINIT HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:80", request);
+        response = this.sendRequest("127.0.0.1:18080", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));
         body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("com.seanox.devwex.Extension [*] ;xxx 123;olli ooo", body);
@@ -1079,7 +1079,7 @@ public class WorkerTest_Configuration extends AbstractTest {
                 "HEAD / HTTP/1.0\r\nHost: vHa\r\n\r\n",
                 "HEAD /filter_a.html HTTP/1.0\r\nHost: vHa\r\n\r\n",
                 "HEAD /nix HTTP/1.0\r\nHost: vHa\r\n\r\n"}) {
-            String response = this.sendRequest("127.0.0.1:80", request);
+            String response = this.sendRequest("127.0.0.1:18080", request);
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_SERVER_DIFFUSE));
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_DATE));
         }
@@ -1103,7 +1103,7 @@ public class WorkerTest_Configuration extends AbstractTest {
                 "HEAD / HTTP/1.0\r\n\r\n",
                 "HEAD /filter_a.html HTTP/1.0\r\n\r\n",
                 "HEAD /nix HTTP/1.0\r\n\r\n"}) {
-            String response = this.sendRequest("127.0.0.1:80", request);
+            String response = this.sendRequest("127.0.0.1:18080", request);
             Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_SERVER_DIFFUSE));
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_DATE));
         }

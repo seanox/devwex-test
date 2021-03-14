@@ -57,14 +57,14 @@ public class WorkerTest_Delete extends AbstractTest {
         request = "Put /delete_test_1\\ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8085", request);
+        response = this.sendRequest("127.0.0.1:18185", request);
         target = new File(AbstractSuite.getRootStage(), "documents_vh_A/delete_test_1");
         Assert.assertTrue(target.exists());        
         
         request = "Put /delete_test_2/x1/x2/x3 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8085", request);
+        response = this.sendRequest("127.0.0.1:18185", request);
         target = new File(AbstractSuite.getRootStage(), "documents_vh_A/delete_test_2/x1/x2/x3");
         Assert.assertTrue(target.exists());        
         
@@ -73,7 +73,7 @@ public class WorkerTest_Delete extends AbstractTest {
                 + "Content-Length: 10\r\n"
                 + "\r\n"
                 + "1234567890";
-        response = this.sendRequest("127.0.0.1:8085", request);
+        response = this.sendRequest("127.0.0.1:18185", request);
         target = new File(AbstractSuite.getRootStage(), "documents_vh_A/delete_test_2/x1/file_test.2");
         Assert.assertTrue(target.exists());        
         
@@ -82,20 +82,20 @@ public class WorkerTest_Delete extends AbstractTest {
                 + "Content-Length: 10\r\n"
                 + "\r\n"
                 + "1234567890";
-        response = this.sendRequest("127.0.0.1:8085", request);  
+        response = this.sendRequest("127.0.0.1:18185", request);  
         target = new File(AbstractSuite.getRootStage(), "documents_vh_A/delete_test_2/x1/file_test.1");
         Assert.assertTrue(target.exists());        
         
         request = "Delete /delete_test_2/x1/file_test.2/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8085", request);
+        response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/delete_test_2/x1/file_test.2")));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:18185/delete_test_2/x1/file_test.2")));
         
         String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request)));
@@ -113,13 +113,13 @@ public class WorkerTest_Delete extends AbstractTest {
         String request = "Delete /delete_test_2/x1 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8085", request);
+        String response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/delete_test_2/x1/")));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:18185/delete_test_2/x1/")));
         
         String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request)));
@@ -136,7 +136,7 @@ public class WorkerTest_Delete extends AbstractTest {
         String request = "Delete /delete_test_2/x1/file_test.2 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8085", request);
+        String response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -164,7 +164,7 @@ public class WorkerTest_Delete extends AbstractTest {
         String request = "Delete /delete_test_2/x1/file_test.2 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8085", request);
+        String response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -187,7 +187,7 @@ public class WorkerTest_Delete extends AbstractTest {
         String request = "Delete /delete_test_2/x1/x2/x3/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8085", request);
+        String response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -215,7 +215,7 @@ public class WorkerTest_Delete extends AbstractTest {
         String request = "Delete /delete_test_2/x1/x2/x3/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8085", request);
+        String response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -242,7 +242,7 @@ public class WorkerTest_Delete extends AbstractTest {
         String request = "Delete /delete_test_1/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8085", request);
+        String response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -277,7 +277,7 @@ public class WorkerTest_Delete extends AbstractTest {
         String request = "Delete /delete_test_2/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8085", request);
+        String response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -308,7 +308,7 @@ public class WorkerTest_Delete extends AbstractTest {
         String request = "Delete /method.jsx HTTP/1.0\r\n"
                 + "Host: vHe\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8085", request);
+        String response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
@@ -330,7 +330,7 @@ public class WorkerTest_Delete extends AbstractTest {
         String request = "Delete /method.php HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8085", request);
+        String response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_405));
 
@@ -352,7 +352,7 @@ public class WorkerTest_Delete extends AbstractTest {
         String request = "Delete /test.module123 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8085", request);
+        String response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
         Assert.assertTrue(response.matches("(?s)^.*\r\nModule: module.WorkerModule_A::Service\r\n.*$"));
@@ -386,19 +386,19 @@ public class WorkerTest_Delete extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8085", request);
+        response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/file.xxx")));        
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:18185/file.xxx")));        
         Assert.assertTrue(target.exists());  
         
         request = "Delete /test.xxx123 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8085", request);
+        response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -418,7 +418,7 @@ public class WorkerTest_Delete extends AbstractTest {
         request = "Delete /test.xxx123 HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8085", request);
+        response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -431,7 +431,7 @@ public class WorkerTest_Delete extends AbstractTest {
         request = "Delete /test.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8085", request);
+        response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -464,19 +464,19 @@ public class WorkerTest_Delete extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8085", request);
+        response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8085/file.xxx")));        
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:18185/file.xxx")));        
         Assert.assertTrue(target.exists());  
         
         request = "Delete /test.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8085", request);
+        response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -496,7 +496,7 @@ public class WorkerTest_Delete extends AbstractTest {
         request = "Delete /test.xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8085", request);
+        response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -519,7 +519,7 @@ public class WorkerTest_Delete extends AbstractTest {
         String request = "Delete /redirect/a/b/c HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8085", request);
+        String response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -543,7 +543,7 @@ public class WorkerTest_Delete extends AbstractTest {
         String request = "Delete /forbidden/absolute.html HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8085", request);
+        String response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -566,7 +566,7 @@ public class WorkerTest_Delete extends AbstractTest {
         String request = "Delete /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8085", request);
+        String response = this.sendRequest("127.0.0.1:18185", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -598,7 +598,7 @@ public class WorkerTest_Delete extends AbstractTest {
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";        
-        response = this.sendRequest("127.0.0.1:8085", request);        
+        response = this.sendRequest("127.0.0.1:18185", request);        
         Assert.assertTrue(target.exists());
         
         request = "Delete /authentication/a/file.xxx HTTP/1.0\r\n"
@@ -606,7 +606,7 @@ public class WorkerTest_Delete extends AbstractTest {
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";        
-        response = this.sendRequest("127.0.0.1:8085", request);        
+        response = this.sendRequest("127.0.0.1:18185", request);        
         Assert.assertFalse(target.exists()); 
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
@@ -620,7 +620,7 @@ public class WorkerTest_Delete extends AbstractTest {
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "Content-Length: 0\r\n"
                 + "\r\n";        
-        response = this.sendRequest("127.0.0.1:8085", request);        
+        response = this.sendRequest("127.0.0.1:18185", request);        
         Assert.assertFalse(target.exists()); 
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));        

@@ -79,7 +79,7 @@ public class WorkerTest_DirectoryIndex extends AbstractTest {
         
         String request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8081", request);
+        String response = this.sendRequest("127.0.0.1:18181", request);
 
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
@@ -106,7 +106,7 @@ public class WorkerTest_DirectoryIndex extends AbstractTest {
         
         String request = "GET /?d HTTP/1.0\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8081", request);
+        String response = this.sendRequest("127.0.0.1:18181", request);
 
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
@@ -134,7 +134,7 @@ public class WorkerTest_DirectoryIndex extends AbstractTest {
         String request = "GET /test_a/test/ HTTP/1.0\r\n"
                 + "Host: vHb\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8081", request);
+        String response = this.sendRequest("127.0.0.1:18181", request);
 
         String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
         Assert.assertTrue(header.matches(Pattern.HTTP_RESPONSE_STATUS_200));
@@ -164,7 +164,7 @@ public class WorkerTest_DirectoryIndex extends AbstractTest {
         for (int loop = 1; loop <= 3; loop++) {
             String request = "GET /empty/" + loop + "/ HTTP/1.0\r\n"
                     + "\r\n";
-            String response = this.sendRequest("127.0.0.1:80", request);
+            String response = this.sendRequest("127.0.0.1:18080", request);
             if (loop == 1) {
                 Assert.assertTrue(response.contains("\r\norder by: na x\r\n"));
                 Assert.assertFalse(response.contains("case:file"));
@@ -193,7 +193,7 @@ public class WorkerTest_DirectoryIndex extends AbstractTest {
         for (int loop = 1; loop <= 3; loop++) {
             String request = "GET /empty/" + loop + "/ HTTP/1.0\r\n"
                     + "\r\n";
-            String response = this.sendRequest("127.0.0.1:8082", request);
+            String response = this.sendRequest("127.0.0.1:18182", request);
             if (loop == 1) {
                 Assert.assertTrue(response.contains("\r\norder by: na x\r\n"));
                 Assert.assertFalse(response.contains("case:file"));
