@@ -56,13 +56,13 @@ public class WorkerTest_Filter extends AbstractTest {
         
         request = "GET / HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8086", request);
+        response = this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         
         request = "GET / HTTP/1.0\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
     }    
     
@@ -83,42 +83,42 @@ public class WorkerTest_Filter extends AbstractTest {
                 + "FELD-C: xxx\r\n"
                 + "FELD-A: xxx\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         
         request = "GET /xxxAbxxx HTTP/1.0\r\n"
                 + "FELD-C: xxx\r\n"
                 + "FELD-A: xxx\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         
         request = "HEAD /xxxAbCxxx HTTP/1.0\r\n"
                 + "FELD-C: xxx\r\n"
                 + "FELD-A: xxx\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         
         request = "HEAD /xxxAbxxx HTTP/1.0\r\n"
                 + "FELD-C: xxx\r\n"
                 + "FELD-A: xxx\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));        
         
         request = "INVALID_METHOD /xxxAbCxxx HTTP/1.0\r\n"
                 + "FELD-C: xxx\r\n"
                 + "FELD-A: xxx\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));  
         
         request = "INVALID_METHOD /xxxAbxxx HTTP/1.0\r\n"
                 + "FELD-C: xxx\r\n"
                 + "FELD-A: xxx\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_405));  
     }  
     
@@ -139,14 +139,14 @@ public class WorkerTest_Filter extends AbstractTest {
                 + "Felda: BA12\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         
         request = "GET / HTTP/1.0\r\n"
                 + "Felda: BA12\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));        
     } 
     
@@ -167,14 +167,14 @@ public class WorkerTest_Filter extends AbstractTest {
                 + "Felda: BA21\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
         request = "HEAD / HTTP/1.0\r\n"
                 + "Felda: 1BA2\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));   
     }
     
@@ -189,7 +189,7 @@ public class WorkerTest_Filter extends AbstractTest {
     public void testAcceptance_05() throws Exception {
         
         String request = "GET /xxx-%df%c3%9f- HTTP/1.0\r\n\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));  
     } 
@@ -211,14 +211,14 @@ public class WorkerTest_Filter extends AbstractTest {
                 + "Felda: BA3\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
         request = "HEAD / HTTP/1.0\r\n"
                 + "Felda: A3B\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));   
     }  
     
@@ -233,7 +233,7 @@ public class WorkerTest_Filter extends AbstractTest {
     public void testAcceptance_07() throws Exception {
         
         String request = "GET /xxx-%c3%9f- HTTP/1.0\r\n\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));  
     }
@@ -255,14 +255,14 @@ public class WorkerTest_Filter extends AbstractTest {
                 + "Felda: BA4\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
         request = "HEAD / HTTP/1.0\r\n"
                 + "Felda: a4\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));   
     }  
     
@@ -277,7 +277,7 @@ public class WorkerTest_Filter extends AbstractTest {
     public void testAcceptance_09() throws Exception {
         
         String request = "GET /xxx-%c3%9f%df- HTTP/1.0\r\n\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));  
     }
@@ -299,14 +299,14 @@ public class WorkerTest_Filter extends AbstractTest {
                 + "Felda: B1\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));        
 
         request = "GET / HTTP/1.0\r\n"
                 + "Feldb: B2\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         
         request = "GET / HTTP/1.0\r\n"
@@ -314,7 +314,7 @@ public class WorkerTest_Filter extends AbstractTest {
                 + "Felda: B1\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        response =this.sendRequest("127.0.0.1:8086", request);
+        response =this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));   
     } 
     
@@ -329,7 +329,7 @@ public class WorkerTest_Filter extends AbstractTest {
     public void testAcceptance_11() throws Exception {
         
         String request = "GET /xxx-%DF- HTTP/1.0\r\n\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));  
     }
@@ -345,7 +345,7 @@ public class WorkerTest_Filter extends AbstractTest {
     public void testAcceptance_12() throws Exception {
         
         String request = "GET /xxx-ß- HTTP/1.0\r\n\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));  
     } 
@@ -365,7 +365,7 @@ public class WorkerTest_Filter extends AbstractTest {
                 + "Felda: t1\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        String response =this.sendRequest("127.0.0.1:8086", request);
+        String response =this.sendRequest("127.0.0.1:18186", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));  
         Assert.assertTrue(response.contains("filter_a.html"));
@@ -386,7 +386,7 @@ public class WorkerTest_Filter extends AbstractTest {
                 + "Feldo: t1\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8086", request);
+        String response = this.sendRequest("127.0.0.1:18186", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
     }   
@@ -405,7 +405,7 @@ public class WorkerTest_Filter extends AbstractTest {
                 + "Felda: t2\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8086", request);
+        String response = this.sendRequest("127.0.0.1:18186", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));  
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -433,13 +433,13 @@ public class WorkerTest_Filter extends AbstractTest {
         request = "GET / HTTP/1.0\r\n"
                 + "Felda: 3B1BB2\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8087", request);
+        response = this.sendRequest("127.0.0.1:18187", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));  
 
         request = "GET / HTTP/1.0\r\n"
                 + "Felda: 3BBB2\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8087", request);
+        response = this.sendRequest("127.0.0.1:18187", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));  
     }  
     
@@ -458,7 +458,7 @@ public class WorkerTest_Filter extends AbstractTest {
                 + "Felda: t4\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8086", request);
+        String response = this.sendRequest("127.0.0.1:18186", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));  
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LOCATION_DIFFUSE));
@@ -480,7 +480,7 @@ public class WorkerTest_Filter extends AbstractTest {
                 + "Feldb: t7\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8086", request);
+        String response = this.sendRequest("127.0.0.1:18186", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));  
         Assert.assertTrue(response.contains("filter_a.html"));
@@ -501,7 +501,7 @@ public class WorkerTest_Filter extends AbstractTest {
                 + "Felda: t5\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8086", request);
+        String response = this.sendRequest("127.0.0.1:18186", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));  
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LOCATION_DIFFUSE));
@@ -521,7 +521,7 @@ public class WorkerTest_Filter extends AbstractTest {
                 + "Felda: t3\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8086", request);
+        String response = this.sendRequest("127.0.0.1:18186", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001 Test ok")));
         Assert.assertTrue(response.matches("(?s)^.*\r\nModule: module.WorkerModule_A::Filter\r\n.*$"));
@@ -553,7 +553,7 @@ public class WorkerTest_Filter extends AbstractTest {
         String request = "GET / HTTP/1.0\r\n"
                 + "Host: vHp\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));  
         Assert.assertTrue(Files.exists(testFile));
@@ -579,7 +579,7 @@ public class WorkerTest_Filter extends AbstractTest {
         
         request = "GET /env.test?a-404- HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);
+        response = this.sendRequest("127.0.0.1:18180", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));  
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
@@ -590,7 +590,7 @@ public class WorkerTest_Filter extends AbstractTest {
         
         request = "GET /env.test?a-4x04- HTTP/1.0\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);
+        response = this.sendRequest("127.0.0.1:18180", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("003")));  
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
@@ -627,7 +627,7 @@ public class WorkerTest_Filter extends AbstractTest {
                 + "Content-Length: 10\r\n"
                 + "\r\n"
                 + "1234567890";
-        response = this.sendRequest("127.0.0.1:8080", request);
+        response = this.sendRequest("127.0.0.1:18180", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));  
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
@@ -641,7 +641,7 @@ public class WorkerTest_Filter extends AbstractTest {
                 + "Content-Length: 10\r\n"
                 + "\r\n"
                 + "1234567890";
-        response = this.sendRequest("127.0.0.1:8080", request);
+        response = this.sendRequest("127.0.0.1:18180", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));  
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
@@ -655,7 +655,7 @@ public class WorkerTest_Filter extends AbstractTest {
                 + "Content-Length: 8\r\n"
                 + "\r\n"
                 + "12345678";
-        response = this.sendRequest("127.0.0.1:8080", request);
+        response = this.sendRequest("127.0.0.1:18180", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_201));  
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
@@ -685,25 +685,25 @@ public class WorkerTest_Filter extends AbstractTest {
         request = "GET /nix HTTP/1.0\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8086", request);
+        response = this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         
         request = "GET /nix?xXx1 HTTP/1.0\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8086", request);
+        response = this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));  
         
         request = "GET /nix?xXx HTTP/1.0\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8086", request);
+        response = this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));    
 
         request = "GET /nix?xxx HTTP/1.0\r\n"
                 + "Feld-C: 123\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8086", request);
+        response = this.sendRequest("127.0.0.1:18186", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));    
     }  
 }

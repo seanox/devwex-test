@@ -55,7 +55,7 @@ public class WorkerTest_Head extends AbstractTest {
         String request = "HEAD / HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
@@ -73,10 +73,10 @@ public class WorkerTest_Head extends AbstractTest {
         String request = "HEAD /test_a HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
     
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8080/test_a/")));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:18180/test_a/")));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
@@ -96,7 +96,7 @@ public class WorkerTest_Head extends AbstractTest {
         String request = "HEAD /test_ax HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
     
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
     }
@@ -113,7 +113,7 @@ public class WorkerTest_Head extends AbstractTest {
         String request = "HEAD /method_file.txt HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
@@ -133,10 +133,10 @@ public class WorkerTest_Head extends AbstractTest {
         String request = "HEAD /method_file.txt/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8080/method_file.txt")));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:18180/method_file.txt")));
 
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -161,14 +161,14 @@ public class WorkerTest_Head extends AbstractTest {
                 + "File: ./stage/documents_vh_A/method_file.txt\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);
+        response = this.sendRequest("127.0.0.1:18180", request);
         String lastModified = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         
         request = "HEAD /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: " + lastModified + "\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);
+        response = this.sendRequest("127.0.0.1:18180", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_304));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LOCATION_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
@@ -191,7 +191,7 @@ public class WorkerTest_Head extends AbstractTest {
                 + "If-Modified-Since: Mon, 19 Jan 2004 16:58:55 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
@@ -215,14 +215,14 @@ public class WorkerTest_Head extends AbstractTest {
                 + "File: ./stage/documents_vh_A/method_file.txt\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);
+        response = this.sendRequest("127.0.0.1:18180", request);
         String lastModified = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
 
         request = "HEAD /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: " + lastModified + "; xxx; length=15\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);
+        response = this.sendRequest("127.0.0.1:18180", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_304));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LOCATION_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
@@ -249,14 +249,14 @@ public class WorkerTest_Head extends AbstractTest {
                 + "File: ./stage/documents_vh_A/method_file.txt\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);
+        response = this.sendRequest("127.0.0.1:18180", request);
         String lastModified = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
 
         request = "HEAD /method_file.txt HTTP/1.0\r\n"
                 + "If-Modified-Since: " + lastModified + "; xxx; length=20\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);
+        response = this.sendRequest("127.0.0.1:18180", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED));
@@ -275,7 +275,7 @@ public class WorkerTest_Head extends AbstractTest {
                 + "If-Modified-Since: Mon, 19 Jan 2004 16:58:57 GMT; xxx; length=20\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
@@ -295,7 +295,7 @@ public class WorkerTest_Head extends AbstractTest {
         String request = "HEAD /test_a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
@@ -319,14 +319,14 @@ public class WorkerTest_Head extends AbstractTest {
                 + "File: ./stage/documents_vh_A/test_d\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);
+        response = this.sendRequest("127.0.0.1:18180", request);
         String lastModified = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
 
         request = "HEAD /test_d/ HTTP/1.0\r\n"
                 + "If-Modified-Since: " + lastModified + "\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);
+        response = this.sendRequest("127.0.0.1:18180", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_TEXT_HTML));
@@ -347,7 +347,7 @@ public class WorkerTest_Head extends AbstractTest {
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
@@ -367,7 +367,7 @@ public class WorkerTest_Head extends AbstractTest {
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
@@ -388,7 +388,7 @@ public class WorkerTest_Head extends AbstractTest {
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH));
@@ -410,7 +410,7 @@ public class WorkerTest_Head extends AbstractTest {
                 + "If-Modified-Since: Mon, 11 Jan 2004 19:11:58 GMT\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_405));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
@@ -430,7 +430,7 @@ public class WorkerTest_Head extends AbstractTest {
         String request = "hEAD /method.jsx HTTP/1.0\r\n"
                 + "Host: vHb\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
         Assert.assertEquals("hallo", body);
@@ -462,7 +462,7 @@ public class WorkerTest_Head extends AbstractTest {
             if (start != null && start.contains(";"))
                 end = null;
             
-            String response = this.sendRequest("127.0.0.1:8080", request + "\r\n");
+            String response = this.sendRequest("127.0.0.1:18180", request + "\r\n");
             
             int code = 0;
             
@@ -737,7 +737,7 @@ public class WorkerTest_Head extends AbstractTest {
             String requestLastModified = "HEAD " + path + " HTTP/1.0\r\n"
                     + "Host: vHa\r\n"
                     + "\r\n";
-            String responseLastModified = this.sendRequest("127.0.0.1:8080", requestLastModified);       
+            String responseLastModified = this.sendRequest("127.0.0.1:18180", requestLastModified);       
             String lastModified = HttpUtils.getResponseHeaderValue(responseLastModified, HeaderField.LAST_MODIFIED);
             
             if (path.equals("/")) {
@@ -745,7 +745,7 @@ public class WorkerTest_Head extends AbstractTest {
                         + "File: ./stage/documents_vh_A\r\n"
                         + "Host: vHa\r\n"
                         + "\r\n";
-                responseLastModified = this.sendRequest("127.0.0.1:8080", requestLastModified);
+                responseLastModified = this.sendRequest("127.0.0.1:18180", requestLastModified);
                 lastModified = responseLastModified.replaceAll(Pattern.HTTP_RESPONSE, "$2");
             }
             
@@ -853,7 +853,7 @@ public class WorkerTest_Head extends AbstractTest {
                     code = "200";
                 }
 
-                String response = this.sendRequest("127.0.0.1:8080", request);
+                String response = this.sendRequest("127.0.0.1:18180", request);
                 Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS(code)));
             }            
         }
