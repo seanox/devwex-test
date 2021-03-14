@@ -46,7 +46,7 @@ public class RemoteTest_Restart extends AbstractTest {
     @Test
     public void testRestart() throws Exception {
 
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:25001", "RESTaRT\r\n"));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:18001", "RESTaRT\r\n"));
         
         this.outputStreamCapture.await("(?s).*\\b\\QSERVICE RESTARTED\\E\\b.*");
         String outputLog = this.outputStreamCapture.toString().trim();
