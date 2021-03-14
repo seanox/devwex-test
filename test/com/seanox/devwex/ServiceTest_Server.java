@@ -77,16 +77,16 @@ public class ServiceTest_Server extends AbstractTest {
     /** 
      * Test case for acceptance.
      * A server can be configured and started by different instances.
-     *     [REMOTE:INI]    25001
-     *     [REMOTE:A:INI]  25002
-     *     [REMOTE:B:INI]  25003
-     *     [REMOTE::INI]   25004
+     *     [REMOTE:INI]    18001
+     *     [REMOTE:A:INI]  18002
+     *     [REMOTE:B:INI]  18003
+     *     [REMOTE::INI]   18004
      * @throws Exception
      */    
     @Test      
     public void testAcceptance_01() throws Exception {
         
-        for (int port = 25001; port < 25004; port++) {
+        for (int port = 18001; port < 18004; port++) {
             String response = new String(HttpUtils.sendRequest("127.0.0.1:" + port, "sTatuS\r"));
             Assert.assertNotNull(response);
             Assert.assertTrue(response, response.contains("\r\nSAPI: "));
@@ -106,19 +106,19 @@ public class ServiceTest_Server extends AbstractTest {
     public void testAcceptance_02() throws Exception {
         
         String response;
-        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9001));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 18201));
         Assert.assertEquals("1 com.seanox.devwex.Count$1", response);
         for (int loop = 2; loop < 10; loop++) {
-            response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9001));
+            response = new String(HttpUtils.sendRequest("127.0.0.1:" + 18201));
             Assert.assertEquals(String.valueOf(loop) + " com.seanox.devwex.Count$1", response);
         }
-        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9002));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 18202));
         Assert.assertEquals("1 com.seanox.devwex.Count$1", response);
         for (int loop = 2; loop < 15; loop++) {
-            response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9002));
+            response = new String(HttpUtils.sendRequest("127.0.0.1:" + 18202));
             Assert.assertEquals(String.valueOf(loop) + " com.seanox.devwex.Count$1", response);
         }        
-        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9001));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 18201));
         Assert.assertEquals("10 com.seanox.devwex.Count$1", response);
     }
     
@@ -133,19 +133,19 @@ public class ServiceTest_Server extends AbstractTest {
     public void testAcceptance_03() throws Exception {
         
         String response;
-        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9003));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 18203));
         Assert.assertEquals("1 server.Count$1", response);
         for (int loop = 2; loop < 10; loop++) {
-            response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9003));
+            response = new String(HttpUtils.sendRequest("127.0.0.1:" + 18203));
             Assert.assertEquals(String.valueOf(loop) + " server.Count$1", response);
         }
-        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9004));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 18204));
         Assert.assertEquals("1 server.Count$1", response);
         for (int loop = 2; loop < 15; loop++) {
-            response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9004));
+            response = new String(HttpUtils.sendRequest("127.0.0.1:" + 18204));
             Assert.assertEquals(String.valueOf(loop) + " server.Count$1", response);
         }        
-        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 9003));
+        response = new String(HttpUtils.sendRequest("127.0.0.1:" + 18203));
         Assert.assertEquals("10 server.Count$1", response);
     }  
     
@@ -159,8 +159,8 @@ public class ServiceTest_Server extends AbstractTest {
     public void testAcceptance_04() throws Exception {
         
         String details = Service.details();
-        Assert.assertFalse(details.contains(":9005"));
-        HttpUtils.sendRequest("127.0.0.1:" + 9005);
+        Assert.assertFalse(details.contains(":18205"));
+        HttpUtils.sendRequest("127.0.0.1:" + 18205);
     }  
     
     /** 
@@ -172,8 +172,8 @@ public class ServiceTest_Server extends AbstractTest {
     public void testAcceptance_05() throws Exception {
         
         String details = Service.details();
-        Assert.assertFalse(details.contains(":9006"));
-        HttpUtils.sendRequest("127.0.0.1:" + 9006);
+        Assert.assertFalse(details.contains(":18206"));
+        HttpUtils.sendRequest("127.0.0.1:" + 18206);
     }    
     
     /** 
@@ -185,8 +185,8 @@ public class ServiceTest_Server extends AbstractTest {
     public void testAcceptance_06() throws Exception {
 
         String details = Service.details();
-        Assert.assertTrue(details.contains(":9007"));
-        HttpUtils.sendRequest("127.0.0.1:" + 9007);
+        Assert.assertTrue(details.contains(":18207"));
+        HttpUtils.sendRequest("127.0.0.1:" + 18207);
     }
     
     /** 
@@ -198,8 +198,8 @@ public class ServiceTest_Server extends AbstractTest {
     public void testAcceptance_07() throws Exception {
         
         String details = Service.details();
-        Assert.assertFalse(details.contains(":9008"));
-        HttpUtils.sendRequest("127.0.0.1:" + 9008);
+        Assert.assertFalse(details.contains(":18208"));
+        HttpUtils.sendRequest("127.0.0.1:" + 18208);
     }
     
     /** 
@@ -276,9 +276,9 @@ public class ServiceTest_Server extends AbstractTest {
         //even if the use of blanks in the section is unclean
         Assert.assertTrue(output.matches("(?is).*SERVICE\\s+INITIATE\\s+ACCEPTANCE.*"));
         Assert.assertFalse(output.matches("(?is).*SERVICE\\s+INITIATE\\s+VIRTUAL.*"));
-        Assert.assertTrue(output.matches("(?is).*:90[0-9][0-9].*"));
-        Assert.assertTrue(output.matches("(?is).*:911[3-5].*"));
-        Assert.assertFalse(output.matches("(?is).*:911[0-26-9].*"));
-        Assert.assertFalse(output.matches("(?is).*:912[0-9].*"));        
+        Assert.assertTrue(output.matches("(?is).*:182[0-9][0-9].*"));
+        Assert.assertTrue(output.matches("(?is).*:1831[3-5].*"));
+        Assert.assertFalse(output.matches("(?is).*:1831[0-26-9].*"));
+        Assert.assertFalse(output.matches("(?is).*:1832[0-9].*"));        
     }
 }

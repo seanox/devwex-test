@@ -56,7 +56,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));
@@ -79,7 +79,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/a/b/d/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
@@ -103,7 +103,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
@@ -127,7 +127,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-B")));
@@ -151,7 +151,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-b:pwd-b") + "\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
@@ -175,7 +175,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-b:pwd-b") + "\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));
@@ -199,7 +199,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
@@ -221,7 +221,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/a/b/c/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A2")));
@@ -243,7 +243,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/a/b/d/e/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-E")));
@@ -265,7 +265,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-E")));
@@ -289,7 +289,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
@@ -317,14 +317,14 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);
+        response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_LENGTH_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_LAST_MODIFIED_DIFFUSE));
-        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:8080/authentication/a/b/d/e/e/")));
+        Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_LOCATION("http://vHa:18180/authentication/a/b/d/e/e/")));
 
         accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         Assert.assertTrue(accessLog, accessLog.matches(Pattern.ACCESS_LOG_STATUS("302", request, "usr-e")));
@@ -332,7 +332,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         request = "GET /authentication/a/b/d/e/e/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);
+        response = this.sendRequest("127.0.0.1:18180", request);
     
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-E")));
@@ -347,7 +347,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);
+        response = this.sendRequest("127.0.0.1:18180", request);
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
@@ -365,7 +365,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         if (auth == 2)
             request += "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n";
         request += "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS(status)));
     }
     
@@ -406,7 +406,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         if (auth == 2)
             request += "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n";
         request += "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC(realm)));
     }
@@ -442,7 +442,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         if (auth != null && !auth.trim().isEmpty())
             request += "Authorization: Basic " + Codec.encodeBase64(auth) + "\r\n";
         request += "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         if (realm != null)
             Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC(realm)));      
@@ -488,7 +488,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
@@ -511,7 +511,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/a/xxx HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));  
@@ -539,7 +539,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
@@ -550,7 +550,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request, new Digest("usr-a", "pwd-a"));    
+        response = this.sendRequest("127.0.0.1:18180", request, new Digest("usr-a", "pwd-a"));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
@@ -562,7 +562,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
@@ -573,7 +573,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST));  
@@ -585,7 +585,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHf\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIGEST));  
@@ -596,7 +596,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         request = "GET /authentication/a/ HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request, new Digest("usr-a", "pwd-a"));    
+        response = this.sendRequest("127.0.0.1:18180", request, new Digest("usr-a", "pwd-a"));    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
@@ -625,7 +625,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         request = "GET /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
@@ -637,7 +637,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
@@ -648,7 +648,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         request = "HEAD /authentication/a/b/d/e/e HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
@@ -660,7 +660,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
@@ -687,7 +687,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         request = "GET /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
@@ -699,7 +699,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
@@ -710,7 +710,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         request = "HEAD /authentication/a/b/d/e/e/nix HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
@@ -722,7 +722,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
@@ -749,7 +749,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         request = "GET /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
@@ -761,7 +761,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
@@ -772,7 +772,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         request = "HEAD /authentication/a/b/d/e/e/lock HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC));  
@@ -784,7 +784,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-e:pwd-e") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
@@ -813,7 +813,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 request += "Authorization: Basic " + Codec.encodeBase64(login) + "\r\n";
             request += "\r\n";
 
-            String response = this.sendRequest("127.0.0.1:8080", request);
+            String response = this.sendRequest("127.0.0.1:18180", request);
             if (authorisation != null)
                 Assert.assertTrue(HttpUtils.getResponseHeaderValue(response, HeaderField.WWW_AUTHENTICATE).startsWith(authorisation + " "));
             else
@@ -854,18 +854,18 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 request = "GET " + uri + " HTTP/1.0\r\n"
                         + "Host: vHa\r\n"
                         + "\r\n";
-                response = this.sendRequest("127.0.0.1:8080", request);
+                response = this.sendRequest("127.0.0.1:18180", request);
             } else if (("Basic").equalsIgnoreCase(method)) {
                 request = "GET " + uri + " HTTP/1.0\r\n"
                         + "Host: vHa\r\n"
                         + "Authorization: Basic " + Codec.encodeBase64(user + ":" + password) + "\r\n"
                         + "\r\n";
-                response = this.sendRequest("127.0.0.1:8080", request);
+                response = this.sendRequest("127.0.0.1:18180", request);
             } else if (("Digest").equalsIgnoreCase(method)) {
                 request = "GET " + uri + " HTTP/1.0\r\n"
                         + "Host: vHa\r\n"
                         + "\r\n";
-                response = this.sendRequest("127.0.0.1:8080", request, new Digest(user, password));
+                response = this.sendRequest("127.0.0.1:18180", request, new Digest(user, password));
             } else Assert.fail("Unsupported authentication method: '" + method + "'");
             
             Assert.assertNotNull(response);
@@ -930,7 +930,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-b") + "\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));  
@@ -953,7 +953,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-b:pwd-a") + "\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-A")));  
@@ -981,7 +981,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
@@ -993,7 +993,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-ax:pwd-ax") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);  
+        response = this.sendRequest("127.0.0.1:18180", request);  
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE));  
@@ -1021,7 +1021,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_302));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
@@ -1033,7 +1033,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-ax:pwd-ax") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);  
+        response = this.sendRequest("127.0.0.1:18180", request);  
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE));  
@@ -1061,7 +1061,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
@@ -1073,7 +1073,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-as:pwd-ax") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE));  
@@ -1085,7 +1085,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-as:pwd-ax") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE));  
@@ -1113,7 +1113,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHa\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64("usr-a:pwd-a") + "\r\n"
                 + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS("001")));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));  
@@ -1126,7 +1126,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
            + "Host: vHa\r\n"
            + "Authorization: Basic " + Codec.encodeBase64("usr-ax:pwd-ax") + "\r\n"
            + "\r\n";
-        response = this.sendRequest("127.0.0.1:8080", request);    
+        response = this.sendRequest("127.0.0.1:18180", request);    
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE));  
@@ -1141,7 +1141,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
                 + "Host: vHf\r\n"
                 + "Authorization: Basic " + Codec.encodeBase64(user + ":" + password) + "\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         String accessLog = this.accessStreamCaptureLine(ACCESS_LOG_RESPONSE_UUID(response));
         
         if (authorisation) {
@@ -1230,7 +1230,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET " + uri + " HTTP/1.0\r\n"
                 + "Host: vHf\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE(method)));  
@@ -1268,7 +1268,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/a/b/e/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_DIFFUSE));
@@ -1291,7 +1291,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/a/b/e/c/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("Section-BEC")));
@@ -1313,7 +1313,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/X/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("x")));
@@ -1335,7 +1335,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/x/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("x")));
@@ -1357,7 +1357,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/L/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("l")));
@@ -1379,7 +1379,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/l/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("l")));
@@ -1401,7 +1401,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/I/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("i")));
@@ -1423,7 +1423,7 @@ public class WorkerTest_AuthenticationBasic extends AbstractTest {
         String request = "GET /authentication/i/ HTTP/1.0\r\n"
                 + "Host: vHa\r\n"
                 + "\r\n";
-        String response = this.sendRequest("127.0.0.1:8080", request);
+        String response = this.sendRequest("127.0.0.1:18180", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_401));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_WWW_AUTHENTICATE_BASIC("i")));

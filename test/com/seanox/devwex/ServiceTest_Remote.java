@@ -136,7 +136,7 @@ public class ServiceTest_Remote extends AbstractTest {
     @Test
     public void testAcceptance_04() throws Exception {
 
-        Service.main(new String[] {"status", "127.0.0.1:25000"});
+        Service.main(new String[] {"status", "127.0.0.1:18000"});
 
         Thread.sleep(AbstractTest.SLEEP);
         String output = this.outputStreamCapture.toString();
@@ -155,7 +155,7 @@ public class ServiceTest_Remote extends AbstractTest {
     @Test
     public void testAcceptance_05() throws Exception {
 
-        Service.main(new String[] {"status", "127.0.0.1:25001"});
+        Service.main(new String[] {"status", "127.0.0.1:18001"});
         
         Thread.sleep(AbstractTest.SLEEP);
         String output = this.outputStreamCapture.toString();
