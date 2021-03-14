@@ -52,7 +52,7 @@ public class WorkerTest_Status extends AbstractTest {
         String request = "Get /forbidden.html HTTP/1.0\r\n"
                 + "Host: vHo\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:18185", request));
 
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_403));
         Assert.assertTrue(response.contains("Template: status-4xx.html"));
@@ -71,7 +71,7 @@ public class WorkerTest_Status extends AbstractTest {
         String request = "Get /error.cgi HTTP/1.0\r\n"
                 + "Host: vHo\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:18185", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_502));
         Assert.assertTrue(response.contains("Template: status.html"));
@@ -90,7 +90,7 @@ public class WorkerTest_Status extends AbstractTest {
         String request = "Get /not_found.html HTTP/1.0\r\n"
                 + "Host: vHo\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8085", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:18185", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_404));
         Assert.assertTrue(response.contains("Template: status-404.html"));

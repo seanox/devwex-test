@@ -61,7 +61,7 @@ public class WorkerTest_Request extends AbstractTest {
     @Test(timeout=17500)
     public void testTimeout_1() throws Exception {
         
-        String response = this.sendRequest("127.0.0.1:80", "");
+        String response = this.sendRequest("127.0.0.1:18080", "");
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_408));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -86,7 +86,7 @@ public class WorkerTest_Request extends AbstractTest {
         String uuid = UUID.randomUUID().toString();
         Files.write(new File(PATH_STAGE_ACCESS_LOG).toPath(), (uuid + "\r\n").getBytes(), StandardOpenOption.APPEND);
         
-        try (Socket socket = new Socket("127.0.0.1", 8085)) {
+        try (Socket socket = new Socket("127.0.0.1", 18185)) {
             
             Timing timing = Timing.create(true);
             
@@ -137,7 +137,7 @@ public class WorkerTest_Request extends AbstractTest {
         String uuid = UUID.randomUUID().toString();
         Files.write(new File(PATH_STAGE_ACCESS_LOG).toPath(), (uuid + "\r\n").getBytes(), StandardOpenOption.APPEND);
         
-        try (Socket socket = new Socket("127.0.0.1", 8085)) {
+        try (Socket socket = new Socket("127.0.0.1", 18185)) {
             
             Timing timing = Timing.create(true);
 
@@ -183,7 +183,7 @@ public class WorkerTest_Request extends AbstractTest {
     public void testAcceptance_1() throws Exception {
             
         String request = "GET\r\n\r\n";
-        String response = this.sendRequest("127.0.0.1:80", request);
+        String response = this.sendRequest("127.0.0.1:18080", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_400));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -203,7 +203,7 @@ public class WorkerTest_Request extends AbstractTest {
     public void testAcceptance_2() throws Exception {
         
         String request = "GET XXX\r\n\r\n";
-        String response = this.sendRequest("127.0.0.1:80", request);
+        String response = this.sendRequest("127.0.0.1:18080", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_400));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -224,7 +224,7 @@ public class WorkerTest_Request extends AbstractTest {
     public void testAcceptance_3() throws Exception {
         
         String request = "GET \\\r\n\r\n";
-        String response = this.sendRequest("127.0.0.1:80", request);
+        String response = this.sendRequest("127.0.0.1:18080", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_TEXT_HTML));
@@ -248,7 +248,7 @@ public class WorkerTest_Request extends AbstractTest {
         while (request.length() < 40000)
             request += "x";
         request += "\r\n\r\n";
-        String response = this.sendRequest("127.0.0.1:80", request);
+        String response = this.sendRequest("127.0.0.1:18080", request);
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_413));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -277,7 +277,7 @@ public class WorkerTest_Request extends AbstractTest {
         while (request.length() <= 65535)
             request += String.format("line-%02d: %s%n", Integer.valueOf(++loop), requestLine);
         
-        String response = this.sendRequest("127.0.0.1:80", request + "\r\n");
+        String response = this.sendRequest("127.0.0.1:18080", request + "\r\n");
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_413));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -306,7 +306,7 @@ public class WorkerTest_Request extends AbstractTest {
         while (request.length() <= 64535)
             request += "x-x" + ((++loop < 10) ? "0" : "") + loop + "x: " + requestLine + "\r\n";
         
-        String response = this.sendRequest("127.0.0.1:80", request + "\r\n");
+        String response = this.sendRequest("127.0.0.1:18080", request + "\r\n");
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_TEXT_HTML));
@@ -326,7 +326,7 @@ public class WorkerTest_Request extends AbstractTest {
     @Test
     public void testAcceptance_8() throws Exception {
         
-        String response = this.sendRequest("127.0.0.1:80", "\r\n\r\n");
+        String response = this.sendRequest("127.0.0.1:18080", "\r\n\r\n");
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_400));
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE));
@@ -353,7 +353,7 @@ public class WorkerTest_Request extends AbstractTest {
         List<Socket> sockets = new ArrayList<>();
         try {
             for (int loop = 1; loop <= 150; loop++) {
-                Socket socket = new Socket("127.0.0.1", 80);
+                Socket socket = new Socket("127.0.0.1", 18080);
                 sockets.add(socket);
                 if (loop >= 95 && (loop % 2) == 0) {
                     PrintWriter writer = new PrintWriter(socket.getOutputStream());

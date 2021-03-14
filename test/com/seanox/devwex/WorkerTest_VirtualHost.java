@@ -50,7 +50,7 @@ public class WorkerTest_VirtualHost extends AbstractTest {
         String request = "GET \\cgi_environment.jsx HTTP/1.0\r\n"
                 + "Host: vhA\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8080", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:18180", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -76,7 +76,7 @@ public class WorkerTest_VirtualHost extends AbstractTest {
         String request = "GET \\cgi_environment.jsx HTTP/1.0\r\n"
                 + "Host: vhA\r\n"
                 + "\r\n";
-        String response = new String(HttpUtils.sendRequest("127.0.0.1:8081", request));
+        String response = new String(HttpUtils.sendRequest("127.0.0.1:18181", request));
         
         Assert.assertTrue(response.matches(Pattern.HTTP_RESPONSE_STATUS_200));
         Assert.assertFalse(response.matches(Pattern.HTTP_RESPONSE_CONTENT_TYPE_DIFFUSE));
@@ -99,7 +99,7 @@ public class WorkerTest_VirtualHost extends AbstractTest {
     @Test
     public void testAcceptance_03() throws Exception {
         
-        for (int port : new int[] {8081, 8082, 8083, 80}) {
+        for (int port : new int[] {18181, 18182, 18183, 18080}) {
             String request = "GET \\cgi_environment.jsx HTTP/1.0\r\n"
                     + "Host: vhS\r\n"
                     + "\r\n";
@@ -109,7 +109,7 @@ public class WorkerTest_VirtualHost extends AbstractTest {
             String header = response.replaceAll(Pattern.HTTP_RESPONSE, "$1");
             Assert.assertTrue(header.trim().length() > 0);
             String body = response.replaceAll(Pattern.HTTP_RESPONSE, "$2");
-            if (port != 80)
+            if (port != 18080)
                 Assert.assertTrue(body.matches("(?si)^.*\r\nVIRTUAL_S=Virtualhost S\r\n.*$"));
             else 
                 Assert.assertFalse(body.matches("(?si)^.*\r\nVIRTUAL_S=Virtualhost S\r\n.*$"));
@@ -124,7 +124,7 @@ public class WorkerTest_VirtualHost extends AbstractTest {
     @Test
     public void testAcceptance_04() throws Exception {
         
-        for (int port : new int[] {8081, 8082, 8083, 80}) {
+        for (int port : new int[] {18181, 18182, 18183, 18080}) {
             String request = "GET \\cgi_environment.jsx HTTP/1.0\r\n"
                     + "Host: vhT\r\n"
                     + "\r\n";
