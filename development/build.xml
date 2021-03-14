@@ -7,14 +7,6 @@
   <property name="workspace.resources.program" value="${workspace.resources}/program"/>
   <property name="workspace.resources.certificates" value="${workspace.resources}/certificates"/>
   <property name="workspace.development" value="${workspace}/development"/>
-  <property name="workspace.extras" value="${workspace.development}/extras"/>
-  
-  <property name="build" value="${workspace}/build"/>
-  <property name="build.project" value="${build}/${ant.project.name}"/>
-  
-  <property name="release" value="${workspace}/release"/>
-    
-  <property name="releases" value="${workspace}/releases"/>
   
   <fileset id="fileset.project" dir="${workspace}">
     <include name=".settings/**/*"/>
@@ -82,43 +74,6 @@
     <replaceregexp file="${workspace}/README.md"
         match="(seanox-${ant.project.name}-(?:test-)*)\d+(?:\.\d+)*((?:-src)*\.zip)" flags="g" byline="false"
         replace="\1${release.version.current}\2"/>    
-  </target>
-  
-  <target name="compress" if="windows">
-    <delete file="${releases}/seanox-${ant.project.name}-${release.version}.zip"/>
-    <unzip src="${workspace.extras}/compress.zip" dest="${build}"/>
-    <property name="compress1" value="a ${releases}/seanox-${ant.project.name}-${release.version}.zip"/>
-    <property name="compress2" value="-tzip -mm=Deflate -mx9 -md=64k -mfb=128 -mpass=10"/>
-    <property name="compress3" value="${build.project}"/>
-    <exec executable="${build}/7z/7za.exe">
-      <arg line="${compress1} ${compress2} ${compress3}"/>
-    </exec>
-  </target>  
-  
-  <target name="archive" depends="changes">
-    <delete dir="${build}"/>
-    <mkdir dir="${build}"/>
-    <mkdir dir="${build.project}"/>
-    <release-locate/>
-    <copy todir="${build.project}">
-      <fileset refid="fileset.project"/>
-    </copy>
-    <touch datetime="${release.date}" pattern="yyyyMMdd">
-      <fileset dir="${build}"/>
-    </touch>
-    <delete file="${releases}/seanox-${ant.project.name}-${release.version}.zip"/>
-    <zip destfile="${releases}/seanox-${ant.project.name}-${release.version}.zip"
-        basedir="${build}" defaultexcludes="false"/>
-    <condition property="windows" value="true">
-      <os family="windows"/>
-    </condition>
-    <condition property="windows" value="true">
-      <os family="unix"/>
-    </condition>   
-    <antcall target="compress"/>
-    <touch datetime="${release.date}" pattern="yyyyMMdd"
-        file="${releases}/seanox-${ant.project.name}-${release.version}.zip"/>
-    <delete dir="${build}"/>
   </target>
   
   <target name="compile">

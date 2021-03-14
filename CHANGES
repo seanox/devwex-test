@@ -5,6 +5,8 @@
       Without normalization/decoding (unchanged as received from the client)
   CR: HTTP(S) CGI: PATH_CONTEXT replaces PATH_ABSOLUTE (omitted)
   CR: Test: Harmonization of the ports in the test cases (used range: 18xxx)
+  CR: Build: Omission of release(s)
+      It makes no sense, test is just an add-on project to Seanox Devwex.
 
 5.3.0 20200831
   BF: HTTP(S) - Content Types: Correction of xml/xsl/xslt to use application/xslt+xml
